@@ -3,13 +3,6 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
-apply plugin: 'com.android.application'
-
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
-
-
 android {
     namespace 'com.example.appkhambenh'
     compileSdk 33
@@ -37,6 +30,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -55,4 +52,9 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'me.dm7.barcodescanner:zxing:1.9.8'
+
+    implementation 'com.squareup.picasso:picasso:2.8'
+
+    // Kotlin coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 }

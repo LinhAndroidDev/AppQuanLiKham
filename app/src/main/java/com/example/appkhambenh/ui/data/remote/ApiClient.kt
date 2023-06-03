@@ -8,9 +8,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiClient {
     const val STATUS_CODE_SUCCESS = 200
     const val STATUS_USER_EXIST = 400
-    const val STATUS_CODE_SERVER_NOT_RESPONSE = 500
+    const val STATUS_USER_NOT_EXIT = 401
 
-    const val BASE_URL = "http://192.168.1.5/quanlikham/"
+    private const val BASE_URL = "http://172.20.10.3/quanlikham/"
     private var RETROFIT: Retrofit? = null
     private var API_SERVICE: ApiService? = null
 

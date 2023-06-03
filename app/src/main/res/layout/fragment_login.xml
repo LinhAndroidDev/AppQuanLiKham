@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_app_kham"
-    tools:context=".ui.login.FragmentLogin">
+    tools:context=".ui.ui.login.FragmentLogin">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -180,7 +180,21 @@
             android:layout_height="wrap_content"
             android:visibility="gone"/>
         <LinearLayout
-            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/checkForgetPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/background"
+                android:paddingHorizontal="5dp"
+                android:paddingTop="5dp"
+                android:text="Nhớ mật khẩu"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

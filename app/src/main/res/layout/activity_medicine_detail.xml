@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.ui.user.medicine.MedicineDetailActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/imageDetailMedicine"
+                android:src="@mipmap/ic_launcher"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="10dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/nameDetailMedicine"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="10dp"
+                    android:gravity="center"
+                    android:text="Bedipanten 100mg bổ sung vitamin B5, giảm mụn, ngăn rụng tóc hộp 20 viên"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/dateDetailMedicine"
+                    android:layout_marginTop="10dp"
+                    android:text="15/02/2023"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="10dp"
+                    android:textStyle="italic"
+                    android:textSize="14dp"
+                    android:textColor="@color/txt_red"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
+        <TextView
+            android:text="Thông Tin Chi Tiết Thuốc"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:textColor="@color/background"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/detailInfoMedicine"
+            android:layout_marginBottom="30dp"
+            android:text="THÔNG TIN SẢN PHẨM
+Thành phần trong Bedipanten 100mg
+Bedipanten với thành phần chính là Vitamin B5 chứa hàm lượng lên đến 100mg.
+
+Ngoài ra, trong Bedipanten còn chứa 1mg Vitamin B1.
+
+Tá dược: Lactose, tinh bột, magnesi stearate, talc vừa đủ một viên.
+
+Công dụng
+Bổ sung vitamin B5 cho cơ thể, giúp cải thiện tình trạng thiếu hụt vitamin B5 trong các trường hợp: rối loạn tiết chất nhờn ở da, hạn chế rụng tóc, đau dây thần kinh.
+
+Cách dùng
+Người lớn: ngày uống 2 lần, mỗi lần 1 viên
+
+Thiếu niên: ngày uống 1 lần, mỗi lần 1 viên
+
+Có thể uống trước hoặc sau khi ăn
+
+Đối tượng sử dụng
+Các trường hợp thiếu vitamin B5 gây ra các biểu hiện như: da nhờn, rối loạn tiết chất nhờn, mụn trứng cá, rụng tóc.
+
+Lưu ý
+Sản phẩm này không phải là thuốc và không có tác dụng thay thế thuốc chữa bệnh.
+
+Không sử dụng cho người mẫn cảm với bất kỳ thành phần nào của sản phẩm.
+
+Đọc kỹ hướng dẫn sử dụng trước khi dùng.
+
+Để xa tầm tay trẻ em.
+
+Quy cách đóng gói
+Hộp 2 vỉ x 10 viên nén.
+
+Hạn dùng
+36 tháng kể từ ngày sản xuất.
+
+Bảo quản
+Bảo quản nơi khô mát, tránh ánh sáng."
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:lineHeight="20dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

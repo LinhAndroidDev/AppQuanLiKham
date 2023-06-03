@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.register.FragmentRegister">
+    tools:context=".ui.ui.register.FragmentRegister">
     <LinearLayout
         android:layout_marginHorizontal="15dp"
         android:layout_width="match_parent"
@@ -58,6 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/edtName"
             android:layout_marginTop="10dp"
             android:hint="Nhập đầy đủ họ tên"
             android:textColorHint="@color/txt_hint"
@@ -73,6 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/edtEmail"
             android:layout_marginTop="10dp"
             android:hint="Nhập email"
             android:textColorHint="@color/txt_hint"
@@ -87,13 +89,16 @@
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
         <EditText
-            android:layout_marginTop="10dp"
-            android:hint="Nhập mật khẩu"
-            android:textColorHint="@color/txt_hint"
+            android:id="@+id/edtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
+            android:layout_marginTop="10dp"
+            android:hint="Nhập mật khẩu"
+            android:inputType="textPassword"
+            android:textColorHint="@color/txt_hint" />
+
         <TextView
             android:layout_marginTop="10dp"
             android:text="Nhập lại mật khẩu"
@@ -103,6 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/edtRepeatPassword"
             android:layout_marginTop="10dp"
             android:hint="Nhập lại mật khẩu"
             android:textColorHint="@color/txt_hint"
@@ -117,13 +123,27 @@
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        <EditText
-            android:layout_marginTop="10dp"
-            android:hint="dd/mm/yyyy"
-            android:textColorHint="@color/txt_hint"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"/>
+            android:layout_marginTop="10dp">
+            <EditText
+                android:id="@+id/edtBirth"
+                android:hint="dd/mm/yyyy"
+                android:paddingEnd="20dp"
+                android:textColorHint="@color/txt_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"/>
+            <ImageView
+                android:id="@+id/calendar"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_action_calendar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+        </RelativeLayout>
         <TextView
             android:layout_marginTop="10dp"
             android:text="Số điện thoại"
@@ -133,6 +153,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/edtPhone"
             android:layout_marginTop="10dp"
             android:hint="Nhập số điện thoại"
             android:textColorHint="@color/txt_hint"
@@ -148,18 +169,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/edtAddress"
             android:layout_marginTop="10dp"
             android:hint="Nhập địa chỉ"
             android:textColorHint="@color/txt_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"/>
+        <TextView
+            android:id="@+id/notificationRegister"
+            android:text="Vui lòng nhập "
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="14dp"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
         <LinearLayout
             android:layout_marginVertical="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
+                android:id="@+id/cancel"
                 android:layout_weight="2"
                 android:layout_gravity="center"
                 android:gravity="center"
@@ -170,6 +203,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
             <androidx.cardview.widget.CardView
+                android:id="@+id/register"
                 android:layout_weight="3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
