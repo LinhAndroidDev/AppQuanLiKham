@@ -56,7 +56,7 @@
                             <TextView
                                 android:id="@+id/txtUserName"
                                 android:text="Hà Hữu Hải"
-                                android:textSize="18sp"
+                                android:textSize="18dp"
                                 android:textColor="@color/white"
                                 android:textStyle="bold"
                                 android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
                             <TextView
                                 android:id="@+id/txtUserBirth"
                                 android:text="2003"
-                                android:textSize="14sp"
+                                android:textSize="14dp"
                                 android:textColor="@color/white"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
@@ -100,15 +100,10 @@
                                 android:gravity="center">
                                 <ImageView
                                     android:src="@drawable/ic_action_pay"
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"/>
+                                    style="@style/img_function_accessory"/>
                                 <TextView
-
                                     android:text="Thanh toán"
-                                    android:textSize="14sp"
-                                    android:textColor="@color/text"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
+                                    style="@style/txt_function_accessory"/>
                             </LinearLayout>
                             <LinearLayout
                                 android:layout_weight="1"
@@ -119,15 +114,10 @@
                                 <ImageView
                                     android:id="@+id/appointment"
                                     android:src="@drawable/ic_action_datlich"
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"/>
+                                    style="@style/img_function_accessory"/>
                                 <TextView
-
                                     android:text="Đặt lịch"
-                                    android:textSize="14sp"
-                                    android:textColor="@color/text"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
+                                    style="@style/txt_function_accessory"/>
                             </LinearLayout>
                             <LinearLayout
                                 android:layout_weight="1"
@@ -138,15 +128,10 @@
                                 <ImageView
                                     android:id="@+id/qrCode"
                                     android:src="@drawable/ic_action_qr"
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"/>
+                                    style="@style/img_function_accessory"/>
                                 <TextView
-
                                     android:text="QR"
-                                    android:textSize="14sp"
-                                    android:textColor="@color/text"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
+                                    style="@style/txt_function_accessory"/>
                             </LinearLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -165,69 +150,45 @@
                     android:layout_height="0dp"
                     android:orientation="horizontal">
                     <androidx.cardview.widget.CardView
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginVertical="15dp"
+                        style="@style/card_function_main"
                         android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
                         app:cardCornerRadius="10dp"
                         app:cardBackgroundColor="@color/white"
                         app:cardElevation="5dp">
+
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="10dp"
-                            android:orientation="vertical"
-                            android:gravity="center_vertical">
+                            style="@style/ll_function_main_user">
+
                             <ImageView
-                                android:src="@drawable/ic_action_schedule"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"/>
+                                style="@style/img_function_main"
+                                android:src="@drawable/ic_action_schedule" />
+
                             <TextView
-                                android:layout_marginTop="10dp"
-                                android:gravity="center"
-                                android:text="Quản lí lịch hẹn"
-                                android:textSize="16dp"
-                                android:textColor="@color/black"
+                                style="@style/txt_function_main"
                                 android:textStyle="bold"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:text="Quản lí lịch hẹn"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginVertical="15dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="16dp"
+                        style="@style/card_function_main"
                         android:layout_weight="1"
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="10dp"
                         app:cardElevation="5dp">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="10dp"
-                            android:gravity="center_vertical"
-                            android:orientation="vertical">
+                            style="@style/ll_function_main_user">
 
                             <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                style="@style/img_function_main"
                                 android:src="@drawable/ic_action_results" />
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:gravity="center"
+                                style="@style/txt_function_main"
+                                android:textStyle="bold"
                                 android:text="Kết quả khám bệnh"
-                                android:textColor="@color/black"
-                                android:textSize="16dp"
-                                android:textStyle="bold" />
+                                />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
@@ -239,34 +200,21 @@
                     android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginVertical="15dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="8dp"
+                        style="@style/card_function_main"
                         android:layout_weight="1"
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="10dp"
                         app:cardElevation="5dp">
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="10dp"
-                            android:orientation="vertical"
-                            android:gravity="center_vertical">
+                            style="@style/ll_function_main_user">
                             <ImageView
                                 android:src="@drawable/ic_action_history"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"/>
+                                style="@style/img_function_main"/>
                             <TextView
-                                android:layout_marginTop="10dp"
-                                android:gravity="center"
-                                android:text="Lịch sử khám bệnh"
-                                android:textSize="16dp"
-                                android:textColor="@color/black"
+                                style="@style/txt_function_main"
                                 android:textStyle="bold"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:text="Lịch sử khám bệnh"
+                                />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -283,26 +231,17 @@
 
                         <LinearLayout
                             android:id="@+id/contact"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:orientation="vertical"
-                            android:padding="10dp">
+                            style="@style/ll_function_main_user">
 
                             <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                style="@style/img_function_main"
                                 android:src="@drawable/ic_action_contact" />
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:gravity="center"
+                                style="@style/txt_function_main"
+                                android:textStyle="bold"
                                 android:text="Liên hệ"
-                                android:textColor="@color/black"
-                                android:textSize="16dp"
-                                android:textStyle="bold" />
+                                />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
@@ -313,37 +252,25 @@
                     android:layout_height="0dp"
                     android:orientation="horizontal">
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/medicine"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginVertical="15dp"
+                        style="@style/card_function_main"
                         android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
                         app:cardCornerRadius="10dp"
                         app:cardBackgroundColor="@color/white"
                         app:cardElevation="5dp">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:orientation="vertical"
-                            android:padding="10dp">
+                            android:id="@+id/medicine"
+                            style="@style/ll_function_main_user">
 
                             <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                style="@style/img_function_main"
                                 android:src="@drawable/ic_action_medicine" />
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                style="@style/txt_function_main"
+                                android:textStyle="bold"
                                 android:text="Quản lí thuốc"
-                                android:textColor="@color/black"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
+                                />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                     <LinearLayout
@@ -390,6 +317,14 @@
                             android:layout_width="90dp"
                             android:layout_height="90dp"/>
                     </RelativeLayout>
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/cirImgEditAvatar"
+                        android:layout_marginStart="88dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_alignParentBottom="true"
+                        android:src="@drawable/icon_photograp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp" />
                 </RelativeLayout>
                 <LinearLayout
                     android:layout_width="match_parent"

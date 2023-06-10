@@ -1,12 +1,13 @@
 package com.example.appkhambenh.ui.data.remote
 
 import com.example.appkhambenh.ui.data.remote.entity.LoginResponse
+import com.example.appkhambenh.ui.data.remote.entity.UserInfoResponse
 import com.example.appkhambenh.ui.data.remote.entity.RegisterResponse
+import com.example.appkhambenh.ui.data.remote.entity.UploadImageResponse
 import com.example.appkhambenh.ui.model.Medicine
 import com.example.appkhambenh.ui.model.WorkingDate
 import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
@@ -18,8 +19,7 @@ interface ApiService {
     fun loginUser(
         @Part("email") email: RequestBody,
         @Part("password") password: RequestBody
-    )
-    :Call<LoginResponse>
+    ):Call<LoginResponse>
 
     @Multipart
     @POST("register.php")
@@ -30,12 +30,24 @@ interface ApiService {
         @Part("birth") birth: RequestBody,
         @Part("phone") phone: RequestBody,
         @Part("address") address: RequestBody
-    )
-    :Call<RegisterResponse>
+    ):Call<RegisterResponse>
 
     @GET("medicine.php")
     fun getListMedicine(): Call<List<Medicine>>
 
     @GET("working_time.php")
     fun getWorkingDate(): Call<ArrayList<WorkingDate>>
+
+    @Multipart
+    @POST("upload_image.php")
+    fun uploadImage(
+        @Part("user_id") user_id: RequestBody,
+        @Part("avatar") avatar: RequestBody
+    ): Call<UploadImageResponse>
+
+    @Multipart
+    @POST("user_info.php")
+    fun getUserInfo(
+        @Part("id") id: RequestBody
+    ): Call<UserInfoResponse>
 }

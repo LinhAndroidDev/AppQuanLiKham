@@ -23,13 +23,10 @@ class MedicineDetailActivity : BaseActivity<EmptyViewModel, ActivityMedicineDeta
     }
 
     private fun setStatusBar() {
-        val window: Window = window
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        window.statusBarColor = ContextCompat.getColor(this, R.color.white)
-
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        //  set status text dark
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
     }
 
     @SuppressLint("SetTextI18n")
@@ -46,11 +43,15 @@ class MedicineDetailActivity : BaseActivity<EmptyViewModel, ActivityMedicineDeta
 
         binding.nameDetailMedicine.text = medicine.name
 
-        binding.dateDetailMedicine.text = "Ngày nhập: "+medicine.update_date
+        binding.dateDetailMedicine.text = "Ngày nhập: " + medicine.update_date
 
         binding.detailInfoMedicine.text = medicine.detail
+
+        binding.backMedicineDetail.setOnClickListener {
+            onBackPressed()
+        }
     }
 
-    override fun getActivityBinding(inflater: LayoutInflater)
-    = ActivityMedicineDetailBinding.inflate(inflater)
+    override fun getActivityBinding(inflater: LayoutInflater) =
+        ActivityMedicineDetailBinding.inflate(inflater)
 }

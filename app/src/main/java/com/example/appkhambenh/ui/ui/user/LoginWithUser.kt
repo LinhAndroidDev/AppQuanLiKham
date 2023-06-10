@@ -1,27 +1,38 @@
 package com.example.appkhambenh.ui.ui.user
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.*
 import android.widget.Toast
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.Observer
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityLoginWithUserBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.ui.MainActivity
+import com.example.appkhambenh.ui.ui.user.LoginWithUser.Companion.RESULT
 import com.example.appkhambenh.ui.ui.user.appointment.AppointmentActivity
+import com.example.appkhambenh.ui.ui.user.avatar.EditAvatarActivity
+import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
 import com.example.appkhambenh.ui.ui.user.qr.QrActivity
 import com.example.appkhambenh.ui.ui.user.medicine.MedicineActivity
 import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.squareup.picasso.Picasso
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 @Suppress("DEPRECATION")
-class LoginWithUser : BaseActivity<EmptyViewModel, ActivityLoginWithUserBinding>() {
+class LoginWithUser : BaseActivity<LoginWithUserViewModel, ActivityLoginWithUserBinding>() {
     companion object {
         const val RESULT = "RESULT"
     }
@@ -34,23 +45,77 @@ class LoginWithUser : BaseActivity<EmptyViewModel, ActivityLoginWithUserBinding>
         initUi()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun bindData() {
         super.bindData()
 
-        val avatar = viewModel.mPreferenceUtil.defaultPref()
-            .getString(PreferenceKey.USER_AVATAR, "")
-        if(avatar != ""){
-            Picasso.get().load(avatar)
+        val loading = ProgressDialog(this)
+        loading.setMessage("Please wait...")
+        loading.setTitle("Thông báo")
+        loading.setCancelable(false)
+        viewModel.loadingLiveData.observe(this, Observer {
+            if (it) {
+                loading.show()
+            } else {
+                loading.dismiss()
+            }
+        })
+
+        val userId = viewModel.mPreferenceUtil.defaultPref()
+            .getInt(PreferenceKey.USER_ID, 0).toString()
+        val requestUserId: RequestBody =
+            userId.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        viewModel.getUserInfo(requestUserId)
+
+        viewModel.nameLiveData.observe(this, Observer{
+            binding.txtUserName.text = it
+        })
+
+        viewModel.emailLiveData.observe(this, Observer{
+            binding.emailNav.text = "Email: $it"
+        })
+
+        viewModel.birthLiveData.observe(this, Observer{
+            binding.txtUserBirth.text = it
+        })
+
+        viewModel.avatarLiveData.observe(this, Observer{
+            Picasso.get().load(it)
                 .error(R.drawable.ad)
-                .placeholder(R.drawable.loadimage)
+                .placeholder(R.drawable.ad)
                 .into(binding.avartarUser)
-        }else{
-            binding.avartarUser.setImageResource(R.drawable.ad)
+
+            Picasso.get().load(it)
+                .placeholder(R.drawable.ad)
+                .error(R.drawable.ad)
+                .into(binding.avatarNav)
+        })
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun initNavigation() {
+
+        binding.phoneNav.text = "Sđt: " + viewModel.mPreferenceUtil.defaultPref()
+            .getString(PreferenceKey.USER_PHONE, "")
+
+        binding.logout.setOnClickListener {
+            val intent = Intent(this@LoginWithUser, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+
+            viewModel.mPreferenceUtil.defaultPref()
+                .edit().putBoolean(PreferenceKey.CHECK_LOGIN, false)
+                .apply()
+        }
+
+        binding.avatarNav.setOnClickListener{
+            val intent = Intent(this@LoginWithUser, SeeAvatarActivity::class.java)
+            startActivity(intent)
         }
     }
 
-    override fun getActivityBinding(inflater: LayoutInflater)
-    = ActivityLoginWithUserBinding.inflate(inflater)
+    override fun getActivityBinding(inflater: LayoutInflater) =
+        ActivityLoginWithUserBinding.inflate(inflater)
 
     private fun setStatusBar() {
         val window: Window = window
@@ -65,8 +130,14 @@ class LoginWithUser : BaseActivity<EmptyViewModel, ActivityLoginWithUserBinding>
         //set status text  light
     }
 
+    @SuppressLint("IntentReset")
     private fun initUi() {
         setStatusBar()
+
+        binding.avartarUser.setOnClickListener{
+            val intent = Intent(this@LoginWithUser, SeeAvatarActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.menuNav.setOnClickListener {
             binding.drawerView.openDrawer(GravityCompat.START)
@@ -87,18 +158,20 @@ class LoginWithUser : BaseActivity<EmptyViewModel, ActivityLoginWithUserBinding>
             startActivity(intent)
         }
 
-        /** Get Info User */
-        binding.txtUserName.text =
-            viewModel.mPreferenceUtil.defaultPref().getString(PreferenceKey.USER_NAME, "")
-        binding.txtUserBirth.text =
-            viewModel.mPreferenceUtil.defaultPref().getString(PreferenceKey.USER_BIRTH, "")
+        binding.cirImgEditAvatar.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "images/"
+            intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+
+            startActivityForResult(intent, 100)
+        }
 
         /** User QR CODE */
         val result = intent.getStringExtra(RESULT)
 
         if (result != null) {
             if (result.contains("https://") || result.contains("http://")) {
-                val intent: Intent = Intent(Intent.ACTION_VIEW, Uri.parse(result))
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(result))
                 startActivity(intent)
             } else {
                 Toast.makeText(this, result.toString(), Toast.LENGTH_SHORT).show()
@@ -108,32 +181,6 @@ class LoginWithUser : BaseActivity<EmptyViewModel, ActivityLoginWithUserBinding>
         initNavigation()
 
         initBottomContact()
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun initNavigation() {
-        Picasso.get().load(
-            viewModel.mPreferenceUtil.defaultPref()
-                .getString(PreferenceKey.USER_AVATAR,"")
-        ).placeholder(R.drawable.loadimage)
-            .error(R.drawable.errorimage)
-            .into(binding.avatarNav)
-
-        binding.phoneNav.text = "Sđt: " + viewModel.mPreferenceUtil.defaultPref()
-            .getString(PreferenceKey.USER_PHONE,"")
-
-        binding.emailNav.text = "Email: " + viewModel.mPreferenceUtil.defaultPref()
-            .getString(PreferenceKey.USER_EMAIL,"")
-
-        binding.logout.setOnClickListener {
-            val intent = Intent(this@LoginWithUser, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-
-            viewModel.mPreferenceUtil.defaultPref()
-                .edit().putBoolean(PreferenceKey.CHECK_LOGIN,false)
-                .apply()
-        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -170,14 +217,24 @@ class LoginWithUser : BaseActivity<EmptyViewModel, ActivityLoginWithUserBinding>
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+            val intent = Intent(this@LoginWithUser, EditAvatarActivity::class.java)
+            intent.putExtra("uri_avatar", data?.data.toString())
+            startActivity(intent)
+        }
+    }
+
     @Deprecated("Deprecated in Java")
     @SuppressLint("WrongConstant")
     override fun onBackPressed() {
-        if(bottomShareBehavior.state == BottomSheetBehavior.STATE_EXPANDED){
+        if (bottomShareBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
             bottomShareBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-        }else if(binding.drawerView.isDrawerOpen(Gravity.START)){
+        } else if (binding.drawerView.isDrawerOpen(Gravity.START)) {
             binding.drawerView.close()
-        } else{
+        } else {
             super.onBackPressed()
         }
     }

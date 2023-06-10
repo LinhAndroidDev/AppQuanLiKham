@@ -1,7 +1,5 @@
 package com.example.appkhambenh.ui.data.remote
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -9,8 +7,9 @@ object ApiClient {
     const val STATUS_CODE_SUCCESS = 200
     const val STATUS_USER_EXIST = 400
     const val STATUS_USER_NOT_EXIT = 401
+    const val STATUS_SERVER_NOT_RESPONSE = 500
 
-    private const val BASE_URL = "http://172.20.10.3/quanlikham/"
+    private const val BASE_URL = "http://192.168.11.100/quanlikham/"
     private var RETROFIT: Retrofit? = null
     private var API_SERVICE: ApiService? = null
 

@@ -30,6 +30,14 @@
                     android:layout_width="90dp"
                     android:layout_height="90dp"/>
             </RelativeLayout>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cirImgEditAvatar"
+                android:layout_marginStart="88dp"
+                android:layout_marginBottom="10dp"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/icon_photograp"
+                android:layout_width="25dp"
+                android:layout_height="25dp" />
         </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"

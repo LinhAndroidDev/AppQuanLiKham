@@ -42,7 +42,6 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
         val loadData = ProgressDialog(requireActivity())
         loadData.setTitle("Thông báo")
         loadData.setMessage("Please wait...")
-
         viewModel.loadingLiveData.observe(viewLifecycleOwner){ isLoading->
             if(isLoading){
                 loadData.show()
@@ -143,7 +142,7 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
         binding.checkForgetPassword.isChecked = true
     }
 
-    fun setNotification(color: Int,string: Int){
+    private fun setNotification(color: Int, string: Int){
         val shake: Animation = AnimationUtils.loadAnimation(requireActivity(),R.anim.anim_shake)
         binding.notificationLogin.text = resources.getString(string)
         binding.notificationLogin.setTextColor(resources.getColor(color))

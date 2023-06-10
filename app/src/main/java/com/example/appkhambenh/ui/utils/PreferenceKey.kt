@@ -1,6 +1,7 @@
 package com.example.appkhambenh.ui.utils
 
 object PreferenceKey {
+    var USER_ID: String = "USER_ID"
     var USER_NAME: String = "USER_NAME"
     var USER_BIRTH: String = "USER_BIRTH"
     var USER_AVATAR: String = "USER_AVATAR"
