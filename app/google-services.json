@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "51637631835",
+    "project_id": "app-kham-benh",
+    "storage_bucket": "app-kham-benh.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51637631835:android:ff667ffc97c7e391d0787e",
+        "android_client_info": {
+          "package_name": "com.example.appkhambenh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "51637631835-9vl72017v309qvuajb2k96j9ior73k59.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.appkhambenh",
+            "certificate_hash": "f1dcefed47d097ce78bb2ba54f29d30cead922d2"
+          }
+        },
+        {
+          "client_id": "51637631835-7qg1kca23hqmraheshrbegra9mipccqv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDc3pDH2QIdz3tLpvp5icgIyy9FqX2BKQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "51637631835-7qg1kca23hqmraheshrbegra9mipccqv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
