@@ -25,14 +25,15 @@
             android:text="Đặt lịch hẹn"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="10dp"
         android:background="#4AF3F3F3">
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatarAppointment"
             android:layout_marginStart="10dp"
             android:src="@drawable/ic_action_ad"
             android:layout_width="40dp"
@@ -111,18 +112,20 @@
             android:inputType="textEmailAddress"/>
         <TextView
             android:layout_marginTop="15dp"
-            android:text="Chọn ngày"
+            android:text="Ngày"
             android:textSize="14sp"
             android:textColor="@color/text"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        <EditText
+        <TextView
+            android:id="@+id/date"
             android:layout_marginTop="5dp"
             android:paddingVertical="10dp"
             android:paddingHorizontal="10dp"
             android:textSize="16sp"
             android:textColor="@color/black"
+            android:textStyle="italic|bold"
             android:hint="Dịch vụ khám"
             android:background="@drawable/boder_edit_text"
             android:layout_width="match_parent"
@@ -130,18 +133,20 @@
             android:inputType="textEmailAddress"/>
         <TextView
             android:layout_marginTop="15dp"
-            android:text="Chọn giờ"
+            android:text="Giờ"
             android:textSize="14sp"
             android:textColor="@color/text"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        <EditText
+        <TextView
+            android:id="@+id/hour"
             android:layout_marginTop="5dp"
             android:paddingVertical="10dp"
             android:paddingHorizontal="10dp"
             android:textSize="16sp"
             android:textColor="@color/black"
+            android:textStyle="italic|bold"
             android:hint="Dịch vụ khám"
             android:background="@drawable/boder_edit_text"
             android:layout_width="match_parent"

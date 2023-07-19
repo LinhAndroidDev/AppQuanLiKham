@@ -15,6 +15,7 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentLoginBinding
 import com.example.appkhambenh.ui.ui.user.LoginWithUser
 import com.example.appkhambenh.ui.base.BaseFragment
+import com.example.appkhambenh.ui.ui.doctor.LoginWithDoctorActivity
 import com.example.appkhambenh.ui.ui.register.FragmentRegister
 import com.example.appkhambenh.ui.utils.Email
 import com.example.appkhambenh.ui.utils.PreferenceKey
@@ -126,6 +127,11 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
             val fragmentRegister = FragmentRegister()
             val fm: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
             fm.replace(R.id.changeIdLogin,fragmentRegister).addToBackStack(null).commit()
+        }
+
+        binding.txtLoginWithDoctor.setOnClickListener {
+            val intent = Intent(requireActivity(), LoginWithDoctorActivity::class.java)
+            startActivity(intent)
         }
     }
 

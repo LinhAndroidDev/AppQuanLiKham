@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/layoutDelete"
+
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/footer_shadow_bg"
+        android:layout_height="125dp"/>
+    <LinearLayout
+        android:layout_marginTop="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="25dp"
+            android:layout_marginHorizontal="150dp"/>
+        <LinearLayout
+            android:layout_marginTop="7dp"
+            android:background="@drawable/boder_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtDeleteHour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="50dp"
+                android:background="@drawable/corners_text_view"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="15dp"
+                android:text="Xoá"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/txtCancelDeleteHour"
+                android:layout_marginStart="100dp"
+                android:layout_marginVertical="50dp"
+                android:layout_gravity="center"
+                android:text="Huỷ"
+                android:textSize="16dp"
+                android:textColor="@color/text"
+                android:paddingVertical="15dp"
+                android:paddingHorizontal="30dp"
+                android:background="@drawable/corners_text_view_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

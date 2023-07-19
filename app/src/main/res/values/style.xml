@@ -4,7 +4,6 @@
     //home page with user
     <style name="card_function_main">
         <item name="android:layout_marginStart">16dp</item>
-        <item name="android:layout_marginEnd">8dp</item>
         <item name="android:layout_marginVertical" tools:ignore="NewApi">15dp</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>

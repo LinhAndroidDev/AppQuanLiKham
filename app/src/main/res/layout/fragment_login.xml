@@ -215,5 +215,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
+        <TextView
+            android:id="@+id/txtLoginWithDoctor"
+            android:layout_marginTop="10dp"
+            android:text="@string/txt_login_with_doctor"
+            android:textSize="14dp"
+            android:textColor="@color/black"
+            android:textStyle="bold|italic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </RelativeLayout>

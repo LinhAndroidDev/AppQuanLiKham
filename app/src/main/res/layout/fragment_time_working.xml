@@ -6,20 +6,21 @@
     android:orientation="vertical"
     tools:context=".ui.ui.user.appointment.FragmentTimeWorking">
     <RelativeLayout
-        android:layout_marginTop="20dp"
+        android:background="@color/background"
+        android:paddingVertical="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/backTimeWorking"
             android:layout_marginStart="15dp"
-            android:src="@drawable/ic_action_back_black"
+            android:src="@drawable/ic_action_back_white"
             android:layout_centerVertical="true"
             android:layout_width="40dp"
             android:layout_height="30dp"/>
         <TextView
             android:text="Chọn thời gian khám"
-            android:textSize="25dp"
-            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
@@ -32,25 +33,27 @@
         android:orientation="horizontal"
         android:gravity="center">
         <ImageView
-            android:background="@drawable/ic_action_back_time"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="5dp"/>
+            android:id="@+id/imgBackTime"
+            android:background="@drawable/icon_back"
+            android:layout_width="20dp"
+            android:layout_height="27dp"
+            android:layout_marginEnd="15dp"/>
         <TextView
             android:id="@+id/txtTimeWorking"
             android:text="Thứ tư, 24 tháng 5"
-            android:textSize="18dp"
+            android:textSize="25dp"
             android:textColor="@color/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <ImageView
-            android:layout_marginStart="5dp"
-            android:background="@drawable/ic_action_next_time"
-            android:layout_width="36dp"
-            android:layout_height="38dp"/>
+            android:id="@+id/imgNextTime"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/icon_next"
+            android:layout_width="20dp"
+            android:layout_height="27dp"/>
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listTimeWorking"
+        android:id="@+id/rcvTimeWorking"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"

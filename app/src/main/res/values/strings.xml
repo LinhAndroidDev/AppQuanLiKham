@@ -7,6 +7,7 @@
     <string name="txt_enter_enough_info">Vui lòng nhập đầy đủ thông tin</string>
     <string name="txt_fail_email">Email hoặc số điện thoại không chính xác</string>
     <string name="txt_fail_password">Mật khẩu phải có ít nhất 6 kí tự</string>
+    <string name="txt_login_with_doctor"><u>Đăng nhập với Bác sĩ</u></string>
 
     <!--    Fragment Register-->
     <string name="txt_enter_password_again">Vui lòng nhập lại mật khẩu</string>

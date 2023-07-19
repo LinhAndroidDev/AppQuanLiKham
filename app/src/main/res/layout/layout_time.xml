@@ -13,11 +13,11 @@
         android:layout_marginBottom="2dp">
         <TextView
             android:id="@+id/time"
-            android:background="#FBE39C"
+            android:background="#71ADFA"
             android:text="16:00"
             android:textSize="14dp"
             android:gravity="center"
-            android:textColor="#111"
+            android:textColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="35dp"/>
     </androidx.cardview.widget.CardView>

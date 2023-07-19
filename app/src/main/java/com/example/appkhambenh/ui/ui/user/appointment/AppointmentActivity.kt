@@ -8,6 +8,7 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityAppointmentBinding
 import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.base.BaseActivity
+import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.utils.PreferenceKey
 
 @Suppress("DEPRECATION")
@@ -26,4 +27,18 @@ class AppointmentActivity : BaseActivity<EmptyViewModel, ActivityAppointmentBind
 
     override fun getActivityBinding(inflater: LayoutInflater)
     = ActivityAppointmentBinding.inflate(inflater)
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        val fm = supportFragmentManager.findFragmentById(R.id.changeIdAppointment)
+        if(fm != null && fm is BaseFragment<*, *>){
+            if(fm.onFragmentBack()){
+                finish()
+            }else{
+                super.onBackPressed()
+            }
+        }else{
+            super.onBackPressed()
+        }
+    }
 }

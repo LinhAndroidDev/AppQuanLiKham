@@ -5,10 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentAppointmentBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.utils.PreferenceKey
+import com.squareup.picasso.Picasso
 
 @Suppress("DEPRECATION")
 class FragmentAppointment : BaseFragment<EmptyViewModel, FragmentAppointmentBinding>() {
@@ -20,6 +22,21 @@ class FragmentAppointment : BaseFragment<EmptyViewModel, FragmentAppointmentBind
     }
 
     private fun initUi() {
+        val avatar = viewModel.mPreferenceUtil.defaultPref()
+            .getString(PreferenceKey.USER_AVATAR, "").toString()
+        Picasso.get().load(avatar)
+            .placeholder(R.drawable.ad)
+            .error(R.drawable.ad)
+            .into(binding.avatarAppointment)
+
+        val date = viewModel.mPreferenceUtil.defaultPref()
+            .getString(PreferenceKey.DATE_APPOINTMENT, "").toString()
+        binding.date.text = date
+
+        val hour = viewModel.mPreferenceUtil.defaultPref()
+            .getString(PreferenceKey.HOUR_APPOINTMENT, "").toString()
+        binding.hour.text = hour
+
         binding.txtUseNameAppointment.text =
             viewModel.mPreferenceUtil.defaultPref().getString(PreferenceKey.USER_NAME,"")
 

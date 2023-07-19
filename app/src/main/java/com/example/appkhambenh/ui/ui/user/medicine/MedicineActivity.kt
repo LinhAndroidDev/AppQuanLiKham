@@ -45,9 +45,6 @@ class MedicineActivity : BaseActivity<MedicineViewModel, ActivityMedicineBinding
         viewModel.listMedicineLiveData.observe(this, Observer{
             medicineAdapter = MedicineAdapter(this, it)
             val linear = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-//            val linear = object : LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false) {
-//                override fun canScrollVertically() = false
-//            }
             binding.rcvMedicine.layoutManager = linear
             binding.rcvMedicine.adapter = medicineAdapter
         })

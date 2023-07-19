@@ -19,19 +19,6 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(),Ion
     protected lateinit var viewModel: V
     protected lateinit var binding: B
 
-//    @SuppressLint("SuspiciousIndentation")
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//        viewModel =
-//            ViewModelProvider(this)[(this::class.java.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<V>]
-//            activity?.let {
-//                viewModel.mPreferenceUtil = PreferenceUtil(it)
-//            }
-//
-//        bindData()
-//    }
-
     @SuppressLint("SuspiciousIndentation")
     override fun onCreateView(
         inflater: LayoutInflater,

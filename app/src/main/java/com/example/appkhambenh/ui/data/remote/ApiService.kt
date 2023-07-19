@@ -6,6 +6,8 @@ import com.example.appkhambenh.ui.data.remote.entity.RegisterResponse
 import com.example.appkhambenh.ui.data.remote.entity.UploadImageResponse
 import com.example.appkhambenh.ui.model.Medicine
 import com.example.appkhambenh.ui.model.WorkingDate
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Observer
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.GET
@@ -33,7 +35,7 @@ interface ApiService {
     ):Call<RegisterResponse>
 
     @GET("medicine.php")
-    fun getListMedicine(): Call<List<Medicine>>
+    fun getListMedicine(): Observable<List<Medicine>>
 
     @GET("working_time.php")
     fun getWorkingDate(): Call<ArrayList<WorkingDate>>

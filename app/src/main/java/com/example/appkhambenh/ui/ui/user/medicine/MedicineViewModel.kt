@@ -4,6 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.ApiClient
 import com.example.appkhambenh.ui.model.Medicine
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.*
 
 class MedicineViewModel : BaseViewModel() {
@@ -11,33 +16,45 @@ class MedicineViewModel : BaseViewModel() {
     val loadingLiveData = MutableLiveData<Boolean>()
 
     fun getDataMedicine(){
+        loadingLiveData.value = true
         ApiClient.shared().getListMedicine()
-            .enqueue(object : Callback<List<Medicine>>{
-                override fun onResponse(
-                    call: Call<List<Medicine>>,
-                    response: Response<List<Medicine>>,
-                ) {
-                    loadingLiveData.value = false
-                    listMedicineLiveData.value = response.body()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<List<Medicine>>{
+                override fun onSubscribe(d: Disposable) {
+
                 }
 
-                override fun onFailure(call: Call<List<Medicine>>, t: Throwable) {
+                override fun onError(e: Throwable) {
                     loadingLiveData.value = false
-                    errorApiLiveData.value = t.message
+                    errorApiLiveData.value = e.message
+                }
+
+                override fun onComplete() {
+
+                }
+
+                override fun onNext(t: List<Medicine>) {
+                    loadingLiveData.value = false
+                    listMedicineLiveData.value = t
                 }
 
             })
-
-//        loadingLiveData.value = true
-//        GlobalScope.launch(Dispatchers.IO){
-//            val response = ApiClient.shared().getListMedicine()
-//            if(response.isSuccessful){
-//                loadingLiveData.value = false
-//                listMedicineLiveData.value = response.body()
-//            }else{
-//                loadingLiveData.value = false
-//                errorApiLiveData.value = response.message()
-//            }
-//        }
+//        ApiClient.shared().getListMedicine()
+//            .enqueue(object : Callback<List<Medicine>>{
+//                override fun onResponse(
+//                    call: Call<List<Medicine>>,
+//                    response: Response<List<Medicine>>,
+//                ) {
+//                    loadingLiveData.value = false
+//                    listMedicineLiveData.value = response.body()
+//                }
+//
+//                override fun onFailure(call: Call<List<Medicine>>, t: Throwable) {
+//                    loadingLiveData.value = false
+//                    errorApiLiveData.value = t.message
+//                }
+//
+//            })
     }
 }

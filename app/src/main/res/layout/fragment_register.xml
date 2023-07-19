@@ -17,7 +17,7 @@
             <ImageView
                 android:id="@+id/backRegister"
                 android:src="@drawable/ic_action_back"
-                android:layout_centerVertical="true"
+                android:layout_marginTop="40dp"
                 android:layout_width="40dp"
                 android:layout_height="30dp"/>
             <LinearLayout

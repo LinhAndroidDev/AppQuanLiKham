@@ -72,7 +72,7 @@ class LoginWithUser : BaseActivity<LoginWithUserViewModel, ActivityLoginWithUser
         })
 
         viewModel.emailLiveData.observe(this, Observer{
-            binding.emailNav.text = "Email: $it"
+            binding.emailNav.text = it
         })
 
         viewModel.birthLiveData.observe(this, Observer{
@@ -95,7 +95,7 @@ class LoginWithUser : BaseActivity<LoginWithUserViewModel, ActivityLoginWithUser
     @SuppressLint("SetTextI18n")
     private fun initNavigation() {
 
-        binding.phoneNav.text = "Sđt: " + viewModel.mPreferenceUtil.defaultPref()
+        binding.phoneNav.text = viewModel.mPreferenceUtil.defaultPref()
             .getString(PreferenceKey.USER_PHONE, "")
 
         binding.logout.setOnClickListener {
