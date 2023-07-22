@@ -7,10 +7,12 @@
         android:id="@+id/deleteMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="10dp"
-        app:cardElevation="10dp">
+        app:cardElevation="15dp">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -91,12 +91,6 @@ class EditDepartmentClinicActivity :
                         val linear =
                             LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
                         binding.rcvEditDepartment.layoutManager = linear
-                        binding.rcvEditDepartment.addItemDecoration(
-                            DividerItemDecoration(
-                                applicationContext,
-                                linear.orientation
-                            )
-                        )
                         binding.rcvEditDepartment.adapter = departmentAdapter
                     }
                 }

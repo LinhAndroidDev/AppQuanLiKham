@@ -1,10 +1,13 @@
 package com.example.appkhambenh.ui.ui.user.appointment
 
+import android.graphics.Typeface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.res.ResourcesCompat
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentAppointmentBinding
 import com.example.appkhambenh.ui.base.BaseFragment
@@ -43,6 +46,14 @@ class FragmentAppointment : BaseFragment<EmptyViewModel, FragmentAppointmentBind
         binding.backAppointment.setOnClickListener {
             activity?.onBackPressed()
         }
+
+        setText()
+    }
+
+    private fun setText() {
+        val svn_aptima: Typeface? = ResourcesCompat.getFont(requireActivity(), R.font.svn_aptima)
+        binding.date.typeface = svn_aptima
+        binding.hour.typeface = svn_aptima
     }
 
     override fun getFragmentBinding(

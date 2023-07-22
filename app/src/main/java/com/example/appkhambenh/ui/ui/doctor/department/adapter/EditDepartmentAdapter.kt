@@ -2,7 +2,9 @@ package com.example.appkhambenh.ui.ui.doctor.department.adapter
 
 import android.app.Dialog
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Color
+import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
 import android.view.*
 import android.widget.*

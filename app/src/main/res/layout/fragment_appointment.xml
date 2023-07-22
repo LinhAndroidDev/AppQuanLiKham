@@ -5,11 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.ui.user.appointment.FragmentAppointment">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="15dp"
         android:background="@color/background">
+
         <ImageView
             android:id="@+id/backAppointment"
             android:layout_marginStart="15dp"
@@ -26,12 +28,13 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
+
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="10dp"
-        android:background="#4AF3F3F3">
+        android:paddingVertical="10dp">
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/avatarAppointment"
             android:layout_marginStart="10dp"
@@ -44,86 +47,59 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_marginStart="5dp"
+            android:layout_toRightOf="@+id/avatarAppointment"
             android:text="Hà Hữu Hải"
             android:textColor="@color/black"
-            android:textSize="22sp" />
+            android:textSize="16sp"
+            android:textStyle="italic" />
+
     </RelativeLayout>
     <LinearLayout
         android:layout_marginHorizontal="10dp"
+        android:paddingTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <TextView
-            android:layout_marginTop="20dp"
             android:text="Chọn dịch vụ khám"
-            android:textSize="14sp"
-            android:textColor="@color/text"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            style="@style/title_appoint_function"/>
+
         <EditText
-            android:layout_marginTop="5dp"
-            android:paddingVertical="10dp"
-            android:paddingHorizontal="10dp"
-            android:textSize="16sp"
-            android:textColor="@color/black"
             android:hint="Dịch vụ khám"
             android:background="@drawable/boder_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"/>
+            style="@style/edt_appoint_function"/>
+
         <TextView
-            android:layout_marginTop="15dp"
             android:text="Chọn phòng khám"
-            android:textSize="14sp"
-            android:textColor="@color/text"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            style="@style/title_appoint_function"/>
+
         <EditText
-            android:layout_marginTop="5dp"
-            android:paddingVertical="10dp"
-            android:paddingHorizontal="10dp"
-            android:textSize="16sp"
-            android:textColor="@color/black"
             android:hint="Dịch vụ khám"
             android:background="@drawable/boder_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"/>
+            style="@style/edt_appoint_function"/>
+
         <TextView
-            android:layout_marginTop="15dp"
             android:text="Chọn bác sĩ"
-            android:textSize="14sp"
-            android:textColor="@color/text"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            style="@style/title_appoint_function"/>
+
         <EditText
-            android:layout_marginTop="5dp"
-            android:paddingVertical="10dp"
-            android:paddingHorizontal="10dp"
-            android:textSize="16sp"
-            android:textColor="@color/black"
             android:hint="Dịch vụ khám"
             android:background="@drawable/boder_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"/>
+            style="@style/edt_appoint_function"/>
+
         <TextView
-            android:layout_marginTop="15dp"
             android:text="Ngày"
-            android:textSize="14sp"
-            android:textColor="@color/text"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            style="@style/title_appoint_function"/>
+
         <TextView
             android:id="@+id/date"
             android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
             android:paddingVertical="10dp"
             android:paddingHorizontal="10dp"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:textColor="@color/black"
             android:textStyle="italic|bold"
             android:hint="Dịch vụ khám"
@@ -131,20 +107,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"/>
+
         <TextView
-            android:layout_marginTop="15dp"
             android:text="Giờ"
-            android:textSize="14sp"
-            android:textColor="@color/text"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            style="@style/title_appoint_function"/>
+
         <TextView
             android:id="@+id/hour"
             android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
             android:paddingVertical="10dp"
             android:paddingHorizontal="10dp"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:textColor="@color/black"
             android:textStyle="italic|bold"
             android:hint="Dịch vụ khám"
@@ -152,24 +126,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"/>
+
         <TextView
-            android:layout_marginTop="15dp"
             android:text="Triệu chứng/Lý do"
-            android:textSize="14sp"
-            android:textColor="@color/text"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            style="@style/title_appoint_function"/>
+
         <EditText
-            android:layout_marginTop="20dp"
-            android:paddingVertical="10dp"
-            android:paddingHorizontal="10dp"
-            android:textSize="16sp"
-            android:textColor="@color/black"
             android:hint="Nhập triệu chứng..."
             android:background="@drawable/boder_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"/>
+            style="@style/edt_appoint_function" />
+
     </LinearLayout>
 </LinearLayout>
