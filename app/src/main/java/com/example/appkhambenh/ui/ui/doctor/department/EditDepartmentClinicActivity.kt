@@ -4,12 +4,12 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.format.Time
 import android.view.LayoutInflater
 import android.view.Window
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityEditDepartmentClinicBinding
@@ -17,10 +17,8 @@ import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.model.DepartmentClinic
 import com.example.appkhambenh.ui.ui.doctor.department.adapter.EditDepartmentAdapter
+import com.example.appkhambenh.ui.utils.showDialogEditDepartment
 import com.google.firebase.database.*
-import kotlinx.coroutines.NonCancellable.children
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 class EditDepartmentClinicActivity :
@@ -53,12 +51,13 @@ class EditDepartmentClinicActivity :
                 if (strDepartment.isEmpty()) {
                     Toast.makeText(this, "Bạn chưa nhập tên khoa", Toast.LENGTH_SHORT).show()
                 } else {
-                    val currentDateTime = Calendar.getInstance().time
-                    val formatter = SimpleDateFormat("dd_MM_yyyy_HH_mm_ss", Locale.getDefault())
+                    val time = Time()
+                    time.setToNow()
+                    val seconds = time.toMillis(false).toString()
                     val department =
-                        DepartmentClinic(strDepartment, formatter.format(currentDateTime))
+                        DepartmentClinic(strDepartment, seconds)
                     databaseReference.child("Department")
-                        .child(formatter.format(currentDateTime))
+                        .child(seconds)
                         .setValue(department)
                     getData()
                     Toast.makeText(this@EditDepartmentClinicActivity, "Bạn đã thêm khoa $strDepartment", Toast.LENGTH_SHORT).show()
@@ -86,7 +85,7 @@ class EditDepartmentClinicActivity :
                         val departmentAdapter =
                             EditDepartmentAdapter(listDepartment, applicationContext)
                         departmentAdapter.openDialogEditDepartment = {
-                            showDialogEditDepartment(it)
+                            showDialogEditDepartment(it, this@EditDepartmentClinicActivity)
                         }
                         val linear =
                             LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
@@ -99,36 +98,6 @@ class EditDepartmentClinicActivity :
                     Toast.makeText(applicationContext, error.toString(), Toast.LENGTH_SHORT).show()
                 }
             })
-    }
-
-    private fun showDialogEditDepartment(time: String) {
-        val dialog = Dialog(this@EditDepartmentClinicActivity)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(true)
-        dialog.setContentView(R.layout.dialog_add_department)
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.show()
-
-        val edtDepartment: EditText = dialog.findViewById(R.id.edtDialogDepartment)
-        val txtUpdateDepartment: TextView = dialog.findViewById(R.id.txtDialogUpdateDepartment)
-        val txtTitleEditDepartment: TextView = dialog.findViewById(R.id.txtTitleEditDepartment)
-        txtTitleEditDepartment.text = "Chỉnh Sửa Tên Khoa"
-
-        txtUpdateDepartment.setOnClickListener {
-            val strDepartment = edtDepartment.text.toString()
-            if (strDepartment.isEmpty()) {
-                Toast.makeText(this@EditDepartmentClinicActivity, "Bạn chưa nhập tên khoa", Toast.LENGTH_SHORT).show()
-            } else {
-                val database: DatabaseReference =
-                    FirebaseDatabase.getInstance().reference
-                val hashMap = HashMap<String, Any>()
-                hashMap["nameDpt"] = strDepartment
-                database.child("Department").child(time)
-                    .updateChildren(hashMap as Map<String, Any>)
-                Toast.makeText(this@EditDepartmentClinicActivity, "Bạn đã đổi tên thành $strDepartment", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
-            }
-        }
     }
 
     override fun getActivityBinding(inflater: LayoutInflater) =

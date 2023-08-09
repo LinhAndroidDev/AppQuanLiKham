@@ -9,7 +9,7 @@ import com.example.appkhambenh.databinding.ActivityAppointmentBinding
 import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.base.BaseFragment
-import com.example.appkhambenh.ui.utils.PreferenceKey
+import com.example.appkhambenh.ui.ui.user.appointment.time.FragmentTimeWorking
 
 @Suppress("DEPRECATION")
 class AppointmentActivity : BaseActivity<EmptyViewModel, ActivityAppointmentBinding>() {
@@ -35,7 +35,10 @@ class AppointmentActivity : BaseActivity<EmptyViewModel, ActivityAppointmentBind
             if(fm.onFragmentBack()){
                 finish()
             }else{
-                super.onBackPressed()
+                val fragmentTimeWorking = FragmentTimeWorking()
+                val fg = supportFragmentManager.beginTransaction()
+                fg.replace(R.id.changeIdAppointment, fragmentTimeWorking)
+                    .commit()
             }
         }else{
             super.onBackPressed()

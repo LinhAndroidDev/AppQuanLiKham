@@ -27,8 +27,8 @@ class SeeAvatarActivity : BaseActivity<EmptyViewModel, ActivitySeeAvatarBinding>
         val avatar = viewModel.mPreferenceUtil.defaultPref()
             .getString(PreferenceKey.USER_AVATAR, "")
         Picasso.get().load(avatar)
-            .placeholder(R.drawable.ad)
-            .error(R.drawable.ad)
+            .placeholder(R.drawable.user_ad)
+            .error(R.drawable.user_ad)
             .into(binding.imgSeeAvatar)
 
         binding.backSeeAvatar.setOnClickListener {

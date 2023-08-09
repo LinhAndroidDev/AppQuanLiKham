@@ -81,13 +81,13 @@ class LoginWithUser : BaseActivity<LoginWithUserViewModel, ActivityLoginWithUser
 
         viewModel.avatarLiveData.observe(this, Observer{
             Picasso.get().load(it)
-                .error(R.drawable.ad)
-                .placeholder(R.drawable.ad)
+                .error(R.drawable.user_ad)
+                .placeholder(R.drawable.user_ad)
                 .into(binding.avartarUser)
 
             Picasso.get().load(it)
-                .placeholder(R.drawable.ad)
-                .error(R.drawable.ad)
+                .placeholder(R.drawable.user_ad)
+                .error(R.drawable.user_ad)
                 .into(binding.avatarNav)
         })
     }

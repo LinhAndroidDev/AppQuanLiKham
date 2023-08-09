@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.ui.user.appointment.FragmentTimeWorking">
+    tools:context=".ui.ui.user.appointment.time.FragmentTimeWorking">
     <RelativeLayout
         android:background="@color/background"
         android:paddingVertical="15dp"

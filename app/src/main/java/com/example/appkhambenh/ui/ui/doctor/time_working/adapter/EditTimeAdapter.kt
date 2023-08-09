@@ -11,18 +11,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appkhambenh.R
-import com.example.appkhambenh.ui.model.Time
+import com.example.appkhambenh.ui.model.TimeWorking
 import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
 class EditTimeAdapter(
-    private val listTimeEdit: ArrayList<Time>?,
+    private val listTimeEdit: ArrayList<TimeWorking>?,
     val context: Context
 ) : RecyclerView.Adapter<EditTimeAdapter.ViewHolder>() {
     var onSelectDelete: ((Boolean)->Unit)? = null
     var onClickEditHourWorking: ((Int)->Unit)? = null
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val time: TextView = itemView.findViewById(R.id.txtTime)
         val imgEditTime: ImageView = itemView.findViewById(R.id.imgEditTime)
@@ -35,7 +36,7 @@ class EditTimeAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val time: Time? = listTimeEdit?.get(position)
+        val time: TimeWorking? = listTimeEdit?.get(position)
         holder.time.text = time?.hour
 
         holder.imgEditTime.setOnClickListener {

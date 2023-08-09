@@ -1,26 +1,19 @@
 package com.example.appkhambenh.ui.ui.doctor.department.adapter
 
-import android.app.Dialog
 import android.content.Context
-import android.content.res.Resources
-import android.graphics.Color
-import android.graphics.Rect
-import android.graphics.drawable.ColorDrawable
 import android.view.*
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appkhambenh.R
 import com.example.appkhambenh.ui.model.DepartmentClinic
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import java.util.*
 import kotlin.collections.ArrayList
 
 class EditDepartmentAdapter(
     private val listDepartment: ArrayList<DepartmentClinic>,
     val context: Context,
 ) : RecyclerView.Adapter<EditDepartmentAdapter.ViewHolder>() {
-    var openDialogEditDepartment: ((String) -> Unit)? = null
+    var openDialogEditDepartment: ((DepartmentClinic) -> Unit)? = null
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtName: TextView = itemView.findViewById(R.id.txtNameDepartment)
@@ -62,7 +55,7 @@ class EditDepartmentAdapter(
 
             txtEditDepartment.setOnClickListener {
                 popupWindow.dismiss()
-                openDialogEditDepartment?.invoke(department.time.toString())
+                openDialogEditDepartment?.invoke(department)
             }
         }
     }

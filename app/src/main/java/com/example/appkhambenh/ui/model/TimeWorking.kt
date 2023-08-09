@@ -1,6 +1,6 @@
 package com.example.appkhambenh.ui.model
 
-data class Time(
+data class TimeWorking(
     val hour: String? = null,
     val time: String? = null,
     var isSelectDelete: Boolean? = null,

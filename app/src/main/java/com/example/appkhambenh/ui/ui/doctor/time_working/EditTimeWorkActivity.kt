@@ -3,6 +3,7 @@ package com.example.appkhambenh.ui.ui.doctor.time_working
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.text.format.Time
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
@@ -20,7 +21,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityEditTimeWorkBinding
 import com.example.appkhambenh.ui.base.BaseActivity
-import com.example.appkhambenh.ui.model.Time
+import com.example.appkhambenh.ui.model.TimeWorking
 import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.ui.doctor.time_working.adapter.EditTimeAdapter
 import com.example.appkhambenh.ui.utils.PreferenceKey
@@ -172,15 +173,16 @@ class EditTimeWorkActivity : BaseActivity<EmptyViewModel, ActivityEditTimeWorkBi
         }
 
         selectHour.setOnClickListener {
-            val currentDateTime = Calendar.getInstance().time
-            val formatter = SimpleDateFormat("dd_MM_yyyy_HH_mm_ss", Locale.getDefault())
-            val time = Time("$strHour:$strMinute", formatter.format(currentDateTime))
+            val timeCurrent = Time()
+            timeCurrent.setToNow()
+            val seconds = timeCurrent.toMillis(false).toString()
+            val time = TimeWorking("$strHour:$strMinute", seconds)
             val date = binding.txtTimeEdit.text.toString()
             if(type == 1){
                 databaseReference.child("TimeWorking")
                     .child(date)
                     .child("time")
-                    .child(formatter.format(currentDateTime))
+                    .child(seconds)
                     .setValue(time)
                 databaseReference.child("TimeWorking")
                     .child(date)
@@ -206,13 +208,13 @@ class EditTimeWorkActivity : BaseActivity<EmptyViewModel, ActivityEditTimeWorkBi
 
     private fun getData() {
         val date = binding.txtTimeEdit.text.toString()
-        val listHour: ArrayList<Time> = arrayListOf()
+        val listHour: ArrayList<TimeWorking> = arrayListOf()
         databaseReference.child("TimeWorking")
             .child(date)
             .child("time").addChildEventListener(object : ChildEventListener {
                 @SuppressLint("ClickableViewAccessibility")
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    val hr = snapshot.getValue(Time::class.java)
+                    val hr = snapshot.getValue(TimeWorking::class.java)
                     listHour.add(hr!!)
                     if (listHour.isEmpty()) {
                         binding.rcvEditTime.visibility = View.GONE
@@ -350,7 +352,7 @@ class EditTimeWorkActivity : BaseActivity<EmptyViewModel, ActivityEditTimeWorkBi
         getData()
     }
 
-    private fun cancelDeleteHour(list: ArrayList<Time>) {
+    private fun cancelDeleteHour(list: ArrayList<TimeWorking>) {
         bottomShareBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         editTimeAdapter.notifyDataSetChanged()
         val listPositionHour: kotlin.collections.ArrayList<Int> = arrayListOf()

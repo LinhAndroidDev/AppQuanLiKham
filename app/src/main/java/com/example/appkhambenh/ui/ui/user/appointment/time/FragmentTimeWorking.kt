@@ -1,4 +1,4 @@
-package com.example.appkhambenh.ui.ui.user.appointment
+package com.example.appkhambenh.ui.ui.user.appointment.time
 
 import android.annotation.SuppressLint
 import android.graphics.Typeface
@@ -8,15 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentTimeWorkingBinding
 import com.example.appkhambenh.ui.base.BaseFragment
-import com.example.appkhambenh.ui.model.Time
+import com.example.appkhambenh.ui.model.TimeWorking
 import com.example.appkhambenh.ui.ui.EmptyViewModel
-import com.example.appkhambenh.ui.ui.user.appointment.adapter.WorkingTimeAdapter
+import com.example.appkhambenh.ui.ui.user.appointment.register.FragmentAppointment
+import com.example.appkhambenh.ui.ui.user.appointment.time.adapter.WorkingTimeAdapter
 import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
@@ -85,43 +85,40 @@ class FragmentTimeWorking : BaseFragment<EmptyViewModel, FragmentTimeWorkingBind
 
     private fun getData() {
         val date = binding.txtTimeWorking.text.toString()
-        val listHour: ArrayList<Time> = arrayListOf()
+        val listHour: ArrayList<TimeWorking> = arrayListOf()
         databaseReference.child("TimeWorking")
             .child(date)
             .child("time").addChildEventListener(object : ChildEventListener {
                 @SuppressLint("ClickableViewAccessibility")
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    val hr = snapshot.getValue(Time::class.java)
+                    val hr = snapshot.getValue(TimeWorking::class.java)
                     listHour.add(hr!!)
-                    if (listHour.isEmpty()) {
-                        binding.rcvTimeWorking.visibility = View.GONE
-                    } else {
-                        binding.rcvTimeWorking.visibility = View.VISIBLE
+                    if (listHour.isNotEmpty()) {
+                        workingTimeAdapter = WorkingTimeAdapter(requireActivity(), listHour)
+                        workingTimeAdapter.onClickSelectAppointment = {
+                            val fragmentAppointment = FragmentAppointment()
+                            val fm = activity?.supportFragmentManager?.beginTransaction()
+                            fm?.replace(R.id.changeIdAppointment, fragmentAppointment)
+                                ?.addToBackStack(null)?.commit()
+                            viewModel.mPreferenceUtil.defaultPref()
+                                .edit().putString(PreferenceKey.DATE_APPOINTMENT, date)
+                                .apply()
+                            viewModel.mPreferenceUtil.defaultPref()
+                                .edit().putString(PreferenceKey.HOUR_APPOINTMENT, it)
+                                .apply()
+                        }
+                        workingTimeAdapter.notifyDataSetChanged()
+                        val grid = GridLayoutManager(requireActivity(), 3)
+                        binding.rcvTimeWorking.layoutManager = grid
+                        binding.rcvTimeWorking.adapter = workingTimeAdapter
                     }
-
-                    workingTimeAdapter = WorkingTimeAdapter(requireActivity(),listHour)
-                    workingTimeAdapter.onClickSelectAppointment = {
-                        val fragmentAppointment = FragmentAppointment()
-                        val fm = activity?.supportFragmentManager?.beginTransaction()
-                        fm?.replace(R.id.changeIdAppointment, fragmentAppointment)
-                            ?.addToBackStack(null)?.commit()
-                        viewModel.mPreferenceUtil.defaultPref()
-                            .edit().putString(PreferenceKey.DATE_APPOINTMENT, date)
-                            .apply()
-                        viewModel.mPreferenceUtil.defaultPref()
-                            .edit().putString(PreferenceKey.HOUR_APPOINTMENT, it)
-                            .apply()
-                    }
-                    workingTimeAdapter.notifyDataSetChanged()
-                    val grid = GridLayoutManager(requireActivity(), 3)
-                    binding.rcvTimeWorking.layoutManager = grid
-                    binding.rcvTimeWorking.adapter = workingTimeAdapter
                 }
 
                 override fun onChildChanged(
                     snapshot: DataSnapshot,
                     previousChildName: String?,
-                ) {}
+                ) {
+                }
 
                 override fun onChildRemoved(snapshot: DataSnapshot) {}
 
@@ -134,7 +131,7 @@ class FragmentTimeWorking : BaseFragment<EmptyViewModel, FragmentTimeWorkingBind
 
     private fun resetDataDate() {
         val listHour = null
-        workingTimeAdapter = WorkingTimeAdapter(requireActivity(),listHour)
+        workingTimeAdapter = WorkingTimeAdapter(requireActivity(), listHour)
         workingTimeAdapter.notifyDataSetChanged()
         val grid = GridLayoutManager(requireActivity(), 3)
         binding.rcvTimeWorking.layoutManager = grid
@@ -157,7 +154,8 @@ class FragmentTimeWorking : BaseFragment<EmptyViewModel, FragmentTimeWorkingBind
     }
 
     private fun setText() {
-        val berkshire: Typeface? = ResourcesCompat.getFont(requireActivity(), R.font.svn_berkshire_swash)
+        val berkshire: Typeface? =
+            ResourcesCompat.getFont(requireActivity(), R.font.svn_berkshire_swash)
         binding.txtTimeWorking.typeface = berkshire
     }
 
@@ -168,5 +166,5 @@ class FragmentTimeWorking : BaseFragment<EmptyViewModel, FragmentTimeWorkingBind
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    )= FragmentTimeWorkingBinding.inflate(inflater)
+    ) = FragmentTimeWorkingBinding.inflate(inflater)
 }

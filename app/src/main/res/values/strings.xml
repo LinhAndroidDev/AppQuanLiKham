@@ -11,4 +11,18 @@
 
     <!--    Fragment Register-->
     <string name="txt_enter_password_again">Vui lòng nhập lại mật khẩu</string>
+    <string name="txt_title_register_account">Đăng kí tài khoản</string>
+    <string name="txt_title_name">Họ và tên</string>
+    <string name="edt_enter_name">Nhập đầy đủ họ tên</string>
+    <string name="txt_title_email">Email</string>
+    <string name="edt_enter_email">Nhập email</string>
+    <string name="txt_title_password">Mật khẩu</string>
+    <string name="edt_enter_password">Nhập mật khẩu</string>
+    <string name="txt_title_repeat_password">Nhập lại mật khẩu</string>
+    <string name="txt_title_date">Ngày sinh</string>
+    <string name="edt_enter_date">dd/mm/yyyy</string>
+    <string name="txt_title_phone">Số điện thoại</string>
+    <string name="edt_enter_phone">Nhập số điện thoại</string>
+    <string name="txt_title_address">Địa chỉ</string>
+    <string name="edt_enter_address">Nhập địa chỉ</string>
 </resources>
