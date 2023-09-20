@@ -176,7 +176,7 @@ class EditTimeWorkActivity : BaseActivity<EmptyViewModel, ActivityEditTimeWorkBi
             val timeCurrent = Time()
             timeCurrent.setToNow()
             val seconds = timeCurrent.toMillis(false).toString()
-            val time = TimeWorking("$strHour:$strMinute", seconds)
+            val time = TimeWorking("$strHour:$strMinute", seconds, false)
             val date = binding.txtTimeEdit.text.toString()
             if(type == 1){
                 databaseReference.child("TimeWorking")

@@ -22,6 +22,7 @@ import com.example.appkhambenh.ui.ui.user.LoginWithUser.Companion.RESULT
 import com.example.appkhambenh.ui.ui.user.appointment.AppointmentActivity
 import com.example.appkhambenh.ui.ui.user.avatar.EditAvatarActivity
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
+import com.example.appkhambenh.ui.ui.user.manage_appointment.ManageAppointmentActivity
 import com.example.appkhambenh.ui.ui.user.qr.QrActivity
 import com.example.appkhambenh.ui.ui.user.medicine.MedicineActivity
 import com.example.appkhambenh.ui.utils.PreferenceKey
@@ -80,15 +81,17 @@ class LoginWithUser : BaseActivity<LoginWithUserViewModel, ActivityLoginWithUser
         })
 
         viewModel.avatarLiveData.observe(this, Observer{
-            Picasso.get().load(it)
-                .error(R.drawable.user_ad)
-                .placeholder(R.drawable.user_ad)
-                .into(binding.avartarUser)
+            if(it.isNotEmpty()){
+                Picasso.get().load(it)
+                    .error(R.drawable.user_ad)
+                    .placeholder(R.drawable.user_ad)
+                    .into(binding.avartarUser)
 
-            Picasso.get().load(it)
-                .placeholder(R.drawable.user_ad)
-                .error(R.drawable.user_ad)
-                .into(binding.avatarNav)
+                Picasso.get().load(it)
+                    .placeholder(R.drawable.user_ad)
+                    .error(R.drawable.user_ad)
+                    .into(binding.avatarNav)
+            }
         })
     }
 
@@ -155,6 +158,11 @@ class LoginWithUser : BaseActivity<LoginWithUserViewModel, ActivityLoginWithUser
 
         binding.medicine.setOnClickListener {
             val intent = Intent(this@LoginWithUser, MedicineActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.cvManageAppointment.setOnClickListener {
+            val intent = Intent(this@LoginWithUser, ManageAppointmentActivity::class.java)
             startActivity(intent)
         }
 

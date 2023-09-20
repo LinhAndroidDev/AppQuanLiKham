@@ -95,6 +95,7 @@ class FragmentTimeWorking : BaseFragment<EmptyViewModel, FragmentTimeWorkingBind
                     listHour.add(hr!!)
                     if (listHour.isNotEmpty()) {
                         workingTimeAdapter = WorkingTimeAdapter(requireActivity(), listHour)
+
                         workingTimeAdapter.onClickSelectAppointment = {
                             val fragmentAppointment = FragmentAppointment()
                             val fm = activity?.supportFragmentManager?.beginTransaction()
@@ -104,7 +105,10 @@ class FragmentTimeWorking : BaseFragment<EmptyViewModel, FragmentTimeWorkingBind
                                 .edit().putString(PreferenceKey.DATE_APPOINTMENT, date)
                                 .apply()
                             viewModel.mPreferenceUtil.defaultPref()
-                                .edit().putString(PreferenceKey.HOUR_APPOINTMENT, it)
+                                .edit().putString(PreferenceKey.HOUR_APPOINTMENT, it.hour)
+                                .apply()
+                            viewModel.mPreferenceUtil.defaultPref()
+                                .edit().putString(PreferenceKey.TIME_APPOINTMENT, it.time)
                                 .apply()
                         }
                         workingTimeAdapter.notifyDataSetChanged()

@@ -136,6 +136,7 @@
             style="@style/title_appoint_function"/>
 
         <EditText
+            android:id="@+id/edt_reasons"
             android:hint="Nhập triệu chứng..."
             android:background="@drawable/boder_edit_text"
             style="@style/edt_appoint_function"
@@ -143,6 +144,7 @@
             android:imeOptions="actionDone"/>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/register_checking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
