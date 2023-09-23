@@ -86,7 +86,7 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
             .apply()
     }
 
-    @SuppressLint("CommitTransaction")
+    @SuppressLint("CommitTransaction", "ClickableViewAccessibility")
     private fun initUi() {
 
         checkSaveAccount()
@@ -132,6 +132,11 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
         binding.txtLoginWithDoctor.setOnClickListener {
             val intent = Intent(requireActivity(), LoginWithDoctorActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.layoutLogin.setOnTouchListener { view, _ ->
+            view.hideKeyboard()
+            true
         }
     }
 

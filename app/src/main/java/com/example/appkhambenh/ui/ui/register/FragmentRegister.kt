@@ -62,20 +62,7 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
         }
 
         binding.calendar.setOnClickListener {
-            val getDate = Calendar.getInstance()
-            val datePicker = DatePickerDialog(requireActivity(), android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-
-                    val selectDate: Calendar = Calendar.getInstance()
-                    selectDate.set(Calendar.YEAR, year)
-                    selectDate.set(Calendar.MONTH, month)
-                    selectDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-
-                    binding.edtBirth.setText(formatDate.format(selectDate.time))
-
-                }, getDate.get(Calendar.YEAR), getDate.get((Calendar.MONTH)), getDate.get(Calendar.DAY_OF_MONTH))
-
-            datePicker.show()
+            showDialogSelectDate()
         }
 
         binding.register.setOnClickListener {
@@ -122,6 +109,28 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
                 )
             }
         }
+
+        binding.layoutRegister.setOnTouchListener { view, _ ->
+            view.hideKeyboard()
+            true
+        }
+    }
+
+    private fun showDialogSelectDate() {
+        val getDate = Calendar.getInstance()
+        val datePicker = DatePickerDialog(requireActivity(), android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+            DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+
+                val selectDate: Calendar = Calendar.getInstance()
+                selectDate.set(Calendar.YEAR, year)
+                selectDate.set(Calendar.MONTH, month)
+                selectDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                binding.edtBirth.setText(formatDate.format(selectDate.time))
+
+            }, getDate.get(Calendar.YEAR), getDate.get((Calendar.MONTH)), getDate.get(Calendar.DAY_OF_MONTH))
+
+        datePicker.show()
     }
 
     private fun setNotification(color: Int, string: Int){

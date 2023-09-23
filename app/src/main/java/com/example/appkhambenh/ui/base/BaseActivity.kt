@@ -1,9 +1,11 @@
 package com.example.appkhambenh.ui.base
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -40,5 +42,10 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
                 Toast.LENGTH_SHORT
             ).show()
         })
+    }
+
+    private fun View.hideKeyboard() {
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 }

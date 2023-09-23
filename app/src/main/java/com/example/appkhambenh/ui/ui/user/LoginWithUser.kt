@@ -8,17 +8,13 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.*
 import android.widget.Toast
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityLoginWithUserBinding
 import com.example.appkhambenh.ui.base.BaseActivity
-import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.ui.MainActivity
-import com.example.appkhambenh.ui.ui.user.LoginWithUser.Companion.RESULT
 import com.example.appkhambenh.ui.ui.user.appointment.AppointmentActivity
 import com.example.appkhambenh.ui.ui.user.avatar.EditAvatarActivity
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
