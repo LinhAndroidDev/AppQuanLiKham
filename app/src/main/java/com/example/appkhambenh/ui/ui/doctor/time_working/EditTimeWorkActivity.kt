@@ -3,7 +3,6 @@ package com.example.appkhambenh.ui.ui.doctor.time_working
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.text.format.Time
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
@@ -22,20 +21,21 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityEditTimeWorkBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.model.TimeWorking
-import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.ui.doctor.time_working.adapter.EditTimeAdapter
 import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.database.*
 import com.google.gson.Gson
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
-class EditTimeWorkActivity : BaseActivity<EmptyViewModel, ActivityEditTimeWorkBinding>() {
-    lateinit var databaseReference: DatabaseReference
+class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEditTimeWorkBinding>() {
     lateinit var bottomShareBehavior: BottomSheetBehavior<View>
     lateinit var editTimeAdapter: EditTimeAdapter
     var POSITION_ITEM = -1
@@ -51,14 +51,18 @@ class EditTimeWorkActivity : BaseActivity<EmptyViewModel, ActivityEditTimeWorkBi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        databaseReference = FirebaseDatabase.getInstance().reference
-
         val calendar: Calendar = Calendar.getInstance()
         binding.txtTimeEdit.text = formatDay.format(calendar.time) +
                 "," + formatDayOfMonth.format(calendar.time) +
                 " tháng " + formatMonth.format(calendar.time)
-        setText()
-        binding.backDateEdit.visibility = View.GONE
+
+        binding.backDateEdit.alpha = 0.3f
+        binding.backDateEdit.isEnabled = false
+
+        val date = binding.txtTimeEdit.text.toString()
+        val requestBodyDate: RequestBody = date
+            .toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        viewModel.getListWorkingTime(requestBodyDate)
 
         getData()
 
@@ -77,7 +81,8 @@ class EditTimeWorkActivity : BaseActivity<EmptyViewModel, ActivityEditTimeWorkBi
         }
 
         binding.nextDateEdit.setOnClickListener {
-            binding.backDateEdit.visibility = View.VISIBLE
+            binding.backDateEdit.alpha = 1f
+            binding.backDateEdit.isEnabled = true
             val calendar: Calendar = Calendar.getInstance()
             COUNT_CHANGE_DATE++
             calendar.add(Calendar.DAY_OF_YEAR, COUNT_CHANGE_DATE)
@@ -111,12 +116,15 @@ class EditTimeWorkActivity : BaseActivity<EmptyViewModel, ActivityEditTimeWorkBi
                 "," + formatDayOfMonth.format(calendarCurrent.time) +
                 " tháng " + formatMonth.format(calendarCurrent.time)
         if (dateCurrent == binding.txtTimeEdit.text.toString()) {
-            binding.backDateEdit.visibility = View.GONE
+            binding.backDateEdit.alpha = 0.3f
+            binding.backDateEdit.isEnabled = false
         } else {
-            binding.backDateEdit.visibility = View.VISIBLE
+            binding.backDateEdit.alpha = 1f
+            binding.backDateEdit.isEnabled = true
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SimpleDateFormat")
     private fun showDialogAddHour(txtTitle: String,type: Int, dmy: String) {
         val dialog = Dialog(this)
@@ -173,120 +181,73 @@ class EditTimeWorkActivity : BaseActivity<EmptyViewModel, ActivityEditTimeWorkBi
         }
 
         selectHour.setOnClickListener {
-            val timeCurrent = Time()
-            timeCurrent.setToNow()
-            val seconds = timeCurrent.toMillis(false).toString()
-            val time = TimeWorking("$strHour:$strMinute", seconds, false)
+            val time = TimeWorking("$strHour:$strMinute", false)
             val date = binding.txtTimeEdit.text.toString()
             if(type == 1){
-                databaseReference.child("TimeWorking")
-                    .child(date)
-                    .child("time")
-                    .child(seconds)
-                    .setValue(time)
-                databaseReference.child("TimeWorking")
-                    .child(date)
-                    .child("date").setValue(date)
+                val requestBodyDate: RequestBody = date
+                    .toRequestBody("multipart/form-data".toMediaTypeOrNull())
+                val requestBodyTime: RequestBody = "$strHour:$strMinute"
+                    .toRequestBody("multipart/form-data".toMediaTypeOrNull())
+                viewModel.editWorkingTime(requestBodyDate, requestBodyTime)
+                viewModel.getListWorkingTime(requestBodyDate)
+                getData()
             }else if(type == 2){
-                val hashMap = HashMap<String, Any>()
-                hashMap["hour"] = time
-                hashMap["time"] = dmy
-                databaseReference.child("TimeWorking")
-                    .child(date)
-                    .child("time")
-                    .child(dmy)
-                    .updateChildren(hashMap)
+
             }
-
-            getData()
-
             dialog.dismiss()
         }
 
         dialog.show()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun getData() {
-        val date = binding.txtTimeEdit.text.toString()
-        val listHour: ArrayList<TimeWorking> = arrayListOf()
-        databaseReference.child("TimeWorking")
-            .child(date)
-            .child("time").addChildEventListener(object : ChildEventListener {
-                @SuppressLint("ClickableViewAccessibility")
-                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    val hr = snapshot.getValue(TimeWorking::class.java)
-                    listHour.add(hr!!)
-                    if (listHour.isEmpty()) {
-                        binding.rcvEditTime.visibility = View.GONE
-                    } else {
-                        binding.rcvEditTime.visibility = View.VISIBLE
-                    }
+        viewModel.workingDateLiveData.observe(this) { workingDate ->
+            if(workingDate.time != null) {
+                binding.rcvEditTime.visibility = View.VISIBLE
+                binding.notificationEmptyData.visibility = View.GONE
+                editTimeAdapter = EditTimeAdapter(workingDate.time, this@EditTimeWorkActivity)
+                editTimeAdapter.notifyDataSetChanged()
+                val grid = GridLayoutManager(applicationContext, 3)
+                binding.rcvEditTime.layoutManager = grid
+                binding.rcvEditTime.adapter = editTimeAdapter
 
-                    val listPositionHour: kotlin.collections.ArrayList<Int> = arrayListOf()
-                    for(i in 0 until listHour.size){
-                        listPositionHour.add(0)
-                    }
-                    saveListPositionHour(listPositionHour,PreferenceKey.LIST_POSITION_HOUR)
+                editTimeAdapter.onSelectDelete = { isSelect ->
+                    if (isSelect) {
+                        binding.layoutBottomDeleteHour.layoutDelete.setOnTouchListener { _, _ -> true }
 
-                    editTimeAdapter = EditTimeAdapter(listHour, this@EditTimeWorkActivity)
-                    editTimeAdapter.notifyDataSetChanged()
-                    editTimeAdapter.onSelectDelete = {
-                        if(it){
-                            binding.layoutBottomDeleteHour.layoutDelete.setOnTouchListener { _, _ -> true }
+                        bottomShareBehavior =
+                            BottomSheetBehavior.from(binding.layoutBottomDeleteHour.layoutDelete)
+                        bottomShareBehavior.state = BottomSheetBehavior.STATE_EXPANDED
 
-                            bottomShareBehavior = BottomSheetBehavior.from(binding.layoutBottomDeleteHour.layoutDelete)
-                            bottomShareBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                        binding.layoutBottomDeleteHour.txtCancelDeleteHour.setOnClickListener {
+                            cancelDeleteHour(workingDate.time)
+                        }
 
-                            binding.layoutBottomDeleteHour.txtCancelDeleteHour.setOnClickListener {
-                                cancelDeleteHour(listHour)
-                            }
+                        binding.layoutBottomDeleteHour.txtDeleteHour.setOnClickListener {
+                            for (i in 0 until workingDate.time.size) {
+                                if (workingDate.time[i].isSelectDelete == true) {
 
-                            binding.layoutBottomDeleteHour.txtDeleteHour.setOnClickListener {
-                                for(i in 0 until listHour.size){
-                                    if(listHour[i].isSelectDelete == true){
-                                        val databaseReference = FirebaseDatabase.getInstance().reference
-                                        databaseReference.child("TimeWorking")
-                                            .child(binding.txtTimeEdit.text.toString())
-                                            .child("time")
-                                            .child(listHour[i].time.toString()).removeValue()
-                                        editTimeAdapter.notifyDataSetChanged()
-                                    }
+                                    editTimeAdapter.notifyDataSetChanged()
                                 }
-                                cancelDeleteHour(listHour)
                             }
+                            cancelDeleteHour(workingDate.time)
                         }
                     }
-                    editTimeAdapter.onClickEditHourWorking = {
-                        POSITION_ITEM = it
-                        val day =listHour[it].time.toString()
-                        showDialogAddHour("Chỉnh sửa giờ làm việc",2, day)
-                    }
-                    val grid = GridLayoutManager(applicationContext, 3)
-                    binding.rcvEditTime.layoutManager = grid
-                    binding.rcvEditTime.adapter = editTimeAdapter
                 }
-
-                override fun onChildChanged(
-                    snapshot: DataSnapshot,
-                    previousChildName: String?,
-                ) {}
-
-                override fun onChildRemoved(snapshot: DataSnapshot) {
-                    for(i in 0 until listHour.size){
-                        if(listHour[i].isSelectDelete == true){
-                            listHour.remove(listHour[i])
-                            break
-                        }
-                    }
-                    editTimeAdapter.notifyDataSetChanged()
+                editTimeAdapter.onClickEditHourWorking = {
+                    POSITION_ITEM = it
+                    val day = workingDate.time[it].hour.toString()
+                    showDialogAddHour("Chỉnh sửa giờ làm việc", 2, day)
                 }
+            } else {
+                binding.rcvEditTime.visibility = View.GONE
+                binding.notificationEmptyData.visibility = View.VISIBLE
+            }
+        }
+        }
 
-                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
-
-                override fun onCancelled(error: DatabaseError) {}
-
-            })
-    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ClickableViewAccessibility", "SetTextI18n")
@@ -329,10 +290,6 @@ class EditTimeWorkActivity : BaseActivity<EmptyViewModel, ActivityEditTimeWorkBi
             } else {
                 dialog.dismiss()
                 binding.txtTimeEdit.text = time
-                val date = binding.txtTimeEdit.text.toString()
-                databaseReference.child("TimeWorking")
-                    .child(date)
-                    .child("date").setValue(date)
                 resetDataDate()
                 checkVisibleBackDate()
             }
@@ -341,13 +298,12 @@ class EditTimeWorkActivity : BaseActivity<EmptyViewModel, ActivityEditTimeWorkBi
         dialog.show()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun resetDataDate() {
-        val listHour = null
-        val editTimeAdapter = EditTimeAdapter(listHour, this@EditTimeWorkActivity)
-        editTimeAdapter.notifyDataSetChanged()
-        val grid = GridLayoutManager(applicationContext, 3)
-        binding.rcvEditTime.layoutManager = grid
-        binding.rcvEditTime.adapter = editTimeAdapter
+        val date = binding.txtTimeEdit.text.toString()
+        val requestBodyDate: RequestBody = date
+            .toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        viewModel.getListWorkingTime(requestBodyDate)
 
         getData()
     }
@@ -355,7 +311,7 @@ class EditTimeWorkActivity : BaseActivity<EmptyViewModel, ActivityEditTimeWorkBi
     private fun cancelDeleteHour(list: ArrayList<TimeWorking>) {
         bottomShareBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         editTimeAdapter.notifyDataSetChanged()
-        val listPositionHour: kotlin.collections.ArrayList<Int> = arrayListOf()
+        val listPositionHour: ArrayList<Int> = arrayListOf()
         for(i in 0 until list.size){
             listPositionHour.add(1)
         }
@@ -369,11 +325,6 @@ class EditTimeWorkActivity : BaseActivity<EmptyViewModel, ActivityEditTimeWorkBi
         val json: String = gson.toJson(list)
         editor.putString(key, json)
         editor.apply()
-    }
-
-    private fun setText(){
-        val berkshire: Typeface? = ResourcesCompat.getFont(this, R.font.svn_berkshire_swash)
-        binding.txtTimeEdit.typeface = berkshire
     }
 
     override fun getActivityBinding(inflater: LayoutInflater) =

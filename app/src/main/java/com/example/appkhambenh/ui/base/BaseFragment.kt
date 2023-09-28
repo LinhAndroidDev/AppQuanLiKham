@@ -1,6 +1,7 @@
 package com.example.appkhambenh.ui.base
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,6 +14,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.ViewModelFactoryDsl
 import androidx.viewbinding.ViewBinding
 import com.example.appkhambenh.ui.utils.PreferenceUtil
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.lang.reflect.ParameterizedType
 
 @Suppress("UNREACHABLE_CODE")
@@ -34,6 +38,7 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(),Ion
             activity?.let {
                 viewModel.mPreferenceUtil = PreferenceUtil(it)
             }
+
         bindData()
 
         return binding.root
@@ -53,6 +58,10 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(),Ion
 
     override fun onFragmentBack(): Boolean {
         return false
+    }
+
+    fun convertToRequestBody(str: String): RequestBody{
+        return str.toRequestBody("multipart/form-data".toMediaTypeOrNull())
     }
 
     fun View.hideKeyboard() {

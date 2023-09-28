@@ -1,6 +1,7 @@
 package com.example.appkhambenh.ui.ui.user.appointment.register
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.format.Time
@@ -8,32 +9,29 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.marginBottom
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentAppointmentBinding
 import com.example.appkhambenh.ui.base.BaseFragment
-import com.example.appkhambenh.ui.model.DepartmentClinic
 import com.example.appkhambenh.ui.model.RegisterChecking
 import com.example.appkhambenh.ui.model.Service
-import com.example.appkhambenh.ui.ui.EmptyViewModel
-import com.example.appkhambenh.ui.ui.doctor.department.adapter.EditDepartmentAdapter
 import com.example.appkhambenh.ui.ui.user.LoginWithUser
 import com.example.appkhambenh.ui.ui.user.appointment.register.adapter.ServiceAdapter
 import com.example.appkhambenh.ui.ui.user.appointment.time.FragmentTimeWorking
 import com.example.appkhambenh.ui.utils.*
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.util.HashMap
 
 @Suppress("DEPRECATION")
-class FragmentAppointment : BaseFragment<EmptyViewModel, FragmentAppointmentBinding>() {
+class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentAppointmentBinding>() {
     lateinit var popUpView: View
     var popupWindow = PopupWindow()
 
@@ -133,31 +131,35 @@ class FragmentAppointment : BaseFragment<EmptyViewModel, FragmentAppointmentBind
                 alertDialog.setIcon(R.mipmap.ic_launcher)
                 alertDialog.setMessage("Bạn có chắc chắn muốn đăng kí lịch khám?")
                 alertDialog.setPositiveButton("Có") { _, _ ->
-                    val timeCurrent = Time()
-                    timeCurrent.setToNow()
-                    val seconds = timeCurrent.toMillis(false).toString()
-                    val registerChecking = RegisterChecking(strService, strDepartment, strDoctor, strDate, strHour, strReasons, seconds)
-                    val databaseReference = FirebaseDatabase.getInstance().reference
-                    databaseReference.child("Register_Checking")
-                        .child(seconds)
-                        .setValue(registerChecking).addOnSuccessListener {
-                            val time = viewModel.mPreferenceUtil.defaultPref()
-                                .getString(PreferenceKey.TIME_APPOINTMENT, "").toString()
-                            val hashMap = HashMap<String, Boolean>()
-                            hashMap["registered"] = true
-                            databaseReference.child("TimeWorking")
-                                .child(date)
-                                .child("time")
-                                .child(time)
-                                .updateChildren(hashMap as Map<String, Boolean>)
+                    viewModel.addAppoint(
+                        convertToRequestBody(strService),
+                        convertToRequestBody(strDepartment),
+                        convertToRequestBody(strDoctor),
+                        convertToRequestBody(strDate),
+                        convertToRequestBody(strHour),
+                        convertToRequestBody(strReasons)
+                    )
 
+                    val loadData = ProgressDialog(requireContext())
+                    loadData.setTitle("Thông báo")
+                    loadData.setMessage("Please wait...")
+
+                    viewModel.isLoadingLiveData.observe(viewLifecycleOwner) {
+                        if(it){
+                            loadData.show()
+                        }else {
+                            loadData.dismiss()
+                        }
+                    }
+
+                    viewModel.isSuccessfulLiveData.observe(viewLifecycleOwner) {
+                        if(it) {
                             val intent = Intent(requireActivity(), LoginWithUser::class.java)
                             startActivity(intent)
                             activity?.finish()
                             Toast.makeText(requireActivity() ,"Bạn đã đăng kí lịch khám thành công" ,Toast.LENGTH_SHORT).show()
-                        }.addOnFailureListener{
-                            Toast.makeText(requireActivity(), "Lỗi vui lòng kiểm tra Internet", Toast.LENGTH_SHORT).show()
                         }
+                    }
                 }
                 alertDialog.setNegativeButton("Không") { _, _ -> }
                 alertDialog.show()

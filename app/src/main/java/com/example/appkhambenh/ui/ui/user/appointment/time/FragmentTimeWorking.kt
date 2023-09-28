@@ -1,30 +1,28 @@
 package com.example.appkhambenh.ui.ui.user.appointment.time
 
 import android.annotation.SuppressLint
-import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentTimeWorkingBinding
 import com.example.appkhambenh.ui.base.BaseFragment
-import com.example.appkhambenh.ui.model.TimeWorking
-import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.ui.user.appointment.register.FragmentAppointment
 import com.example.appkhambenh.ui.ui.user.appointment.time.adapter.WorkingTimeAdapter
 import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.google.firebase.database.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.text.SimpleDateFormat
 import java.util.*
 
 @Suppress("DEPRECATION")
-class FragmentTimeWorking : BaseFragment<EmptyViewModel, FragmentTimeWorkingBinding>() {
-    lateinit var databaseReference: DatabaseReference
+class FragmentTimeWorking : BaseFragment<TimeWorkingViewModel, FragmentTimeWorkingBinding>() {
     lateinit var workingTimeAdapter: WorkingTimeAdapter
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -38,14 +36,16 @@ class FragmentTimeWorking : BaseFragment<EmptyViewModel, FragmentTimeWorkingBind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        databaseReference = FirebaseDatabase.getInstance().reference
-
         val calendar: Calendar = Calendar.getInstance()
         binding.txtTimeWorking.text = formatDay.format(calendar.time) +
                 "," + formatDayOfMonth.format(calendar.time) +
                 " tháng " + formatMonth.format(calendar.time)
-        setText()
-        binding.imgBackTime.visibility = View.GONE
+        binding.imgBackTime.alpha = 0.3f
+        binding.imgBackTime.isEnabled = false
+
+        val date = binding.txtTimeWorking.text.toString()
+        val requestBodyDay: RequestBody = date.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        viewModel.getListWorkingTime(requestBodyDay)
 
         getData()
 
@@ -61,7 +61,8 @@ class FragmentTimeWorking : BaseFragment<EmptyViewModel, FragmentTimeWorkingBind
         }
 
         binding.imgNextTime.setOnClickListener {
-            binding.imgBackTime.visibility = View.VISIBLE
+            binding.imgBackTime.alpha = 1f
+            binding.imgBackTime.isEnabled = true
             val calendar: Calendar = Calendar.getInstance()
             COUNT_CHANGE_DATE++
             calendar.add(Calendar.DAY_OF_YEAR, COUNT_CHANGE_DATE)
@@ -85,61 +86,40 @@ class FragmentTimeWorking : BaseFragment<EmptyViewModel, FragmentTimeWorkingBind
 
     private fun getData() {
         val date = binding.txtTimeWorking.text.toString()
-        val listHour: ArrayList<TimeWorking> = arrayListOf()
-        databaseReference.child("TimeWorking")
-            .child(date)
-            .child("time").addChildEventListener(object : ChildEventListener {
-                @SuppressLint("ClickableViewAccessibility")
-                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    val hr = snapshot.getValue(TimeWorking::class.java)
-                    listHour.add(hr!!)
-                    if (listHour.isNotEmpty()) {
-                        workingTimeAdapter = WorkingTimeAdapter(requireActivity(), listHour)
+        viewModel.workingDateLiveData.observe(viewLifecycleOwner) { workingDate ->
+            if(workingDate.time != null) {
+                binding.rcvTimeWorking.visibility = View.VISIBLE
+                binding.notificationEmptyData.visibility = View.GONE
+                workingTimeAdapter = WorkingTimeAdapter(requireActivity(), workingDate.time)
+                workingTimeAdapter.notifyDataSetChanged()
+                val grid = GridLayoutManager(requireActivity(), 3)
+                binding.rcvTimeWorking.layoutManager = grid
+                binding.rcvTimeWorking.adapter = workingTimeAdapter
 
-                        workingTimeAdapter.onClickSelectAppointment = {
-                            val fragmentAppointment = FragmentAppointment()
-                            val fm = activity?.supportFragmentManager?.beginTransaction()
-                            fm?.replace(R.id.changeIdAppointment, fragmentAppointment)
-                                ?.addToBackStack(null)?.commit()
-                            viewModel.mPreferenceUtil.defaultPref()
-                                .edit().putString(PreferenceKey.DATE_APPOINTMENT, date)
-                                .apply()
-                            viewModel.mPreferenceUtil.defaultPref()
-                                .edit().putString(PreferenceKey.HOUR_APPOINTMENT, it.hour)
-                                .apply()
-                            viewModel.mPreferenceUtil.defaultPref()
-                                .edit().putString(PreferenceKey.TIME_APPOINTMENT, it.time)
-                                .apply()
-                        }
-                        workingTimeAdapter.notifyDataSetChanged()
-                        val grid = GridLayoutManager(requireActivity(), 3)
-                        binding.rcvTimeWorking.layoutManager = grid
-                        binding.rcvTimeWorking.adapter = workingTimeAdapter
-                    }
+                workingTimeAdapter.onClickSelectAppointment = {
+                    val fragmentAppointment = FragmentAppointment()
+                    val fm = activity?.supportFragmentManager?.beginTransaction()
+                    fm?.replace(R.id.changeIdAppointment, fragmentAppointment)
+                        ?.addToBackStack(null)?.commit()
+                    viewModel.mPreferenceUtil.defaultPref()
+                        .edit().putString(PreferenceKey.DATE_APPOINTMENT, date)
+                        .apply()
+                    viewModel.mPreferenceUtil.defaultPref()
+                        .edit().putString(PreferenceKey.HOUR_APPOINTMENT, it.hour)
+                        .apply()
                 }
-
-                override fun onChildChanged(
-                    snapshot: DataSnapshot,
-                    previousChildName: String?,
-                ) {
-                }
-
-                override fun onChildRemoved(snapshot: DataSnapshot) {}
-
-                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
-
-                override fun onCancelled(error: DatabaseError) {}
-
-            })
+            }else {
+                binding.rcvTimeWorking.visibility = View.GONE
+                binding.notificationEmptyData.visibility = View.VISIBLE
+            }
+        }
     }
 
     private fun resetDataDate() {
-        val listHour = null
-        workingTimeAdapter = WorkingTimeAdapter(requireActivity(), listHour)
-        workingTimeAdapter.notifyDataSetChanged()
-        val grid = GridLayoutManager(requireActivity(), 3)
-        binding.rcvTimeWorking.layoutManager = grid
-        binding.rcvTimeWorking.adapter = workingTimeAdapter
+        val date = binding.txtTimeWorking.text.toString()
+        val requestBodyDate: RequestBody = date
+            .toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        viewModel.getListWorkingTime(requestBodyDate)
 
         getData()
     }
@@ -151,16 +131,12 @@ class FragmentTimeWorking : BaseFragment<EmptyViewModel, FragmentTimeWorkingBind
                 "," + formatDayOfMonth.format(calendarCurrent.time) +
                 " tháng " + formatMonth.format(calendarCurrent.time)
         if (dateCurrent == binding.txtTimeWorking.text.toString()) {
-            binding.imgBackTime.visibility = View.GONE
+            binding.imgBackTime.alpha = 0.3f
+            binding.imgBackTime.isEnabled = false
         } else {
-            binding.imgBackTime.visibility = View.VISIBLE
+            binding.imgBackTime.alpha = 1f
+            binding.imgBackTime.isEnabled = true
         }
-    }
-
-    private fun setText() {
-        val berkshire: Typeface? =
-            ResourcesCompat.getFont(requireActivity(), R.font.svn_berkshire_swash)
-        binding.txtTimeWorking.typeface = berkshire
     }
 
     override fun onFragmentBack(): Boolean {

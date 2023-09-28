@@ -43,7 +43,7 @@ class EditTimeAdapter(
             onClickEditHourWorking?.invoke(position)
         }
 
-        holder.cbDeleteTime.setOnCheckedChangeListener { compoundButton, b ->
+        holder.cbDeleteTime.setOnCheckedChangeListener { _, b ->
             if(b){
                 onSelectDelete?.invoke(true)
                 time?.isSelectDelete = true
@@ -52,10 +52,10 @@ class EditTimeAdapter(
             }
         }
 
-        val list = getListPositionHour(PreferenceKey.LIST_POSITION_HOUR)
-        if(list[position] == 1){
-            holder.cbDeleteTime.isChecked = false
-        }
+//        val list = getListPositionHour(PreferenceKey.LIST_POSITION_HOUR)
+//        if(list[position] == 1){
+//            holder.cbDeleteTime.isChecked = false
+//        }
     }
 
     private fun saveListPositionHour(list: ArrayList<Int>, key: String?) {
