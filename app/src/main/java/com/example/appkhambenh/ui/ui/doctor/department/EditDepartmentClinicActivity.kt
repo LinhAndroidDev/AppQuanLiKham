@@ -49,7 +49,7 @@ class EditDepartmentClinicActivity :
             txtUpdateDepartment.setOnClickListener {
                 val strDepartment = edtDepartment.text.toString()
                 if (strDepartment.isEmpty()) {
-                    Toast.makeText(this, "Bạn chưa nhập tên khoa", Toast.LENGTH_SHORT).show()
+                    show("Bạn chưa nhập tên khoa")
                 } else {
                     val time = Time()
                     time.setToNow()
@@ -60,7 +60,7 @@ class EditDepartmentClinicActivity :
                         .child(seconds)
                         .setValue(department)
                     getData()
-                    Toast.makeText(this@EditDepartmentClinicActivity, "Bạn đã thêm khoa $strDepartment", Toast.LENGTH_SHORT).show()
+                    show("Bạn đã thêm khoa $strDepartment")
                     dialog.dismiss()
                 }
             }
@@ -95,7 +95,7 @@ class EditDepartmentClinicActivity :
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(applicationContext, error.toString(), Toast.LENGTH_SHORT).show()
+                    show(error.toString())
                 }
             })
     }

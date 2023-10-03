@@ -9,6 +9,7 @@ import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,8 @@ import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.database.*
 import com.google.gson.Gson
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -77,7 +80,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
         }
 
         binding.addHour.setOnClickListener {
-            showDialogAddHour("Thêm giờ làm việc",1, "")
+            showDialogAddHour("Thêm giờ làm việc",1, "", -1)
         }
 
         binding.nextDateEdit.setOnClickListener {
@@ -125,8 +128,8 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("SimpleDateFormat")
-    private fun showDialogAddHour(txtTitle: String,type: Int, dmy: String) {
+    @SuppressLint("SimpleDateFormat", "CheckResult")
+    private fun showDialogAddHour(txtTitle: String,type: Int, strHourSelected: String, idDay: Int) {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(true)
@@ -162,6 +165,15 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
         var strHour = "00"
         var strMinute = "00"
 
+        if(type == 2){
+            strHourSelected.split(":").apply {
+                hour.value = this[0].toInt()
+                minute.value = this[1].toInt()
+                strHour = this[0]
+                strMinute = this[1]
+            }
+        }
+
         minute.setOnValueChangedListener { numberPicker, i, i2 ->
             val number: Int = numberPicker.value
             strMinute = if (number < 10) {
@@ -181,20 +193,58 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
         }
 
         selectHour.setOnClickListener {
-            val time = TimeWorking("$strHour:$strMinute", false)
             val date = binding.txtTimeEdit.text.toString()
             if(type == 1){
-                val requestBodyDate: RequestBody = date
-                    .toRequestBody("multipart/form-data".toMediaTypeOrNull())
-                val requestBodyTime: RequestBody = "$strHour:$strMinute"
-                    .toRequestBody("multipart/form-data".toMediaTypeOrNull())
-                viewModel.editWorkingTime(requestBodyDate, requestBodyTime)
-                viewModel.getListWorkingTime(requestBodyDate)
-                getData()
-            }else if(type == 2){
+                viewModel.editWorkingTime(
+                    convertToRequestBody(date),
+                    convertToRequestBody("$strHour:$strMinute")
+                )
 
+                viewModel.isSuccessfulLiveData.observe(this, androidx.lifecycle.Observer {
+                    if(it){
+                        object : CountDownTimer(300, 300) {
+                            override fun onTick(p0: Long) {
+
+                            }
+
+                            override fun onFinish() {
+                                viewModel.getListWorkingTime(convertToRequestBody(date))
+                                getData()
+                            }
+
+                        }.start()
+                    }
+                })
+                dialog.dismiss()
+            }else if(type == 2){
+                if(strHourSelected != "$strHour:$strMinute"){
+                    viewModel.editWorkingTime(
+                        convertToRequestBody(idDay.toString()),
+                        convertToRequestBody(strHourSelected),
+                        convertToRequestBody("$strHour:$strMinute")
+                    )
+
+                    viewModel.editSuccessfulLiveData.observe(this, androidx.lifecycle.Observer {
+                        if(it){
+                            object : CountDownTimer(300, 300) {
+                                override fun onTick(p0: Long) {
+
+                                }
+
+                                override fun onFinish() {
+                                    show("Bạn đã cập nhật $strHourSelected thành ${"$strHour:$strMinute"}")
+                                    viewModel.getListWorkingTime(convertToRequestBody(date))
+                                    getData()
+                                }
+
+                            }.start()
+                        }
+                    })
+                    dialog.dismiss()
+                }else{
+                    show("Bạn chưa thay đổi giờ")
+                }
             }
-            dialog.dismiss()
         }
 
         dialog.show()
@@ -213,33 +263,43 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
                 binding.rcvEditTime.layoutManager = grid
                 binding.rcvEditTime.adapter = editTimeAdapter
 
-                editTimeAdapter.onSelectDelete = { isSelect ->
-                    if (isSelect) {
-                        binding.layoutBottomDeleteHour.layoutDelete.setOnTouchListener { _, _ -> true }
+                editTimeAdapter.onSelectDelete = { strHour ->
+                    binding.layoutBottomDeleteHour.layoutDelete.setOnTouchListener { _, _ -> true }
+                    bottomShareBehavior =
+                        BottomSheetBehavior.from(binding.layoutBottomDeleteHour.layoutDelete)
+                    bottomShareBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                    binding.layoutBottomDeleteHour.txtCancelDeleteHour.setOnClickListener {
+                        bottomShareBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                    }
 
-                        bottomShareBehavior =
-                            BottomSheetBehavior.from(binding.layoutBottomDeleteHour.layoutDelete)
-                        bottomShareBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                    binding.layoutBottomDeleteHour.txtDeleteHour.setOnClickListener {
+                        viewModel.deleteWorkingTime(
+                            convertToRequestBody(workingDate.id_day.toString()),
+                            convertToRequestBody(strHour)
+                        )
 
-                        binding.layoutBottomDeleteHour.txtCancelDeleteHour.setOnClickListener {
-                            cancelDeleteHour(workingDate.time)
-                        }
+                        viewModel.deleteSuccessfulLiveData.observe(this, androidx.lifecycle.Observer {
+                            if(it) {
+                                object : CountDownTimer(300, 300) {
+                                    override fun onTick(p0: Long) {}
 
-                        binding.layoutBottomDeleteHour.txtDeleteHour.setOnClickListener {
-                            for (i in 0 until workingDate.time.size) {
-                                if (workingDate.time[i].isSelectDelete == true) {
-
-                                    editTimeAdapter.notifyDataSetChanged()
-                                }
+                                    override fun onFinish() {
+                                        show("Bạn đã xoá $strHour thành công")
+                                        viewModel.getListWorkingTime(
+                                            convertToRequestBody(binding.txtTimeEdit.text.toString())
+                                        )
+                                        getData()
+                                    }
+                                }.start()
                             }
-                            cancelDeleteHour(workingDate.time)
-                        }
+                        })
+                        bottomShareBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
                     }
                 }
                 editTimeAdapter.onClickEditHourWorking = {
                     POSITION_ITEM = it
-                    val day = workingDate.time[it].hour.toString()
-                    showDialogAddHour("Chỉnh sửa giờ làm việc", 2, day)
+                    val strHour = workingDate.time[it].hour.toString()
+                    showDialogAddHour("Chỉnh sửa giờ làm việc", 2, strHour, workingDate.id_day!!)
                 }
             } else {
                 binding.rcvEditTime.visibility = View.GONE
@@ -286,7 +346,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
         txtUpdateTime.setOnClickListener {
             val time = edtTime.text.toString()
             if (time.isEmpty()) {
-                Toast.makeText(this, "Bạn chưa nhập thời gian", Toast.LENGTH_SHORT).show()
+                show("Bạn chưa nhập thời gian")
             } else {
                 dialog.dismiss()
                 binding.txtTimeEdit.text = time
@@ -301,30 +361,9 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
     @RequiresApi(Build.VERSION_CODES.O)
     private fun resetDataDate() {
         val date = binding.txtTimeEdit.text.toString()
-        val requestBodyDate: RequestBody = date
-            .toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        viewModel.getListWorkingTime(requestBodyDate)
+        viewModel.getListWorkingTime(convertToRequestBody(date))
 
         getData()
-    }
-
-    private fun cancelDeleteHour(list: ArrayList<TimeWorking>) {
-        bottomShareBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-        editTimeAdapter.notifyDataSetChanged()
-        val listPositionHour: ArrayList<Int> = arrayListOf()
-        for(i in 0 until list.size){
-            listPositionHour.add(1)
-        }
-        saveListPositionHour(listPositionHour,PreferenceKey.LIST_POSITION_HOUR)
-    }
-
-    private fun saveListPositionHour(list: ArrayList<Int>, key: String?) {
-        val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val editor: SharedPreferences.Editor = prefs.edit()
-        val gson = Gson()
-        val json: String = gson.toJson(list)
-        editor.putString(key, json)
-        editor.apply()
     }
 
     override fun getActivityBinding(inflater: LayoutInflater) =

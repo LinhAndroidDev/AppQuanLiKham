@@ -1,20 +1,13 @@
 package com.example.appkhambenh.ui.ui.user.manage_appointment
 
-import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentManageAppointmentBinding
 import com.example.appkhambenh.ui.base.BaseFragment
-import com.example.appkhambenh.ui.model.RegisterChecking
-import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.ui.user.manage_appointment.adapter.ManageAppointmentAdapter
-import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
 
 class FragmentManageAppointment : BaseFragment<ManageAppointmentViewModel, FragmentManageAppointmentBinding>() {
 
@@ -32,14 +25,11 @@ class FragmentManageAppointment : BaseFragment<ManageAppointmentViewModel, Fragm
 
     private fun initUi() {
 
-        val loadData = ProgressDialog(requireContext())
-        loadData.setTitle("Thông báo")
-        loadData.setMessage("Please wait...")
         viewModel.isLoadingLiveData.observe(viewLifecycleOwner) {
             if (it) {
-                loadData.show()
+                binding.loadingData.visibility = View.VISIBLE
             }else{
-                loadData.dismiss()
+                binding.loadingData.visibility = View.GONE
             }
         }
 

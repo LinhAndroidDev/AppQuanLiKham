@@ -64,6 +64,10 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(),Ion
         return str.toRequestBody("multipart/form-data".toMediaTypeOrNull())
     }
 
+    fun show(str: String){
+        Toast.makeText(requireActivity(), str, Toast.LENGTH_SHORT).show()
+    }
+
     fun View.hideKeyboard() {
         val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(windowToken, 0)

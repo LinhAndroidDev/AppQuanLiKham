@@ -12,6 +12,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.example.appkhambenh.ui.utils.PreferenceUtil
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.lang.reflect.ParameterizedType
 import java.util.zip.Inflater
 
@@ -42,6 +45,14 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
                 Toast.LENGTH_SHORT
             ).show()
         })
+    }
+
+    fun convertToRequestBody(str: String): RequestBody {
+        return str.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+    }
+
+    fun show(str: String){
+        Toast.makeText(this, str, Toast.LENGTH_SHORT).show()
     }
 
     private fun View.hideKeyboard() {

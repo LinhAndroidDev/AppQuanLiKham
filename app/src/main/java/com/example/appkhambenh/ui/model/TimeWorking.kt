@@ -2,7 +2,5 @@ package com.example.appkhambenh.ui.model
 
 data class TimeWorking(
     val hour: String? = null,
-    val registered: Boolean? = null,
-    var isSelectDelete: Boolean? = null,
-    var cancelSelect: Boolean? = null
+    val is_registered: Int? = 0,
 )

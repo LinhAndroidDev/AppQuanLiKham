@@ -61,12 +61,11 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
             activity?.onBackPressed()
         }
 
-        binding.calendar.setOnClickListener {
+        binding.layoutDate.setOnClickListener {
             showDialogSelectDate()
         }
 
         binding.register.setOnClickListener {
-
             val name: String = binding.edtName.text.toString()
             val email: String = binding.edtEmail.text.toString()
             val password: String = binding.edtPassword.text.toString()
@@ -86,26 +85,13 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
             }else if(password != passwordRepeat){
                 setNotification(R.color.txt_red, R.string.txt_enter_password_again)
             }else{
-                val requestBodyEmail: RequestBody =
-                    email.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-                val requestBodyPassword: RequestBody =
-                    password.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-                val requestBodyName: RequestBody =
-                    name.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-                val requestBodyBirth: RequestBody =
-                    birth.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-                val requestBodyAddress: RequestBody =
-                    address.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-                val requestBodyPhone: RequestBody =
-                    phone.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-
                 viewModel.requestRegisterUser(
-                    requestBodyEmail,
-                    requestBodyPassword,
-                    requestBodyName,
-                    requestBodyBirth,
-                    requestBodyPhone,
-                    requestBodyAddress
+                    convertToRequestBody(email),
+                    convertToRequestBody(password),
+                    convertToRequestBody(name),
+                    convertToRequestBody(birth),
+                    convertToRequestBody(phone),
+                    convertToRequestBody(address)
                 )
             }
         }
@@ -126,7 +112,7 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
                 selectDate.set(Calendar.MONTH, month)
                 selectDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-                binding.edtBirth.setText(formatDate.format(selectDate.time))
+                binding.edtBirth.text = formatDate.format(selectDate.time)
 
             }, getDate.get(Calendar.YEAR), getDate.get((Calendar.MONTH)), getDate.get(Calendar.DAY_OF_MONTH))
 

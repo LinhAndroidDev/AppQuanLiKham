@@ -54,7 +54,7 @@ class ListDoctorActivity : BaseActivity<EmptyViewModel, ActivityListDoctorBindin
             txtUpdateDoctor.setOnClickListener {
                 val strDoctor = edtDoctor.text.toString()
                 if (strDoctor.isEmpty()) {
-                    Toast.makeText(this, "Bạn chưa nhập tên Bác Sĩ", Toast.LENGTH_SHORT).show()
+                    show("Bạn chưa nhập tên Bác Sĩ")
                 } else {
                     val time = Time()
                     time.setToNow()
@@ -65,7 +65,7 @@ class ListDoctorActivity : BaseActivity<EmptyViewModel, ActivityListDoctorBindin
                         .child(seconds)
                         .setValue(doctor)
                     getData()
-                    Toast.makeText(this@ListDoctorActivity, "Bạn đã thêm Bác sĩ $strDoctor", Toast.LENGTH_SHORT).show()
+                    show("Bạn đã thêm Bác sĩ $strDoctor")
                     dialog.dismiss()
                 }
             }
@@ -101,7 +101,7 @@ class ListDoctorActivity : BaseActivity<EmptyViewModel, ActivityListDoctorBindin
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(applicationContext, error.toString(), Toast.LENGTH_SHORT).show()
+                    show(error.toString())
                 }
             })
     }

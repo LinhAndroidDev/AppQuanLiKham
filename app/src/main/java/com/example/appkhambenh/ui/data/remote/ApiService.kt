@@ -8,6 +8,7 @@ import com.example.appkhambenh.ui.model.Medicine
 import com.example.appkhambenh.ui.model.RegisterChecking
 import com.example.appkhambenh.ui.model.WorkingDate
 import com.example.appkhambenh.ui.ui.doctor.time_working.UpdateTimeResponse
+import com.example.appkhambenh.ui.ui.user.appointment.register.ChangeStatusWorkingTimeResponse
 import com.example.appkhambenh.ui.ui.user.appointment.register.RegisterAppointmentResponse
 import io.reactivex.rxjava3.core.Observable
 import okhttp3.RequestBody
@@ -81,4 +82,27 @@ interface ApiService {
         @Part("hour") hour: RequestBody,
         @Part("reasons") reasons: RequestBody,
     ): Observable<RegisterAppointmentResponse>
+
+    @Multipart
+    @POST("change_status_working_time.php")
+    fun changeStatusWorkingTime(
+        @Part("id_day") id_day: RequestBody,
+        @Part("hour") hour: RequestBody,
+        @Part("is_registered") is_registered: RequestBody
+    ): Observable<ChangeStatusWorkingTimeResponse>
+
+    @Multipart
+    @POST("delete_working_time.php")
+    fun deleteWorkingTime(
+        @Part("id_day") id_day: RequestBody,
+        @Part("hour") hour: RequestBody
+    ): Observable<UpdateTimeResponse>
+
+    @Multipart
+    @POST("edit_working_time.php")
+    fun editWorkingTime(
+        @Part("id_day") id_day: RequestBody,
+        @Part("hour") hour: RequestBody,
+        @Part("new_hour") new_hour: RequestBody
+    ): Observable<UpdateTimeResponse>
 }

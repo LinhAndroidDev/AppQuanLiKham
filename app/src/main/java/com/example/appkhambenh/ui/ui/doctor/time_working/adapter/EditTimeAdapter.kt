@@ -12,7 +12,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appkhambenh.R
 import com.example.appkhambenh.ui.model.TimeWorking
-import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
@@ -21,13 +20,13 @@ class EditTimeAdapter(
     private val listTimeEdit: ArrayList<TimeWorking>?,
     val context: Context
 ) : RecyclerView.Adapter<EditTimeAdapter.ViewHolder>() {
-    var onSelectDelete: ((Boolean)->Unit)? = null
+    var onSelectDelete: ((String)->Unit)? = null
     var onClickEditHourWorking: ((Int)->Unit)? = null
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val time: TextView = itemView.findViewById(R.id.txtTime)
         val imgEditTime: ImageView = itemView.findViewById(R.id.imgEditTime)
-        val cbDeleteTime: CheckBox = itemView.findViewById(R.id.cbDeleteTime)
+        val imgDeleteTime: ImageView = itemView.findViewById(R.id.imgDeleteTime)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,36 +42,10 @@ class EditTimeAdapter(
             onClickEditHourWorking?.invoke(position)
         }
 
-        holder.cbDeleteTime.setOnCheckedChangeListener { _, b ->
-            if(b){
-                onSelectDelete?.invoke(true)
-                time?.isSelectDelete = true
-            }else{
-                time?.isSelectDelete = false
-            }
+        holder.imgDeleteTime.setOnClickListener {
+            onSelectDelete?.invoke(time?.hour.toString())
         }
 
-//        val list = getListPositionHour(PreferenceKey.LIST_POSITION_HOUR)
-//        if(list[position] == 1){
-//            holder.cbDeleteTime.isChecked = false
-//        }
-    }
-
-    private fun saveListPositionHour(list: ArrayList<Int>, key: String?) {
-        val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val editor: SharedPreferences.Editor = prefs.edit()
-        val gson = Gson()
-        val json: String = gson.toJson(list)
-        editor.putString(key, json)
-        editor.apply()
-    }
-
-    private fun getListPositionHour(key: String?): ArrayList<Int> {
-        val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val gson = Gson()
-        val json: String? = prefs.getString(key, null)
-        val type: Type = object : TypeToken<ArrayList<Int>>() {}.type
-        return gson.fromJson(json, type)
     }
 
     override fun getItemCount(): Int {

@@ -36,13 +36,13 @@ class WorkingTimeAdapter(
         val time: TimeWorking? = listTime?.get(position)
         holder.hour.text = time?.hour
 
-        if(time?.registered == true){
+        if(time?.is_registered == 1){
             holder.hour.setBackgroundResource(R.color.grey)
             holder.hour.setTextColor(context.resources.getColor(R.color.black))
         }
 
         holder.itemView.setOnClickListener {
-            if(time?.registered == true){
+            if(time?.is_registered == 1) {
                 Toast.makeText(context, "Lịch khám đã được đặt", Toast.LENGTH_SHORT).show()
             }else{
                 onClickSelectAppointment?.invoke(time!!)

@@ -1,49 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F7F7"
-    android:orientation="vertical"
     tools:context=".ui.ui.user.manage_appointment.FragmentManageAppointment">
 
     <LinearLayout
-        android:background="@color/white"
+        android:background="#F8F7F7"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <RelativeLayout
-            android:layout_marginTop="60dp"
-            android:layout_marginBottom="30dp"
-            android:layout_marginHorizontal="10dp"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/backManageAppoint"
-                android:layout_marginStart="10dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_action_back"
-                android:layout_width="35dp"
-                android:layout_height="25dp"/>
-            <TextView
-                android:text="Danh Sách Lịch Hẹn"
-                android:textSize="25dp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_centerHorizontal="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/backManageAppoint"
+                    android:layout_marginStart="10dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_action_back"
+                    android:layout_width="35dp"
+                    android:layout_height="25dp"/>
+                <TextView
+                    android:text="Danh Sách Lịch Hẹn"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View
+            android:background="@drawable/line_divider"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_manage_appointment"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
     </LinearLayout>
 
-    <View
-        android:background="@drawable/line_divider"
-        android:layout_width="match_parent"
-        android:layout_height="8dp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_manage_appointment"
-        android:layout_marginHorizontal="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-</LinearLayout>
+    <ProgressBar
+        android:id="@+id/loadingData"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+</RelativeLayout>

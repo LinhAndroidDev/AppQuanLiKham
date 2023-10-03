@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.text.format.Time
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentAppointmentBinding
 import com.example.appkhambenh.ui.base.BaseFragment
-import com.example.appkhambenh.ui.model.RegisterChecking
 import com.example.appkhambenh.ui.model.Service
 import com.example.appkhambenh.ui.ui.user.LoginWithUser
 import com.example.appkhambenh.ui.ui.user.appointment.register.adapter.ServiceAdapter
@@ -26,9 +24,6 @@ import com.example.appkhambenh.ui.ui.user.appointment.time.FragmentTimeWorking
 import com.example.appkhambenh.ui.utils.*
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
-import java.util.HashMap
 
 @Suppress("DEPRECATION")
 class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentAppointmentBinding>() {
@@ -138,6 +133,14 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
                         convertToRequestBody(strDate),
                         convertToRequestBody(strHour),
                         convertToRequestBody(strReasons)
+                    )
+
+                    val id_day = viewModel.mPreferenceUtil.defaultPref().getInt(PreferenceKey.ID_DAY, 0)
+                    val status = 1
+                    viewModel.changeStatusWorkingTime(
+                        convertToRequestBody(id_day.toString()),
+                        convertToRequestBody(hour),
+                        convertToRequestBody(status.toString())
                     )
 
                     val loadData = ProgressDialog(requireContext())

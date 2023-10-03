@@ -107,6 +107,9 @@ class FragmentTimeWorking : BaseFragment<TimeWorkingViewModel, FragmentTimeWorki
                     viewModel.mPreferenceUtil.defaultPref()
                         .edit().putString(PreferenceKey.HOUR_APPOINTMENT, it.hour)
                         .apply()
+                    viewModel.mPreferenceUtil.defaultPref()
+                        .edit().putInt(PreferenceKey.ID_DAY, workingDate.id_day!!)
+                        .apply()
                 }
             }else {
                 binding.rcvTimeWorking.visibility = View.GONE

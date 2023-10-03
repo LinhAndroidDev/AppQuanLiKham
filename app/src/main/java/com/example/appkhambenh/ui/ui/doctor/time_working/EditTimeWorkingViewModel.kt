@@ -15,9 +15,11 @@ class EditTimeWorkingViewModel : BaseViewModel() {
     var isLoadingUpdateLiveData = MutableLiveData<Boolean>()
     var isLoadingGetTimeLiveData = MutableLiveData<Boolean>()
     var workingDateLiveData = MutableLiveData<WorkingDate>()
+    var deleteSuccessfulLiveData = MutableLiveData<Boolean>()
+    var editSuccessfulLiveData = MutableLiveData<Boolean>()
 
     fun getListWorkingTime(day: RequestBody) {
-        isLoadingGetTimeLiveData.value = true
+        isLoadingGetTimeLiveData.postValue(true)
         ApiClient.shared().getWorkingTime(day)
             .observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
@@ -62,6 +64,73 @@ class EditTimeWorkingViewModel : BaseViewModel() {
                         }
                         else -> {
                             errorApiLiveData.postValue(t.message)
+                        }
+                    }
+                }
+
+            })
+    }
+
+    fun deleteWorkingTime(id_day: RequestBody, hour: RequestBody){
+        ApiClient.shared().deleteWorkingTime(id_day, hour)
+            .observeOn(Schedulers.io())
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<UpdateTimeResponse>{
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onError(e: Throwable) {
+
+                }
+
+                override fun onComplete() {
+
+                }
+
+                override fun onNext(t: UpdateTimeResponse) {
+                    when(t.statusCode){
+                        ApiClient.STATUS_CODE_SUCCESS -> {
+                            deleteSuccessfulLiveData.postValue(true)
+                        }
+                        else -> {
+                            deleteSuccessfulLiveData.postValue(false)
+                        }
+                    }
+                }
+
+            })
+    }
+
+    fun editWorkingTime(
+        id_day: RequestBody,
+        hour: RequestBody,
+        new_hour: RequestBody
+    ){
+        ApiClient.shared().editWorkingTime(id_day, hour, new_hour)
+            .observeOn(Schedulers.io())
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<UpdateTimeResponse>{
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onError(e: Throwable) {
+                    errorApiLiveData.postValue(e.message)
+                }
+
+                override fun onComplete() {
+
+                }
+
+                override fun onNext(t: UpdateTimeResponse) {
+                    when(t.statusCode) {
+                        ApiClient.STATUS_CODE_SUCCESS -> {
+                            editSuccessfulLiveData.postValue(true)
+                        }
+                        else -> {
+                            errorApiLiveData.postValue(t.message)
+                            editSuccessfulLiveData.postValue(false)
                         }
                     }
                 }

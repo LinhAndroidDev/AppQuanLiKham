@@ -12,6 +12,7 @@ import okhttp3.RequestBody
 class FragmentAppointmentViewModel : BaseViewModel() {
     var isLoadingLiveData = MutableLiveData<Boolean>()
     var isSuccessfulLiveData = MutableLiveData<Boolean>()
+    var isChangeStatusLiveData = MutableLiveData<Boolean>()
 
     fun addAppoint(
         service: RequestBody,
@@ -42,6 +43,42 @@ class FragmentAppointmentViewModel : BaseViewModel() {
                 override fun onNext(t: RegisterAppointmentResponse) {
                     isLoadingLiveData.postValue(false)
                     isSuccessfulLiveData.postValue(true)
+                }
+
+            })
+    }
+
+    fun changeStatusWorkingTime(
+        id_day: RequestBody,
+        hour: RequestBody,
+        is_registered: RequestBody
+    ){
+        ApiClient.shared().changeStatusWorkingTime(id_day, hour, is_registered)
+            .observeOn(Schedulers.io())
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<ChangeStatusWorkingTimeResponse>{
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onError(e: Throwable) {
+                    errorApiLiveData.postValue(e.message)
+                }
+
+                override fun onComplete() {
+
+                }
+
+                override fun onNext(t: ChangeStatusWorkingTimeResponse) {
+                    when(t.statusCode) {
+                        ApiClient.STATUS_CODE_SUCCESS -> {
+                            isChangeStatusLiveData.postValue(true)
+                        }
+                        else -> {
+                            isChangeStatusLiveData.postValue(false)
+                            errorApiLiveData.postValue(t.message)
+                        }
+                    }
                 }
 
             })
