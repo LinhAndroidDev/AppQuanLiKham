@@ -20,6 +20,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.ui.user.navigation.information.InformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ui.doctor.statistical.StatisticalActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ui.user.manage_appointment.ManageAppointmentActivity"
             android:exported="false" />
         <activity

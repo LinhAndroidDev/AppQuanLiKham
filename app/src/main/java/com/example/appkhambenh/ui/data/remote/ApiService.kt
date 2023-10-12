@@ -20,14 +20,14 @@ import retrofit2.http.Part
 
 interface ApiService {
     @Multipart
-    @POST("login.php")
+    @POST("account/login.php")
     fun loginUser(
         @Part("email") email: RequestBody,
         @Part("password") password: RequestBody
     ):Call<LoginResponse>
 
     @Multipart
-    @POST("register.php")
+    @POST("account/register.php")
     fun registerUser(
         @Part("email") email: RequestBody,
         @Part("password") password: RequestBody,
@@ -40,51 +40,45 @@ interface ApiService {
     @GET("medicine.php")
     fun getListMedicine(): Observable<List<Medicine>>
 
-    @GET("working_time.php")
-    fun getWorkingDate(): Call<ArrayList<WorkingDate>>
-
     @Multipart
-    @POST("upload_image.php")
+    @POST("account/upload_image.php")
     fun uploadImage(
         @Part("user_id") user_id: RequestBody,
         @Part("avatar") avatar: RequestBody
     ): Call<UploadImageResponse>
 
     @Multipart
-    @POST("user_info.php")
+    @POST("account/user_info.php")
     fun getUserInfo(
         @Part("id") id: RequestBody
     ): Call<UserInfoResponse>
 
     @Multipart
-    @POST("update_working_time.php")
+    @POST("account/update_info.php")
+    fun updateInfo(
+        @Part("id") id: RequestBody,
+        @Part("name") name: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("birth") birth: RequestBody,
+        @Part("phone") phone: RequestBody,
+        @Part("address") address: RequestBody,
+    ): Observable<UserInfoResponse>
+
+    @Multipart
+    @POST("time/update_working_time.php")
     fun updateWorkingTime(
         @Part("day") day: RequestBody,
         @Part("hour") hour: RequestBody
     ): Observable<UpdateTimeResponse>
 
     @Multipart
-    @POST("working_time.php")
+    @POST("time/working_time.php")
     fun getWorkingTime(
         @Part("day") day: RequestBody
     ): Observable<WorkingDate>
 
-    @GET("get_list_appointment.php")
-    fun getListAppointment(): Observable<List<RegisterChecking>>
-
     @Multipart
-    @POST("add_appointment.php")
-    fun addAppointment(
-        @Part("service") service: RequestBody,
-        @Part("department") department: RequestBody,
-        @Part("doctor") doctor: RequestBody,
-        @Part("date") date: RequestBody,
-        @Part("hour") hour: RequestBody,
-        @Part("reasons") reasons: RequestBody,
-    ): Observable<RegisterAppointmentResponse>
-
-    @Multipart
-    @POST("change_status_working_time.php")
+    @POST("time/change_status_working_time.php")
     fun changeStatusWorkingTime(
         @Part("id_day") id_day: RequestBody,
         @Part("hour") hour: RequestBody,
@@ -92,17 +86,44 @@ interface ApiService {
     ): Observable<ChangeStatusWorkingTimeResponse>
 
     @Multipart
-    @POST("delete_working_time.php")
+    @POST("time/delete_working_time.php")
     fun deleteWorkingTime(
         @Part("id_day") id_day: RequestBody,
         @Part("hour") hour: RequestBody
     ): Observable<UpdateTimeResponse>
 
     @Multipart
-    @POST("edit_working_time.php")
+    @POST("time/edit_working_time.php")
     fun editWorkingTime(
         @Part("id_day") id_day: RequestBody,
         @Part("hour") hour: RequestBody,
         @Part("new_hour") new_hour: RequestBody
     ): Observable<UpdateTimeResponse>
+
+    @Multipart
+    @POST("appointment/get_list_appointment.php")
+    fun getListAppointment(
+        @Part("id_user") id_user: RequestBody
+    ): Observable<List<RegisterChecking>>
+
+    @Multipart
+    @POST("appointment/add_appointment.php")
+    fun addAppointment(
+        @Part("service") service: RequestBody,
+        @Part("department") department: RequestBody,
+        @Part("doctor") doctor: RequestBody,
+        @Part("date") date: RequestBody,
+        @Part("hour") hour: RequestBody,
+        @Part("reasons") reasons: RequestBody,
+        @Part("id_user") id_user: RequestBody
+    ): Observable<RegisterAppointmentResponse>
+
+    @Multipart
+    @POST("appointment/delete_appointment.php")
+    fun deleteAppoint(
+        @Part("is_cancel") is_cancel: RequestBody,
+        @Part("day") day: RequestBody,
+        @Part("hour") hour: RequestBody,
+        @Part("is_registered") is_registered: RequestBody
+    ): Observable<RegisterAppointmentResponse>
 }

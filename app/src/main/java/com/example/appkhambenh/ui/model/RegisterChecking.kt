@@ -7,4 +7,5 @@ data class RegisterChecking(
     val date: String? = null,
     val hour: String? = null,
     val reasons: String? = null,
-)
+    val id_user: Int? = null
+): java.io.Serializable

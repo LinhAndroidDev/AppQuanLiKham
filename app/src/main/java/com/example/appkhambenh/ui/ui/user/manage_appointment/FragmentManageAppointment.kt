@@ -1,15 +1,27 @@
 package com.example.appkhambenh.ui.ui.user.manage_appointment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentManageAppointmentBinding
 import com.example.appkhambenh.ui.base.BaseFragment
+import com.example.appkhambenh.ui.ui.user.appointment.register.FragmentAppointment
 import com.example.appkhambenh.ui.ui.user.manage_appointment.adapter.ManageAppointmentAdapter
+import com.example.appkhambenh.ui.utils.PreferenceKey
 
 class FragmentManageAppointment : BaseFragment<ManageAppointmentViewModel, FragmentManageAppointmentBinding>() {
+
+    lateinit var adapterManageAppointment: ManageAppointmentAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -20,21 +32,23 @@ class FragmentManageAppointment : BaseFragment<ManageAppointmentViewModel, Fragm
     override fun bindData() {
         super.bindData()
 
-        viewModel.getListAppointment()
+        viewModel.getListAppointment(
+            convertToRequestBody(id_user.toString())
+        )
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun initUi() {
 
-        viewModel.isLoadingLiveData.observe(viewLifecycleOwner) {
-            if (it) {
-                binding.loadingData.visibility = View.VISIBLE
-            }else{
-                binding.loadingData.visibility = View.GONE
-            }
+        adapterManageAppointment =
+            ManageAppointmentAdapter(null, requireActivity())
+
+        viewModel.isLoadingLiveData.observe(viewLifecycleOwner) { isLoading ->
+            binding.loadingData.visibility = if(isLoading) View.VISIBLE else View.GONE
         }
 
         viewModel.listAppointmentLiveData.observe(viewLifecycleOwner) {
-            val adapterManageAppointment =
+            adapterManageAppointment =
                 ManageAppointmentAdapter(it, requireActivity())
             val linear = LinearLayoutManager(
                 requireActivity(),
@@ -43,10 +57,72 @@ class FragmentManageAppointment : BaseFragment<ManageAppointmentViewModel, Fragm
             )
             binding.rcvManageAppointment.layoutManager = linear
             binding.rcvManageAppointment.adapter = adapterManageAppointment
+
+            adapterManageAppointment.isClickEditAppoint = { registerChecking ->
+                val fragmentAppoint = FragmentAppointment()
+                val fm: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+                fm.replace(R.id.changeIdManageAppointment, fragmentAppoint)
+                    .addToBackStack(null).commit()
+                val bundle = Bundle()
+                bundle.putSerializable(PreferenceKey.REGISTER_CHECKING, registerChecking)
+                fragmentAppoint.arguments = bundle
+            }
+
+            adapterManageAppointment.isCancelAppoint = { registerChecking ->
+                val alertDialog : AlertDialog.Builder = AlertDialog.Builder(requireActivity())
+                alertDialog.setTitle("Xác nhận xoá lịch hẹn")
+                alertDialog.setIcon(R.mipmap.ic_launcher)
+                alertDialog.setMessage("Lịch hẹn ${registerChecking!!.date} lúc ${registerChecking.hour} của bạn sẽ được xoá khỏi danh sách")
+                alertDialog.setPositiveButton("Đồng ý") { _, _ ->
+                    viewModel.deleteAppoint(
+                        convertToRequestBody("2"),
+                        convertToRequestBody(registerChecking.date!!),
+                        convertToRequestBody(registerChecking.hour!!),
+                        convertToRequestBody("0")
+                    )
+                    if(viewModel.deleteSuccessful){
+                        show("Bạn đã xoá thành công lịch hẹn ${registerChecking.date} lúc ${registerChecking.hour}")
+                        viewModel.getListAppointment(
+                            convertToRequestBody(id_user.toString())
+                        )
+                        adapterManageAppointment.notifyDataSetChanged()
+                    }
+                }
+                alertDialog.setNegativeButton("Không") { _, _ -> }
+                alertDialog.show()
+            }
         }
 
         binding.backManageAppoint.setOnClickListener {
             activity?.onBackPressed()
+        }
+
+        binding.searchManageAppoint.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                binding.imgDeleteTxt.visibility =
+                if(p0!!.trim().isNotEmpty()) View.VISIBLE else View.GONE
+
+                adapterManageAppointment.filter.filter(p0)
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+        })
+
+        binding.layoutHideKeyboard.setOnTouchListener { view, _ ->
+            view.hideKeyboard()
+            binding.searchManageAppoint.clearFocus()
+            false
+        }
+
+        binding.imgDeleteTxt.setOnClickListener {
+            binding.searchManageAppoint.setText("")
         }
     }
 

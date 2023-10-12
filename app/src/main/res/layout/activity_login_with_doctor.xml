@@ -26,14 +26,8 @@
 
         <LinearLayout
             android:id="@+id/llEditWorkingTime"
-            android:layout_weight="1"
-            android:layout_width="0dp"
             android:background="@drawable/boder_function_doctor"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="20dp"
-            android:paddingVertical="20dp"
-            android:layout_height="wrap_content">
+            style="@style/boder_function_doctor">
 
             <ImageView
                 android:src="@drawable/ic_action_add_appoint"
@@ -54,14 +48,8 @@
 
         <LinearLayout
             android:id="@+id/llEditListClinic"
-            android:layout_weight="1"
-            android:layout_width="0dp"
             android:background="@drawable/boder_function_doctor"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="20dp"
-            android:paddingVertical="20dp"
-            android:layout_height="wrap_content">
+            style="@style/boder_function_doctor">
 
             <ImageView
                 android:layout_width="30dp"
@@ -90,40 +78,45 @@
 
         <LinearLayout
             android:id="@+id/llEditListDoctor"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:background="@drawable/boder_function_doctor"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="20dp"
-            android:paddingVertical="20dp"
-            android:layout_height="wrap_content">
+            style="@style/boder_function_doctor"
+            android:background="@drawable/boder_function_doctor">
 
             <ImageView
-                android:src="@drawable/ic_action_edit_doctor"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_action_edit_doctor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Chỉnh sửa danh sách Bác Sĩ"
+                android:textColor="@color/black"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llStatistical"
+            android:background="@drawable/boder_function_doctor"
+            style="@style/boder_function_doctor">
+
+            <ImageView
+                android:src="@drawable/ic_action_statistical"
                 android:layout_width="30dp"
                 android:layout_height="30dp"/>
 
             <TextView
                 android:layout_marginTop="10dp"
-                android:text="Chỉnh sửa danh sách Bác Sĩ"
+                android:text="Thống kê lịch hẹn"
                 android:textSize="14dp"
                 android:textColor="@color/black"
                 android:gravity="center"
                 android:layout_marginHorizontal="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="20dp"
-            android:paddingVertical="15dp"
-            android:layout_height="wrap_content">
 
         </LinearLayout>
 

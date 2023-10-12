@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.ApiClient
 import com.example.appkhambenh.ui.data.remote.entity.LoginResponse
-import com.example.appkhambenh.ui.data.remote.entity.UserInfoResponse
 import com.example.appkhambenh.ui.utils.PreferenceKey
 import okhttp3.RequestBody
 import retrofit2.Call

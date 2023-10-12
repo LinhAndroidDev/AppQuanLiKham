@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -50,23 +51,53 @@
 
         <LinearLayout
             android:layout_marginTop="20dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:text="Bệnh nhân:"
-                android:textSize="14dp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Bệnh nhân:"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/txt_name_patient"
+                    android:layout_marginStart="5dp"
+                    android:text="Nguyễn Hữu Linh"
+                    android:textSize="14dp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/editAppoint"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/txt_name_patient"
-                android:layout_marginStart="5dp"
-                android:text="Nguyễn Hữu Linh"
-                android:textSize="14dp"
-                android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="Chỉnh sửa"
+                    android:textSize="14dp"
+                    android:textColor="@color/background"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:layout_marginStart="2dp"
+                    android:background="@drawable/ic_action_edit_department_clinic"
+                    android:backgroundTint="@color/background"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -96,79 +127,120 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:text="Tại:"
-                android:textSize="14dp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/txt_address"
-                android:layout_marginStart="5dp"
-                android:text="Khoa điều trị tạm thời"
-                android:textSize="14dp"
-                android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
 
-        <TextView
-            android:id="@+id/txt_service"
-            android:layout_marginTop="10dp"
-            android:text="Khám tự nguyện"
-            android:textSize="14dp"
-            android:textStyle="italic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <TextView
-            android:text="- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+                <TextView
+                    android:text="Tại:"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/txt_address"
+                    android:layout_marginStart="5dp"
+                    android:text="Khoa điều trị tạm thời"
+                    android:textSize="14dp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-        <LinearLayout
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:text="Bác sĩ:"
-                android:textSize="14dp"
-                android:textStyle="bold"
-                android:textColor="@color/text"
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/txt_name_doctor"
-                android:layout_marginStart="5dp"
-                android:text="Phan Văn Hùng"
-                android:textSize="14dp"
-                android:textColor="@color/text"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtExpand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:textColor="@color/color_search"
+                    android:textStyle="italic"
+                    android:text="chi tiết"/>
+
+                <ImageView
+                    android:id="@+id/imgExpand"
+                    android:src="@drawable/ic_action_expand"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layoutExpand"
+            android:visibility="gone"
             android:layout_marginTop="10dp"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
-                android:text="Triệu chứng/Lí do:"
+                android:id="@+id/txt_service"
+                android:text="Khám tự nguyện"
                 android:textSize="14dp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textStyle="italic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
             <TextView
-                android:id="@+id/txt_reasons"
-                android:layout_marginStart="5dp"
-                android:text="Sốt nhẹ, cảm cúm"
-                android:textSize="14dp"
-                android:textColor="@color/black"
+                android:text="- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="Bác sĩ:"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/txt_name_doctor"
+                    android:layout_marginStart="5dp"
+                    android:text="Phan Văn Hùng"
+                    android:textSize="14dp"
+                    android:textColor="@color/text"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="Triệu chứng/Lí do:"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/txt_reasons"
+                    android:layout_marginStart="5dp"
+                    android:text="Sốt nhẹ, cảm cúm"
+                    android:textSize="14dp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

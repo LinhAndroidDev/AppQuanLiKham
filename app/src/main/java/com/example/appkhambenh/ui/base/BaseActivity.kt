@@ -1,26 +1,29 @@
 package com.example.appkhambenh.ui.base
 
 import android.content.Context
+import android.graphics.Point
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.TypedValue
+import android.view.*
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
+import com.example.appkhambenh.R
 import com.example.appkhambenh.ui.utils.PreferenceUtil
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.lang.reflect.ParameterizedType
-import java.util.zip.Inflater
 
 abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActivity() {
     lateinit var viewModel: V
     lateinit var binding: B
+    var screenWidth: Int = 0
+    var screenHeight: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,11 +42,7 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
 
     open fun bindData() {
         viewModel.errorApiLiveData.observe(this, Observer {
-            Toast.makeText(
-                this,
-                it,
-                Toast.LENGTH_SHORT
-            ).show()
+            show(it)
         })
     }
 
@@ -52,11 +51,34 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
     }
 
     fun show(str: String){
-        Toast.makeText(this, str, Toast.LENGTH_SHORT).show()
+        val toast: View = View.inflate(this, R.layout.custom_toast, null)
+        val txtToast: TextView = toast.findViewById(R.id.txtToast)
+        txtToast.text = str
+        Toast(this).apply {
+            duration = Toast.LENGTH_SHORT
+            setGravity(Gravity.BOTTOM, 0, 10.dpToPx())
+            view = toast
+        }.show()
     }
 
     private fun View.hideKeyboard() {
         val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(windowToken, 0)
+    }
+
+    private fun getSizeWindow() {
+        val display: Display = windowManager.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+        screenWidth = size.x
+        screenHeight = size.y
+    }
+
+    private fun Int.dpToPx(): Int {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            this.toFloat(),
+            resources.displayMetrics
+        ).toInt()
     }
 }

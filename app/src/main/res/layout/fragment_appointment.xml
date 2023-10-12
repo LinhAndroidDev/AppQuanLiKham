@@ -22,6 +22,7 @@
             android:layout_height="30dp"/>
 
         <TextView
+            android:id="@+id/txtTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -39,7 +40,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/avatarAppointment"
             android:layout_marginStart="10dp"
-            android:src="@drawable/ic_action_ad"
+            android:src="@drawable/user_ad"
             android:layout_width="40dp"
             android:layout_height="40dp"/>
 
@@ -49,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginStart="5dp"
-            android:layout_toRightOf="@+id/avatarAppointment"
+            android:layout_toEndOf="@+id/avatarAppointment"
             android:text="Hà Hữu Hải"
             android:textColor="@color/black"
             android:textSize="14dp"
@@ -152,6 +153,7 @@
             app:cardCornerRadius="15dp"
             app:cardBackgroundColor="@color/background">
             <TextView
+                android:id="@+id/txtRegister"
                 android:text="Đăng Ký Khám"
                 android:textSize="14dp"
                 android:textColor="@color/white"

@@ -12,6 +12,9 @@ import android.view.animation.AnimationUtils
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentRegisterBinding
 import com.example.appkhambenh.ui.base.BaseFragment
+import com.example.appkhambenh.ui.utils.validateEmail
+import com.example.appkhambenh.ui.utils.validatePassword
+import com.example.appkhambenh.ui.utils.validatePhone
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -74,17 +77,18 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
             val address: String = binding.edtAddress.text.toString()
             val phone: String = binding.edtPhone.text.toString()
 
-            val validateEmail: com.example.appkhambenh.ui.utils.Email = com.example.appkhambenh.ui.utils.Email(email, password)
-
             if(name.isEmpty() || email.isEmpty() || password.isEmpty() || passwordRepeat.isEmpty() || birth.isEmpty() || address.isEmpty()){
                 setNotification(R.color.txt_green,R.string.txt_enter_enough_info)
-            }else if(!validateEmail.isValidEmail()){
+            }else if(!validateEmail(email)){
                 setNotification(R.color.txt_red, R.string.txt_fail_email)
-            }else if(!validateEmail.isPassword()){
+            }else if(!validatePassword(password)){
                 setNotification(R.color.txt_red, R.string.txt_fail_password)
             }else if(password != passwordRepeat){
                 setNotification(R.color.txt_red, R.string.txt_enter_password_again)
-            }else{
+            }else if(!validatePhone(phone)){
+                setNotification(R.color.txt_red, R.string.txt_warning_phone)
+            }
+            else{
                 viewModel.requestRegisterUser(
                     convertToRequestBody(email),
                     convertToRequestBody(password),

@@ -25,6 +25,7 @@
     <string name="edt_enter_phone">Nhập số điện thoại</string>
     <string name="txt_title_address">Địa chỉ</string>
     <string name="edt_enter_address">Nhập địa chỉ</string>
+    <string name="txt_warning_phone">Số điện thoại không đúng định dạng</string>
 
     //test
     <string name="at"><b>lúc</b></string>

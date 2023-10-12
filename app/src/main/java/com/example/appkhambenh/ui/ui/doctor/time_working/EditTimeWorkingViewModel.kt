@@ -15,8 +15,8 @@ class EditTimeWorkingViewModel : BaseViewModel() {
     var isLoadingUpdateLiveData = MutableLiveData<Boolean>()
     var isLoadingGetTimeLiveData = MutableLiveData<Boolean>()
     var workingDateLiveData = MutableLiveData<WorkingDate>()
-    var deleteSuccessfulLiveData = MutableLiveData<Boolean>()
-    var editSuccessfulLiveData = MutableLiveData<Boolean>()
+    var deleteSuccessful: Boolean = false
+    var editSuccessful: Boolean = false
 
     fun getListWorkingTime(day: RequestBody) {
         isLoadingGetTimeLiveData.postValue(true)
@@ -91,10 +91,10 @@ class EditTimeWorkingViewModel : BaseViewModel() {
                 override fun onNext(t: UpdateTimeResponse) {
                     when(t.statusCode){
                         ApiClient.STATUS_CODE_SUCCESS -> {
-                            deleteSuccessfulLiveData.postValue(true)
+                            deleteSuccessful = true
                         }
                         else -> {
-                            deleteSuccessfulLiveData.postValue(false)
+                            errorApiLiveData.postValue(t.message)
                         }
                     }
                 }
@@ -126,11 +126,10 @@ class EditTimeWorkingViewModel : BaseViewModel() {
                 override fun onNext(t: UpdateTimeResponse) {
                     when(t.statusCode) {
                         ApiClient.STATUS_CODE_SUCCESS -> {
-                            editSuccessfulLiveData.postValue(true)
+                            editSuccessful = true
                         }
                         else -> {
                             errorApiLiveData.postValue(t.message)
-                            editSuccessfulLiveData.postValue(false)
                         }
                     }
                 }

@@ -23,7 +23,8 @@ class LoginWithUserViewModel : BaseViewModel() {
         birth: String,
         avatar: String,
         phone: String,
-        email: String
+        email: String,
+        address: String
     ) {
         mPreferenceUtil.defaultPref().edit()
             .putString(PreferenceKey.USER_NAME, name)
@@ -39,6 +40,9 @@ class LoginWithUserViewModel : BaseViewModel() {
             .apply()
         mPreferenceUtil.defaultPref().edit()
             .putString(PreferenceKey.USER_EMAIL, email)
+            .apply()
+        mPreferenceUtil.defaultPref().edit()
+            .putString(PreferenceKey.USER_ADDRESS, address)
             .apply()
     }
 
@@ -65,7 +69,8 @@ class LoginWithUserViewModel : BaseViewModel() {
                                         response.body()?.result?.birth.toString(),
                                         response.body()?.result?.avatar.toString(),
                                         response.body()?.result?.phone.toString(),
-                                        response.body()?.result?.email.toString()
+                                        response.body()?.result?.email.toString(),
+                                        response.body()?.result?.address.toString()
                                     )
                                 }
                                 ApiClient.STATUS_USER_EXIST->{

@@ -4,7 +4,14 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.text.TextUtils
+import android.util.Patterns
+import android.util.TypedValue
+import android.view.View
+import android.view.ViewGroup
 import android.view.Window
+import android.view.animation.Animation
+import android.view.animation.Transformation
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -115,4 +122,62 @@ fun getDataDoctor(
                 Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show()
             }
         })
+}
+
+fun expandView(view: View) {
+    val targetHeight = view.measuredHeight
+    view.layoutParams.height = 0
+    view.visibility = View.VISIBLE
+    val animation = object : Animation() {
+        override fun applyTransformation(interpolatedTime: Float, t: Transformation?) {
+            view.layoutParams.height =
+                if (interpolatedTime == 1f) ViewGroup.LayoutParams.WRAP_CONTENT else (targetHeight * interpolatedTime).toInt()
+            view.requestLayout()
+        }
+
+        override fun willChangeBounds(): Boolean {
+            return true
+        }
+    }
+    animation.duration = timeEffectView(view)
+    view.startAnimation(animation)
+}
+
+fun collapseView(view: View) {
+    val initialHeight = view.measuredHeight
+    val animation = object : Animation() {
+        override fun applyTransformation(interpolatedTime: Float, t: Transformation?) {
+            if (interpolatedTime == 1f) {
+                view.visibility = View.GONE
+            } else {
+                view.layoutParams.height =
+                    initialHeight - (initialHeight * interpolatedTime).toInt()
+                view.requestLayout()
+            }
+        }
+
+        override fun willChangeBounds(): Boolean {
+            return true
+        }
+    }
+    animation.duration = timeEffectView(view)
+    view.startAnimation(animation)
+}
+
+fun timeEffectView(view: View): Long {
+    return (view.measuredHeight/ view.context.resources.displayMetrics.density).toLong()
+}
+
+fun validateEmail(email: String): Boolean{
+    return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email)
+        .matches()
+}
+
+fun validatePassword(password: String): Boolean{
+    return !TextUtils.isEmpty(password) && password.length >= 7
+}
+
+fun validatePhone(phone: String): Boolean{
+    return !TextUtils.isEmpty(phone) && (Patterns.PHONE.matcher(phone)
+        .matches() && phone.length >= 10)
 }

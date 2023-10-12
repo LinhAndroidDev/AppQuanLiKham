@@ -8,6 +8,7 @@ import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.ui.doctor.department.EditDepartmentClinicActivity
 import com.example.appkhambenh.ui.ui.doctor.doctor.ListDoctorActivity
+import com.example.appkhambenh.ui.ui.doctor.statistical.StatisticalActivity
 import com.example.appkhambenh.ui.ui.doctor.time_working.EditTimeWorkActivity
 
 class LoginWithDoctorActivity : BaseActivity<EmptyViewModel, ActivityLoginWithDoctorBinding>() {
@@ -30,6 +31,11 @@ class LoginWithDoctorActivity : BaseActivity<EmptyViewModel, ActivityLoginWithDo
 
         binding.llEditListDoctor.setOnClickListener {
             val intent = Intent(this@LoginWithDoctorActivity, ListDoctorActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.llStatistical.setOnClickListener {
+            val intent = Intent(this@LoginWithDoctorActivity, StatisticalActivity::class.java)
             startActivity(intent)
         }
     }

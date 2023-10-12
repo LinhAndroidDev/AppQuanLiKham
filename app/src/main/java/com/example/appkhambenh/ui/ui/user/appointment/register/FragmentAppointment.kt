@@ -17,10 +17,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentAppointmentBinding
 import com.example.appkhambenh.ui.base.BaseFragment
+import com.example.appkhambenh.ui.model.RegisterChecking
 import com.example.appkhambenh.ui.model.Service
 import com.example.appkhambenh.ui.ui.user.LoginWithUser
 import com.example.appkhambenh.ui.ui.user.appointment.register.adapter.ServiceAdapter
-import com.example.appkhambenh.ui.ui.user.appointment.time.FragmentTimeWorking
+import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
 import com.example.appkhambenh.ui.utils.*
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
@@ -38,6 +39,16 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
 
     @SuppressLint("CutPasteId")
     private fun initUi() {
+        val registerChecking: RegisterChecking? = arguments?.getSerializable(PreferenceKey.REGISTER_CHECKING) as RegisterChecking?
+        if(registerChecking != null){
+            binding.txtSelectService.hint = registerChecking.service
+            binding.txtSelectDepartment.hint = registerChecking.department
+            binding.txtSelectDoctor.hint = registerChecking.doctor
+            binding.edtReasons.hint = registerChecking.reasons
+            binding.txtRegister.text = "Lưu thay đổi lịch hẹn"
+            binding.txtTitle.text = "Chỉnh sửa lịch hẹn"
+        }
+
         val avatar = viewModel.mPreferenceUtil.defaultPref()
             .getString(PreferenceKey.USER_AVATAR, "").toString()
         if(avatar.isNotEmpty()) {
@@ -45,6 +56,11 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
                 .placeholder(R.drawable.user_ad)
                 .error(R.drawable.user_ad)
                 .into(binding.avatarAppointment)
+        }
+
+        binding.avatarAppointment.setOnClickListener {
+            val intent = Intent(requireActivity(), SeeAvatarActivity::class.java)
+            startActivity(intent)
         }
 
         val date = viewModel.mPreferenceUtil.defaultPref()
@@ -59,18 +75,13 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
             viewModel.mPreferenceUtil.defaultPref().getString(PreferenceKey.USER_NAME,"")
 
         binding.backAppointment.setOnClickListener {
-            val fragmentTimeWorking = FragmentTimeWorking()
-            val fm = activity?.supportFragmentManager?.beginTransaction()
-            fm?.replace(R.id.changeIdAppointment, fragmentTimeWorking)
-                ?.commit()
+            activity?.onBackPressed()
         }
 
         binding.txtSelectService.setOnClickListener {
             showPopupView(binding.txtSelectService)
 
             val rcvService: RecyclerView = popUpView.findViewById(R.id.rcv_function_appointment)
-            val linear = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-            rcvService.layoutManager = linear
             val listService: ArrayList<Service> = arrayListOf()
             listService.add(Service("Khám tự nguyện"))
             listService.add(Service("Khám theo định kì"))
@@ -87,8 +98,6 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
             showPopupView(binding.txtSelectDepartment)
 
             val rcvDepartment: RecyclerView = popUpView.findViewById(R.id.rcv_function_appointment)
-            val linear = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-            rcvDepartment.layoutManager = linear
 
             getDataDepartment(requireActivity(), rcvDepartment)
             getNameDepartment = {
@@ -100,8 +109,6 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
         binding.txtSelectDoctor.setOnClickListener {
             showPopupView(binding.txtSelectDoctor)
             val rcvDoctor: RecyclerView = popUpView.findViewById(R.id.rcv_function_appointment)
-            val linear = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-            rcvDoctor.layoutManager = linear
 
             getDataDoctor(requireActivity(), rcvDoctor)
             getNameDoctor = {
@@ -117,6 +124,8 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
             val strDate = binding.date.text.toString()
             val strHour = binding.hour.text.toString()
             val strReasons = binding.edtReasons.text.toString()
+            val id_user = viewModel.mPreferenceUtil.defaultPref()
+                .getInt(PreferenceKey.USER_ID, -1)
 
             if(strService.isEmpty() || strDepartment.isEmpty() || strDoctor.isEmpty() || strReasons.isEmpty()){
                 Toast.makeText(requireActivity(),"Bạn chưa nhập đầy đủ thông tin",Toast.LENGTH_SHORT).show()
@@ -132,7 +141,8 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
                         convertToRequestBody(strDoctor),
                         convertToRequestBody(strDate),
                         convertToRequestBody(strHour),
-                        convertToRequestBody(strReasons)
+                        convertToRequestBody(strReasons),
+                        convertToRequestBody(id_user.toString())
                     )
 
                     val id_day = viewModel.mPreferenceUtil.defaultPref().getInt(PreferenceKey.ID_DAY, 0)
@@ -184,4 +194,8 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
         inflater: LayoutInflater,
         container: ViewGroup?,
     ) = FragmentAppointmentBinding.inflate(inflater)
+
+    override fun onFragmentBack(): Boolean {
+        return false
+    }
 }

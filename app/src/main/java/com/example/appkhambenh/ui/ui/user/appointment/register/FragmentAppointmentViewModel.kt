@@ -20,10 +20,11 @@ class FragmentAppointmentViewModel : BaseViewModel() {
         doctor: RequestBody,
         date: RequestBody,
         hour: RequestBody,
-        reasons: RequestBody
+        reasons: RequestBody,
+        id_user: RequestBody
     ){
         isLoadingLiveData.postValue(true)
-        ApiClient.shared().addAppointment(service, department, doctor, date, hour, reasons)
+        ApiClient.shared().addAppointment(service, department, doctor, date, hour, reasons, id_user)
             .observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<RegisterAppointmentResponse>{

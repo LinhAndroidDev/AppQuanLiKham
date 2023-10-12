@@ -153,9 +153,11 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
         hour.maxValue = 23
         hour.setFormatter { String.format("%02d", it) }
 
+        val listValueHour = arrayOf("00", "15", "30", "45")
         minute.minValue = 0
-        minute.maxValue = 59
-        minute.setFormatter { String.format("%02d", it) }
+        minute.maxValue = listValueHour.size - 1
+        minute.displayedValues = listValueHour
+//        minute.setFormatter { String.format("%02d", it) }
 
         val str = arrayOf("AM")
         typeHour.minValue = 0
@@ -176,11 +178,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
 
         minute.setOnValueChangedListener { numberPicker, i, i2 ->
             val number: Int = numberPicker.value
-            strMinute = if (number < 10) {
-                "0$number"
-            } else {
-                number.toString()
-            }
+            strMinute = if (number == 0) "00" else "${number*15}"
         }
 
         hour.setOnValueChangedListener { numberPicker, i, i2 ->
@@ -193,10 +191,9 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
         }
 
         selectHour.setOnClickListener {
-            val date = binding.txtTimeEdit.text.toString()
             if(type == 1){
                 viewModel.editWorkingTime(
-                    convertToRequestBody(date),
+                    convertToRequestBody(binding.txtTimeEdit.text.toString()),
                     convertToRequestBody("$strHour:$strMinute")
                 )
 
@@ -208,7 +205,9 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
                             }
 
                             override fun onFinish() {
-                                viewModel.getListWorkingTime(convertToRequestBody(date))
+                                viewModel.getListWorkingTime(
+                                    convertToRequestBody(binding.txtTimeEdit.text.toString())
+                                )
                                 getData()
                             }
 
@@ -224,22 +223,23 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
                         convertToRequestBody("$strHour:$strMinute")
                     )
 
-                    viewModel.editSuccessfulLiveData.observe(this, androidx.lifecycle.Observer {
-                        if(it){
-                            object : CountDownTimer(300, 300) {
-                                override fun onTick(p0: Long) {
+                    object : CountDownTimer(300, 300){
+                        override fun onTick(p0: Long) {
 
-                                }
-
-                                override fun onFinish() {
-                                    show("Bạn đã cập nhật $strHourSelected thành ${"$strHour:$strMinute"}")
-                                    viewModel.getListWorkingTime(convertToRequestBody(date))
-                                    getData()
-                                }
-
-                            }.start()
                         }
-                    })
+
+                        override fun onFinish() {
+                            if(viewModel.editSuccessful){
+                                show("Bạn đã cập nhật $strHourSelected thành ${"$strHour:$strMinute"}")
+                                viewModel.getListWorkingTime(
+                                    convertToRequestBody(binding.txtTimeEdit.text.toString())
+                                )
+                                editTimeAdapter.notifyDataSetChanged()
+                            }
+                        }
+
+                    }.start()
+
                     dialog.dismiss()
                 }else{
                     show("Bạn chưa thay đổi giờ")
@@ -278,21 +278,23 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
                             convertToRequestBody(strHour)
                         )
 
-                        viewModel.deleteSuccessfulLiveData.observe(this, androidx.lifecycle.Observer {
-                            if(it) {
-                                object : CountDownTimer(300, 300) {
-                                    override fun onTick(p0: Long) {}
+                        object : CountDownTimer(300, 300){
+                            override fun onTick(p0: Long) {
 
-                                    override fun onFinish() {
-                                        show("Bạn đã xoá $strHour thành công")
-                                        viewModel.getListWorkingTime(
-                                            convertToRequestBody(binding.txtTimeEdit.text.toString())
-                                        )
-                                        getData()
-                                    }
-                                }.start()
                             }
-                        })
+
+                            override fun onFinish() {
+                                if(viewModel.deleteSuccessful){
+                                    show("Bạn đã xoá $strHour thành công")
+                                    viewModel.getListWorkingTime(
+                                        convertToRequestBody(binding.txtTimeEdit.text.toString())
+                                    )
+                                    editTimeAdapter.notifyDataSetChanged()
+                                }
+                            }
+
+                        }.start()
+
                         bottomShareBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
                     }
                 }

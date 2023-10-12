@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityLoginWithUserBinding
 import com.example.appkhambenh.ui.base.BaseActivity
+import com.example.appkhambenh.ui.model.FunctionNavigation
 import com.example.appkhambenh.ui.ui.MainActivity
 import com.example.appkhambenh.ui.ui.user.appointment.AppointmentActivity
 import com.example.appkhambenh.ui.ui.user.avatar.EditAvatarActivity
@@ -21,6 +22,8 @@ import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
 import com.example.appkhambenh.ui.ui.user.manage_appointment.ManageAppointmentActivity
 import com.example.appkhambenh.ui.ui.user.qr.QrActivity
 import com.example.appkhambenh.ui.ui.user.medicine.MedicineActivity
+import com.example.appkhambenh.ui.ui.user.navigation.information.InformationActivity
+import com.example.appkhambenh.ui.ui.user.navigation.adapter.FunctionNavigationAdapter
 import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.squareup.picasso.Picasso
@@ -69,7 +72,7 @@ class LoginWithUser : BaseActivity<LoginWithUserViewModel, ActivityLoginWithUser
         })
 
         viewModel.emailLiveData.observe(this, Observer{
-            binding.emailNav.text = it
+            binding.layoutNavigation.emailNav.text = it
         })
 
         viewModel.birthLiveData.observe(this, Observer{
@@ -86,7 +89,7 @@ class LoginWithUser : BaseActivity<LoginWithUserViewModel, ActivityLoginWithUser
                 Picasso.get().load(it)
                     .placeholder(R.drawable.user_ad)
                     .error(R.drawable.user_ad)
-                    .into(binding.avatarNav)
+                    .into(binding.layoutNavigation.avatarNav)
             }
         })
     }
@@ -94,10 +97,10 @@ class LoginWithUser : BaseActivity<LoginWithUserViewModel, ActivityLoginWithUser
     @SuppressLint("SetTextI18n")
     private fun initNavigation() {
 
-        binding.phoneNav.text = viewModel.mPreferenceUtil.defaultPref()
+        binding.layoutNavigation.phoneNav.text = viewModel.mPreferenceUtil.defaultPref()
             .getString(PreferenceKey.USER_PHONE, "")
 
-        binding.logout.setOnClickListener {
+        binding.layoutNavigation.logout.setOnClickListener {
             val intent = Intent(this@LoginWithUser, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
@@ -107,9 +110,34 @@ class LoginWithUser : BaseActivity<LoginWithUserViewModel, ActivityLoginWithUser
                 .apply()
         }
 
-        binding.avatarNav.setOnClickListener{
+        binding.layoutNavigation.avatarNav.setOnClickListener{
             val intent = Intent(this@LoginWithUser, SeeAvatarActivity::class.java)
             startActivity(intent)
+        }
+
+        val listFunction: ArrayList<FunctionNavigation> = arrayListOf()
+        listFunction.add(FunctionNavigation(R.drawable.ic_action_information, "Tài Khoản"))
+        listFunction.add(FunctionNavigation(R.drawable.ic_action_reset_password, "Đổi Mật Khẩu"))
+        listFunction.add(FunctionNavigation(R.drawable.ic_action_notification, "Thông Báo"))
+
+        val functionAdapter = FunctionNavigationAdapter(listFunction)
+        binding.layoutNavigation.rcvFunctionNavigation.apply {
+            adapter = functionAdapter
+        }
+
+        functionAdapter.onClickItem = { position->
+            when(position){
+                0 ->{
+                    val intent = Intent(this@LoginWithUser, InformationActivity::class.java)
+                    startActivity(intent)
+                }
+                1 ->{
+
+                }
+                2 ->{
+
+                }
+            }
         }
     }
 
@@ -162,7 +190,7 @@ class LoginWithUser : BaseActivity<LoginWithUserViewModel, ActivityLoginWithUser
             startActivity(intent)
         }
 
-        binding.cirImgEditAvatar.setOnClickListener {
+        binding.layoutNavigation.cirImgEditAvatar.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "images/"
             intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI

@@ -17,8 +17,9 @@ import com.example.appkhambenh.ui.ui.user.LoginWithUser
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.ui.doctor.LoginWithDoctorActivity
 import com.example.appkhambenh.ui.ui.register.FragmentRegister
-import com.example.appkhambenh.ui.utils.Email
 import com.example.appkhambenh.ui.utils.PreferenceKey
+import com.example.appkhambenh.ui.utils.validateEmail
+import com.example.appkhambenh.ui.utils.validatePassword
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -104,12 +105,11 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
         binding.login.setOnClickListener {
             val email = binding.edtAccount.text.toString()
             val password = binding.edtPassword.text.toString()
-            val emailValidate: Email = Email(email,password)
             if(email.isEmpty() || password.isEmpty()){
                 setNotification(R.color.txt_green,R.string.txt_enter_enough_info)
-            }else if(!emailValidate.isValidEmail()){
+            }else if(!validateEmail(email)){
                 setNotification(R.color.txt_red,R.string.txt_fail_email)
-            }else if(!emailValidate.isPassword()){
+            }else if(!validatePassword(password)){
                 setNotification(R.color.txt_red,R.string.txt_fail_password)
             } else{
                 binding.notificationLogin.visibility = View.GONE

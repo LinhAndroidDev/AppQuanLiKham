@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
@@ -26,7 +27,7 @@
                 android:padding="4dp">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/avatarNav"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@drawable/user_ad"
                     android:layout_width="90dp"
                     android:layout_height="90dp"/>
             </RelativeLayout>
@@ -52,8 +53,8 @@
                 android:orientation="horizontal">
                 <ImageView
                     android:src="@drawable/ic_action_email"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"/>
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"/>
                 <TextView
                     android:id="@+id/emailNav"
                     android:text="linh@gmail.com"
@@ -72,8 +73,8 @@
                 android:orientation="horizontal">
                 <ImageView
                     android:src="@drawable/ic_action_phone"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"/>
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"/>
                 <TextView
                     android:id="@+id/phoneNav"
                     android:text="Sđt: 0969601767"
@@ -85,7 +86,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
+
         </LinearLayout>
+
+        <TextView
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="Chức năng"
+            android:textSize="14dp"
+            android:textColor="@color/txt_hint"
+            android:textStyle="italic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvFunctionNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
         <TextView
             android:id="@+id/logout"
             android:text="Đăng Xuất"

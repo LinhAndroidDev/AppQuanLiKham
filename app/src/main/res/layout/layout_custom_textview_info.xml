@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/edtInfo"
+        android:hint="Nguyễn Hữu Linh"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        android:paddingEnd="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress" />
+
+    <View
+        android:id="@+id/viewGetBirth"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+
+    <LinearLayout
+        android:id="@+id/deleteTextInfo"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginEnd="10dp"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/icon_delete_search"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:visibility="visible"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
