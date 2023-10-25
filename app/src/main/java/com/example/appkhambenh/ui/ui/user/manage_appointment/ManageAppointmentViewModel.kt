@@ -38,7 +38,9 @@ class ManageAppointmentViewModel : BaseViewModel() {
                 override fun onNext(t: List<RegisterChecking>) {
                     isLoadingLiveData.postValue(false)
 
-                    listAppointmentLiveData.postValue(t as ArrayList<RegisterChecking>)
+                    listAppointmentLiveData.postValue(t.filter {
+                        !it.checkAppointExpired()
+                    } as ArrayList<RegisterChecking>)
                 }
 
             })

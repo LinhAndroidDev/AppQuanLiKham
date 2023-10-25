@@ -14,15 +14,15 @@
         android:orientation="horizontal">
         <TextView
             android:text="IBME"
-            android:textSize="35dp"
+            android:textSize="@dimen/dimen_35"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
             android:text="Lab"
-            android:textSize="16dp"
-            android:layout_marginStart="5dp"
+            android:textSize="@dimen/dimen_16"
+            android:layout_marginStart="@dimen/dimen_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>

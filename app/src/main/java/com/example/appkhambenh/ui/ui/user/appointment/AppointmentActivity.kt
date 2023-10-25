@@ -35,10 +35,7 @@ class AppointmentActivity : BaseActivity<EmptyViewModel, ActivityAppointmentBind
             if(fm.onFragmentBack()){
                 finish()
             }else{
-                val fragmentTimeWorking = FragmentTimeWorking()
-                val fg = supportFragmentManager.beginTransaction()
-                fg.replace(R.id.changeIdAppointment, fragmentTimeWorking)
-                    .commit()
+                super.onBackPressed()
             }
         }else{
             super.onBackPressed()

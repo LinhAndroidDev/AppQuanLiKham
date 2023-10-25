@@ -15,9 +15,6 @@ import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.utils.validateEmail
 import com.example.appkhambenh.ui.utils.validatePassword
 import com.example.appkhambenh.ui.utils.validatePhone
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -56,6 +53,9 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initUi(){
+
+        binding.rbPatient.isChecked = true
+
         binding.backRegister.setOnClickListener {
             activity?.onBackPressed()
         }
@@ -71,13 +71,16 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
         binding.register.setOnClickListener {
             val name: String = binding.edtName.text.toString()
             val email: String = binding.edtEmail.text.toString()
+            val sex = if(binding.rbWomen.isChecked) 1 else 0
             val password: String = binding.edtPassword.text.toString()
             val passwordRepeat: String = binding.edtRepeatPassword.text.toString()
             val birth: String = binding.edtBirth.text.toString()
             val address: String = binding.edtAddress.text.toString()
             val phone: String = binding.edtPhone.text.toString()
+            val type = if(binding.rbPatient.isChecked) 0 else 1
 
-            if(name.isEmpty() || email.isEmpty() || password.isEmpty() || passwordRepeat.isEmpty() || birth.isEmpty() || address.isEmpty()){
+            if(name.isEmpty() || email.isEmpty() || password.isEmpty() || passwordRepeat.isEmpty() || birth.isEmpty()
+                || address.isEmpty() || (!binding.rbMan.isChecked && !binding.rbWomen.isChecked) || !binding.cbAgree.isChecked){
                 setNotification(R.color.txt_green,R.string.txt_enter_enough_info)
             }else if(!validateEmail(email)){
                 setNotification(R.color.txt_red, R.string.txt_fail_email)
@@ -91,11 +94,13 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
             else{
                 viewModel.requestRegisterUser(
                     convertToRequestBody(email),
+                    convertToRequestBody(sex.toString()),
                     convertToRequestBody(password),
                     convertToRequestBody(name),
                     convertToRequestBody(birth),
                     convertToRequestBody(phone),
-                    convertToRequestBody(address)
+                    convertToRequestBody(address),
+                    convertToRequestBody(type.toString())
                 )
             }
         }

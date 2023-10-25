@@ -7,10 +7,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginBottom="@dimen/dimen_20"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginEnd="@dimen/dimen_20"
+        android:layout_marginStart="@dimen/dimen_10"
         app:cardCornerRadius="10dp"
         app:cardElevation="15dp">
         <LinearLayout
@@ -19,8 +19,8 @@
             android:layout_height="wrap_content">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv_function_appointment"
-                android:layout_marginVertical="5dp"
-                android:layout_marginHorizontal="5dp"
+                android:layout_marginVertical="@dimen/dimen_5"
+                android:layout_marginHorizontal="@dimen/dimen_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>

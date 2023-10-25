@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.example.appkhambenh.R
 import com.example.appkhambenh.ui.utils.PreferenceUtil
+import com.example.appkhambenh.ui.utils.dpToPx
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -56,7 +57,7 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
         txtToast.text = str
         Toast(this).apply {
             duration = Toast.LENGTH_SHORT
-            setGravity(Gravity.BOTTOM, 0, 10.dpToPx())
+            setGravity(Gravity.TOP, 0, 10.dpToPx(this@BaseActivity))
             view = toast
         }.show()
     }
@@ -72,13 +73,5 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
         display.getSize(size)
         screenWidth = size.x
         screenHeight = size.y
-    }
-
-    private fun Int.dpToPx(): Int {
-        return TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            this.toFloat(),
-            resources.displayMetrics
-        ).toInt()
     }
 }

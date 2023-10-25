@@ -13,19 +13,19 @@
 
         <RelativeLayout
             android:background="@color/background"
-            android:paddingVertical="15dp"
+            android:paddingVertical="@dimen/dimen_15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/backTimeWorking"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="@dimen/dimen_15"
                 android:src="@drawable/ic_action_back_white"
                 android:layout_centerVertical="true"
-                android:layout_width="40dp"
-                android:layout_height="30dp"/>
+                android:layout_width="@dimen/dimen_40"
+                android:layout_height="@dimen/dimen_30"/>
             <TextView
                 android:text="Chọn thời gian khám"
-                android:textSize="20dp"
+                android:textSize="@dimen/dimen_20"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:layout_centerHorizontal="true"
@@ -36,35 +36,35 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/dimen_30"
             android:orientation="horizontal"
             android:gravity="center">
             <ImageView
                 android:id="@+id/imgBackTime"
                 android:background="@drawable/icon_back"
-                android:layout_width="20dp"
-                android:layout_height="27dp"
-                android:layout_marginEnd="15dp"/>
+                android:layout_width="@dimen/dimen_20"
+                android:layout_height="@dimen/dimen_27"
+                android:layout_marginEnd="@dimen/dimen_15"/>
             <TextView
                 android:id="@+id/txtTimeWorking"
                 android:text="Thứ tư, 24 tháng 5"
-                android:textSize="25dp"
+                android:textSize="@dimen/dimen_25"
                 android:textColor="@color/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/svn_berkshire_swash"/>
             <ImageView
                 android:id="@+id/imgNextTime"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="@dimen/dimen_15"
                 android:background="@drawable/icon_next"
-                android:layout_width="20dp"
-                android:layout_height="27dp"/>
+                android:layout_width="@dimen/dimen_20"
+                android:layout_height="@dimen/dimen_27"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvTimeWorking"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"/>
@@ -79,7 +79,7 @@
         android:layout_height="wrap_content"
         android:text="Chưa có giờ làm việc"
         android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textSize="@dimen/dimen_20"
         android:textStyle="bold" />
 
 </RelativeLayout>

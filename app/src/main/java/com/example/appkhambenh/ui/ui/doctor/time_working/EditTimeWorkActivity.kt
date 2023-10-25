@@ -3,14 +3,12 @@ package com.example.appkhambenh.ui.ui.doctor.time_working
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
@@ -21,22 +19,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityEditTimeWorkBinding
 import com.example.appkhambenh.ui.base.BaseActivity
-import com.example.appkhambenh.ui.model.TimeWorking
 import com.example.appkhambenh.ui.ui.doctor.time_working.adapter.EditTimeAdapter
-import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.database.*
-import com.google.gson.Gson
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEditTimeWorkBinding>() {
     lateinit var bottomShareBehavior: BottomSheetBehavior<View>
@@ -76,11 +67,11 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initUi() {
         binding.addTime.setOnClickListener {
-            showDialogAddTime()
+            showDialogDate()
         }
 
         binding.addHour.setOnClickListener {
-            showDialogAddHour("Thêm giờ làm việc",1, "", -1)
+            showDialogHour("Thêm giờ làm việc",1, "", -1)
         }
 
         binding.nextDateEdit.setOnClickListener {
@@ -129,7 +120,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SimpleDateFormat", "CheckResult")
-    private fun showDialogAddHour(txtTitle: String,type: Int, strHourSelected: String, idDay: Int) {
+    private fun showDialogHour(txtTitle: String, type: Int, strHourSelected: String, idDay: Int) {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(true)
@@ -170,7 +161,11 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
         if(type == 2){
             strHourSelected.split(":").apply {
                 hour.value = this[0].toInt()
-                minute.value = this[1].toInt()
+                for(i in listValueHour.indices){
+                    if(listValueHour[i] == this[1]){
+                        minute.value = i
+                    }
+                }
                 strHour = this[0]
                 strMinute = this[1]
             }
@@ -301,7 +296,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
                 editTimeAdapter.onClickEditHourWorking = {
                     POSITION_ITEM = it
                     val strHour = workingDate.time[it].hour.toString()
-                    showDialogAddHour("Chỉnh sửa giờ làm việc", 2, strHour, workingDate.id_day!!)
+                    showDialogHour("Chỉnh sửa giờ làm việc", 2, strHour, workingDate.id_day!!)
                 }
             } else {
                 binding.rcvEditTime.visibility = View.GONE
@@ -313,7 +308,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ClickableViewAccessibility", "SetTextI18n")
-    private fun showDialogAddTime() {
+    private fun showDialogDate() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(true)

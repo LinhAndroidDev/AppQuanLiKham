@@ -2,9 +2,16 @@ package com.example.appkhambenh.ui.utils
 
 import android.app.Dialog
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
 import android.text.TextUtils
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.util.Patterns
 import android.util.TypedValue
 import android.view.View
@@ -180,4 +187,52 @@ fun validatePassword(password: String): Boolean{
 fun validatePhone(phone: String): Boolean{
     return !TextUtils.isEmpty(phone) && (Patterns.PHONE.matcher(phone)
         .matches() && phone.length >= 10)
+}
+
+fun Int.dpToPx(context: Context): Int {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        this.toFloat(),
+        context.resources.displayMetrics
+    ).toInt()
+}
+
+fun Int.pxToDp(): Int {
+    val displayMetrics = Resources.getSystem().displayMetrics
+    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, this.toFloat(), displayMetrics).toInt()
+}
+
+fun setTextNotification(reasons: String,date: String, hour: String): SpannableString{
+    val notification = "Lịch hẹn $date lúc $hour lý do $reasons của bạn chưa được xác nhận. Chúng tôi đang cố gắng khắc phục sự cố"
+    val spannable = SpannableString(notification)
+
+    val dateStartIndex = notification.indexOf(date)
+    if (dateStartIndex != -1) {
+        spannable.setSpan(
+            ForegroundColorSpan(Color.RED),
+            dateStartIndex,
+            dateStartIndex + date.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+    }
+
+    setStyleTextAtPosition(notification, hour, ForegroundColorSpan(Color.BLUE), spannable)
+
+    setStyleTextAtPosition(notification, reasons, StyleSpan(Typeface.BOLD_ITALIC), spannable)
+
+    return spannable
+}
+
+fun setStyleTextAtPosition(str: String, strChange: String, style: Any, spannable: Spannable){
+    val strRegex = Regex(strChange)
+    val strMatchResult = strRegex.find(str)
+    if (strMatchResult != null) {
+        val strStartIndex = strMatchResult.range.first
+        spannable.setSpan(
+            style,
+            strStartIndex,
+            strStartIndex + strChange.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+    }
 }

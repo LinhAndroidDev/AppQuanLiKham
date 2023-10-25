@@ -13,6 +13,8 @@ class FragmentAppointmentViewModel : BaseViewModel() {
     var isLoadingLiveData = MutableLiveData<Boolean>()
     var isSuccessfulLiveData = MutableLiveData<Boolean>()
     var isChangeStatusLiveData = MutableLiveData<Boolean>()
+    var loadingEditLiveData = MutableLiveData<Boolean>()
+    var editAppointSuccessfulLiveData = MutableLiveData<Boolean>()
 
     fun addAppoint(
         service: RequestBody,
@@ -77,6 +79,48 @@ class FragmentAppointmentViewModel : BaseViewModel() {
                         }
                         else -> {
                             isChangeStatusLiveData.postValue(false)
+                            errorApiLiveData.postValue(t.message)
+                        }
+                    }
+                }
+
+            })
+    }
+
+    fun editAppoint(
+        service: RequestBody,
+        department: RequestBody,
+        doctor: RequestBody,
+        date: RequestBody,
+        hour: RequestBody,
+        reasons: RequestBody,
+        id_user: RequestBody
+    ){
+        loadingEditLiveData.postValue(true)
+        ApiClient.shared().editAppoint(service, department, doctor, date, hour, reasons, id_user)
+            .observeOn(Schedulers.io())
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<RegisterAppointmentResponse>{
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onError(e: Throwable) {
+                    loadingEditLiveData.postValue(false)
+                    errorApiLiveData.postValue(e.message)
+                }
+
+                override fun onComplete() {
+
+                }
+
+                override fun onNext(t: RegisterAppointmentResponse) {
+                    loadingEditLiveData.postValue(false)
+                    when(t.statusCode){
+                        ApiClient.STATUS_CODE_SUCCESS -> {
+                            editAppointSuccessfulLiveData.postValue(true)
+                        }
+                        else -> {
                             errorApiLiveData.postValue(t.message)
                         }
                     }

@@ -19,6 +19,7 @@ class FunctionNavigationAdapter(
     class FunctionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgFunction: ImageView = itemView.findViewById(R.id.imgFunction)
         val nameFunction: TextView = itemView.findViewById(R.id.nameFunction)
+        val txtNumberNtf: TextView = itemView.findViewById(R.id.txtNumberNotification)
     }
 
     override fun onCreateViewHolder(
@@ -36,6 +37,9 @@ class FunctionNavigationAdapter(
         val functionNavigation = listFunction[position]
         holder.imgFunction.setImageResource(functionNavigation.image)
         holder.nameFunction.text = functionNavigation.name
+        if(position == 2){
+            holder.txtNumberNtf.visibility = View.VISIBLE
+        }
 
         holder.itemView.setOnClickListener {
             onClickItem?.invoke(position)

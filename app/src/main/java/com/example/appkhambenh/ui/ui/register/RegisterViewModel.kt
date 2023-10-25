@@ -16,16 +16,18 @@ class RegisterViewModel : BaseViewModel() {
 
     fun requestRegisterUser(
         email: RequestBody,
+        sex: RequestBody,
         password: RequestBody,
         name: RequestBody,
         birth: RequestBody,
         phone: RequestBody,
-        address: RequestBody
+        address: RequestBody,
+        type: RequestBody
     ){
 
         loadingLiveData.value = true
 
-        ApiClient.shared().registerUser(email, password, name, birth, phone, address)
+        ApiClient.shared().registerUser(email, sex, password, name, birth, phone, address, type)
             .enqueue(object : Callback<RegisterResponse>{
                 override fun onResponse(
                     call: Call<RegisterResponse>,

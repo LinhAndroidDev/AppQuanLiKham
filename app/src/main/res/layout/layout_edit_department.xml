@@ -6,23 +6,23 @@
     android:gravity="center"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/dimen_15"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/imgDepartment"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="20dp"
+            android:layout_width="@dimen/dimen_30"
+            android:layout_height="@dimen/dimen_30"
+            android:layout_marginStart="@dimen/dimen_20"
             android:src="@drawable/ic_action_add_department_clinic"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
         <TextView
             android:id="@+id/txtNameDepartment"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="@dimen/dimen_20"
             android:text="Khoa kiểm tra lâm sàng"
-            android:textSize="16dp"
+            android:textSize="@dimen/dimen_16"
             android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,17 +31,17 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
         <LinearLayout
             android:id="@+id/menu"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="20dp"
+            android:layout_width="@dimen/dimen_30"
+            android:layout_height="@dimen/dimen_30"
+            android:layout_marginEnd="@dimen/dimen_20"
             android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
             <ImageView
                 android:background="@drawable/menu"
-                android:layout_width="10dp"
-                android:layout_height="20dp" />
+                android:layout_width="@dimen/dimen_10"
+                android:layout_height="@dimen/dimen_20" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

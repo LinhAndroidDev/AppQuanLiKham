@@ -12,31 +12,31 @@
     <View android:layout_width="match_parent"
         android:layout_alignParentTop="true"
         android:background="@drawable/footer_shadow_bg"
-        android:layout_height="125dp"/>
+        android:layout_height="@dimen/dimen_125"/>
     <LinearLayout
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="@dimen/dimen_60"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="7dp"
+            android:layout_height="@dimen/dimen_7"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="25dp"
-            android:layout_marginHorizontal="150dp"/>
+            android:layout_marginHorizontal="@dimen/dimen_150"/>
         <LinearLayout
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="@dimen/dimen_7"
             android:background="@drawable/boder_bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="20dp"
+            android:paddingBottom="@dimen/dimen_20"
             android:gravity="center">
 
             <TextView
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/dimen_20"
                 android:text="Xác Nhận Xoá Thời Gian"
-                android:textSize="16dp"
+                android:textSize="@dimen/dimen_16"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
@@ -53,24 +53,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginVertical="20dp"
+                    android:layout_marginVertical="@dimen/dimen_20"
                     android:background="@drawable/corners_text_view"
-                    android:paddingHorizontal="30dp"
-                    android:paddingVertical="10dp"
+                    android:paddingHorizontal="@dimen/dimen_30"
+                    android:paddingVertical="@dimen/dimen_10"
                     android:text="Xoá"
                     android:textColor="@color/white"
-                    android:textSize="14dp" />
+                    android:textSize="@dimen/dimen_14" />
 
                 <TextView
                     android:id="@+id/txtCancelDeleteHour"
-                    android:layout_marginStart="100dp"
-                    android:layout_marginVertical="20dp"
+                    android:layout_marginStart="@dimen/dimen_100"
+                    android:layout_marginVertical="@dimen/dimen_20"
                     android:layout_gravity="center"
                     android:text="Huỷ"
-                    android:textSize="14dp"
+                    android:textSize="@dimen/dimen_14"
                     android:textColor="@color/text"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="30dp"
+                    android:paddingVertical="@dimen/dimen_10"
+                    android:paddingHorizontal="@dimen/dimen_30"
                     android:background="@drawable/corners_text_view_cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>

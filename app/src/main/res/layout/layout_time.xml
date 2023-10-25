@@ -2,23 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
-    android:layout_marginEnd="5dp"
+    android:layout_marginTop="@dimen/dimen_5"
+    android:layout_marginEnd="@dimen/dimen_5"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="7dp"
-        android:layout_marginBottom="2dp">
+        android:layout_marginBottom="@dimen/dimen_2">
         <TextView
             android:id="@+id/time"
             android:background="#71ADFA"
             android:text="16:00"
-            android:textSize="14dp"
+            android:textSize="@dimen/dimen_14"
             android:gravity="center"
             android:textColor="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="35dp"/>
+            android:layout_height="@dimen/dimen_35"/>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

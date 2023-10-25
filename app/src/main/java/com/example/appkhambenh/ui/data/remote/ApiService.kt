@@ -30,11 +30,13 @@ interface ApiService {
     @POST("account/register.php")
     fun registerUser(
         @Part("email") email: RequestBody,
+        @Part("sex") sex: RequestBody,
         @Part("password") password: RequestBody,
         @Part("name") name: RequestBody,
         @Part("birth") birth: RequestBody,
         @Part("phone") phone: RequestBody,
-        @Part("address") address: RequestBody
+        @Part("address") address: RequestBody,
+        @Part("type") type: RequestBody
     ):Call<RegisterResponse>
 
     @GET("medicine.php")
@@ -125,5 +127,17 @@ interface ApiService {
         @Part("day") day: RequestBody,
         @Part("hour") hour: RequestBody,
         @Part("is_registered") is_registered: RequestBody
+    ): Observable<RegisterAppointmentResponse>
+
+    @Multipart
+    @POST("appointment/edit_appointment.php")
+    fun editAppoint(
+        @Part("service") service: RequestBody,
+        @Part("department") department: RequestBody,
+        @Part("doctor") doctor: RequestBody,
+        @Part("date") date: RequestBody,
+        @Part("hour") hour: RequestBody,
+        @Part("reasons") reasons: RequestBody,
+        @Part("id_user") id_user: RequestBody
     ): Observable<RegisterAppointmentResponse>
 }

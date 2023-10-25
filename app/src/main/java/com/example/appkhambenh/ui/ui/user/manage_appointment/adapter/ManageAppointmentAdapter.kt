@@ -2,7 +2,6 @@ package com.example.appkhambenh.ui.ui.user.manage_appointment.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.Resources
 import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
@@ -113,7 +112,7 @@ class ManageAppointmentAdapter(
                     val list = arrayListOf<RegisterChecking>()
                     for(registerChecking in listRegisterCheckingOld!!){
                         if(
-                            (registerChecking.date + registerChecking.hour + registerChecking.department)
+                            (registerChecking.date + registerChecking.hour + registerChecking.department + registerChecking.reasons)
                                 .lowercase().trim().contains(strSearch)
                         ){
                             list.add(registerChecking)
@@ -135,5 +134,10 @@ class ManageAppointmentAdapter(
             }
 
         }
+    }
+
+    fun revertAppoint(){
+        listRegisterChecking?.reverse()
+        notifyDataSetChanged()
     }
 }

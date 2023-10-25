@@ -5,8 +5,8 @@
     <style name="title_register_function">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">10dp</item>
-        <item name="android:textSize">14dp</item>
+        <item name="android:layout_marginTop">@dimen/dimen_10</item>
+        <item name="android:textSize">@dimen/dimen_14</item>
         <item name="android:textColor">@color/text</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -14,15 +14,15 @@
     <style name="edt_register_function">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginTop">@dimen/dimen_10</item>
         <item name="android:textColorHint">@color/txt_hint</item>
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">@dimen/dimen_16</item>
     </style>
 
     //home page with user
     <style name="card_function_main">
-        <item name="android:layout_marginStart">16dp</item>
-        <item name="android:layout_marginVertical" tools:ignore="NewApi">15dp</item>
+        <item name="android:layout_marginStart">@dimen/dimen_16</item>
+        <item name="android:layout_marginVertical" tools:ignore="NewApi">@dimen/dimen_15</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
     </style>
@@ -30,34 +30,34 @@
     <style name="ll_function_main_user">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:paddingVertical" tools:ignore="NewApi">20dp</item>
-        <item name="android:paddingHorizontal" tools:ignore="NewApi">10dp</item>
+        <item name="android:paddingVertical" tools:ignore="NewApi">@dimen/dimen_20</item>
+        <item name="android:paddingHorizontal" tools:ignore="NewApi">@dimen/dimen_10</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:orientation">vertical</item>
     </style>
 
     <style name="img_function_main">
-        <item name="android:layout_width">25dp</item>
-        <item name="android:layout_height">25dp</item>
+        <item name="android:layout_width">@dimen/dimen_25</item>
+        <item name="android:layout_height">@dimen/dimen_25</item>
     </style>
 
     <style name="txt_function_main">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginTop">@dimen/dimen_15</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">@dimen/dimen_16</item>
     </style>
     
     <style name="img_function_accessory">
-        <item name="android:layout_width">30dp</item>
-        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_width">@dimen/dimen_30</item>
+        <item name="android:layout_height">@dimen/dimen_30</item>
     </style>
 
     <style name="txt_function_accessory">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">14dp</item>
+        <item name="android:textSize">@dimen/dimen_14</item>
         <item name="android:textColor">@color/text</item>
     </style>
 
@@ -65,8 +65,8 @@
     <style name="title_appoint_function">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">15dp</item>
-        <item name="android:textSize">14dp</item>
+        <item name="android:layout_marginTop">@dimen/dimen_15</item>
+        <item name="android:textSize">@dimen/dimen_14</item>
         <item name="android:textColor">@color/text</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -74,9 +74,9 @@
     <style name="edt_appoint_function">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:padding" tools:ignore="NewApi">10dp</item>
-        <item name="android:textSize">15dp</item>
+        <item name="android:layout_marginTop">@dimen/dimen_5</item>
+        <item name="android:padding" tools:ignore="NewApi">@dimen/dimen_10</item>
+        <item name="android:textSize">@dimen/dimen_15</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
@@ -84,8 +84,8 @@
     <style name="boder_function_doctor">
         <item name="android:layout_weight">1</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:layout_marginHorizontal" tools:ignore="NewApi">20dp</item>
-        <item name="android:paddingVertical" tools:ignore="NewApi">20dp</item>
+        <item name="android:layout_marginHorizontal" tools:ignore="NewApi">@dimen/dimen_20</item>
+        <item name="android:paddingVertical" tools:ignore="NewApi">@dimen/dimen_20</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">center</item>

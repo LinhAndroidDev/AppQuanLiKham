@@ -90,11 +90,6 @@
 
         </LinearLayout>
 
-        <View
-            android:background="@drawable/line_divider"
-            android:layout_width="match_parent"
-            android:layout_height="8dp"/>
-
         <RelativeLayout
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -106,6 +101,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
+            <View
+                android:background="@drawable/line_divider"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"/>
+
+            <LinearLayout
+                android:id="@+id/loadingData"
+                android:gravity="center"
+                android:background="@color/bg_loading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/layoutHideKeyboard"
                 android:orientation="vertical"
@@ -113,20 +127,6 @@
                 android:layout_height="match_parent"/>
 
         </RelativeLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/loadingData"
-        android:gravity="center"
-        android:background="@color/bg_loading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

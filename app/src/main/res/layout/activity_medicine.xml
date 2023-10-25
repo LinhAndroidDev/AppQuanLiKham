@@ -8,17 +8,17 @@
     android:orientation="vertical">
     <TextView
         android:text="Thông tin thuốc tham khảo"
-        android:textSize="25dp"
+        android:textSize="@dimen/dimen_25"
         android:textColor="@color/text"
         android:textStyle="bold"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="@dimen/dimen_40"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvMedicine"
-        android:layout_marginVertical="20dp"
-        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="@dimen/dimen_20"
+        android:layout_marginHorizontal="@dimen/dimen_10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </LinearLayout>

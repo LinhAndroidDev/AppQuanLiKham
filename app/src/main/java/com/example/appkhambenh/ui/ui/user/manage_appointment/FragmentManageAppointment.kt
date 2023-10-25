@@ -1,16 +1,17 @@
 package com.example.appkhambenh.ui.ui.user.manage_appointment
 
 import android.annotation.SuppressLint
+import android.graphics.Typeface
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
+import android.text.SpannableString
 import android.text.TextWatcher
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentManageAppointmentBinding
@@ -18,6 +19,8 @@ import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.ui.user.appointment.register.FragmentAppointment
 import com.example.appkhambenh.ui.ui.user.manage_appointment.adapter.ManageAppointmentAdapter
 import com.example.appkhambenh.ui.utils.PreferenceKey
+import com.example.appkhambenh.ui.utils.setStyleTextAtPosition
+import com.example.appkhambenh.ui.utils.setTextNotification
 
 class FragmentManageAppointment : BaseFragment<ManageAppointmentViewModel, FragmentManageAppointmentBinding>() {
 
@@ -60,33 +63,48 @@ class FragmentManageAppointment : BaseFragment<ManageAppointmentViewModel, Fragm
 
             adapterManageAppointment.isClickEditAppoint = { registerChecking ->
                 val fragmentAppoint = FragmentAppointment()
-                val fm: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-                fm.replace(R.id.changeIdManageAppointment, fragmentAppoint)
-                    .addToBackStack(null).commit()
+                val fm = activity?.supportFragmentManager?.beginTransaction()
+                fm?.replace(R.id.changeIdManageAppointment, fragmentAppoint)
+                    ?.addToBackStack(null)?.commit()
                 val bundle = Bundle()
                 bundle.putSerializable(PreferenceKey.REGISTER_CHECKING, registerChecking)
                 fragmentAppoint.arguments = bundle
             }
 
             adapterManageAppointment.isCancelAppoint = { registerChecking ->
+
+                //set style text notification
+                val notification = "Lịch hẹn ${registerChecking!!.date} lúc ${registerChecking.hour} của bạn sẽ được xoá khỏi danh sách"
+                val spannable = SpannableString(notification)
+                setStyleTextAtPosition(notification, registerChecking.date!!, StyleSpan(Typeface.BOLD_ITALIC), spannable)
+                setStyleTextAtPosition(notification, registerChecking.hour!!, StyleSpan(Typeface.BOLD_ITALIC), spannable)
+
                 val alertDialog : AlertDialog.Builder = AlertDialog.Builder(requireActivity())
                 alertDialog.setTitle("Xác nhận xoá lịch hẹn")
                 alertDialog.setIcon(R.mipmap.ic_launcher)
-                alertDialog.setMessage("Lịch hẹn ${registerChecking!!.date} lúc ${registerChecking.hour} của bạn sẽ được xoá khỏi danh sách")
+                alertDialog.setMessage(spannable)
                 alertDialog.setPositiveButton("Đồng ý") { _, _ ->
                     viewModel.deleteAppoint(
                         convertToRequestBody("2"),
-                        convertToRequestBody(registerChecking.date!!),
-                        convertToRequestBody(registerChecking.hour!!),
+                        convertToRequestBody(registerChecking.date),
+                        convertToRequestBody(registerChecking.hour),
                         convertToRequestBody("0")
                     )
-                    if(viewModel.deleteSuccessful){
-                        show("Bạn đã xoá thành công lịch hẹn ${registerChecking.date} lúc ${registerChecking.hour}")
-                        viewModel.getListAppointment(
-                            convertToRequestBody(id_user.toString())
-                        )
-                        adapterManageAppointment.notifyDataSetChanged()
-                    }
+                    object : CountDownTimer(300, 300) {
+                        override fun onTick(p0: Long) {
+
+                        }
+
+                        override fun onFinish() {
+                            if(viewModel.deleteSuccessful){
+                                show("Bạn đã xoá thành công lịch hẹn ${registerChecking.date} lúc ${registerChecking.hour}")
+                                viewModel.getListAppointment(
+                                    convertToRequestBody(id_user.toString())
+                                )
+                                adapterManageAppointment.notifyDataSetChanged()
+                            }
+                        }
+                    }.start()
                 }
                 alertDialog.setNegativeButton("Không") { _, _ -> }
                 alertDialog.show()
@@ -123,6 +141,10 @@ class FragmentManageAppointment : BaseFragment<ManageAppointmentViewModel, Fragm
 
         binding.imgDeleteTxt.setOnClickListener {
             binding.searchManageAppoint.setText("")
+        }
+
+        binding.settingManageAppoint.setOnClickListener {
+            adapterManageAppointment.revertAppoint()
         }
     }
 

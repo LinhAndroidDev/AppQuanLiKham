@@ -21,21 +21,21 @@
                 android:id="@+id/txtTitle"
                 android:layout_centerVertical="true"
                 android:text="Chỉnh sửa thời gian làm việc"
-                android:textSize="20dp"
+                android:textSize="@dimen/dimen_20"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:background="@color/background"
-                android:paddingVertical="15dp"
+                android:paddingVertical="@dimen/dimen_15"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <ImageView
                 android:id="@+id/backEditTimeWorking"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="@dimen/dimen_10"
                 android:layout_centerVertical="true"
                 android:background="@drawable/ic_action_back_white"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
+                android:layout_width="@dimen/dimen_30"
+                android:layout_height="@dimen/dimen_30"/>
         </RelativeLayout>
 
         <LinearLayout
@@ -43,55 +43,55 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_marginEnd="@dimen/dimen_20"
             app:layout_constraintTop_toBottomOf="@id/rltTitle"
             app:layout_constraintEnd_toEndOf="parent">
             <TextView
                 android:text="Thêm giờ làm việc"
-                android:textSize="16dp"
+                android:textSize="@dimen/dimen_16"
                 android:textColor="@color/text"
                 android:textStyle="italic"
                 android:layout_gravity="center"
-                android:layout_marginEnd="5dp"
+                android:layout_marginEnd="@dimen/dimen_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <ImageView
                 android:id="@+id/addHour"
                 android:layout_gravity="end"
                 android:src="@drawable/ic_action_add_appoint"
-                android:layout_width="30dp"
-                android:layout_height="30dp" />
+                android:layout_width="@dimen/dimen_30"
+                android:layout_height="@dimen/dimen_30" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/llChangeTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/dimen_20"
             android:orientation="horizontal"
             android:gravity="center"
             app:layout_constraintTop_toBottomOf="@id/llBoderAddHour">
             <ImageView
                 android:id="@+id/backDateEdit"
                 android:background="@drawable/icon_back"
-                android:layout_width="20dp"
-                android:layout_height="27dp"
-                android:layout_marginEnd="15dp"/>
+                android:layout_width="@dimen/dimen_20"
+                android:layout_height="@dimen/dimen_27"
+                android:layout_marginEnd="@dimen/dimen_15"/>
             <TextView
                 android:id="@+id/txtTimeEdit"
                 android:text="Thứ tư, 24 tháng 5"
-                android:textSize="25dp"
+                android:textSize="@dimen/dimen_25"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/svn_berkshire_swash"/>
             <ImageView
                 android:id="@+id/nextDateEdit"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="@dimen/dimen_15"
                 android:background="@drawable/icon_next"
-                android:layout_width="20dp"
-                android:layout_height="27dp"/>
+                android:layout_width="@dimen/dimen_20"
+                android:layout_height="@dimen/dimen_27"/>
         </LinearLayout>
 
         <LinearLayout
@@ -101,9 +101,9 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvEditTime"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="200dp"
-                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginBottom="@dimen/dimen_200"
+                android:layout_marginHorizontal="@dimen/dimen_10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -116,16 +116,16 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginEnd="@dimen/dimen_25"
+            android:layout_marginBottom="@dimen/dimen_25"
             android:elevation="15dp">
 
             <ImageView
-                android:layout_margin="13dp"
+                android:layout_margin="@dimen/dimen_13"
                 android:background="@drawable/ic_action_search"
                 android:backgroundTint="@color/white"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
+                android:layout_width="@dimen/dimen_30"
+                android:layout_height="@dimen/dimen_30"/>
 
         </LinearLayout>
 
@@ -135,7 +135,7 @@
             android:layout_height="wrap_content"
             android:text="Chưa có giờ làm việc"
             android:textColor="@color/black"
-            android:textSize="20dp"
+            android:textSize="@dimen/dimen_20"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

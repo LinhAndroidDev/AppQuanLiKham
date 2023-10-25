@@ -7,9 +7,9 @@
         android:id="@+id/deleteMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginHorizontal="@dimen/dimen_20"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:layout_marginBottom="@dimen/dimen_20"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="10dp"
         app:cardElevation="15dp">
@@ -20,48 +20,48 @@
             android:orientation="vertical">
             <LinearLayout
                 android:id="@+id/txtEditDepartment"
-                android:layout_marginVertical="2dp"
+                android:layout_marginVertical="@dimen/dimen_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <ImageView
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/dimen_10"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/ic_action_edit_department_clinic"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"/>
+                    android:layout_width="@dimen/dimen_22"
+                    android:layout_height="@dimen/dimen_22"/>
                 <TextView
                     android:text="Edit"
-                    android:textSize="14dp"
+                    android:textSize="@dimen/dimen_14"
                     android:textColor="@color/text"
-                    android:paddingVertical="8dp"
-                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="@dimen/dimen_8"
+                    android:paddingHorizontal="@dimen/dimen_15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
             <View
                 android:background="#0C000000"
-                android:layout_marginHorizontal="10dp"
+                android:layout_marginHorizontal="@dimen/dimen_10"
                 android:layout_width="match_parent"
-                android:layout_height="0.8dp" />
+                android:layout_height="@dimen/dimen_0.8" />
             <LinearLayout
                 android:id="@+id/txtDeleteDepartment"
-                android:layout_marginVertical="2dp"
+                android:layout_marginVertical="@dimen/dimen_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <ImageView
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/dimen_10"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/ic_action_delete"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"/>
+                    android:layout_width="@dimen/dimen_22"
+                    android:layout_height="@dimen/dimen_22"/>
                 <TextView
                     android:text="Delete"
-                    android:textSize="14dp"
+                    android:textSize="@dimen/dimen_14"
                     android:textColor="@color/text"
-                    android:paddingVertical="8dp"
-                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="@dimen/dimen_8"
+                    android:paddingHorizontal="@dimen/dimen_15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>

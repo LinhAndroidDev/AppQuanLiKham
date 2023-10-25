@@ -24,6 +24,7 @@ import com.example.appkhambenh.ui.ui.user.qr.QrActivity
 import com.example.appkhambenh.ui.ui.user.medicine.MedicineActivity
 import com.example.appkhambenh.ui.ui.user.navigation.information.InformationActivity
 import com.example.appkhambenh.ui.ui.user.navigation.adapter.FunctionNavigationAdapter
+import com.example.appkhambenh.ui.ui.user.navigation.notification.NotificationActivity
 import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.squareup.picasso.Picasso
@@ -135,7 +136,8 @@ class LoginWithUser : BaseActivity<LoginWithUserViewModel, ActivityLoginWithUser
 
                 }
                 2 ->{
-
+                    val intent = Intent(this@LoginWithUser, NotificationActivity::class.java)
+                    startActivity(intent)
                 }
             }
         }

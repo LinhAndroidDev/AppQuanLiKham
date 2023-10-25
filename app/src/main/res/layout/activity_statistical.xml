@@ -10,12 +10,12 @@
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/chart"
-        android:layout_width="300dp"
-        android:layout_height="300dp"/>
+        android:layout_width="@dimen/dimen_300"
+        android:layout_height="@dimen/dimen_300"/>
 
     <LinearLayout
-        android:paddingVertical="30dp"
-        android:paddingHorizontal="10dp"
+        android:paddingVertical="@dimen/dimen_30"
+        android:paddingHorizontal="@dimen/dimen_10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         
@@ -28,20 +28,20 @@
             <ImageView
                 android:background="@drawable/ic_action_circle"
                 android:backgroundTint="@color/orange"
-                android:layout_width="25dp"
-                android:layout_height="25dp"/>
+                android:layout_width="@dimen/dimen_25"
+                android:layout_height="@dimen/dimen_25"/>
             
             <TextView
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="@dimen/dimen_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lịch hẹn đã thành công"
-                android:textSize="16dp"
+                android:textSize="@dimen/dimen_16"
                 android:textColor="@color/black"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="@dimen/dimen_20"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -50,21 +50,21 @@
             <ImageView
                 android:background="@drawable/ic_action_circle"
                 android:backgroundTint="@color/background"
-                android:layout_width="25dp"
-                android:layout_height="25dp"/>
+                android:layout_width="@dimen/dimen_25"
+                android:layout_height="@dimen/dimen_25"/>
 
             <TextView
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="@dimen/dimen_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lịch hẹn đã huỷ"
-                android:textSize="16dp"
+                android:textSize="@dimen/dimen_16"
                 android:textColor="@color/black"/>
             
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="@dimen/dimen_20"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -73,15 +73,15 @@
             <ImageView
                 android:background="@drawable/ic_action_circle"
                 android:backgroundTint="@color/grey"
-                android:layout_width="25dp"
-                android:layout_height="25dp"/>
+                android:layout_width="@dimen/dimen_25"
+                android:layout_height="@dimen/dimen_25"/>
 
             <TextView
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="@dimen/dimen_25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Còn lại"
-                android:textSize="16dp"
+                android:textSize="@dimen/dimen_16"
                 android:textColor="@color/black"/>
         </LinearLayout>
         

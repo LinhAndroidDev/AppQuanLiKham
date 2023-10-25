@@ -7,8 +7,8 @@
         android:id="@+id/edtInfo"
         android:hint="Nguyễn Hữu Linh"
         android:textColor="@color/black"
-        android:textSize="14dp"
-        android:paddingEnd="40dp"
+        android:textSize="@dimen/dimen_14"
+        android:paddingEnd="@dimen/dimen_40"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress" />
@@ -17,21 +17,22 @@
         android:id="@+id/viewGetBirth"
         android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="40dp"/>
+        android:layout_height="@dimen/dimen_40"/>
 
     <LinearLayout
         android:id="@+id/deleteTextInfo"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="bottom">
 
         <ImageView
-            android:layout_marginEnd="10dp"
-            android:layout_marginVertical="10dp"
+            android:layout_marginEnd="@dimen/dimen_10"
+            android:layout_marginBottom="@dimen/dimen_10"
             android:background="@drawable/icon_delete_search"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/dimen_20"
+            android:layout_height="@dimen/dimen_20"
             android:visibility="visible"/>
 
     </LinearLayout>

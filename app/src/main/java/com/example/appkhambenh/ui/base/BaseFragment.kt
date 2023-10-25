@@ -3,6 +3,7 @@ package com.example.appkhambenh.ui.base
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Point
 import android.os.Bundle
 import android.util.TypedValue
@@ -17,6 +18,7 @@ import androidx.viewbinding.ViewBinding
 import com.example.appkhambenh.R
 import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.example.appkhambenh.ui.utils.PreferenceUtil
+import com.example.appkhambenh.ui.utils.dpToPx
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -75,7 +77,7 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(),Ion
         txtToast.text = str
         Toast(requireActivity()).apply {
             duration = Toast.LENGTH_SHORT
-            setGravity(Gravity.BOTTOM, 0, 10.dpToPx())
+            setGravity(Gravity.TOP, 0, 10.dpToPx(requireActivity()))
             view = toast
         }.show()
     }
@@ -91,13 +93,5 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(),Ion
         display.getSize(size)
         screenWidth = size.x
         screenHeight = size.y
-    }
-
-    private fun Int.dpToPx(): Int {
-        return TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            this.toFloat(),
-            resources.displayMetrics
-        ).toInt()
     }
 }
