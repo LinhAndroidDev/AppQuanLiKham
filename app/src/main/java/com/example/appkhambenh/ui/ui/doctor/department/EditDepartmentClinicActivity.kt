@@ -22,7 +22,7 @@ import com.google.firebase.database.*
 import kotlin.collections.ArrayList
 
 class EditDepartmentClinicActivity :
-    BaseActivity<BaseViewModel, ActivityEditDepartmentClinicBinding>() {
+    BaseActivity<DepartmentViewModel, ActivityEditDepartmentClinicBinding>() {
     lateinit var databaseReference: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {

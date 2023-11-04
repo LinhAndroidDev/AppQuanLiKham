@@ -7,9 +7,11 @@ import com.example.appkhambenh.ui.data.remote.entity.UploadImageResponse
 import com.example.appkhambenh.ui.model.Medicine
 import com.example.appkhambenh.ui.model.RegisterChecking
 import com.example.appkhambenh.ui.model.WorkingDate
+import com.example.appkhambenh.ui.ui.doctor.department.DepartmentResponse
 import com.example.appkhambenh.ui.ui.doctor.time_working.UpdateTimeResponse
 import com.example.appkhambenh.ui.ui.user.appointment.register.ChangeStatusWorkingTimeResponse
 import com.example.appkhambenh.ui.ui.user.appointment.register.RegisterAppointmentResponse
+import com.example.appkhambenh.ui.ui.user.navigation.password.PasswordResponse
 import io.reactivex.rxjava3.core.Observable
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -61,10 +63,25 @@ interface ApiService {
         @Part("id") id: RequestBody,
         @Part("name") name: RequestBody,
         @Part("email") email: RequestBody,
+        @Part("sex") sex: RequestBody,
         @Part("birth") birth: RequestBody,
         @Part("phone") phone: RequestBody,
         @Part("address") address: RequestBody,
     ): Observable<UserInfoResponse>
+
+    @Multipart
+    @POST("account/check_password.php")
+    fun checkPassword(
+        @Part("id") id: RequestBody,
+        @Part("password") password: RequestBody
+    ): Observable<PasswordResponse>
+
+    @Multipart
+    @POST("account/change_password.php")
+    fun changePassword(
+        @Part("id") id: RequestBody,
+        @Part("password") password: RequestBody
+    ): Observable<PasswordResponse>
 
     @Multipart
     @POST("time/update_working_time.php")
@@ -140,4 +157,10 @@ interface ApiService {
         @Part("reasons") reasons: RequestBody,
         @Part("id_user") id_user: RequestBody
     ): Observable<RegisterAppointmentResponse>
+
+    @Multipart
+    @POST("department/add_department.php")
+    fun addDepartment(
+        @Part("name") name: RequestBody
+    ): Observable<DepartmentResponse>
 }

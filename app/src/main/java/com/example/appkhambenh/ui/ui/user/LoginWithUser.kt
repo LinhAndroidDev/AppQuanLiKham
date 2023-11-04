@@ -16,6 +16,8 @@ import com.example.appkhambenh.databinding.ActivityLoginWithUserBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.model.FunctionNavigation
 import com.example.appkhambenh.ui.ui.MainActivity
+import com.example.appkhambenh.ui.ui.doctor.statistical.StatisticalActivity
+import com.example.appkhambenh.ui.ui.doctor.time_working.EditTimeWorkActivity
 import com.example.appkhambenh.ui.ui.user.appointment.AppointmentActivity
 import com.example.appkhambenh.ui.ui.user.avatar.EditAvatarActivity
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
@@ -25,6 +27,7 @@ import com.example.appkhambenh.ui.ui.user.medicine.MedicineActivity
 import com.example.appkhambenh.ui.ui.user.navigation.information.InformationActivity
 import com.example.appkhambenh.ui.ui.user.navigation.adapter.FunctionNavigationAdapter
 import com.example.appkhambenh.ui.ui.user.navigation.notification.NotificationActivity
+import com.example.appkhambenh.ui.ui.user.navigation.password.ChangePasswordActivity
 import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.squareup.picasso.Picasso
@@ -68,38 +71,36 @@ class LoginWithUser : BaseActivity<LoginWithUserViewModel, ActivityLoginWithUser
             userId.toRequestBody("multipart/form-data".toMediaTypeOrNull())
         viewModel.getUserInfo(requestUserId)
 
-        viewModel.nameLiveData.observe(this, Observer{
-            binding.txtUserName.text = it
-        })
+        viewModel.userLiveData.observe(this) {
+            if(it.result?.type == 1){
+                binding.noteDoctor.visibility = View.VISIBLE
+                binding.functionAccessoryDoctor.visibility = View.VISIBLE
+                binding.functionMainDoctor.visibility = View.VISIBLE
+                binding.functionAccessoryPatients.visibility = View.GONE
+                binding.functionMainPatients.visibility = View.GONE
+            }
 
-        viewModel.emailLiveData.observe(this, Observer{
-            binding.layoutNavigation.emailNav.text = it
-        })
+            binding.txtUserName.text = it.result?.name
+            binding.txtUserBirth.text = it.result?.birth
+            binding.layoutNavigation.emailNav.text = it.result?.email
+            binding.layoutNavigation.phoneNav.text = it.result?.phone
 
-        viewModel.birthLiveData.observe(this, Observer{
-            binding.txtUserBirth.text = it
-        })
-
-        viewModel.avatarLiveData.observe(this, Observer{
-            if(it.isNotEmpty()){
-                Picasso.get().load(it)
+            if (it.result?.avatar!!.isNotEmpty()) {
+                Picasso.get().load(it.result.avatar)
                     .error(R.drawable.user_ad)
                     .placeholder(R.drawable.user_ad)
                     .into(binding.avartarUser)
 
-                Picasso.get().load(it)
+                Picasso.get().load(it.result.avatar)
                     .placeholder(R.drawable.user_ad)
                     .error(R.drawable.user_ad)
                     .into(binding.layoutNavigation.avatarNav)
             }
-        })
+        }
     }
 
     @SuppressLint("SetTextI18n")
     private fun initNavigation() {
-
-        binding.layoutNavigation.phoneNav.text = viewModel.mPreferenceUtil.defaultPref()
-            .getString(PreferenceKey.USER_PHONE, "")
 
         binding.layoutNavigation.logout.setOnClickListener {
             val intent = Intent(this@LoginWithUser, MainActivity::class.java)
@@ -133,7 +134,8 @@ class LoginWithUser : BaseActivity<LoginWithUserViewModel, ActivityLoginWithUser
                     startActivity(intent)
                 }
                 1 ->{
-
+                    val intent = Intent(this@LoginWithUser, ChangePasswordActivity::class.java)
+                    startActivity(intent)
                 }
                 2 ->{
                     val intent = Intent(this@LoginWithUser, NotificationActivity::class.java)
@@ -161,6 +163,7 @@ class LoginWithUser : BaseActivity<LoginWithUserViewModel, ActivityLoginWithUser
 
     @SuppressLint("IntentReset")
     private fun initUi() {
+
         setStatusBar()
 
         binding.avartarUser.setOnClickListener{
@@ -198,6 +201,16 @@ class LoginWithUser : BaseActivity<LoginWithUserViewModel, ActivityLoginWithUser
             intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
 
             startActivityForResult(intent, 100)
+        }
+
+        binding.addAppoint.setOnClickListener {
+            val intent = Intent(this@LoginWithUser, EditTimeWorkActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.cvStatisticalAppoint.setOnClickListener {
+            val intent = Intent(this@LoginWithUser, StatisticalActivity::class.java)
+            startActivity(intent)
         }
 
         /** User QR CODE */

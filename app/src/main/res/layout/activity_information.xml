@@ -86,6 +86,36 @@
 
             <TextView
                 android:layout_marginTop="@dimen/dimen_10"
+                android:text="Giới tính: "
+                android:textSize="@dimen/dimen_16"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioGroup
+                android:layout_marginTop="@dimen/dimen_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbMan"
+                    android:text="Nam"
+                    android:layout_width="@dimen/dimen_80"
+                    android:layout_height="@dimen/dimen_25"/>
+
+                <RadioButton
+                    android:id="@+id/rbWomen"
+                    android:layout_marginStart="@dimen/dimen_30"
+                    android:text="Nữ"
+                    android:layout_width="@dimen/dimen_80"
+                    android:layout_height="@dimen/dimen_25"/>
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_marginTop="@dimen/dimen_10"
                 android:text="Ngày Sinh: "
                 android:textSize="@dimen/dimen_16"
                 android:textStyle="bold"

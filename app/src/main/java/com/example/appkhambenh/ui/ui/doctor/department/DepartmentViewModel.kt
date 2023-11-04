@@ -1,39 +1,27 @@
-package com.example.appkhambenh.ui.ui.user.navigation.information
+package com.example.appkhambenh.ui.ui.doctor.department
 
 import androidx.lifecycle.MutableLiveData
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.ApiClient
-import com.example.appkhambenh.ui.data.remote.entity.UserInfoResponse
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.RequestBody
 
-class InformationViewModel : BaseViewModel() {
-    var updateInfoSuccessfulLiveData = MutableLiveData<Boolean>()
-    var isLoadingLiveData = MutableLiveData<Boolean>()
+class DepartmentViewModel : BaseViewModel() {
+    var addSuccessfulLiveData = MutableLiveData<Boolean>()
 
-    fun updateInfo(
-        id: RequestBody,
-        name: RequestBody,
-        email: RequestBody,
-        sex: RequestBody,
-        birth: RequestBody,
-        phone: RequestBody,
-        address: RequestBody,
-    ){
-        isLoadingLiveData.postValue(true)
-        ApiClient.shared().updateInfo(id, name, email, sex, birth, phone, address)
+    fun addDepartment(name: RequestBody){
+        ApiClient.shared().addDepartment(name)
             .observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<UserInfoResponse>{
+            .subscribe(object : Observer<DepartmentResponse>{
                 override fun onSubscribe(d: Disposable) {
 
                 }
 
                 override fun onError(e: Throwable) {
-                    isLoadingLiveData.postValue(false)
                     errorApiLiveData.postValue(e.message)
                 }
 
@@ -41,11 +29,10 @@ class InformationViewModel : BaseViewModel() {
 
                 }
 
-                override fun onNext(t: UserInfoResponse) {
-                    isLoadingLiveData.postValue(false)
+                override fun onNext(t: DepartmentResponse) {
                     when(t.statusCode){
                         ApiClient.STATUS_CODE_SUCCESS -> {
-                            updateInfoSuccessfulLiveData.postValue(true)
+                            addSuccessfulLiveData.postValue(true)
                         }
                         else -> {
                             errorApiLiveData.postValue(t.message)

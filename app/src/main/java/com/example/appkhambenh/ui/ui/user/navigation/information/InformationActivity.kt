@@ -15,6 +15,8 @@ import com.example.appkhambenh.ui.utils.validatePhone
 import com.squareup.picasso.Picasso
 
 class InformationActivity : BaseActivity<InformationViewModel, ActivityInformationBinding>(){
+    var sex: Int = -1;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,10 +33,34 @@ class InformationActivity : BaseActivity<InformationViewModel, ActivityInformati
             viewModel.mPreferenceUtil.defaultPref()
                 .getString(PreferenceKey.USER_NAME, "")
         )
+
         binding.edtEmail.setTextHint(
             viewModel.mPreferenceUtil.defaultPref()
                 .getString(PreferenceKey.USER_EMAIL, "")
         )
+
+        sex = viewModel.mPreferenceUtil.defaultPref()
+            .getInt(PreferenceKey.USER_SEX, -1)
+        if(sex == 0){
+            binding.rbMan.isChecked = true
+        } else{
+            binding.rbWomen.isChecked = true
+        }
+
+        binding.rbMan.setOnCheckedChangeListener { _, b ->
+            if(b){
+                if(sex == 0 && binding.rbMan.isChecked)
+                    disableButtonChangeInfo() else enableButtonChangeInfo()
+            }
+        }
+
+        binding.rbWomen.setOnCheckedChangeListener { _, b ->
+            if(b){
+                if(sex == 1 && binding.rbWomen.isChecked)
+                    disableButtonChangeInfo() else enableButtonChangeInfo()
+            }
+        }
+
         binding.edtBirth.visibleViewBirth()
         binding.edtBirth.setTextHint(
             viewModel.mPreferenceUtil.defaultPref()
@@ -80,6 +106,7 @@ class InformationActivity : BaseActivity<InformationViewModel, ActivityInformati
                     .getInt(PreferenceKey.USER_ID, -1).toString()
                 val name = getValueInfo(binding.edtName, PreferenceKey.USER_NAME)
                 val email = getValueInfo(binding.edtEmail, PreferenceKey.USER_EMAIL)
+                val sex = if(binding.rbMan.isChecked) 0 else 1
                 val birth = getValueInfo(binding.edtBirth, PreferenceKey.USER_BIRTH)
                 val phone = getValueInfo(binding.edtPhone, PreferenceKey.USER_PHONE)
                 val address = getValueInfo(binding.edtAddress, PreferenceKey.USER_ADDRESS)
@@ -88,6 +115,7 @@ class InformationActivity : BaseActivity<InformationViewModel, ActivityInformati
                     convertToRequestBody(user_id),
                     convertToRequestBody(name!!),
                     convertToRequestBody(email!!),
+                    convertToRequestBody(sex.toString()),
                     convertToRequestBody(birth!!),
                     convertToRequestBody(phone!!),
                     convertToRequestBody(address!!)

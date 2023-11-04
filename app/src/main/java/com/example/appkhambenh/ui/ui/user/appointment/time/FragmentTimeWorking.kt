@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentTimeWorkingBinding
@@ -98,9 +99,10 @@ class FragmentTimeWorking : BaseFragment<TimeWorkingViewModel, FragmentTimeWorki
 
                 workingTimeAdapter.onClickSelectAppointment = {
                     val fragmentAppointment = FragmentAppointment()
-                    val fm = activity?.supportFragmentManager?.beginTransaction()
-                    fm?.replace(R.id.changeIdAppointment, fragmentAppointment)
-                        ?.addToBackStack(null)?.commit()
+                    val fm: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+                    fm.hide(requireActivity().supportFragmentManager.findFragmentByTag("FragmentTimeWorking")!!)
+                        .add(R.id.changeIdAppointment, fragmentAppointment)
+                        .addToBackStack(null).commit()
                     viewModel.mPreferenceUtil.defaultPref()
                         .edit().putString(PreferenceKey.DATE_APPOINTMENT, date)
                         .apply()

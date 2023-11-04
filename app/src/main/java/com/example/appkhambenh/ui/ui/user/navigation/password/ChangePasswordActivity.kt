@@ -1,29 +1,28 @@
-package com.example.appkhambenh.ui.ui.user.manage_appointment
+package com.example.appkhambenh.ui.ui.user.navigation.password
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import com.example.appkhambenh.R
-import com.example.appkhambenh.databinding.ActivityManageAppointmentBinding
+import com.example.appkhambenh.databinding.ActivityChangePasswordBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.ui.EmptyViewModel
 
-class ManageAppointmentActivity : BaseActivity<EmptyViewModel, ActivityManageAppointmentBinding>() {
+class ChangePasswordActivity : BaseActivity<EmptyViewModel, ActivityChangePasswordBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val fragmentManageAppointment = FragmentManageAppointment()
-        val fm = supportFragmentManager.beginTransaction()
-        fm.add(R.id.changeIdManageAppointment, fragmentManageAppointment, "FragmentManageAppointment")
+        val fragmentCheckPassword = FragmentCheckPassword()
+        val fg = supportFragmentManager.beginTransaction()
+        fg.add(R.id.changeIdPassword, fragmentCheckPassword, "FragmentCheckPassword")
             .addToBackStack(null).commit()
     }
 
     override fun getActivityBinding(inflater: LayoutInflater)
-    = ActivityManageAppointmentBinding.inflate(inflater)
+    = ActivityChangePasswordBinding.inflate(inflater)
 
-    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        val fm = supportFragmentManager.findFragmentById(R.id.changeIdManageAppointment)
+        val fm = supportFragmentManager.findFragmentById(R.id.changeIdPassword)
         if(fm != null && fm is BaseFragment<*, *>){
             if(fm.onFragmentBack()){
                 finish()

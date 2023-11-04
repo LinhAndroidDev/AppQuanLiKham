@@ -12,7 +12,6 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentAppointmentBinding
@@ -22,7 +21,6 @@ import com.example.appkhambenh.ui.model.Service
 import com.example.appkhambenh.ui.ui.user.LoginWithUser
 import com.example.appkhambenh.ui.ui.user.appointment.register.adapter.ServiceAdapter
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
-import com.example.appkhambenh.ui.ui.user.navigation.information.CustomTextViewInfo
 import com.example.appkhambenh.ui.utils.*
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
@@ -229,11 +227,7 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
     }
 
     private fun getValueUpdateAppoint(strText: String, hint: String): String {
-        return strText.let {
-            it.ifEmpty {
-                hint
-            }
-        }
+        return strText.let { it.ifEmpty { hint } }
     }
 
     private fun showPopupView(txtView: TextView){

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.RadioButton
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentRegisterBinding
 import com.example.appkhambenh.ui.base.BaseFragment
@@ -68,6 +69,23 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
             showDialogSelectDate()
         }
 
+        binding.rbAdmin.setOnCheckedChangeListener { _, b ->
+            if(b){
+                resetView()
+                binding.txtTitleName.text = "Cơ sở y tế"
+                binding.edtName.hint = "Nhập cơ sở y tế"
+                binding.layoutSex.visibility = View.GONE
+                binding.layoutBirth.visibility = View.GONE
+            }else{
+                resetView()
+                binding.txtTitleName.text = resources.getString(R.string.txt_title_name)
+                binding.edtName.hint = resources.getString(R.string.edt_enter_name)
+                binding.edtName.hint = "Nhập tên cơ sở y tế"
+                binding.layoutSex.visibility = View.VISIBLE
+                binding.layoutBirth.visibility = View.VISIBLE
+            }
+        }
+
         binding.register.setOnClickListener {
             val name: String = binding.edtName.text.toString()
             val email: String = binding.edtEmail.text.toString()
@@ -109,6 +127,17 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
             view.hideKeyboard()
             true
         }
+    }
+
+    private fun resetView() {
+        binding.edtName.setText("")
+        binding.edtEmail.setText("")
+        binding.edtBirth.text = ""
+        binding.edtPhone.setText("")
+        binding.edtPassword.setText("")
+        binding.edtRepeatPassword.setText("")
+        binding.edtAddress.setText("")
+        binding.rbMan.isChecked = true
     }
 
     private fun showDialogSelectDate() {

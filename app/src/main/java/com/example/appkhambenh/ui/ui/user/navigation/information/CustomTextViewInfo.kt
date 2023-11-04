@@ -3,17 +3,13 @@ package com.example.appkhambenh.ui.ui.user.navigation.information
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
-import android.text.Editable
 import android.text.InputType
-import android.text.TextWatcher
+import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.EditText
 import android.widget.RelativeLayout
-import androidx.cardview.widget.CardView
 import androidx.core.widget.doOnTextChanged
-import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.LayoutCustomTextviewInfoBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -55,13 +51,12 @@ class CustomTextViewInfo : RelativeLayout
         binding = LayoutCustomTextviewInfoBinding.inflate(LayoutInflater.from(context))
         addView(binding.root)
 
-        disableDeleteText()
-
         binding.edtInfo.doOnTextChanged { text, _, _, _ ->
             if(text?.trim()!!.isNotEmpty()){
                 enableDeleteText()
                 isEnableButtonUpdateInfo?.invoke(true)
             }else{
+                isEnableButtonUpdateInfo?.invoke(false)
                 disableDeleteText()
                 allTextEmpty?.invoke(true)
             }
@@ -101,6 +96,10 @@ class CustomTextViewInfo : RelativeLayout
         binding.edtInfo.inputType = InputType.TYPE_CLASS_PHONE
     }
 
+    fun inputTypePassword(){
+        binding.edtInfo.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+    }
+
     fun visibleViewBirth(){
         binding.viewGetBirth.visibility = View.VISIBLE
     }
@@ -120,5 +119,13 @@ class CustomTextViewInfo : RelativeLayout
             }, getDate.get(Calendar.YEAR), getDate.get((Calendar.MONTH)), getDate.get(Calendar.DAY_OF_MONTH))
 
         datePicker.show()
+    }
+
+    fun showPassword(){
+        binding.edtInfo.transformationMethod = null
+    }
+
+    fun hidePassword(){
+        binding.edtInfo.transformationMethod = PasswordTransformationMethod.getInstance()
     }
 }

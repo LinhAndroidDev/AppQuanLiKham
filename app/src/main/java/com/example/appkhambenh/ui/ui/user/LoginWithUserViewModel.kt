@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.ApiClient
 import com.example.appkhambenh.ui.data.remote.entity.UserInfoResponse
+import com.example.appkhambenh.ui.model.User
 import com.example.appkhambenh.ui.utils.PreferenceKey
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -12,11 +13,7 @@ import retrofit2.Response
 
 class LoginWithUserViewModel : BaseViewModel() {
     var loadingLiveData = MutableLiveData<Boolean>()
-    var nameLiveData = MutableLiveData<String>()
-    var birthLiveData = MutableLiveData<String>()
-    var avatarLiveData = MutableLiveData<String>()
-    var phoneLiveData = MutableLiveData<String>()
-    var emailLiveData = MutableLiveData<String>()
+    var userLiveData = MutableLiveData<UserInfoResponse>()
 
     private fun saveInfo(
         name: String,
@@ -24,7 +21,9 @@ class LoginWithUserViewModel : BaseViewModel() {
         avatar: String,
         phone: String,
         email: String,
-        address: String
+        sex: Int,
+        address: String,
+        type: Int,
     ) {
         mPreferenceUtil.defaultPref().edit()
             .putString(PreferenceKey.USER_NAME, name)
@@ -42,7 +41,16 @@ class LoginWithUserViewModel : BaseViewModel() {
             .putString(PreferenceKey.USER_EMAIL, email)
             .apply()
         mPreferenceUtil.defaultPref().edit()
+            .putString(PreferenceKey.USER_EMAIL, email)
+            .apply()
+        mPreferenceUtil.defaultPref().edit()
+            .putInt(PreferenceKey.USER_SEX, sex)
+            .apply()
+        mPreferenceUtil.defaultPref().edit()
             .putString(PreferenceKey.USER_ADDRESS, address)
+            .apply()
+        mPreferenceUtil.defaultPref().edit()
+            .putInt(PreferenceKey.USER_TYPE, type)
             .apply()
     }
 
@@ -59,18 +67,16 @@ class LoginWithUserViewModel : BaseViewModel() {
                         response.body().let {
                             when(it?.statusCode){
                                 ApiClient.STATUS_CODE_SUCCESS->{
-                                    nameLiveData.value = it.result?.name.toString()
-                                    birthLiveData.value = it.result?.birth.toString()
-                                    avatarLiveData.value = it.result?.avatar.toString()
-                                    phoneLiveData.value = it.result?.phone.toString()
-                                    emailLiveData.value = it.result?.email.toString()
+                                    userLiveData.value = it
                                     saveInfo(
                                         response.body()?.result?.name.toString(),
                                         response.body()?.result?.birth.toString(),
                                         response.body()?.result?.avatar.toString(),
                                         response.body()?.result?.phone.toString(),
                                         response.body()?.result?.email.toString(),
-                                        response.body()?.result?.address.toString()
+                                        response.body()?.result?.sex!!,
+                                        response.body()?.result?.address.toString(),
+                                        response.body()?.result?.type!!
                                     )
                                 }
                                 ApiClient.STATUS_USER_EXIST->{

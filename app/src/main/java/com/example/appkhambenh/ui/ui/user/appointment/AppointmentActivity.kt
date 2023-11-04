@@ -21,7 +21,7 @@ class AppointmentActivity : BaseActivity<EmptyViewModel, ActivityAppointmentBind
 
     private fun replaceFragment(fm: Fragment){
         val fg : FragmentTransaction = supportFragmentManager.beginTransaction()
-        fg.replace(R.id.changeIdAppointment, fm).addToBackStack(null)
+        fg.add(R.id.changeIdAppointment, fm, "FragmentTimeWorking").addToBackStack(null)
             .commit()
     }
 

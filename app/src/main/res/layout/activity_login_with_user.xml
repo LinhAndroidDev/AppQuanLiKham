@@ -54,14 +54,28 @@
                             android:orientation="vertical"
                             android:layout_marginTop="@dimen/dimen_10"
                             android:layout_marginStart="@dimen/dimen_10">
-                            <TextView
-                                android:id="@+id/txtUserName"
-                                android:text="Hà Hữu Hải"
-                                android:textSize="@dimen/dimen_18"
-                                android:textColor="@color/white"
-                                android:textStyle="bold"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:id="@+id/noteDoctor"
+                                    android:text="Bác sĩ: "
+                                    android:textSize="@dimen/dimen_18"
+                                    android:textColor="@color/white"
+                                    android:textStyle="bold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="gone"/>
+                                <TextView
+                                    android:id="@+id/txtUserName"
+                                    android:text="Hà Hữu Hải"
+                                    android:textSize="@dimen/dimen_18"
+                                    android:textColor="@color/white"
+                                    android:textStyle="bold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
                             <TextView
                                 android:id="@+id/txtUserBirth"
                                 android:text="2003"
@@ -95,66 +109,123 @@
                         android:background="@color/white"
                         app:cardCornerRadius="10dp"
                         app:cardElevation="10dp">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingVertical="@dimen/dimen_10"
-                            android:orientation="horizontal">
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
                             <LinearLayout
-                                android:layout_weight="1"
-                                android:layout_width="0dp"
+                                android:id="@+id/functionAccessoryPatients"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:gravity="center">
-                                <ImageView
-                                    android:src="@drawable/ic_action_pay"
-                                    style="@style/img_function_accessory"/>
-                                <TextView
-                                    android:text="Thanh toán"
-                                    style="@style/txt_function_accessory"/>
+                                android:paddingVertical="@dimen/dimen_10"
+                                android:orientation="horizontal"
+                                android:visibility="visible">
+                                <LinearLayout
+                                    android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:gravity="center">
+                                    <ImageView
+                                        android:src="@drawable/ic_action_pay"
+                                        style="@style/img_function_accessory"/>
+                                    <TextView
+                                        android:text="Thanh toán"
+                                        style="@style/txt_function_accessory"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:gravity="center">
+                                    <ImageView
+                                        android:id="@+id/appointment"
+                                        android:src="@drawable/ic_action_datlich"
+                                        style="@style/img_function_accessory"/>
+                                    <TextView
+                                        android:text="Đặt lịch"
+                                        style="@style/txt_function_accessory"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:gravity="center">
+                                    <ImageView
+                                        android:id="@+id/qrCode"
+                                        android:src="@drawable/ic_action_qr"
+                                        style="@style/img_function_accessory"/>
+                                    <TextView
+                                        android:text="QR"
+                                        style="@style/txt_function_accessory"/>
+                                </LinearLayout>
                             </LinearLayout>
+
                             <LinearLayout
-                                android:layout_weight="1"
-                                android:layout_width="0dp"
+                                android:id="@+id/functionAccessoryDoctor"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:gravity="center">
-                                <ImageView
-                                    android:id="@+id/appointment"
-                                    android:src="@drawable/ic_action_datlich"
-                                    style="@style/img_function_accessory"/>
-                                <TextView
-                                    android:text="Đặt lịch"
-                                    style="@style/txt_function_accessory"/>
+                                android:paddingVertical="@dimen/dimen_10"
+                                android:orientation="horizontal"
+                                android:visibility="gone">
+                                <LinearLayout
+                                    android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:gravity="center">
+                                    <ImageView
+                                        android:src="@drawable/ic_action_pay"
+                                        style="@style/img_function_accessory"/>
+                                    <TextView
+                                        android:text="Thanh toán"
+                                        style="@style/txt_function_accessory"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:gravity="center">
+                                    <ImageView
+                                        android:id="@+id/addAppoint"
+                                        android:src="@drawable/ic_action_datlich"
+                                        style="@style/img_function_accessory"/>
+                                    <TextView
+                                        android:text="Thêm lịch"
+                                        style="@style/txt_function_accessory"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:gravity="center">
+                                    <ImageView
+                                        android:src="@drawable/ic_action_qr"
+                                        style="@style/img_function_accessory"/>
+                                    <TextView
+                                        android:text="QR"
+                                        style="@style/txt_function_accessory"/>
+                                </LinearLayout>
                             </LinearLayout>
-                            <LinearLayout
-                                android:layout_weight="1"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:gravity="center">
-                                <ImageView
-                                    android:id="@+id/qrCode"
-                                    android:src="@drawable/ic_action_qr"
-                                    style="@style/img_function_accessory"/>
-                                <TextView
-                                    android:text="QR"
-                                    style="@style/txt_function_accessory"/>
-                            </LinearLayout>
-                        </LinearLayout>
+                        </RelativeLayout>
                     </androidx.cardview.widget.CardView>
                 </RelativeLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <LinearLayout
+            <RelativeLayout
                 android:layout_weight="10"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="vertical">
                 <LinearLayout
+                    android:id="@+id/functionMainPatients"
                     android:layout_marginTop="@dimen/dimen_20"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="visible">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -294,7 +365,117 @@
                             android:gravity="center_vertical"/>
                     </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/functionMainDoctor"
+                    android:layout_marginTop="@dimen/dimen_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cv_manage_appointment_doctor"
+                            style="@style/card_function_main"
+                            android:layout_marginEnd="@dimen/dimen_8"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="10dp"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardElevation="5dp">
+
+                            <LinearLayout
+                                style="@style/ll_function_main_user">
+
+                                <ImageView
+                                    style="@style/img_function_main"
+                                    android:src="@drawable/ic_action_schedule" />
+
+                                <TextView
+                                    style="@style/txt_function_main"
+                                    android:textStyle="bold"
+                                    android:text="Quản lí lịch hẹn"/>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            style="@style/card_function_main"
+                            android:layout_marginEnd="@dimen/dimen_20"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="5dp">
+
+                            <LinearLayout
+                                style="@style/ll_function_main_user">
+
+                                <ImageView
+                                    style="@style/img_function_main"
+                                    android:src="@drawable/ic_action_patient" />
+
+                                <TextView
+                                    style="@style/txt_function_main"
+                                    android:textStyle="bold"
+                                    android:text="Quản lí bệnh nhân"
+                                    />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            style="@style/card_function_main"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="@dimen/dimen_8"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="5dp">
+                            <LinearLayout
+                                style="@style/ll_function_main_user">
+                                <ImageView
+                                    android:src="@drawable/ic_action_medicine"
+                                    style="@style/img_function_main"/>
+                                <TextView
+                                    style="@style/txt_function_main"
+                                    android:textStyle="bold"
+                                    android:text="Quản lí thuốc"
+                                    />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cvStatisticalAppoint"
+                            style="@style/card_function_main"
+                            android:layout_marginEnd="@dimen/dimen_20"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="5dp">
+
+                            <LinearLayout
+                                style="@style/ll_function_main_user">
+
+                                <ImageView
+                                    style="@style/img_function_main"
+                                    android:src="@drawable/ic_action_statistical" />
+
+                                <TextView
+                                    style="@style/txt_function_main"
+                                    android:textStyle="bold"
+                                    android:text="Thống kê lịch hẹn"
+                                    />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navigationView"

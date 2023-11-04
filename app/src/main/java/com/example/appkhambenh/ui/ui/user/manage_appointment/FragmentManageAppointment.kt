@@ -63,9 +63,10 @@ class FragmentManageAppointment : BaseFragment<ManageAppointmentViewModel, Fragm
 
             adapterManageAppointment.isClickEditAppoint = { registerChecking ->
                 val fragmentAppoint = FragmentAppointment()
-                val fm = activity?.supportFragmentManager?.beginTransaction()
-                fm?.replace(R.id.changeIdManageAppointment, fragmentAppoint)
-                    ?.addToBackStack(null)?.commit()
+                val fm = requireActivity().supportFragmentManager.beginTransaction()
+                fm.hide(requireActivity().supportFragmentManager.findFragmentByTag("FragmentManageAppointment")!!)
+                    .add(R.id.changeIdManageAppointment, fragmentAppoint)
+                    .addToBackStack(null).commit()
                 val bundle = Bundle()
                 bundle.putSerializable(PreferenceKey.REGISTER_CHECKING, registerChecking)
                 fragmentAppoint.arguments = bundle

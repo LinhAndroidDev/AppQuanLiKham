@@ -36,6 +36,8 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
             ViewModelProvider(this)[(this::class.java.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<V>]
         viewModel.mPreferenceUtil = PreferenceUtil(this)
 
+        overridePendingTransition(R.anim.fade_in, R.anim.none)
+
         bindData()
     }
 
@@ -73,5 +75,10 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
         display.getSize(size)
         screenWidth = size.x
         screenHeight = size.y
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.none, R.anim.fade_out)
     }
 }

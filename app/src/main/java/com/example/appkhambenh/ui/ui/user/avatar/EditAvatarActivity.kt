@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.Toast
+import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityEditAvatarBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.ui.user.LoginWithUser
@@ -54,6 +55,9 @@ class EditAvatarActivity : BaseActivity<UploadImageViewModel, ActivityEditAvatar
     }
 
     private fun initUi() {
+
+        overridePendingTransition(R.anim.enter_avt, R.anim.exit_avt)
+
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
@@ -99,4 +103,9 @@ class EditAvatarActivity : BaseActivity<UploadImageViewModel, ActivityEditAvatar
 
     override fun getActivityBinding(inflater: LayoutInflater) =
         ActivityEditAvatarBinding.inflate(inflater)
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.push_avt, R.anim.pop_avt)
+    }
 }

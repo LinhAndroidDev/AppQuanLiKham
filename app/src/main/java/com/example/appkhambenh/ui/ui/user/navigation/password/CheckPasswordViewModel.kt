@@ -1,33 +1,24 @@
-package com.example.appkhambenh.ui.ui.user.navigation.information
+package com.example.appkhambenh.ui.ui.user.navigation.password
 
 import androidx.lifecycle.MutableLiveData
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.ApiClient
-import com.example.appkhambenh.ui.data.remote.entity.UserInfoResponse
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.RequestBody
 
-class InformationViewModel : BaseViewModel() {
-    var updateInfoSuccessfulLiveData = MutableLiveData<Boolean>()
+class CheckPasswordViewModel: BaseViewModel() {
     var isLoadingLiveData = MutableLiveData<Boolean>()
+    var isSuccessfulLiveData = MutableLiveData<Boolean>()
 
-    fun updateInfo(
-        id: RequestBody,
-        name: RequestBody,
-        email: RequestBody,
-        sex: RequestBody,
-        birth: RequestBody,
-        phone: RequestBody,
-        address: RequestBody,
-    ){
+    fun checkPassword(id: RequestBody, password: RequestBody){
         isLoadingLiveData.postValue(true)
-        ApiClient.shared().updateInfo(id, name, email, sex, birth, phone, address)
+        ApiClient.shared().checkPassword(id, password)
             .observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<UserInfoResponse>{
+            .subscribe(object : Observer<PasswordResponse>{
                 override fun onSubscribe(d: Disposable) {
 
                 }
@@ -41,11 +32,11 @@ class InformationViewModel : BaseViewModel() {
 
                 }
 
-                override fun onNext(t: UserInfoResponse) {
+                override fun onNext(t: PasswordResponse) {
                     isLoadingLiveData.postValue(false)
                     when(t.statusCode){
                         ApiClient.STATUS_CODE_SUCCESS -> {
-                            updateInfoSuccessfulLiveData.postValue(true)
+                            isSuccessfulLiveData.postValue(true)
                         }
                         else -> {
                             errorApiLiveData.postValue(t.message)

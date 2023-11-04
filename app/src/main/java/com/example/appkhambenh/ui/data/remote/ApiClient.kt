@@ -10,7 +10,7 @@ object ApiClient {
     const val STATUS_USER_NOT_EXIT = 401
     const val STATUS_SERVER_NOT_RESPONSE = 500
 
-    private const val BASE_URL = "http://192.168.1.8/quanlikham/"
+    private const val BASE_URL = "http://192.168.1.9/quanlikham/"
     private var RETROFIT: Retrofit? = null
     private var API_SERVICE: ApiService? = null
 
