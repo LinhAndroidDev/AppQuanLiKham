@@ -24,9 +24,7 @@ class FragmentCheckPassword : BaseFragment<CheckPasswordViewModel, FragmentCheck
 
     @SuppressLint("SuspiciousIndentation")
     private fun initUi() {
-        binding.backCheckPassword.setOnClickListener {
-            activity?.onBackPressed()
-        }
+        binding.backCheckPassword.setOnClickListener { back() }
 
         val avatar = viewModel.mPreferenceUtil.defaultPref()
             .getString(PreferenceKey.USER_AVATAR, "").toString()

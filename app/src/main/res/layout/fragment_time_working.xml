@@ -12,18 +12,20 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:background="@color/background"
-            android:paddingVertical="@dimen/dimen_15"
+            android:background="@drawable/bg_common"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/backTimeWorking"
-                android:layout_marginStart="@dimen/dimen_15"
+                android:layout_marginStart="@dimen/dimen_20"
+                android:layout_marginTop="@dimen/dimen_60"
+                android:layout_marginBottom="@dimen/dimen_20"
                 android:src="@drawable/ic_action_back_white"
-                android:layout_centerVertical="true"
-                android:layout_width="@dimen/dimen_40"
-                android:layout_height="@dimen/dimen_30"/>
+                android:layout_width="@dimen/dimen_30"
+                android:layout_height="@dimen/dimen_22"/>
             <TextView
+                android:layout_marginTop="@dimen/dimen_60"
+                android:layout_marginBottom="@dimen/dimen_20"
                 android:text="Chọn thời gian khám"
                 android:textSize="@dimen/dimen_20"
                 android:textColor="@color/white"

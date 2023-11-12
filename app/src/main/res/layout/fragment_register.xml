@@ -147,6 +147,25 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/layoutSpecialist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/title_register_function"
+                android:text="@string/txt_title_specialist" />
+
+            <EditText
+                style="@style/edt_register_function"
+                android:id="@+id/edtSpecialist"
+                android:hint="@string/edt_enter_specialist"
+                android:inputType="textEmailAddress"/>
+
+        </LinearLayout>
+
         <TextView
             style="@style/title_register_function"
             android:text="@string/txt_title_password" />

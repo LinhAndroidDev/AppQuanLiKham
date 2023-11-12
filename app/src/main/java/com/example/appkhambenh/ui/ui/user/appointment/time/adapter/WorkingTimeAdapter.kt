@@ -1,8 +1,10 @@
 package com.example.appkhambenh.ui.ui.user.appointment.time.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.provider.CalendarContract.Colors
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -32,6 +34,7 @@ class WorkingTimeAdapter(
         return TimeViewHolder(itemView)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: TimeViewHolder, position: Int) {
         val time: TimeWorking? = listTime?.get(position)
         holder.hour.text = time?.hour
@@ -41,12 +44,24 @@ class WorkingTimeAdapter(
             holder.hour.setTextColor(context.resources.getColor(R.color.black))
         }
 
-        holder.itemView.setOnClickListener {
-            if(time?.is_registered == 1) {
-                Toast.makeText(context, "Lịch khám đã được đặt", Toast.LENGTH_SHORT).show()
-            }else{
-                onClickSelectAppointment?.invoke(time!!)
+        holder.itemView.setOnTouchListener { _, motionEvent ->
+            when(motionEvent?.actionMasked){
+                MotionEvent.ACTION_DOWN->{
+                    holder.itemView.alpha = 0.5f
+                }
+                MotionEvent.ACTION_UP ->{
+                    holder.itemView.alpha = 1f
+                    if(time?.is_registered == 1) {
+                        Toast.makeText(context, "Lịch khám đã được đặt", Toast.LENGTH_SHORT).show()
+                    }else{
+                        onClickSelectAppointment?.invoke(time!!)
+                    }
+                }
+                MotionEvent.ACTION_CANCEL->{
+                    holder.itemView.alpha = 1f
+                }
             }
+            true
         }
     }
 

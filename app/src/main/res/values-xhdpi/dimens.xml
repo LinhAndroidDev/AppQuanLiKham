@@ -64,4 +64,12 @@
 	<dimen name="dimen_125">225dp</dimen>
 	<dimen name="dimen_5.5">9.9dp</dimen>
 	<dimen name="dimen_110">198dp</dimen>
+	<dimen name="dimen_140">252dp</dimen>
+	<dimen name="dimen_180">324dp</dimen>
+	<dimen name="dimen_250">450dp</dimen>
+	<dimen name="dimen_270">486dp</dimen>
+	<dimen name="dimen_17.5">31.5dp</dimen>
+	<dimen name="dimen_12.5">22.5dp</dimen>
+	<dimen name="dimen_8.5">15.3dp</dimen>
+	<dimen name="dimen_19">34.2dp</dimen>
 </resources>

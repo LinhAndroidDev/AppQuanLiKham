@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ui.user.navigation.information.InformationActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.ui.user.navigation.information.FragmentInformation">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_marginTop="@dimen/dimen_40"
+            android:layout_marginTop="@dimen/dimen_60"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -194,4 +194,5 @@
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
+
 </RelativeLayout>

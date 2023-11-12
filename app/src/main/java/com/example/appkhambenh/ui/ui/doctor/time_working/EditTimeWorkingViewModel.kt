@@ -18,9 +18,9 @@ class EditTimeWorkingViewModel : BaseViewModel() {
     var deleteSuccessful: Boolean = false
     var editSuccessful: Boolean = false
 
-    fun getListWorkingTime(day: RequestBody) {
+    fun getListWorkingTime(day: RequestBody, id_doctor: RequestBody) {
         isLoadingGetTimeLiveData.postValue(true)
-        ApiClient.shared().getWorkingTime(day)
+        ApiClient.shared().getWorkingTime(day, id_doctor)
             .observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<WorkingDate> {
@@ -41,9 +41,9 @@ class EditTimeWorkingViewModel : BaseViewModel() {
             })
     }
 
-    fun editWorkingTime(day: RequestBody, hour: RequestBody) {
+    fun updateWorkingTime(day: RequestBody, hour: RequestBody, id_doctor: RequestBody) {
         isLoadingUpdateLiveData.value = true
-        ApiClient.shared().updateWorkingTime(day, hour)
+        ApiClient.shared().updateWorkingTime(day, hour, id_doctor)
             .observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<UpdateTimeResponse> {

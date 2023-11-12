@@ -44,9 +44,10 @@ class FragmentTimeWorking : BaseFragment<TimeWorkingViewModel, FragmentTimeWorki
         binding.imgBackTime.alpha = 0.3f
         binding.imgBackTime.isEnabled = false
 
-        val date = binding.txtTimeWorking.text.toString()
-        val requestBodyDay: RequestBody = date.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        viewModel.getListWorkingTime(requestBodyDay)
+        viewModel.getListWorkingTime(
+            convertToRequestBody(binding.txtTimeWorking.text.toString()),
+            convertToRequestBody("6")
+        )
 
         getData()
 
@@ -57,9 +58,7 @@ class FragmentTimeWorking : BaseFragment<TimeWorkingViewModel, FragmentTimeWorki
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initUi() {
 
-        binding.backTimeWorking.setOnClickListener {
-            activity?.onBackPressed()
-        }
+        binding.backTimeWorking.setOnClickListener { back() }
 
         binding.imgNextTime.setOnClickListener {
             binding.imgBackTime.alpha = 1f
@@ -121,10 +120,10 @@ class FragmentTimeWorking : BaseFragment<TimeWorkingViewModel, FragmentTimeWorki
     }
 
     private fun resetDataDate() {
-        val date = binding.txtTimeWorking.text.toString()
-        val requestBodyDate: RequestBody = date
-            .toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        viewModel.getListWorkingTime(requestBodyDate)
+        viewModel.getListWorkingTime(
+            convertToRequestBody(binding.txtTimeWorking.text.toString()),
+            convertToRequestBody("6")
+        )
 
         getData()
     }

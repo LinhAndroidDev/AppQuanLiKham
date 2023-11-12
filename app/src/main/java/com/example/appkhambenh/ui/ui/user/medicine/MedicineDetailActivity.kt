@@ -23,16 +23,8 @@ class MedicineDetailActivity : BaseActivity<EmptyViewModel, ActivityMedicineDeta
         initUi()
     }
 
-    private fun setStatusBar() {
-        window?.decorView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
-        window.statusBarColor = Color.TRANSPARENT
-    }
-
     @SuppressLint("SetTextI18n")
     private fun initUi() {
-
-        setStatusBar()
 
         val medicine = intent.getSerializableExtra("medicine") as Medicine
 
@@ -47,9 +39,7 @@ class MedicineDetailActivity : BaseActivity<EmptyViewModel, ActivityMedicineDeta
 
         binding.detailInfoMedicine.text = medicine.detail
 
-        binding.backMedicineDetail.setOnClickListener {
-            onBackPressed()
-        }
+        binding.backMedicineDetail.setOnClickListener { back() }
     }
 
     override fun getActivityBinding(inflater: LayoutInflater) =

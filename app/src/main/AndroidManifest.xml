@@ -20,6 +20,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.ui.csyt.ConnectCsytActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ui.user.navigation.password.ChangePasswordActivity"
             android:exported="false" />
         <activity
@@ -66,6 +69,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.ui.user.LoginWithUser"
+            android:windowTranslucentStatus="true"
             android:exported="false" />
         <activity
             android:name=".ui.ui.MainActivity"

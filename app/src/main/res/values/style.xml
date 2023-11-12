@@ -91,4 +91,13 @@
         <item name="android:gravity">center</item>
     </style>
 
+    //Custom Bottom Navigation View
+    <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">@dimen/dimen_10</item>
+    </style>
+
+    <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">@dimen/dimen_11</item>
+    </style>
+
 </resources>

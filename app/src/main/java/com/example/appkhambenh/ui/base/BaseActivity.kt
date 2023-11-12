@@ -1,6 +1,7 @@
 package com.example.appkhambenh.ui.base
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Point
 import android.os.Bundle
 import android.util.TypedValue
@@ -20,6 +21,7 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.lang.reflect.ParameterizedType
 
+@Suppress("DEPRECATION")
 abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActivity() {
     lateinit var viewModel: V
     lateinit var binding: B
@@ -28,7 +30,6 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = getActivityBinding(layoutInflater)
         setContentView(binding.root)
 
@@ -36,9 +37,21 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
             ViewModelProvider(this)[(this::class.java.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<V>]
         viewModel.mPreferenceUtil = PreferenceUtil(this)
 
-        overridePendingTransition(R.anim.fade_in, R.anim.none)
+        fullScreen()
+
+        animChangeScreen()
 
         bindData()
+    }
+
+    private fun animChangeScreen() {
+        overridePendingTransition(R.anim.fade_in, R.anim.none)
+    }
+
+    private fun fullScreen() {
+        window?.decorView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+        window.statusBarColor = Color.TRANSPARENT
     }
 
     abstract fun getActivityBinding(inflater: LayoutInflater): B
@@ -64,9 +77,14 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
         }.show()
     }
 
-    private fun View.hideKeyboard() {
+    fun View.hideKeyboard() {
         val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(windowToken, 0)
+    }
+
+    fun closeKeyboard(){
+        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 
     private fun getSizeWindow() {
@@ -77,8 +95,18 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
         screenHeight = size.y
     }
 
+    fun back(){
+        closeKeyboard()
+        onBackPressed()
+    }
+
     override fun finish() {
         super.finish()
         overridePendingTransition(R.anim.none, R.anim.fade_out)
+    }
+
+    override fun onBackPressed() {
+        closeKeyboard()
+        super.onBackPressed()
     }
 }
