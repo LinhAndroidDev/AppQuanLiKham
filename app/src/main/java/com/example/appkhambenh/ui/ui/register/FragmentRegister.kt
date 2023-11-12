@@ -3,6 +3,7 @@ package com.example.appkhambenh.ui.ui.register
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.RadioButton
+import androidx.fragment.app.Fragment
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentRegisterBinding
 import com.example.appkhambenh.ui.base.BaseFragment
@@ -57,13 +59,9 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
 
         binding.rbPatient.isChecked = true
 
-        binding.backRegister.setOnClickListener {
-            activity?.onBackPressed()
-        }
+        binding.backRegister.setOnClickListener { back() }
 
-        binding.cancel.setOnClickListener {
-            activity?.onBackPressed()
-        }
+        binding.cancel.setOnClickListener { back() }
 
         binding.layoutDate.setOnClickListener {
             showDialogSelectDate()
@@ -76,29 +74,45 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
                 binding.edtName.hint = "Nhập cơ sở y tế"
                 binding.layoutSex.visibility = View.GONE
                 binding.layoutBirth.visibility = View.GONE
-            }else{
+                binding.layoutSpecialist.visibility = View.GONE
+            }
+        }
+
+        binding.rbDoctor.setOnCheckedChangeListener { _, b ->
+            if(b){
+                resetView()
+                binding.txtTitleName.text = "Bác sĩ"
+                binding.edtName.hint = "Nhập tên Bác Sĩ"
+                binding.layoutSex.visibility = View.VISIBLE
+                binding.layoutBirth.visibility = View.VISIBLE
+                binding.layoutSpecialist.visibility = View.VISIBLE
+            }
+        }
+
+        binding.rbPatient.setOnCheckedChangeListener { _, b ->
+            if(b){
                 resetView()
                 binding.txtTitleName.text = resources.getString(R.string.txt_title_name)
                 binding.edtName.hint = resources.getString(R.string.edt_enter_name)
-                binding.edtName.hint = "Nhập tên cơ sở y tế"
                 binding.layoutSex.visibility = View.VISIBLE
                 binding.layoutBirth.visibility = View.VISIBLE
+                binding.layoutSpecialist.visibility = View.GONE
             }
         }
 
         binding.register.setOnClickListener {
             val name: String = binding.edtName.text.toString()
             val email: String = binding.edtEmail.text.toString()
-            val sex = if(binding.rbWomen.isChecked) 1 else 0
+            var specialist: String = binding.edtSpecialist.text.toString()
+            var sex = if(binding.rbWomen.isChecked) 1 else 0
             val password: String = binding.edtPassword.text.toString()
             val passwordRepeat: String = binding.edtRepeatPassword.text.toString()
-            val birth: String = binding.edtBirth.text.toString()
+            var birth: String = binding.edtBirth.text.toString()
             val address: String = binding.edtAddress.text.toString()
             val phone: String = binding.edtPhone.text.toString()
-            val type = if(binding.rbPatient.isChecked) 0 else 1
+            var type = if(binding.rbPatient.isChecked) 0 else 1
 
-            if(name.isEmpty() || email.isEmpty() || password.isEmpty() || passwordRepeat.isEmpty() || birth.isEmpty()
-                || address.isEmpty() || (!binding.rbMan.isChecked && !binding.rbWomen.isChecked) || !binding.cbAgree.isChecked){
+            if(isNotEnoughInfo()){
                 setNotification(R.color.txt_green,R.string.txt_enter_enough_info)
             }else if(!validateEmail(email)){
                 setNotification(R.color.txt_red, R.string.txt_fail_email)
@@ -110,9 +124,18 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
                 setNotification(R.color.txt_red, R.string.txt_warning_phone)
             }
             else{
+                if(binding.rbAdmin.isChecked){
+                    sex = 2
+                    birth = ""
+                    type = 2
+                }
+
+                if(!binding.rbDoctor.isChecked) specialist = ""
+
                 viewModel.requestRegisterUser(
                     convertToRequestBody(email),
                     convertToRequestBody(sex.toString()),
+                    convertToRequestBody(specialist),
                     convertToRequestBody(password),
                     convertToRequestBody(name),
                     convertToRequestBody(birth),
@@ -132,18 +155,30 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
     private fun resetView() {
         binding.edtName.setText("")
         binding.edtEmail.setText("")
+        binding.edtSpecialist.setText("")
         binding.edtBirth.text = ""
         binding.edtPhone.setText("")
         binding.edtPassword.setText("")
         binding.edtRepeatPassword.setText("")
         binding.edtAddress.setText("")
-        binding.rbMan.isChecked = true
+    }
+
+    private fun isNotEnoughInfo(): Boolean{
+        return ((!binding.rbAdmin.isChecked) && (binding.edtName.text.isEmpty()
+                || binding.edtEmail.text.isEmpty()
+                || binding.edtPassword.text.isEmpty()
+                || binding.edtRepeatPassword.text.isEmpty()
+                || binding.edtBirth.text.isEmpty()
+                || binding.edtAddress.text.isEmpty()
+                || (!binding.rbMan.isChecked && !binding.rbWomen.isChecked)
+                || !binding.cbAgree.isChecked)
+                ) || (binding.rbDoctor.isChecked && binding.edtSpecialist.text.isEmpty())
     }
 
     private fun showDialogSelectDate() {
         val getDate = Calendar.getInstance()
         val datePicker = DatePickerDialog(requireActivity(), android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-            DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+            DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
 
                 val selectDate: Calendar = Calendar.getInstance()
                 selectDate.set(Calendar.YEAR, year)

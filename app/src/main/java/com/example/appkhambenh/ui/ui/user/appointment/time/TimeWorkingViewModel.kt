@@ -14,9 +14,9 @@ class TimeWorkingViewModel: BaseViewModel() {
     var isLoadingGetTimeLiveData = MutableLiveData<Boolean>()
     var workingDateLiveData = MutableLiveData<WorkingDate>()
 
-    fun getListWorkingTime(day: RequestBody) {
+    fun getListWorkingTime(day: RequestBody, id_doctor: RequestBody) {
         isLoadingGetTimeLiveData.value = true
-        ApiClient.shared().getWorkingTime(day)
+        ApiClient.shared().getWorkingTime(day, id_doctor)
             .observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<WorkingDate> {

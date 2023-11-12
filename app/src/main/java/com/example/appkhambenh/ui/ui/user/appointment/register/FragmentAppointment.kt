@@ -75,9 +75,7 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
         binding.txtUseNameAppointment.text =
             viewModel.mPreferenceUtil.defaultPref().getString(PreferenceKey.USER_NAME,"")
 
-        binding.backAppointment.setOnClickListener {
-            activity?.supportFragmentManager?.popBackStack()
-        }
+        binding.backAppointment.setOnClickListener { back() }
 
         binding.txtSelectService.setOnClickListener {
             showPopupView(binding.txtSelectService)

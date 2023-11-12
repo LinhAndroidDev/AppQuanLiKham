@@ -112,9 +112,7 @@ class FragmentManageAppointment : BaseFragment<ManageAppointmentViewModel, Fragm
             }
         }
 
-        binding.backManageAppoint.setOnClickListener {
-            activity?.onBackPressed()
-        }
+        binding.backManageAppoint.setOnClickListener { back() }
 
         binding.searchManageAppoint.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {

@@ -20,6 +20,7 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityEditTimeWorkBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.ui.doctor.time_working.adapter.EditTimeAdapter
+import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.database.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -33,6 +34,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
     lateinit var bottomShareBehavior: BottomSheetBehavior<View>
     lateinit var editTimeAdapter: EditTimeAdapter
     var POSITION_ITEM = -1
+    var id_doctor: String = ""
 
     @RequiresApi(Build.VERSION_CODES.O)
     var formatDay = SimpleDateFormat("EEEE", Locale("vi", "VN"))
@@ -45,6 +47,9 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        id_doctor = viewModel.mPreferenceUtil.defaultPref()
+            .getInt(PreferenceKey.USER_ID, -1).toString()
+
         val calendar: Calendar = Calendar.getInstance()
         binding.txtTimeEdit.text = formatDay.format(calendar.time) +
                 "," + formatDayOfMonth.format(calendar.time) +
@@ -53,10 +58,10 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
         binding.backDateEdit.alpha = 0.3f
         binding.backDateEdit.isEnabled = false
 
-        val date = binding.txtTimeEdit.text.toString()
-        val requestBodyDate: RequestBody = date
-            .toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        viewModel.getListWorkingTime(requestBodyDate)
+        viewModel.getListWorkingTime(
+            convertToRequestBody(binding.txtTimeEdit.text.toString()),
+            convertToRequestBody(id_doctor)
+        )
 
         getData()
 
@@ -98,9 +103,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
             resetDataDate()
         }
 
-        binding.backEditTimeWorking.setOnClickListener {
-            onBackPressed()
-        }
+        binding.backEditTimeWorking.setOnClickListener { back() }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -171,12 +174,12 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
             }
         }
 
-        minute.setOnValueChangedListener { numberPicker, i, i2 ->
+        minute.setOnValueChangedListener { numberPicker, _, _ ->
             val number: Int = numberPicker.value
             strMinute = if (number == 0) "00" else "${number*15}"
         }
 
-        hour.setOnValueChangedListener { numberPicker, i, i2 ->
+        hour.setOnValueChangedListener { numberPicker, _, _ ->
             val number: Int = numberPicker.value
             strHour = if (number < 10) {
                 "0$number"
@@ -187,12 +190,15 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
 
         selectHour.setOnClickListener {
             if(type == 1){
-                viewModel.editWorkingTime(
+                val id_doctor = viewModel.mPreferenceUtil.defaultPref()
+                    .getInt(PreferenceKey.USER_ID, -1).toString()
+                viewModel.updateWorkingTime(
                     convertToRequestBody(binding.txtTimeEdit.text.toString()),
-                    convertToRequestBody("$strHour:$strMinute")
+                    convertToRequestBody("$strHour:$strMinute"),
+                    convertToRequestBody(id_doctor)
                 )
 
-                viewModel.isSuccessfulLiveData.observe(this, androidx.lifecycle.Observer {
+                viewModel.isSuccessfulLiveData.observe(this) {
                     if(it){
                         object : CountDownTimer(300, 300) {
                             override fun onTick(p0: Long) {
@@ -201,14 +207,15 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
 
                             override fun onFinish() {
                                 viewModel.getListWorkingTime(
-                                    convertToRequestBody(binding.txtTimeEdit.text.toString())
+                                    convertToRequestBody(binding.txtTimeEdit.text.toString()),
+                                    convertToRequestBody(id_doctor)
                                 )
                                 getData()
                             }
 
                         }.start()
                     }
-                })
+                }
                 dialog.dismiss()
             }else if(type == 2){
                 if(strHourSelected != "$strHour:$strMinute"){
@@ -227,7 +234,8 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
                             if(viewModel.editSuccessful){
                                 show("Bạn đã cập nhật $strHourSelected thành ${"$strHour:$strMinute"}")
                                 viewModel.getListWorkingTime(
-                                    convertToRequestBody(binding.txtTimeEdit.text.toString())
+                                    convertToRequestBody(binding.txtTimeEdit.text.toString()),
+                                    convertToRequestBody(id_doctor)
                                 )
                                 editTimeAdapter.notifyDataSetChanged()
                             }
@@ -282,7 +290,8 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
                                 if(viewModel.deleteSuccessful){
                                     show("Bạn đã xoá $strHour thành công")
                                     viewModel.getListWorkingTime(
-                                        convertToRequestBody(binding.txtTimeEdit.text.toString())
+                                        convertToRequestBody(binding.txtTimeEdit.text.toString()),
+                                        convertToRequestBody(id_doctor)
                                     )
                                     editTimeAdapter.notifyDataSetChanged()
                                 }
@@ -357,8 +366,10 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun resetDataDate() {
-        val date = binding.txtTimeEdit.text.toString()
-        viewModel.getListWorkingTime(convertToRequestBody(date))
+        viewModel.getListWorkingTime(
+            convertToRequestBody(binding.txtTimeEdit.text.toString()),
+            convertToRequestBody(id_doctor)
+        )
 
         getData()
     }

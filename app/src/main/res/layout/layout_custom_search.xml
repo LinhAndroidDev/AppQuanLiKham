@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/search"
+        android:textSize="@dimen/dimen_14"
+        android:hint="Tìm kiếm lịch hẹn"
+        android:textColor="@color/black"
+        android:paddingHorizontal="@dimen/dimen_35"
+        android:paddingVertical="@dimen/dimen_7"
+        android:background="@drawable/bg_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"/>
+
+    <ImageView
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/dimen_10"
+        android:background="@drawable/ic_action_search"
+        android:backgroundTint="@color/color_search"
+        android:layout_width="@dimen/dimen_20"
+        android:layout_height="@dimen/dimen_20"/>
+
+    <ImageView
+        android:id="@+id/deleteTxt"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/dimen_10"
+        android:background="@drawable/icon_delete_search"
+        android:layout_width="@dimen/dimen_18"
+        android:layout_height="@dimen/dimen_18"/>
+
+</RelativeLayout>

@@ -35,9 +35,7 @@ class SeeAvatarActivity : BaseActivity<EmptyViewModel, ActivitySeeAvatarBinding>
                 .into(binding.imgSeeAvatar)
         }
 
-        binding.backSeeAvatar.setOnClickListener {
-            onBackPressed()
-        }
+        binding.backSeeAvatar.setOnClickListener { back() }
     }
 
     override fun onBackPressed() {

@@ -2,17 +2,19 @@ package com.example.appkhambenh.ui.ui.user.navigation.notification
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import com.example.appkhambenh.databinding.ActivityNotificationBinding
-import com.example.appkhambenh.ui.base.BaseActivity
-import com.example.appkhambenh.ui.model.RegisterChecking
+import android.view.View
+import android.view.ViewGroup
+import com.example.appkhambenh.databinding.FragmentNotificationBinding
+import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.ui.user.navigation.notification.adapter.NotificationAdapter
 import com.example.appkhambenh.ui.utils.PreferenceKey
 
-class NotificationActivity : BaseActivity<NotificationViewModel, ActivityNotificationBinding>() {
+class FragmentNotification : BaseFragment<NotificationViewModel, FragmentNotificationBinding>(){
     lateinit var notificationAdapter: NotificationAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 
     override fun bindData() {
@@ -26,12 +28,16 @@ class NotificationActivity : BaseActivity<NotificationViewModel, ActivityNotific
         )
 
         viewModel.listAppointmentLiveData.observe(this){
+            binding.rcvNotification.visibility = if(it.isEmpty()) View.GONE else View.VISIBLE
             notificationAdapter = NotificationAdapter(it)
             notificationAdapter.reverseList()
             binding.rcvNotification.adapter = notificationAdapter
         }
     }
 
-    override fun getActivityBinding(inflater: LayoutInflater)
-    = ActivityNotificationBinding.inflate(inflater)
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    )= FragmentNotificationBinding.inflate(inflater)
+
 }

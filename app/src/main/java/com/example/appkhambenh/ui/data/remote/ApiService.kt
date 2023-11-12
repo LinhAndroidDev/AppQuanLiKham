@@ -33,6 +33,7 @@ interface ApiService {
     fun registerUser(
         @Part("email") email: RequestBody,
         @Part("sex") sex: RequestBody,
+        @Part("specialist") specialist: RequestBody,
         @Part("password") password: RequestBody,
         @Part("name") name: RequestBody,
         @Part("birth") birth: RequestBody,
@@ -87,13 +88,15 @@ interface ApiService {
     @POST("time/update_working_time.php")
     fun updateWorkingTime(
         @Part("day") day: RequestBody,
-        @Part("hour") hour: RequestBody
+        @Part("hour") hour: RequestBody,
+        @Part("id_doctor") id_doctor: RequestBody
     ): Observable<UpdateTimeResponse>
 
     @Multipart
     @POST("time/working_time.php")
     fun getWorkingTime(
-        @Part("day") day: RequestBody
+        @Part("day") day: RequestBody,
+        @Part("id_doctor") id_doctor: RequestBody
     ): Observable<WorkingDate>
 
     @Multipart

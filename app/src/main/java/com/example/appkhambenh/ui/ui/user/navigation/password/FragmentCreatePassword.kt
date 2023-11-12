@@ -80,7 +80,7 @@ class FragmentCreatePassword : BaseFragment<ChangePasswordViewModel, FragmentCre
             }
         }
 
-        binding.backCreatePassword.setOnClickListener { activity?.onBackPressed() }
+        binding.backCreatePassword.setOnClickListener { back() }
 
     }
 

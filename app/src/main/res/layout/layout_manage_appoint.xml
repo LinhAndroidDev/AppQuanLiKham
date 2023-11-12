@@ -47,7 +47,7 @@
 
         <View
             android:layout_marginTop="@dimen/dimen_10"
-            android:background="#23111111"
+            android:background="@color/bg_divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_1"/>
 

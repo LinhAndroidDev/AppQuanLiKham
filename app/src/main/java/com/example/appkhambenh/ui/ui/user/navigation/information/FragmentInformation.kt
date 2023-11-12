@@ -4,9 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.example.appkhambenh.R
-import com.example.appkhambenh.databinding.ActivityInformationBinding
-import com.example.appkhambenh.ui.base.BaseActivity
+import com.example.appkhambenh.databinding.FragmentInformationBinding
+import com.example.appkhambenh.ui.base.BaseFragment
+import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.ui.user.LoginWithUser
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
 import com.example.appkhambenh.ui.utils.PreferenceKey
@@ -14,11 +16,11 @@ import com.example.appkhambenh.ui.utils.validateEmail
 import com.example.appkhambenh.ui.utils.validatePhone
 import com.squareup.picasso.Picasso
 
-class InformationActivity : BaseActivity<InformationViewModel, ActivityInformationBinding>(){
-    var sex: Int = -1;
+class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformationBinding>(){
+    var sex: Int = -1
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         initUi()
     }
@@ -27,7 +29,7 @@ class InformationActivity : BaseActivity<InformationViewModel, ActivityInformati
 
         disableButtonChangeInfo()
 
-        binding.backInfo.setOnClickListener { finish() }
+        binding.backInfo.setOnClickListener { back() }
 
         binding.edtName.setTextHint(
             viewModel.mPreferenceUtil.defaultPref()
@@ -86,7 +88,7 @@ class InformationActivity : BaseActivity<InformationViewModel, ActivityInformati
         }
 
         binding.avatarInfo.setOnClickListener {
-            val intent = Intent(this@InformationActivity, SeeAvatarActivity::class.java)
+            val intent = Intent(requireActivity(), SeeAvatarActivity::class.java)
             startActivity(intent)
         }
 
@@ -100,7 +102,7 @@ class InformationActivity : BaseActivity<InformationViewModel, ActivityInformati
             if(binding.edtEmail.getTextView().isNotEmpty() && !validateEmail(binding.edtEmail.getTextView())){
                 show("Email không đúng định dạng")
             }else if(binding.edtPhone.getTextView().isNotEmpty() && !validatePhone(binding.edtPhone.getTextView())){
-                    show(resources.getString(R.string.txt_warning_phone))
+                show(resources.getString(R.string.txt_warning_phone))
             }else{
                 val user_id = viewModel.mPreferenceUtil.defaultPref()
                     .getInt(PreferenceKey.USER_ID, -1).toString()
@@ -121,16 +123,14 @@ class InformationActivity : BaseActivity<InformationViewModel, ActivityInformati
                     convertToRequestBody(address!!)
                 )
 
-                viewModel.isLoadingLiveData.observe(this@InformationActivity) { isLoading ->
+                viewModel.isLoadingLiveData.observe(requireActivity()) { isLoading ->
                     binding.loadingData.visibility = if(isLoading) View.VISIBLE else View.GONE
                 }
 
-                viewModel.updateInfoSuccessfulLiveData.observe(this@InformationActivity){ isSuccessful->
+                viewModel.updateInfoSuccessfulLiveData.observe(requireActivity()){ isSuccessful->
                     if(isSuccessful){
                         show("Bạn đã cập nhật lại thông tin cá nhân thành công")
-                        val intent = Intent(this@InformationActivity, LoginWithUser::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(intent)
+                        back()
                     }
                 }
             }
@@ -175,6 +175,9 @@ class InformationActivity : BaseActivity<InformationViewModel, ActivityInformati
         binding.changeInfo.isEnabled = true
     }
 
-    override fun getActivityBinding(inflater: LayoutInflater)
-    = ActivityInformationBinding.inflate(inflater)
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    )= FragmentInformationBinding.inflate(inflater)
+
 }
