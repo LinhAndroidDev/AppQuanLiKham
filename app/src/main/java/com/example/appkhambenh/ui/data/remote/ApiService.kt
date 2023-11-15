@@ -7,7 +7,6 @@ import com.example.appkhambenh.ui.data.remote.entity.UploadImageResponse
 import com.example.appkhambenh.ui.model.Medicine
 import com.example.appkhambenh.ui.model.RegisterChecking
 import com.example.appkhambenh.ui.model.WorkingDate
-import com.example.appkhambenh.ui.ui.doctor.department.DepartmentResponse
 import com.example.appkhambenh.ui.ui.doctor.time_working.UpdateTimeResponse
 import com.example.appkhambenh.ui.ui.user.appointment.register.ChangeStatusWorkingTimeResponse
 import com.example.appkhambenh.ui.ui.user.appointment.register.RegisterAppointmentResponse
@@ -160,10 +159,4 @@ interface ApiService {
         @Part("reasons") reasons: RequestBody,
         @Part("id_user") id_user: RequestBody
     ): Observable<RegisterAppointmentResponse>
-
-    @Multipart
-    @POST("department/add_department.php")
-    fun addDepartment(
-        @Part("name") name: RequestBody
-    ): Observable<DepartmentResponse>
 }

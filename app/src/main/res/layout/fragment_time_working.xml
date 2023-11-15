@@ -26,8 +26,8 @@
             <TextView
                 android:layout_marginTop="@dimen/dimen_60"
                 android:layout_marginBottom="@dimen/dimen_20"
-                android:text="Chọn thời gian khám"
-                android:textSize="@dimen/dimen_20"
+                android:text="@string/select_time_checking"
+                android:textSize="@dimen/dimen_sp20"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:layout_centerHorizontal="true"
@@ -49,8 +49,7 @@
                 android:layout_marginEnd="@dimen/dimen_15"/>
             <TextView
                 android:id="@+id/txtTimeWorking"
-                android:text="Thứ tư, 24 tháng 5"
-                android:textSize="@dimen/dimen_25"
+                android:textSize="@dimen/dimen_sp25"
                 android:textColor="@color/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -79,9 +78,9 @@
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chưa có giờ làm việc"
+        android:text="@string/have_not_time"
         android:textColor="@color/black"
-        android:textSize="@dimen/dimen_20"
+        android:textSize="@dimen/dimen_sp20"
         android:textStyle="bold" />
 
 </RelativeLayout>

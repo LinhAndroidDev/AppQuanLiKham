@@ -15,7 +15,7 @@
             android:id="@+id/time"
             android:background="#71ADFA"
             android:text="16:00"
-            android:textSize="@dimen/dimen_14"
+            android:textSize="@dimen/dimen_sp14"
             android:gravity="center"
             android:textColor="@color/white"
             android:layout_width="match_parent"

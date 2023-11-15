@@ -11,7 +11,7 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivitySplashScreenBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.ui.EmptyViewModel
-import com.example.appkhambenh.ui.ui.user.LoginWithUser
+import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.ui.MainActivity
 import com.example.appkhambenh.ui.utils.PreferenceKey
 
@@ -37,7 +37,7 @@ class SplashScreenActivity : BaseActivity<EmptyViewModel, ActivitySplashScreenBi
                 val isLogin = viewModel.mPreferenceUtil.defaultPref()
                     .getBoolean(PreferenceKey.CHECK_LOGIN,false)
                 if(isLogin){
-                    val intent = Intent(this@SplashScreenActivity, LoginWithUser::class.java)
+                    val intent = Intent(this@SplashScreenActivity, HomeActivity::class.java)
                     startActivity(intent)
                     finish()
                 }else{

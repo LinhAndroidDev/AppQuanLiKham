@@ -10,7 +10,7 @@ import android.widget.Toast
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityEditAvatarBinding
 import com.example.appkhambenh.ui.base.BaseActivity
-import com.example.appkhambenh.ui.ui.user.LoginWithUser
+import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -47,7 +47,7 @@ class EditAvatarActivity : BaseActivity<UploadImageViewModel, ActivityEditAvatar
         viewModel.isSuccessfulLiveData.observe(this, androidx.lifecycle.Observer {
             if (it) {
                 Toast.makeText(this, " Bạn đã cập nhật ảnh đại diện", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this@EditAvatarActivity, LoginWithUser::class.java)
+                val intent = Intent(this@EditAvatarActivity, HomeActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             }

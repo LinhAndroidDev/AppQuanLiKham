@@ -32,8 +32,8 @@
                 android:gravity="center"
                 android:orientation="horizontal">
                 <TextView
-                    android:text="Huỷ lịch hẹn"
-                    android:textSize="@dimen/dimen_14"
+                    android:text="@string/cancel_appoint"
+                    android:textSize="@dimen/dimen_sp14"
                     android:textColor="@color/background"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -62,8 +62,8 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:text="Bệnh nhân:"
-                    android:textSize="@dimen/dimen_14"
+                    android:text="@string/patient_appoint"
+                    android:textSize="@dimen/dimen_sp14"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
                     android:id="@+id/txt_name_patient"
                     android:layout_marginStart="@dimen/dimen_5"
                     android:text="Nguyễn Hữu Linh"
-                    android:textSize="@dimen/dimen_14"
+                    android:textSize="@dimen/dimen_sp14"
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -87,7 +87,7 @@
 
                 <TextView
                     android:text="Chỉnh sửa"
-                    android:textSize="@dimen/dimen_14"
+                    android:textSize="@dimen/dimen_sp14"
                     android:textColor="@color/background"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -108,8 +108,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
-                android:text="Thời gian:"
-                android:textSize="@dimen/dimen_14"
+                android:text="@string/time_appoint"
+                android:textSize="@dimen/dimen_sp14"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
@@ -118,7 +118,7 @@
                 android:id="@+id/txt_time_appointment"
                 android:layout_marginStart="@dimen/dimen_5"
                 android:text="Thứ tư, 18 tháng 3 lúc 10:00"
-                android:textSize="@dimen/dimen_14"
+                android:textSize="@dimen/dimen_sp14"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -137,8 +137,8 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:text="Tại:"
-                    android:textSize="@dimen/dimen_14"
+                    android:text="@string/in_appoint"
+                    android:textSize="@dimen/dimen_sp14"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"
@@ -147,7 +147,7 @@
                     android:id="@+id/txt_address"
                     android:layout_marginStart="@dimen/dimen_5"
                     android:text="Khoa điều trị tạm thời"
-                    android:textSize="@dimen/dimen_14"
+                    android:textSize="@dimen/dimen_sp14"
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -163,10 +163,10 @@
                     android:id="@+id/txtExpand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/dimen_12"
+                    android:textSize="@dimen/dimen_sp12"
                     android:textColor="@color/color_search"
                     android:textStyle="italic"
-                    android:text="chi tiết"/>
+                    android:text="@string/detail"/>
 
                 <ImageView
                     android:id="@+id/imgExpand"
@@ -189,7 +189,7 @@
             <TextView
                 android:id="@+id/txt_service"
                 android:text="Khám tự nguyện"
-                android:textSize="@dimen/dimen_14"
+                android:textSize="@dimen/dimen_sp14"
                 android:textStyle="italic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -204,8 +204,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:text="Bác sĩ:"
-                    android:textSize="@dimen/dimen_14"
+                    android:text="@string/doctor_appoint"
+                    android:textSize="@dimen/dimen_sp14"
                     android:textStyle="bold"
                     android:textColor="@color/text"
                     android:layout_width="wrap_content"
@@ -214,7 +214,7 @@
                     android:id="@+id/txt_name_doctor"
                     android:layout_marginStart="@dimen/dimen_5"
                     android:text="Phan Văn Hùng"
-                    android:textSize="@dimen/dimen_14"
+                    android:textSize="@dimen/dimen_sp14"
                     android:textColor="@color/text"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
@@ -227,8 +227,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:text="Triệu chứng/Lí do:"
-                    android:textSize="@dimen/dimen_14"
+                    android:text="@string/reason_appoint"
+                    android:textSize="@dimen/dimen_sp14"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"
@@ -237,7 +237,7 @@
                     android:id="@+id/txt_reasons"
                     android:layout_marginStart="@dimen/dimen_5"
                     android:text="Sốt nhẹ, cảm cúm"
-                    android:textSize="@dimen/dimen_14"
+                    android:textSize="@dimen/dimen_sp14"
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>

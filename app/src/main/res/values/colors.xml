@@ -22,7 +22,7 @@
     <color name="pink">#F4598E</color>
     <color name="orange">#FBB041</color>
     <color name="blue">#40A7FA</color>
-    <color name="purple">#DC6BEF</color>
+    <color name="purple">#5D03FF</color>
     <color name="green_light">#8EC152</color>
     <color name="grey">#DFDFDF</color>
 
@@ -34,5 +34,11 @@
     <color name="bg_common">#F8F7F7</color>
     <color name="bg_icon_setting">#686868</color>
     <color name="bg_divider">#23111111</color>
+    <color name="bg_pink_light">#FDD6E4</color>
+    <color name="bg_pink_dark">#FAB9CE</color>
+    <color name="bg_purple_light">#DECEFC</color>
+    <color name="bg_purple_dark">#D7C0FF</color>
+    <color name="bg_blue_light">#D7F4FF</color>
+    <color name="bg_blue_dark">#B8D7FB</color>
 
 </resources>

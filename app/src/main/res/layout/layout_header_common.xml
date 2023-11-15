@@ -25,9 +25,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Cơ sở y tế"
+            android:text="@string/csyt"
             android:textColor="@color/white"
-            android:textSize="@dimen/dimen_24"
+            android:textSize="@dimen/dimen_sp24"
             android:textStyle="bold" />
 
     </RelativeLayout>

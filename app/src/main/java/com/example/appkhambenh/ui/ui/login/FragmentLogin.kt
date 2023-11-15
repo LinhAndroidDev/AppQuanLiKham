@@ -13,9 +13,8 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.FragmentTransaction
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentLoginBinding
-import com.example.appkhambenh.ui.ui.user.LoginWithUser
+import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.base.BaseFragment
-import com.example.appkhambenh.ui.ui.doctor.LoginWithDoctorActivity
 import com.example.appkhambenh.ui.ui.register.FragmentRegister
 import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.example.appkhambenh.ui.utils.validateEmail
@@ -68,7 +67,7 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
                     .edit().putBoolean(PreferenceKey.CHECK_LOGIN, true)
                     .apply()
 
-                val intent = Intent(requireActivity(), LoginWithUser::class.java)
+                val intent = Intent(requireActivity(), HomeActivity::class.java)
                 startActivity(intent)
                 activity?.finish()
             }
@@ -106,11 +105,11 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
             val email = binding.edtAccount.text.toString()
             val password = binding.edtPassword.text.toString()
             if(email.isEmpty() || password.isEmpty()){
-                setNotification(R.color.txt_green,R.string.txt_enter_enough_info)
+                setNotification(R.color.txt_green,R.string.enter_enough_info)
             }else if(!validateEmail(email)){
-                setNotification(R.color.txt_red,R.string.txt_fail_email)
+                setNotification(R.color.txt_red,R.string.fail_email)
             }else if(!validatePassword(password)){
-                setNotification(R.color.txt_red,R.string.txt_fail_password)
+                setNotification(R.color.txt_red,R.string.fail_password)
             } else{
                 binding.notificationLogin.visibility = View.GONE
 
@@ -127,11 +126,6 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
             val fragmentRegister = FragmentRegister()
             val fm: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
             fm.replace(R.id.changeIdLogin,fragmentRegister).addToBackStack(null).commit()
-        }
-
-        binding.txtLoginWithDoctor.setOnClickListener {
-            val intent = Intent(requireActivity(), LoginWithDoctorActivity::class.java)
-            startActivity(intent)
         }
 
         binding.layoutLogin.setOnTouchListener { view, _ ->

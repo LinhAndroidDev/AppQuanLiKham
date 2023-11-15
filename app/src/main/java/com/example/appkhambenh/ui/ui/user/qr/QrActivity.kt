@@ -9,8 +9,8 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.appkhambenh.R
-import com.example.appkhambenh.ui.ui.user.LoginWithUser
-import com.example.appkhambenh.ui.ui.user.LoginWithUser.Companion.RESULT
+import com.example.appkhambenh.ui.ui.user.HomeActivity
+import com.example.appkhambenh.ui.ui.user.HomeActivity.Companion.RESULT
 import com.google.zxing.Result
 import me.dm7.barcodescanner.zxing.ZXingScannerView
 
@@ -34,7 +34,7 @@ class QrActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
     }
 
     override fun handleResult(p0: Result?) {
-        val intent = Intent(applicationContext, LoginWithUser::class.java)
+        val intent = Intent(applicationContext, HomeActivity::class.java)
         intent.putExtra(RESULT, p0.toString())
         startActivity(intent)
         finish()

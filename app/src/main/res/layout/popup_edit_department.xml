@@ -32,7 +32,7 @@
                     android:layout_height="@dimen/dimen_22"/>
                 <TextView
                     android:text="Edit"
-                    android:textSize="@dimen/dimen_14"
+                    android:textSize="@dimen/dimen_sp14"
                     android:textColor="@color/text"
                     android:paddingVertical="@dimen/dimen_8"
                     android:paddingHorizontal="@dimen/dimen_15"
@@ -58,7 +58,7 @@
                     android:layout_height="@dimen/dimen_22"/>
                 <TextView
                     android:text="Delete"
-                    android:textSize="@dimen/dimen_14"
+                    android:textSize="@dimen/dimen_sp14"
                     android:textColor="@color/text"
                     android:paddingVertical="@dimen/dimen_8"
                     android:paddingHorizontal="@dimen/dimen_15"

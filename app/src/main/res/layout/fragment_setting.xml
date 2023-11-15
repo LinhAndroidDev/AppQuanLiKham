@@ -56,8 +56,7 @@
 
                 <TextView
                     android:id="@+id/nameSetting"
-                    android:text="Nguyễn Hữu Linh"
-                    android:textSize="@dimen/dimen_16"
+                    android:textSize="@dimen/dimen_sp16"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
@@ -76,8 +75,7 @@
                 android:layout_marginTop="@dimen/dimen_10"
                 android:layout_marginBottom="@dimen/dimen_20"
                 android:layout_gravity="center"
-                android:text="0969601767"
-                android:textSize="@dimen/dimen_16"
+                android:textSize="@dimen/dimen_sp16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -95,10 +93,10 @@
 
             <TextView
                 android:layout_marginTop="@dimen/dimen_20"
-                android:text="Cập nhật thông tin cá nhân"
+                android:text="@string/update_info_person"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:textSize="@dimen/dimen_16"
+                android:textSize="@dimen/dimen_sp16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -106,8 +104,8 @@
                 android:layout_marginTop="@dimen/dimen_10"
                 android:layout_marginBottom="@dimen/dimen_20"
                 android:gravity="center"
-                android:text="Cập nhật đầy đủ và chính xác thông tin của bạn \nđể nhận được các kết quả khám từ đối tác của \napp và +5000 điểm tích luỹ"
-                android:textSize="@dimen/dimen_16"
+                android:text="@string/note_update_info_person"
+                android:textSize="@dimen/dimen_sp16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -144,8 +142,8 @@
             android:orientation="vertical">
 
             <TextView
-                android:text="Cài đặt"
-                android:textSize="@dimen/dimen_14"
+                android:text="@string/setting"
+                android:textSize="@dimen/dimen_sp14"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -177,8 +175,8 @@
 
                     <TextView
                         android:layout_centerVertical="true"
-                        android:text="Đổi mật khẩu"
-                        android:textSize="@dimen/dimen_16"
+                        android:text="@string/change_password"
+                        android:textSize="@dimen/dimen_sp16"
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -227,25 +225,24 @@
                     android:layout_height="@dimen/dimen_60">
 
                     <LinearLayout
+                        android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_centerVertical="true"
-                            android:text="Ngôn ngữ/ Language"
-                            android:textSize="@dimen/dimen_16"
+                            android:text="@string/title_language"
+                            android:textSize="@dimen/dimen_sp16"
                             android:textColor="@color/black"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
                             android:layout_marginTop="@dimen/dimen_10"
                             android:text="Tiếng Việt"
-                            android:textSize="@dimen/dimen_14" />
+                            android:textSize="@dimen/dimen_sp14" />
 
                     </LinearLayout>
 
@@ -280,13 +277,13 @@
 
             <TextView
                 android:text="Khác"
-                android:textSize="@dimen/dimen_14"
+                android:textSize="@dimen/dimen_sp14"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <LinearLayout
-                android:id="@+id/conditionAccount"
+                android:id="@+id/failAccount"
                 android:layout_marginTop="@dimen/dimen_15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -301,6 +298,58 @@
                         android:layout_width="@dimen/dimen_24"
                         android:layout_height="@dimen/dimen_24"
                         android:layout_margin="@dimen/dimen_8"
+                        android:background="@drawable/ic_action_fail" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_marginStart="@dimen/dimen_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_40">
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:text="@string/notification_fail"
+                        android:textSize="@dimen/dimen_sp16"
+                        android:textColor="@color/black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/bg_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+
+                    <ImageView
+                        android:layout_marginEnd="@dimen/dimen_20"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_action_next_setting"
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="@dimen/dimen_20"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/conditionAccount"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:background="@drawable/bg_icon_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_26"
+                        android:layout_height="@dimen/dimen_24"
+                        android:layout_marginVertical="@dimen/dimen_8"
+                        android:layout_marginHorizontal="@dimen/dimen_7"
                         android:background="@drawable/ic_action_condition_setting" />
 
                 </LinearLayout>
@@ -312,8 +361,8 @@
 
                     <TextView
                         android:layout_centerVertical="true"
-                        android:text="Điều khoản sử dụng"
-                        android:textSize="@dimen/dimen_16"
+                        android:text="@string/condition"
+                        android:textSize="@dimen/dimen_sp16"
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -364,8 +413,8 @@
 
                     <TextView
                         android:layout_centerVertical="true"
-                        android:text="Xoá tài khoản"
-                        android:textSize="@dimen/dimen_16"
+                        android:text="@string/delete_account"
+                        android:textSize="@dimen/dimen_sp16"
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -415,8 +464,8 @@
 
                     <TextView
                         android:layout_centerVertical="true"
-                        android:text="Đăng xuất"
-                        android:textSize="@dimen/dimen_16"
+                        android:text="@string/logout"
+                        android:textSize="@dimen/dimen_sp16"
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>

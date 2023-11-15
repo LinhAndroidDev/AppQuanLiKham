@@ -16,8 +16,8 @@
         android:src="@mipmap/ic_launcher" />
     <TextView
         android:id="@+id/txtUpdateAvatar"
-        android:text="Cập Nhật Ảnh Đại Diện"
-        android:textSize="@dimen/dimen_18"
+        android:text="@string/update_avt"
+        android:textSize="@dimen/dimen_sp18"
         android:textColor="@color/white"
         android:background="@drawable/bg_edit_avt"
         android:gravity="center"

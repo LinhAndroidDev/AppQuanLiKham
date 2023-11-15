@@ -35,8 +35,8 @@
 
             <TextView
                 android:layout_marginTop="@dimen/dimen_20"
-                android:text="Xác Nhận Xoá Thời Gian"
-                android:textSize="@dimen/dimen_16"
+                android:text="@string/confirm_delete_time"
+                android:textSize="@dimen/dimen_sp16"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
@@ -57,17 +57,17 @@
                     android:background="@drawable/corners_text_view"
                     android:paddingHorizontal="@dimen/dimen_30"
                     android:paddingVertical="@dimen/dimen_10"
-                    android:text="Xoá"
+                    android:text="@string/delete"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/dimen_14" />
+                    android:textSize="@dimen/dimen_sp14" />
 
                 <TextView
                     android:id="@+id/txtCancelDeleteHour"
                     android:layout_marginStart="@dimen/dimen_100"
                     android:layout_marginVertical="@dimen/dimen_20"
                     android:layout_gravity="center"
-                    android:text="Huỷ"
-                    android:textSize="@dimen/dimen_14"
+                    android:text="@string/cancel"
+                    android:textSize="@dimen/dimen_sp14"
                     android:textColor="@color/text"
                     android:paddingVertical="@dimen/dimen_10"
                     android:paddingHorizontal="@dimen/dimen_30"

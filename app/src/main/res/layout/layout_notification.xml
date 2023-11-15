@@ -26,7 +26,7 @@
                 android:id="@+id/txtNotification"
                 android:layout_marginStart="@dimen/dimen_10"
                 android:text="Lịch hẹn của bạn đã quá hạnfjsdfjdbfdjbfhbvhwwrvbshcv\vs"
-                android:textSize="@dimen/dimen_14"
+                android:textSize="@dimen/dimen_sp14"
                 android:textColor="@color/black"
                 android:lineHeight="@dimen/dimen_25"
                 android:layout_width="wrap_content"
