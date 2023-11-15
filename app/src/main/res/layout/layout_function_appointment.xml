@@ -7,7 +7,7 @@
         android:layout_marginVertical="@dimen/dimen_10"
         android:layout_marginHorizontal="@dimen/dimen_10"
         android:text="Nguyễn Hữu Linh"
-        android:textSize="@dimen/dimen_14"
+        android:textSize="@dimen/dimen_sp14"
         android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

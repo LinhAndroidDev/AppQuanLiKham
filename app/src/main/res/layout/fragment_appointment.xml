@@ -68,37 +68,37 @@
         android:orientation="vertical">
 
         <TextView
-            android:text="Chọn dịch vụ khám"
+            android:text="@string/select_service"
             style="@style/title_appoint_function"/>
 
         <TextView
             android:id="@+id/txt_select_service"
-            android:hint="Dịch vụ khám"
+            android:hint="@string/service"
             android:background="@drawable/boder_edit_text"
             style="@style/edt_appoint_function" />
 
         <TextView
-            android:text="Chọn phòng khám"
+            android:text="@string/select_department"
             style="@style/title_appoint_function"/>
 
         <TextView
             android:id="@+id/txt_select_department"
-            android:hint="Nhập phòng khám"
+            android:hint="@string/department"
             android:background="@drawable/boder_edit_text"
             style="@style/edt_appoint_function"/>
 
         <TextView
-            android:text="Chọn bác sĩ"
+            android:text="@string/select_doctor"
             style="@style/title_appoint_function"/>
 
         <TextView
             android:id="@+id/txt_select_doctor"
-            android:hint="Chọn Bác Sĩ"
+            android:hint="@string/select_doctor"
             android:background="@drawable/boder_edit_text"
             style="@style/edt_appoint_function"/>
 
         <TextView
-            android:text="Ngày"
+            android:text="@string/day"
             style="@style/title_appoint_function"/>
 
         <TextView
@@ -107,17 +107,16 @@
             android:gravity="center_vertical"
             android:paddingVertical="@dimen/dimen_10"
             android:paddingHorizontal="@dimen/dimen_10"
-            android:textSize="@dimen/dimen_16"
+            android:textSize="@dimen/dimen_sp16"
             android:textColor="@color/black"
             android:fontFamily="@font/svn_aptima"
             android:text="Dịch vụ khám"
             android:background="@drawable/boder_edit_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"/>
+            android:layout_height="wrap_content" />
 
         <TextView
-            android:text="Giờ"
+            android:text="@string/hour"
             style="@style/title_appoint_function"/>
 
         <TextView
@@ -132,16 +131,15 @@
             android:text="Dịch vụ khám"
             android:background="@drawable/boder_edit_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"/>
+            android:layout_height="wrap_content"/>
 
         <TextView
-            android:text="Triệu chứng/Lý do"
+            android:text="@string/reason"
             style="@style/title_appoint_function"/>
 
         <EditText
             android:id="@+id/edt_reasons"
-            android:hint="Nhập triệu chứng..."
+            android:hint="@string/enter_reason"
             android:background="@drawable/boder_edit_text"
             style="@style/edt_appoint_function"
             android:inputType="text"
@@ -157,8 +155,8 @@
             app:cardBackgroundColor="@color/background">
             <TextView
                 android:id="@+id/txtRegister"
-                android:text="Đăng Ký Khám"
-                android:textSize="@dimen/dimen_14"
+                android:text="@string/register_checking"
+                android:textSize="@dimen/dimen_sp14"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:layout_marginHorizontal="@dimen/dimen_15"

@@ -25,8 +25,8 @@
                 android:src="@drawable/ic_action_back" />
 
             <TextView
-                android:text="Thông Tin Người Dùng"
-                android:textSize="@dimen/dimen_20"
+                android:text="@string/infor_user"
+                android:textSize="@dimen/dimen_sp20"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_centerHorizontal="true"
@@ -58,8 +58,8 @@
 
             <TextView
                 android:layout_marginTop="@dimen/dimen_10"
-                android:text="Tên người dùng: "
-                android:textSize="@dimen/dimen_16"
+                android:text="@string/name_user"
+                android:textSize="@dimen/dimen_sp16"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
@@ -72,8 +72,8 @@
 
             <TextView
                 android:layout_marginTop="@dimen/dimen_10"
-                android:text="Email: "
-                android:textSize="@dimen/dimen_16"
+                android:text="@string/email_user"
+                android:textSize="@dimen/dimen_sp16"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
@@ -86,8 +86,8 @@
 
             <TextView
                 android:layout_marginTop="@dimen/dimen_10"
-                android:text="Giới tính: "
-                android:textSize="@dimen/dimen_16"
+                android:text="@string/sex_user"
+                android:textSize="@dimen/dimen_sp16"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
@@ -101,14 +101,14 @@
 
                 <RadioButton
                     android:id="@+id/rbMan"
-                    android:text="Nam"
+                    android:text="@string/males"
                     android:layout_width="@dimen/dimen_80"
                     android:layout_height="@dimen/dimen_25"/>
 
                 <RadioButton
                     android:id="@+id/rbWomen"
                     android:layout_marginStart="@dimen/dimen_30"
-                    android:text="Nữ"
+                    android:text="@string/females"
                     android:layout_width="@dimen/dimen_80"
                     android:layout_height="@dimen/dimen_25"/>
 
@@ -116,8 +116,8 @@
 
             <TextView
                 android:layout_marginTop="@dimen/dimen_10"
-                android:text="Ngày Sinh: "
-                android:textSize="@dimen/dimen_16"
+                android:text="@string/birth_user"
+                android:textSize="@dimen/dimen_sp16"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
@@ -130,8 +130,8 @@
 
             <TextView
                 android:layout_marginTop="@dimen/dimen_10"
-                android:text="Số điện thoại: "
-                android:textSize="@dimen/dimen_16"
+                android:text="@string/phone_user"
+                android:textSize="@dimen/dimen_sp16"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
@@ -144,8 +144,8 @@
 
             <TextView
                 android:layout_marginTop="@dimen/dimen_10"
-                android:text="Địa chỉ: "
-                android:textSize="@dimen/dimen_16"
+                android:text="@string/address_user"
+                android:textSize="@dimen/dimen_sp16"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
@@ -169,8 +169,8 @@
             android:alpha="0.5">
             <TextView
                 android:id="@+id/txtRegister"
-                android:text="Cập nhật thông tin"
-                android:textSize="@dimen/dimen_14"
+                android:text="@string/update_info"
+                android:textSize="@dimen/dimen_sp14"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:layout_marginHorizontal="@dimen/dimen_15"

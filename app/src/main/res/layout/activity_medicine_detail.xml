@@ -51,7 +51,7 @@
                         android:layout_marginHorizontal="@dimen/dimen_10"
                         android:gravity="center"
                         android:text="Bedipanten 100mg bổ sung vitamin B5, giảm mụn, ngăn rụng tóc hộp 20 viên"
-                        android:textSize="@dimen/dimen_20"
+                        android:textSize="@dimen/dimen_sp20"
                         android:textColor="@color/black"
                         android:textStyle="bold"
                         android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
                 </LinearLayout>
                 <TextView
                     android:text="Thông Tin Chi Tiết Thuốc"
-                    android:textSize="@dimen/dimen_25"
+                    android:textSize="@dimen/dimen_sp25"
                     android:textStyle="bold"
                     android:textColor="@color/background"
                     android:layout_gravity="center"
@@ -120,7 +120,7 @@ Hạn dùng
 Bảo quản
 Bảo quản nơi khô mát, tránh ánh sáng."
                     android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_16"
+                    android:textSize="@dimen/dimen_sp16"
                     android:lineHeight="@dimen/dimen_20"
                     android:layout_marginHorizontal="@dimen/dimen_10"
                     android:layout_marginTop="@dimen/dimen_10"

@@ -15,8 +15,8 @@
         android:orientation="vertical">
 
         <TextView
-            android:text="Thông báo"
-            android:textSize="@dimen/dimen_16"
+            android:text="@string/notification"
+            android:textSize="@dimen/dimen_sp16"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_width="wrap_content"
@@ -25,7 +25,7 @@
             android:id="@+id/txtToast"
             android:layout_marginTop="@dimen/dimen_10"
             android:text="Tôi là Dev"
-            android:textSize="@dimen/dimen_14"
+            android:textSize="@dimen/dimen_sp14"
             android:maxWidth="@dimen/dimen_300"
             android:textColor="@color/black"
             android:layout_width="wrap_content"

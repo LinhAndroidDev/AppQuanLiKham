@@ -37,14 +37,14 @@
                     android:layout_height="@dimen/dimen_50"/>
 
                 <TextView
-                    android:text="Bộ Y Tế"
-                    android:textSize="@dimen/dimen_16"
-                    android:textColor="@color/text"
-                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/dimen_10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:text="@string/ministry_of_health"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/dimen_sp16"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -52,8 +52,8 @@
 
         <TextView
             android:layout_marginTop="@dimen/dimen_80"
-            android:text="@string/txt_title_register_account"
-            android:textSize="@dimen/dimen_32"
+            android:text="@string/title_register_account"
+            android:textSize="@dimen/dimen_sp32"
             android:textColor="@color/text"
             android:textStyle="bold"
             android:layout_gravity="center"
@@ -63,7 +63,7 @@
 
         <TextView
             style="@style/title_register_function"
-            android:text="Chọn đối tượng đăng kí"/>
+            android:text="@string/select_user"/>
 
         <RadioGroup
             android:layout_marginTop="@dimen/dimen_5"
@@ -73,7 +73,7 @@
 
             <RadioButton
                 android:id="@+id/rbPatient"
-                android:text="Bệnh nhân"
+                android:text="@string/patient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -82,36 +82,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/dimen_30"
-                android:text="Bác Sĩ" />
+                android:text="@string/doctor" />
 
             <RadioButton
                 android:id="@+id/rbAdmin"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/dimen_30"
-                android:text="Cơ sở y tế" />
+                android:text="@string/csyt" />
 
         </RadioGroup>
 
         <TextView
             android:id="@+id/txtTitleName"
             style="@style/title_register_function"
-            android:text="@string/txt_title_name" />
+            android:text="@string/title_name" />
 
         <EditText
             style="@style/edt_register_function"
             android:id="@+id/edtName"
-            android:hint="@string/edt_enter_name"
+            android:hint="@string/enter_name"
             android:inputType="textEmailAddress"/>
 
         <TextView
             style="@style/title_register_function"
-            android:text="@string/txt_title_email" />
+            android:text="@string/title_email" />
 
         <EditText
             style="@style/edt_register_function"
             android:id="@+id/edtEmail"
-            android:hint="@string/edt_enter_email"
+            android:hint="@string/enter_email"
             android:inputType="textEmailAddress"/>
 
         <LinearLayout
@@ -122,7 +122,7 @@
 
             <TextView
                 style="@style/title_register_function"
-                android:text="@string/txt_title_sex"/>
+                android:text="@string/title_sex"/>
 
             <RadioGroup
                 android:layout_marginTop="@dimen/dimen_5"
@@ -132,14 +132,14 @@
 
                 <RadioButton
                     android:id="@+id/rbMan"
-                    android:text="Nam"
+                    android:text="@string/males"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <RadioButton
                     android:id="@+id/rbWomen"
                     android:layout_marginStart="@dimen/dimen_30"
-                    android:text="Nữ"
+                    android:text="@string/females"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -156,34 +156,34 @@
 
             <TextView
                 style="@style/title_register_function"
-                android:text="@string/txt_title_specialist" />
+                android:text="@string/title_specialist" />
 
             <EditText
                 style="@style/edt_register_function"
                 android:id="@+id/edtSpecialist"
-                android:hint="@string/edt_enter_specialist"
+                android:hint="@string/enter_specialist"
                 android:inputType="textEmailAddress"/>
 
         </LinearLayout>
 
         <TextView
             style="@style/title_register_function"
-            android:text="@string/txt_title_password" />
+            android:text="@string/title_password" />
 
         <EditText
             style="@style/edt_register_function"
             android:id="@+id/edtPassword"
-            android:hint="@string/edt_enter_password"
+            android:hint="@string/enter_password"
             android:inputType="textPassword" />
 
         <TextView
             style="@style/title_register_function"
-            android:text="@string/txt_title_repeat_password" />
+            android:text="@string/title_repeat_password" />
 
         <EditText
             style="@style/edt_register_function"
             android:id="@+id/edtRepeatPassword"
-            android:hint="@string/txt_title_repeat_password"
+            android:hint="@string/title_repeat_password"
             android:inputType="textPassword"/>
 
         <LinearLayout
@@ -193,7 +193,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:text="@string/txt_title_date"
+                android:text="@string/title_date"
                 style="@style/title_register_function"/>
 
             <RelativeLayout
@@ -211,9 +211,9 @@
 
                     <TextView
                         android:id="@+id/edtBirth"
-                        android:hint="@string/edt_enter_date"
+                        android:hint="@string/enter_date"
                         android:paddingEnd="@dimen/dimen_20"
-                        android:textSize="@dimen/dimen_18"
+                        android:textSize="@dimen/dimen_sp18"
                         android:textColor="@color/black"
                         android:textColorHint="@color/txt_hint"
                         android:layout_width="match_parent"
@@ -243,22 +243,22 @@
 
         <TextView
             style="@style/title_register_function"
-            android:text="@string/txt_title_phone" />
+            android:text="@string/title_phone" />
 
         <EditText
             style="@style/edt_register_function"
             android:id="@+id/edtPhone"
-            android:hint="@string/edt_enter_phone"
+            android:hint="@string/enter_phone"
             android:inputType="phone"/>
 
         <TextView
             style="@style/title_register_function"
-            android:text="@string/txt_title_address" />
+            android:text="@string/title_address" />
 
         <EditText
             style="@style/edt_register_function"
             android:id="@+id/edtAddress"
-            android:hint="@string/edt_enter_address"
+            android:hint="@string/enter_address"
             android:inputType="textEmailAddress"/>
 
         <TextView
@@ -266,7 +266,7 @@
             android:text="Vui lòng nhập "
             android:layout_marginTop="@dimen/dimen_10"
             android:layout_marginStart="@dimen/dimen_10"
-            android:textSize="@dimen/dimen_14"
+            android:textSize="@dimen/dimen_sp14"
             android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -274,7 +274,7 @@
 
         <CheckBox
             android:id="@+id/cbAgree"
-            android:text="Tôi đồng ý với tất cả điều khoản"
+            android:text="@string/agree_condition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -289,8 +289,8 @@
                 android:layout_weight="2"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Huỷ"
-                android:textSize="@dimen/dimen_16"
+                android:text="@string/cancel"
+                android:textSize="@dimen/dimen_sp16"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_width="0dp"
@@ -306,8 +306,8 @@
                 app:cardElevation="0dp">
 
                 <TextView
-                    android:text="Đăng kí"
-                    android:textSize="@dimen/dimen_16"
+                    android:text="@string/register"
+                    android:textSize="@dimen/dimen_sp16"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:paddingVertical="@dimen/dimen_15"

@@ -5,8 +5,8 @@
 
     <EditText
         android:id="@+id/search"
-        android:textSize="@dimen/dimen_14"
-        android:hint="Tìm kiếm lịch hẹn"
+        android:textSize="@dimen/dimen_sp14"
+        android:hint="@string/search_appoint"
         android:textColor="@color/black"
         android:paddingHorizontal="@dimen/dimen_35"
         android:paddingVertical="@dimen/dimen_7"

@@ -10,8 +10,8 @@
 
     <TextView
         android:layout_marginTop="@dimen/dimen_60"
-        android:text="Thông báo"
-        android:textSize="@dimen/dimen_25"
+        android:text="@string/notification"
+        android:textSize="@dimen/dimen_sp25"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:layout_width="wrap_content"
@@ -19,8 +19,8 @@
 
     <TextView
         android:layout_marginTop="@dimen/dimen_10"
-        android:text="Trước đó"
-        android:textSize="@dimen/dimen_16"
+        android:text="@string/before"
+        android:textSize="@dimen/dimen_sp16"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:layout_width="wrap_content"

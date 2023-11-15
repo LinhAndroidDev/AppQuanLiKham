@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.ui.user.manage_appointment.FragmentManageAppointment">
 
     <LinearLayout
-        android:background="#F8F7F7"
+        android:background="@color/bg_common"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -35,9 +36,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="Danh Sách Lịch Hẹn"
+                    android:text="@string/list_appoint"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/dimen_22"
+                    android:textSize="@dimen/dimen_sp22"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -58,7 +59,7 @@
 
                 <EditText
                     android:id="@+id/searchManageAppoint"
-                    android:textSize="@dimen/dimen_14"
+                    android:textSize="@dimen/dimen_sp14"
                     android:hint="Tìm kiếm lịch hẹn"
                     android:textColor="@color/black"
                     android:paddingHorizontal="@dimen/dimen_35"
@@ -112,11 +113,13 @@
                 android:background="@color/bg_loading"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone">
+                android:visibility="visible">
 
-                <ProgressBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                <com.github.ybq.android.spinkit.SpinKitView
+                    app:SpinKit_Color="@color/text"
+                    app:SpinKit_Style="FadingCircle"
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/dimen_40"/>
 
             </LinearLayout>
 

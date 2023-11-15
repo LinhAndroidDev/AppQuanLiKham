@@ -3,15 +3,12 @@ package com.example.appkhambenh.ui.ui.register
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.RadioButton
-import androidx.fragment.app.Fragment
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentRegisterBinding
 import com.example.appkhambenh.ui.base.BaseFragment
@@ -92,8 +89,8 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
         binding.rbPatient.setOnCheckedChangeListener { _, b ->
             if(b){
                 resetView()
-                binding.txtTitleName.text = resources.getString(R.string.txt_title_name)
-                binding.edtName.hint = resources.getString(R.string.edt_enter_name)
+                binding.txtTitleName.text = resources.getString(R.string.title_name)
+                binding.edtName.hint = resources.getString(R.string.enter_name)
                 binding.layoutSex.visibility = View.VISIBLE
                 binding.layoutBirth.visibility = View.VISIBLE
                 binding.layoutSpecialist.visibility = View.GONE
@@ -113,15 +110,15 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
             var type = if(binding.rbPatient.isChecked) 0 else 1
 
             if(isNotEnoughInfo()){
-                setNotification(R.color.txt_green,R.string.txt_enter_enough_info)
+                setNotification(R.color.txt_green,R.string.enter_enough_info)
             }else if(!validateEmail(email)){
-                setNotification(R.color.txt_red, R.string.txt_fail_email)
+                setNotification(R.color.txt_red, R.string.fail_email)
             }else if(!validatePassword(password)){
-                setNotification(R.color.txt_red, R.string.txt_fail_password)
+                setNotification(R.color.txt_red, R.string.fail_password)
             }else if(password != passwordRepeat){
-                setNotification(R.color.txt_red, R.string.txt_enter_password_again)
+                setNotification(R.color.txt_red, R.string.enter_password_again)
             }else if(!validatePhone(phone)){
-                setNotification(R.color.txt_red, R.string.txt_warning_phone)
+                setNotification(R.color.txt_red, R.string.warning_phone)
             }
             else{
                 if(binding.rbAdmin.isChecked){

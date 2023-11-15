@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -7,11 +8,12 @@
         android:id="@+id/edtInfo"
         android:hint="Nguyễn Hữu Linh"
         android:textColor="@color/black"
-        android:textSize="@dimen/dimen_14"
+        android:textSize="@dimen/dimen_sp14"
         android:paddingEnd="@dimen/dimen_60"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        tools:ignore="RtlSymmetry" />
 
     <View
         android:id="@+id/viewGetBirth"

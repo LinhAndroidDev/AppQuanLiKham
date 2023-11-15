@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentInformationBinding
 import com.example.appkhambenh.ui.base.BaseFragment
-import com.example.appkhambenh.ui.ui.EmptyViewModel
-import com.example.appkhambenh.ui.ui.user.LoginWithUser
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
 import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.example.appkhambenh.ui.utils.validateEmail
@@ -102,7 +100,7 @@ class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformati
             if(binding.edtEmail.getTextView().isNotEmpty() && !validateEmail(binding.edtEmail.getTextView())){
                 show("Email không đúng định dạng")
             }else if(binding.edtPhone.getTextView().isNotEmpty() && !validatePhone(binding.edtPhone.getTextView())){
-                show(resources.getString(R.string.txt_warning_phone))
+                show(resources.getString(R.string.warning_phone))
             }else{
                 val user_id = viewModel.mPreferenceUtil.defaultPref()
                     .getInt(PreferenceKey.USER_ID, -1).toString()

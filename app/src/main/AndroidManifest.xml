@@ -26,28 +26,13 @@
             android:name=".ui.ui.user.navigation.password.ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ui.user.navigation.notification.NotificationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.ui.user.navigation.information.InformationActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.ui.doctor.statistical.StatisticalActivity"
             android:exported="false" />
         <activity
             android:name=".ui.ui.user.manage_appointment.ManageAppointmentActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ui.doctor.doctor.ListDoctorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.ui.doctor.department.EditDepartmentClinicActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.ui.doctor.time_working.EditTimeWorkActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.ui.doctor.LoginWithDoctorActivity"
             android:exported="false" />
         <activity
             android:name=".ui.ui.user.avatar.SeeAvatarActivity"
@@ -68,7 +53,7 @@
             android:name=".ui.ui.user.qr.QrActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ui.user.LoginWithUser"
+            android:name=".ui.ui.user.HomeActivity"
             android:windowTranslucentStatus="true"
             android:exported="false" />
         <activity

@@ -13,7 +13,7 @@ import com.example.appkhambenh.databinding.FragmentSettingBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.ui.MainActivity
-import com.example.appkhambenh.ui.ui.user.LoginWithUser
+import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.ui.user.avatar.EditAvatarActivity
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
 import com.example.appkhambenh.ui.ui.user.navigation.password.ChangePasswordActivity
@@ -64,11 +64,11 @@ class FragmentSetting : BaseFragment<EmptyViewModel, FragmentSettingBinding>() {
         }
 
         binding.editProfile.setOnClickListener {
-            (activity as LoginWithUser).goToEditProfile()
+            (activity as HomeActivity).goToEditProfile()
         }
 
         binding.updateInfo.setOnClickListener {
-            (activity as LoginWithUser).goToEditProfile()
+            (activity as HomeActivity).goToEditProfile()
         }
 
         binding.resetPassword.setOnClickListener {

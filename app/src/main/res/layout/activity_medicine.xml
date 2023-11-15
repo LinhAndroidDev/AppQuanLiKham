@@ -7,8 +7,8 @@
     tools:context=".ui.ui.user.medicine.MedicineActivity"
     android:orientation="vertical">
     <TextView
-        android:text="Thông tin thuốc tham khảo"
-        android:textSize="@dimen/dimen_25"
+        android:text="@string/infor_medicine"
+        android:textSize="@dimen/dimen_sp25"
         android:textColor="@color/text"
         android:textStyle="bold"
         android:layout_gravity="center"

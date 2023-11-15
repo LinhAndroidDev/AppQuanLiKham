@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentCreatePasswordBinding
 import com.example.appkhambenh.ui.base.BaseFragment
-import com.example.appkhambenh.ui.ui.user.LoginWithUser
+import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
 import com.example.appkhambenh.ui.ui.user.navigation.information.CustomTextViewInfo
 import com.example.appkhambenh.ui.utils.PreferenceKey
@@ -52,7 +52,7 @@ class FragmentCreatePassword : BaseFragment<ChangePasswordViewModel, FragmentCre
 
         binding.createPassword.setOnClickListener {
             if (!validatePassword(binding.edtPassWordNew.getTextView())){
-                show(resources.getString(R.string.txt_fail_password))
+                show(resources.getString(R.string.fail_password))
             }else if(binding.edtPassWordNew.getTextView() == password){
                 show("Mật khẩu mới phải khác mật khẩu cũ")
             }else {
@@ -72,7 +72,7 @@ class FragmentCreatePassword : BaseFragment<ChangePasswordViewModel, FragmentCre
                 viewModel.isSuccessfulLiveData.observe(viewLifecycleOwner){
                     if(it){
                         show("Bạn đã thay đổi mật khẩu thành công")
-                        val intent = Intent(requireActivity(), LoginWithUser::class.java)
+                        val intent = Intent(requireActivity(), HomeActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
                     }

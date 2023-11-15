@@ -18,7 +18,7 @@ import com.example.appkhambenh.databinding.FragmentAppointmentBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.model.RegisterChecking
 import com.example.appkhambenh.ui.model.Service
-import com.example.appkhambenh.ui.ui.user.LoginWithUser
+import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.ui.user.appointment.register.adapter.ServiceAdapter
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
 import com.example.appkhambenh.ui.utils.*
@@ -167,7 +167,7 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
 
                         viewModel.isSuccessfulLiveData.observe(viewLifecycleOwner) {
                             if(it) {
-                                val intent = Intent(requireActivity(), LoginWithUser::class.java)
+                                val intent = Intent(requireActivity(), HomeActivity::class.java)
                                 startActivity(intent)
                                 activity?.finish()
                                 Toast.makeText(requireActivity() ,"Bạn đã đăng kí lịch khám thành công" ,Toast.LENGTH_SHORT).show()
