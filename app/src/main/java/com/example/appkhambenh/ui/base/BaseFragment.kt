@@ -1,6 +1,7 @@
 package com.example.appkhambenh.ui.base
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.res.Resources
@@ -24,6 +25,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.lang.reflect.ParameterizedType
+import java.util.*
 
 @Suppress("UNREACHABLE_CODE")
 abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(),IonFragmentBack{
@@ -52,6 +54,10 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(),Ion
             .getInt(PreferenceKey.USER_ID, -1)
 
         bindData()
+
+        val language = viewModel.mPreferenceUtil.defaultPref()
+            .getString(PreferenceKey.LANGUAGE, "vi").toString()
+        setLanguage(requireActivity(), language)
 
         return binding.root
     }
@@ -86,6 +92,15 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(),Ion
     fun View.hideKeyboard() {
         val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(windowToken, 0)
+    }
+
+    fun setLanguage(activity: Activity, languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+        val resources = activity.resources
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 
     fun closeKeyboard(){

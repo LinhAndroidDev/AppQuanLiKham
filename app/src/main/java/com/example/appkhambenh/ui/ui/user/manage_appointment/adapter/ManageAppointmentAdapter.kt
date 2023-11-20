@@ -46,7 +46,7 @@ class ManageAppointmentAdapter(
         parent: ViewGroup,
         viewType: Int,
     ): ManageAppointmentAdapter.ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.layout_manage_appoint, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_manage_appoint, parent, false)
         return ViewHolder(itemView)
     }
 

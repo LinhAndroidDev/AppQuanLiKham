@@ -1,5 +1,6 @@
 package com.example.appkhambenh.ui.ui.user.home.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.appkhambenh.R
 
 class ImageAdapter(
+    val context: Context,
     private val images: ArrayList<Int>,
 ): Adapter<ImageAdapter.ViewHolder>() {
 
@@ -27,11 +29,11 @@ class ImageAdapter(
     override fun onBindViewHolder(holder: ImageAdapter.ViewHolder, position: Int) {
         holder.slide.setImageResource(images[position])
         holder.name.text = when (position) {
-            0 -> "Bác Sĩ có nhiều kinh nghiệm"
-            1 -> "Ưu tiên Check in qua app"
-            2 -> "Đặt lịch khám online"
-            3 -> "Bác Sĩ có nhiều kinh nghiệm"
-            else -> "Ưu tiên Check in qua app"
+            0 -> context.getString(R.string.doctor_has_experience)
+            1 -> context.getString(R.string.priority_to_check)
+            2 -> context.getString(R.string.book_online)
+            3 -> context.getString(R.string.doctor_has_experience)
+            else -> context.getString(R.string.priority_to_check)
         }
     }
 

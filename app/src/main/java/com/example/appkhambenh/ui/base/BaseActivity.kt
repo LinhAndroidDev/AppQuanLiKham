@@ -1,5 +1,6 @@
 package com.example.appkhambenh.ui.base
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Point
@@ -14,12 +15,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.example.appkhambenh.R
+import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.example.appkhambenh.ui.utils.PreferenceUtil
 import com.example.appkhambenh.ui.utils.dpToPx
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.lang.reflect.ParameterizedType
+import java.util.*
 
 @Suppress("DEPRECATION")
 abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActivity() {
@@ -42,6 +45,10 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
         animChangeScreen()
 
         bindData()
+
+        val language = viewModel.mPreferenceUtil.defaultPref()
+            .getString(PreferenceKey.LANGUAGE, "vi").toString()
+        setLanguage(this, language)
     }
 
     private fun animChangeScreen() {
@@ -85,6 +92,15 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
     fun closeKeyboard(){
         val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+    }
+
+    fun setLanguage(activity: Activity, languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+        val resources = activity.resources
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 
     private fun getSizeWindow() {

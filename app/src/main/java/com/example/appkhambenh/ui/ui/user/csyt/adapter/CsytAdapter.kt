@@ -1,4 +1,4 @@
-package com.example.appkhambenh.ui.ui.csyt.adapter
+package com.example.appkhambenh.ui.ui.user.csyt.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +11,8 @@ import com.example.appkhambenh.ui.model.Csyt
 
 class CsytAdapter(private val listCsyt: ArrayList<Csyt>) : RecyclerView.Adapter<CsytAdapter.ViewHolder>() {
 
+    var onClickItem: ((Boolean) -> Unit)? = null
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val img: ImageView = itemView.findViewById(R.id.imgCsyt)
         val name: TextView = itemView.findViewById(R.id.nameCsyt)
@@ -19,13 +21,17 @@ class CsytAdapter(private val listCsyt: ArrayList<Csyt>) : RecyclerView.Adapter<
         val star: TextView = itemView.findViewById(R.id.evaluateCsyt)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CsytAdapter.ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.layout_item_csyt, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_csyt, parent, false)
         return ViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: CsytAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val csyt: Csyt = listCsyt[position]
+
+        holder.itemView.setOnClickListener {
+            onClickItem?.invoke(true)
+        }
     }
 
     override fun getItemCount(): Int {

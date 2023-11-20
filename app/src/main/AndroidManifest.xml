@@ -20,7 +20,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.ui.csyt.ConnectCsytActivity"
+            android:name=".ui.ui.user.doctor.SearchDoctorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ui.user.csyt.ConnectCsytActivity"
             android:exported="false" />
         <activity
             android:name=".ui.ui.user.navigation.password.ChangePasswordActivity"
@@ -54,8 +57,8 @@
             android:exported="false" />
         <activity
             android:name=".ui.ui.user.HomeActivity"
-            android:windowTranslucentStatus="true"
-            android:exported="false" />
+            android:exported="false"
+            android:windowTranslucentStatus="true" />
         <activity
             android:name=".ui.ui.MainActivity"
             android:exported="false"

@@ -12,84 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:background="@drawable/bg_common"
+        <com.example.appkhambenh.ui.ui.common.CustomHeader
+            android:id="@+id/headerManageAppoint"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dimen_20"
-                android:layout_marginTop="@dimen/dimen_60"
-                android:layout_marginBottom="@dimen/dimen_20">
-
-                <ImageView
-                    android:id="@+id/backManageAppoint"
-                    android:layout_width="@dimen/dimen_30"
-                    android:layout_height="@dimen/dimen_22"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_action_back_white" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="@string/list_appoint"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/dimen_sp22"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/settingManageAppoint"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_action_setting"
-                    android:layout_width="@dimen/dimen_22"
-                    android:layout_height="@dimen/dimen_22"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dimen_20"
-                android:layout_marginBottom="@dimen/dimen_15">
-
-                <EditText
-                    android:id="@+id/searchManageAppoint"
-                    android:textSize="@dimen/dimen_sp14"
-                    android:hint="Tìm kiếm lịch hẹn"
-                    android:textColor="@color/black"
-                    android:paddingHorizontal="@dimen/dimen_35"
-                    android:paddingVertical="@dimen/dimen_7"
-                    android:background="@drawable/bg_search"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"/>
-
-                <ImageView
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/dimen_10"
-                    android:background="@drawable/ic_action_search"
-                    android:backgroundTint="@color/color_search"
-                    android:layout_width="@dimen/dimen_20"
-                    android:layout_height="@dimen/dimen_20"/>
-
-                <ImageView
-                    android:id="@+id/imgDeleteTxt"
-                    android:visibility="gone"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/dimen_10"
-                    android:background="@drawable/icon_delete_search"
-                    android:layout_width="@dimen/dimen_18"
-                    android:layout_height="@dimen/dimen_18"/>
-
-            </RelativeLayout>
-
-        </LinearLayout>
+            android:layout_height="wrap_content"/>
 
         <RelativeLayout
             android:layout_weight="1"
@@ -101,11 +27,6 @@
                 android:layout_marginHorizontal="@dimen/dimen_10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-
-            <View
-                android:background="@drawable/line_divider"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_5"/>
 
             <LinearLayout
                 android:id="@+id/loadingData"

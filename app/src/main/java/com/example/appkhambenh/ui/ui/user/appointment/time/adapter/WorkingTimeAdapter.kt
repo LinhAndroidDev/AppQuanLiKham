@@ -2,7 +2,6 @@ package com.example.appkhambenh.ui.ui.user.appointment.time.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.provider.CalendarContract.Colors
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -30,7 +29,7 @@ class WorkingTimeAdapter(
         viewType: Int,
     ): TimeViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.layout_time,parent,false)
+            .inflate(R.layout.item_time,parent,false)
         return TimeViewHolder(itemView)
     }
 

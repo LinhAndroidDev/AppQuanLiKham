@@ -3,12 +3,14 @@ package com.example.appkhambenh.ui.ui.common
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.LinearLayout
-import androidx.appcompat.app.AppCompatActivity
 import com.example.appkhambenh.databinding.LayoutHeaderCommonBinding
+import com.example.appkhambenh.ui.base.BaseActivity
 
 class CustomHeader : LinearLayout{
     lateinit var binding: LayoutHeaderCommonBinding
+    var isRevert: ((Boolean) -> Unit)? = null
 
     constructor(context: Context?) : super(context){ initView() }
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs){ initView() }
@@ -27,7 +29,11 @@ class CustomHeader : LinearLayout{
 
     private fun initUi() {
         binding.backHeader.setOnClickListener {
-            (context as AppCompatActivity).onBackPressed()
+            (context as BaseActivity<*, *>).back()
+        }
+
+        binding.setting.setOnClickListener {
+            isRevert?.invoke(true)
         }
     }
 
@@ -40,4 +46,12 @@ class CustomHeader : LinearLayout{
     }
 
     fun searchItem(): String = binding.searchHeader.keySearch
+
+    fun clearFocusSearch(){
+        binding.searchHeader.clrFocus()
+    }
+
+    fun visibleSetting(){
+        binding.setting.visibility = View.VISIBLE
+    }
 }

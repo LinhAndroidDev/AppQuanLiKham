@@ -6,11 +6,11 @@
     android:id="@+id/layout_toast"
     android:elevation="5dp"
     android:orientation="horizontal"
-    android:background="@drawable/boder_toast">
+    android:background="@drawable/bg_corners_10"
+    android:backgroundTint="@color/grey_light">
 
     <LinearLayout
-        android:layout_weight="1"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dimen_300"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -26,7 +26,6 @@
             android:layout_marginTop="@dimen/dimen_10"
             android:text="Tôi là Dev"
             android:textSize="@dimen/dimen_sp14"
-            android:maxWidth="@dimen/dimen_300"
             android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

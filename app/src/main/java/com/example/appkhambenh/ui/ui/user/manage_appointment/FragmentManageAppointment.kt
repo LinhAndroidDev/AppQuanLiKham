@@ -4,9 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.text.Editable
 import android.text.SpannableString
-import android.text.TextWatcher
 import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +18,6 @@ import com.example.appkhambenh.ui.ui.user.appointment.register.FragmentAppointme
 import com.example.appkhambenh.ui.ui.user.manage_appointment.adapter.ManageAppointmentAdapter
 import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.example.appkhambenh.ui.utils.setStyleTextAtPosition
-import com.example.appkhambenh.ui.utils.setTextNotification
 
 class FragmentManageAppointment : BaseFragment<ManageAppointmentViewModel, FragmentManageAppointmentBinding>() {
 
@@ -112,38 +109,20 @@ class FragmentManageAppointment : BaseFragment<ManageAppointmentViewModel, Fragm
             }
         }
 
-        binding.backManageAppoint.setOnClickListener { back() }
+        binding.headerManageAppoint.setTitle(getString(R.string.manage_appointment))
 
-        binding.searchManageAppoint.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        adapterManageAppointment.filter.filter(binding.headerManageAppoint.searchItem())
 
-            }
+        binding.headerManageAppoint.isRevert = {
+            if(it) adapterManageAppointment.revertAppoint()
+        }
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                binding.imgDeleteTxt.visibility =
-                if(p0!!.trim().isNotEmpty()) View.VISIBLE else View.GONE
-
-                adapterManageAppointment.filter.filter(p0)
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-
-            }
-
-        })
+        binding.headerManageAppoint.visibleSetting()
 
         binding.layoutHideKeyboard.setOnTouchListener { view, _ ->
             view.hideKeyboard()
-            binding.searchManageAppoint.clearFocus()
+            binding.headerManageAppoint.clearFocusSearch()
             false
-        }
-
-        binding.imgDeleteTxt.setOnClickListener {
-            binding.searchManageAppoint.setText("")
-        }
-
-        binding.settingManageAppoint.setOnClickListener {
-            adapterManageAppointment.revertAppoint()
         }
     }
 

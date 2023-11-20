@@ -11,29 +11,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:background="@drawable/bg_common"
+        <include
+            android:id="@+id/headerWorkingTime"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/backTimeWorking"
-                android:layout_marginStart="@dimen/dimen_20"
-                android:layout_marginTop="@dimen/dimen_60"
-                android:layout_marginBottom="@dimen/dimen_20"
-                android:src="@drawable/ic_action_back_white"
-                android:layout_width="@dimen/dimen_30"
-                android:layout_height="@dimen/dimen_22"/>
-            <TextView
-                android:layout_marginTop="@dimen/dimen_60"
-                android:layout_marginBottom="@dimen/dimen_20"
-                android:text="@string/select_time_checking"
-                android:textSize="@dimen/dimen_sp20"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_centerHorizontal="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </RelativeLayout>
+            android:layout_height="wrap_content"
+            layout="@layout/layout_header"/>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -31,7 +31,7 @@ class MedicineAdapter(
         parent: ViewGroup,
         viewType: Int,
     ): MedicineViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.layout_medicine, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_medicine, parent, false)
         return MedicineViewHolder(itemView)
     }
 

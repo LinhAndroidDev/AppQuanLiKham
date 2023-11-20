@@ -21,10 +21,13 @@
     <!--    Color Background-->
     <color name="pink">#F4598E</color>
     <color name="orange">#FBB041</color>
-    <color name="blue">#40A7FA</color>
+    <color name="blue">#5BB5FD</color>
     <color name="purple">#5D03FF</color>
     <color name="green_light">#8EC152</color>
     <color name="grey">#DFDFDF</color>
+    <color name="grey_dark">#686868</color>
+    <color name="grey_light">#F3F3F3</color>
+    <color name="yellow">#FFEB3B</color>
 
     <color name="color_search">#BA111111</color>
     <color name="bg_search">#E8E8E8</color>
@@ -32,7 +35,6 @@
     <color name="bg_number_notification">#EF4C41</color>
     <color name="bg_uncheck_bottom_nvg">#9C9C9C</color>
     <color name="bg_common">#F8F7F7</color>
-    <color name="bg_icon_setting">#686868</color>
     <color name="bg_divider">#23111111</color>
     <color name="bg_pink_light">#FDD6E4</color>
     <color name="bg_pink_dark">#FAB9CE</color>
@@ -40,5 +42,7 @@
     <color name="bg_purple_dark">#D7C0FF</color>
     <color name="bg_blue_light">#D7F4FF</color>
     <color name="bg_blue_dark">#B8D7FB</color>
+    <color name="bg_cover_bottom_behavior">#40111111</color>
+    <color name="bg_blue">#6AA0E6</color>
 
 </resources>

@@ -8,7 +8,7 @@
     tools:context=".ui.ui.user.HomeActivity">
 
     <LinearLayout
-        android:id="@+id/changeIdLoginWithUser"
+        android:id="@+id/changeIdHome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"/>
@@ -65,5 +65,8 @@
         </LinearLayout>
 
     </FrameLayout>
+
+    <include android:id="@+id/bottomSelectLanguage"
+        layout="@layout/layout_bottom_change_language"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

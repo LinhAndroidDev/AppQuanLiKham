@@ -16,9 +16,6 @@ import com.example.appkhambenh.ui.ui.user.appointment.register.FragmentAppointme
 import com.example.appkhambenh.ui.ui.user.appointment.time.adapter.WorkingTimeAdapter
 import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.google.firebase.database.*
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -58,7 +55,8 @@ class FragmentTimeWorking : BaseFragment<TimeWorkingViewModel, FragmentTimeWorki
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initUi() {
 
-        binding.backTimeWorking.setOnClickListener { back() }
+        binding.headerWorkingTime.title.text = getString(R.string.select_time_checking)
+        binding.headerWorkingTime.back.setOnClickListener { back() }
 
         binding.imgNextTime.setOnClickListener {
             binding.imgBackTime.alpha = 1f

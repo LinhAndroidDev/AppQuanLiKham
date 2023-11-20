@@ -18,4 +18,5 @@ object PreferenceKey {
     const val HOUR_APPOINTMENT = "HOUR_APPOINTMENT"
     const val ID_DAY = "ID_DAY"
     const val REGISTER_CHECKING = "REGISTER_CHECKING"
+    const val LANGUAGE = "LANGUAGE"
 }

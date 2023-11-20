@@ -74,6 +74,7 @@
             <RadioButton
                 android:id="@+id/rbPatient"
                 android:text="@string/patient"
+                android:textSize="@dimen/dimen_sp16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -82,14 +83,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/dimen_30"
-                android:text="@string/doctor" />
+                android:text="@string/doctor"
+                android:textSize="@dimen/dimen_sp16"/>
 
             <RadioButton
                 android:id="@+id/rbAdmin"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/dimen_30"
-                android:text="@string/csyt" />
+                android:text="@string/csyt"
+                android:textSize="@dimen/dimen_sp16"/>
 
         </RadioGroup>
 
@@ -133,6 +136,7 @@
                 <RadioButton
                     android:id="@+id/rbMan"
                     android:text="@string/males"
+                    android:textSize="@dimen/dimen_sp16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -140,6 +144,7 @@
                     android:id="@+id/rbWomen"
                     android:layout_marginStart="@dimen/dimen_30"
                     android:text="@string/females"
+                    android:textSize="@dimen/dimen_sp16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

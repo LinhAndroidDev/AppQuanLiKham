@@ -22,7 +22,7 @@ class NotificationAdapter(
         parent: ViewGroup,
         viewType: Int,
     ): NotificationAdapter.NotifiViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.layout_notification, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_notification, parent, false)
         return NotifiViewHolder(itemView)
     }
 

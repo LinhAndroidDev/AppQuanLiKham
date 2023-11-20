@@ -59,4 +59,8 @@ class CustomSearch : RelativeLayout {
     fun clearText(){
         binding.search.setText("")
     }
+
+    fun clrFocus(){
+        binding.search.clearFocus()
+    }
 }

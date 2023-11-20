@@ -35,11 +35,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.appkhambenh.R
 import com.example.appkhambenh.ui.model.DepartmentClinic
 import com.example.appkhambenh.ui.model.Doctor
-import com.example.appkhambenh.ui.ui.csyt.ConnectCsytActivity
+import com.example.appkhambenh.ui.ui.user.csyt.ConnectCsytActivity
 import com.example.appkhambenh.ui.ui.user.appointment.AppointmentActivity
 import com.example.appkhambenh.ui.ui.user.appointment.register.FragmentAppointment
 import com.example.appkhambenh.ui.ui.user.appointment.register.adapter.DepartmentAdapter
 import com.example.appkhambenh.ui.ui.user.appointment.register.adapter.DoctorAdapter
+import com.example.appkhambenh.ui.ui.user.doctor.SearchDoctorActivity
 import com.example.appkhambenh.ui.ui.user.home.Function
 import com.example.appkhambenh.ui.ui.user.manage_appointment.ManageAppointmentActivity
 import com.example.appkhambenh.ui.ui.user.medicine.MedicineActivity
@@ -222,7 +223,7 @@ fun setStyleTextAtPosition(str: String, strChange: String, style: Any, spannable
 fun onClickFunction(index: Int, activity: FragmentActivity){
     when(index){
         Function.BOOK_DOCTOR.id ->{
-            val intent = Intent(activity, AppointmentActivity::class.java)
+            val intent = Intent(activity, SearchDoctorActivity::class.java)
             activity.startActivity(intent)
         }
         Function.BOOK_CAPITAL.id ->{

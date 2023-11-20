@@ -83,7 +83,7 @@
 
         <LinearLayout
             android:id="@+id/updateInfo"
-            android:background="@drawable/bg_update_infor"
+            android:background="@drawable/bg_corners_15"
             android:layout_marginTop="@dimen/dimen_10"
             android:layout_marginHorizontal="@dimen/dimen_10"
             android:layout_width="match_parent"
@@ -156,7 +156,8 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:background="@drawable/bg_icon_setting"
+                    android:background="@drawable/bg_corners_10"
+                    android:backgroundTint="@color/grey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
@@ -207,7 +208,8 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:background="@drawable/bg_icon_setting"
+                    android:background="@drawable/bg_corners_10"
+                    android:backgroundTint="@color/grey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
@@ -290,7 +292,8 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:background="@drawable/bg_icon_setting"
+                    android:background="@drawable/bg_corners_10"
+                    android:backgroundTint="@color/grey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
@@ -341,7 +344,8 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:background="@drawable/bg_icon_setting"
+                    android:background="@drawable/bg_corners_10"
+                    android:backgroundTint="@color/grey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
@@ -393,7 +397,8 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:background="@drawable/bg_icon_setting"
+                    android:background="@drawable/bg_corners_10"
+                    android:backgroundTint="@color/grey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
@@ -445,7 +450,8 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:background="@drawable/bg_icon_setting"
+                    android:background="@drawable/bg_corners_10"
+                    android:backgroundTint="@color/grey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 

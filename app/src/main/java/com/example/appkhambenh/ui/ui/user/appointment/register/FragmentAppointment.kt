@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appkhambenh.R
@@ -46,11 +45,12 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
             binding.txtSelectDepartment.hint = registerChecking.department
             binding.txtSelectDoctor.hint = registerChecking.doctor
             binding.edtReasons.hint = registerChecking.reasons
-            binding.txtRegister.text = "Lưu thay đổi lịch hẹn"
-            binding.txtTitle.text = "Chỉnh sửa lịch hẹn"
+            binding.txtRegister.text = getString(R.string.save_appointment_changes)
+            binding.headerAppoint.title.text = getString(R.string.edit_appoint)
             binding.date.text = registerChecking.date
             binding.hour.text = registerChecking.hour
         }else{
+            binding.headerAppoint.title.text = getString(R.string.manage_appointment)
             binding.date.text = viewModel.mPreferenceUtil.defaultPref()
                 .getString(PreferenceKey.DATE_APPOINTMENT, "").toString()
 
@@ -75,7 +75,7 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
         binding.txtUseNameAppointment.text =
             viewModel.mPreferenceUtil.defaultPref().getString(PreferenceKey.USER_NAME,"")
 
-        binding.backAppointment.setOnClickListener { back() }
+        binding.headerAppoint.back.setOnClickListener { back() }
 
         binding.txtSelectService.setOnClickListener {
             showPopupView(binding.txtSelectService)
@@ -132,7 +132,7 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
 
             if(!isUpdate){
                 if(strService.isEmpty() || strDepartment.isEmpty() || strDoctor.isEmpty() || strReasons.isEmpty()){
-                    Toast.makeText(requireActivity(),"Bạn chưa nhập đầy đủ thông tin",Toast.LENGTH_SHORT).show()
+                    show("Bạn chưa nhập đầy đủ thông tin")
                 }else{
                     val alertDialog : AlertDialog.Builder = AlertDialog.Builder(requireActivity())
                     alertDialog.setTitle("Thông báo")
@@ -170,7 +170,7 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
                                 val intent = Intent(requireActivity(), HomeActivity::class.java)
                                 startActivity(intent)
                                 activity?.finish()
-                                Toast.makeText(requireActivity() ,"Bạn đã đăng kí lịch khám thành công" ,Toast.LENGTH_SHORT).show()
+                                show("Bạn đã đăng kí lịch khám thành công")
                             }
                         }
                     }
@@ -180,7 +180,7 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
                 }
             }else{
                 if(strService.isEmpty() && strDepartment.isEmpty() && strDoctor.isEmpty() && strReasons.isEmpty()){
-                    Toast.makeText(requireActivity(),"Bạn chưa thay đổi thông tin lịch hẹn",Toast.LENGTH_SHORT).show()
+                    show("Bạn chưa thay đổi thông tin lịch hẹn")
                 }else{
                     val service = getValueUpdateAppoint(
                         strService,
