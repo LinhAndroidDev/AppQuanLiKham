@@ -57,7 +57,7 @@ class FragmentCreatePassword : BaseFragment<ChangePasswordViewModel, FragmentCre
                 show("Mật khẩu mới phải khác mật khẩu cũ")
             }else {
                 viewModel.changePassword(
-                    convertToRequestBody(id_user.toString()),
+                    convertToRequestBody(userId.toString()),
                     convertToRequestBody(binding.edtPassWordNew.getTextView())
                 )
 

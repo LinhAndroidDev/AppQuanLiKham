@@ -8,7 +8,6 @@ import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
@@ -23,9 +22,9 @@ import com.example.appkhambenh.ui.ui.doctor.time_working.adapter.EditTimeAdapter
 import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.database.*
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -122,7 +121,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("SimpleDateFormat", "CheckResult")
+    @SuppressLint("SimpleDateFormat", "CheckResult", "NotifyDataSetChanged")
     private fun showDialogHour(txtTitle: String, type: Int, strHourSelected: String, idDay: Int) {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -198,25 +197,18 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
                     convertToRequestBody(id_doctor)
                 )
 
-                viewModel.isSuccessfulLiveData.observe(this) {
-                    if(it){
-                        object : CountDownTimer(300, 300) {
-                            override fun onTick(p0: Long) {
-
-                            }
-
-                            override fun onFinish() {
-                                viewModel.getListWorkingTime(
-                                    convertToRequestBody(binding.txtTimeEdit.text.toString()),
-                                    convertToRequestBody(id_doctor)
-                                )
-                                getData()
-                            }
-
-                        }.start()
+                Observable.just(1)
+                    .delay(500, TimeUnit.MILLISECONDS)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        viewModel.getListWorkingTime(
+                            convertToRequestBody(binding.txtTimeEdit.text.toString()),
+                            convertToRequestBody(id_doctor)
+                        )
+                        getData()
+                        dialog.dismiss()
                     }
-                }
-                dialog.dismiss()
             }else if(type == 2){
                 if(strHourSelected != "$strHour:$strMinute"){
                     viewModel.editWorkingTime(
@@ -225,12 +217,11 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
                         convertToRequestBody("$strHour:$strMinute")
                     )
 
-                    object : CountDownTimer(300, 300){
-                        override fun onTick(p0: Long) {
-
-                        }
-
-                        override fun onFinish() {
+                    Observable.just(1)
+                        .delay(500, TimeUnit.MILLISECONDS)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe {
                             if(viewModel.editSuccessful){
                                 show("Bạn đã cập nhật $strHourSelected thành ${"$strHour:$strMinute"}")
                                 viewModel.getListWorkingTime(
@@ -240,8 +231,6 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
                                 editTimeAdapter.notifyDataSetChanged()
                             }
                         }
-
-                    }.start()
 
                     dialog.dismiss()
                 }else{
@@ -253,10 +242,11 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
         dialog.show()
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint("ClickableViewAccessibility", "CheckResult", "NotifyDataSetChanged")
     @RequiresApi(Build.VERSION_CODES.O)
     private fun getData() {
         viewModel.workingDateLiveData.observe(this) { workingDate ->
+
             if(workingDate.time != null) {
                 binding.rcvEditTime.visibility = View.VISIBLE
                 binding.notificationEmptyData.visibility = View.GONE
@@ -281,12 +271,11 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
                             convertToRequestBody(strHour)
                         )
 
-                        object : CountDownTimer(300, 300){
-                            override fun onTick(p0: Long) {
-
-                            }
-
-                            override fun onFinish() {
+                        Observable.just(1)
+                            .delay(500, TimeUnit.MILLISECONDS)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe {
                                 if(viewModel.deleteSuccessful){
                                     show("Bạn đã xoá $strHour thành công")
                                     viewModel.getListWorkingTime(
@@ -296,8 +285,6 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
                                     editTimeAdapter.notifyDataSetChanged()
                                 }
                             }
-
-                        }.start()
 
                         bottomShareBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
                     }

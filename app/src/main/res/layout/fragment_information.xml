@@ -97,26 +97,45 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <RadioGroup
-                    android:layout_marginTop="@dimen/dimen_5"
+                <LinearLayout
+                    android:layout_marginTop="@dimen/dimen_15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <RadioButton
+                    <com.example.appkhambenh.ui.ui.common.CustomRatioBtn
                         android:id="@+id/rbMan"
-                        android:text="@string/males"
-                        android:layout_width="@dimen/dimen_80"
-                        android:layout_height="@dimen/dimen_25"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-                    <RadioButton
+                    <com.example.appkhambenh.ui.ui.common.CustomRatioBtn
                         android:id="@+id/rbWomen"
                         android:layout_marginStart="@dimen/dimen_30"
-                        android:text="@string/females"
-                        android:layout_width="@dimen/dimen_80"
-                        android:layout_height="@dimen/dimen_25"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-                </RadioGroup>
+                </LinearLayout>
+
+<!--                <RadioGroup-->
+<!--                    android:layout_marginTop="@dimen/dimen_5"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal">-->
+
+<!--                    <RadioButton-->
+<!--                        android:id="@+id/rbMan"-->
+<!--                        android:text="@string/males"-->
+<!--                        android:layout_width="@dimen/dimen_80"-->
+<!--                        android:layout_height="@dimen/dimen_25"/>-->
+
+<!--                    <RadioButton-->
+<!--                        android:id="@+id/rbWomen"-->
+<!--                        android:layout_marginStart="@dimen/dimen_30"-->
+<!--                        android:text="@string/females"-->
+<!--                        android:layout_width="@dimen/dimen_80"-->
+<!--                        android:layout_height="@dimen/dimen_25"/>-->
+
+<!--                </RadioGroup>-->
 
                 <TextView
                     android:layout_marginTop="@dimen/dimen_10"

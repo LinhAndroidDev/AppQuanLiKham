@@ -27,12 +27,12 @@
 
             <TextView
                 android:id="@+id/titleHeader"
+                android:layout_marginHorizontal="@dimen/dimen_40"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="@string/csyt"
                 android:textColor="@color/white"
-                android:textSize="@dimen/dimen_sp24"
+                android:textSize="@dimen/dimen_sp20"
                 android:textStyle="bold" />
 
             <ImageView
@@ -51,7 +51,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_20"
-            android:layout_marginBottom="@dimen/dimen_15"/>
+            android:layout_marginBottom="@dimen/dimen_15"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

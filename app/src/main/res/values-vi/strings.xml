@@ -148,4 +148,5 @@
     <string name="make_an_appoint">Đặt lịch hẹn</string>
     <string name="edit_appoint">Chỉnh sửa lịch hẹn</string>
     <string name="save_appointment_changes">Lưu thay đổi lịch hẹn</string>
+    <string name="different">Khác</string>
 </resources>

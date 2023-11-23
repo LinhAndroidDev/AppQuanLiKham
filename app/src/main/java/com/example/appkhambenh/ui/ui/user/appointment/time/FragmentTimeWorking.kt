@@ -55,8 +55,7 @@ class FragmentTimeWorking : BaseFragment<TimeWorkingViewModel, FragmentTimeWorki
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initUi() {
 
-        binding.headerWorkingTime.title.text = getString(R.string.select_time_checking)
-        binding.headerWorkingTime.back.setOnClickListener { back() }
+        binding.headerWorkingTime.setTitle(getString(R.string.select_time_checking))
 
         binding.imgNextTime.setOnClickListener {
             binding.imgBackTime.alpha = 1f

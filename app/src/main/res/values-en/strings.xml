@@ -101,7 +101,7 @@
     <string name="go_to_doctor">Go to doctor</string>
     <string name="note_doctor">Connect with leading specialists in the industry</string>
     <string name="health_services">Health services</string>
-    <string name="note_health_services">Sar-cov-2 screening, health check package,...</string>
+    <string name="note_health_services">Sar-cov-2 screening, health check package,…</string>
     <string name="note_csyt">Priority reception at leading hospitals and clinics</string>
     <string name="confirm_delete_time">Confirm Time Delete</string>
     <string name="delete">Delete</string>
@@ -110,7 +110,7 @@
     <string name="cancel_appoint">Cancel appointment</string>
     <string name="patient_appoint">Patient:</string>
     <string name="time_appoint">Time:</string>
-    <string name="in_appoint">In:</string>
+    <string name="in_appoint">At:</string>
     <string name="detail">detail</string>
     <string name="doctor_appoint">Doctor:</string>
     <string name="reason_appoint">Symptoms/Reasons:</string>
@@ -148,4 +148,5 @@
     <string name="make_an_appoint">Make an appointment</string>
     <string name="edit_appoint">Edit appointment</string>
     <string name="save_appointment_changes">Save appointment changes</string>
+    <string name="different">Different</string>
 </resources>

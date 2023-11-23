@@ -7,11 +7,10 @@
     android:orientation="vertical"
     tools:context=".ui.ui.user.appointment.register.FragmentAppointment">
 
-    <include
+    <com.example.appkhambenh.ui.ui.common.CustomHeader
         android:id="@+id/headerAppoint"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/layout_header"/>
+        android:layout_height="wrap_content"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

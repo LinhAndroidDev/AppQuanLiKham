@@ -15,7 +15,8 @@ import com.example.appkhambenh.ui.utils.validatePhone
 import com.squareup.picasso.Picasso
 
 class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformationBinding>(){
-    var sex: Int = -1
+    private val sex by lazy { viewModel.mPreferenceUtil.defaultPref()
+        .getInt(PreferenceKey.USER_SEX, -1) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,25 +40,21 @@ class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformati
                 .getString(PreferenceKey.USER_EMAIL, "")
         )
 
-        sex = viewModel.mPreferenceUtil.defaultPref()
-            .getInt(PreferenceKey.USER_SEX, -1)
-        if(sex == 0){
-            binding.rbMan.isChecked = true
-        } else{
-            binding.rbWomen.isChecked = true
-        }
+        binding.rbMan.setLabel(getString(R.string.males))
+        binding.rbWomen.setLabel(getString(R.string.females))
+        if(sex == 0) checkMan() else checkWomen()
 
-        binding.rbMan.setOnCheckedChangeListener { _, b ->
-            if(b){
-                if(sex == 0 && binding.rbMan.isChecked)
-                    disableButtonChangeInfo() else enableButtonChangeInfo()
+        binding.rbMan.setOnClickListener {
+            if(!binding.rbMan.isCheck) {
+                if(sex == 0) disableButtonChangeInfo() else enableButtonChangeInfo()
+                checkMan()
             }
         }
 
-        binding.rbWomen.setOnCheckedChangeListener { _, b ->
-            if(b){
-                if(sex == 1 && binding.rbWomen.isChecked)
-                    disableButtonChangeInfo() else enableButtonChangeInfo()
+        binding.rbWomen.setOnClickListener {
+            if(!binding.rbWomen.isCheck) {
+                if(sex == 1) disableButtonChangeInfo() else enableButtonChangeInfo()
+                checkWomen()
             }
         }
 
@@ -106,7 +103,7 @@ class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformati
                     .getInt(PreferenceKey.USER_ID, -1).toString()
                 val name = getValueInfo(binding.edtName, PreferenceKey.USER_NAME)
                 val email = getValueInfo(binding.edtEmail, PreferenceKey.USER_EMAIL)
-                val sex = if(binding.rbMan.isChecked) 0 else 1
+                val sex = if(binding.rbMan.isCheck) 0 else 1
                 val birth = getValueInfo(binding.edtBirth, PreferenceKey.USER_BIRTH)
                 val phone = getValueInfo(binding.edtPhone, PreferenceKey.USER_PHONE)
                 val address = getValueInfo(binding.edtAddress, PreferenceKey.USER_ADDRESS)
@@ -144,6 +141,15 @@ class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformati
         }
     }
 
+    private fun checkMan(){
+        binding.rbMan.setCheck()
+        binding.rbWomen.setUnCheck()
+    }
+
+    private fun checkWomen(){
+        binding.rbWomen.setCheck()
+        binding.rbMan.setUnCheck()
+    }
 
     private fun checkEnableButtonInfo(edt: CustomTextViewInfo){
         edt.isEnableButtonUpdateInfo = {

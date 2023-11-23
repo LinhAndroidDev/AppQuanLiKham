@@ -48,7 +48,7 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
 
         val language = viewModel.mPreferenceUtil.defaultPref()
             .getString(PreferenceKey.LANGUAGE, "vi").toString()
-        setLanguage(this, language)
+        if(language.isNotEmpty()) setLanguage(this, language)
     }
 
     private fun animChangeScreen() {

@@ -11,6 +11,8 @@ import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.ui.user.doctor.adapter.DoctorAdapter
 
 class FragmentSearchDoctor : BaseFragment<EmptyViewModel, FragmentSearchDoctorBinding>(){
+    private val doctors by lazy { arrayListOf<Int>() }
+    private val adapter by lazy { DoctorAdapter(doctors) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -20,6 +22,7 @@ class FragmentSearchDoctor : BaseFragment<EmptyViewModel, FragmentSearchDoctorBi
 
     private fun initUi() {
 
+        binding.headerDoctor.visibleSearch()
         binding.headerDoctor.setTitle(getString(R.string.consulting_doctor))
         binding.headerDoctor.setHint(getString(R.string.search_doctor))
 
@@ -27,11 +30,9 @@ class FragmentSearchDoctor : BaseFragment<EmptyViewModel, FragmentSearchDoctorBi
     }
 
     private fun listDoctor() {
-        val doctors = arrayListOf<Int>()
         for (i in 0..10){
             doctors.add(1)
         }
-        val adapter = DoctorAdapter(doctors)
         binding.rcvDoctor.adapter = adapter
     }
 

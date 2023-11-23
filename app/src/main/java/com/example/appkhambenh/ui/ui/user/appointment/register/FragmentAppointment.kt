@@ -46,11 +46,11 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
             binding.txtSelectDoctor.hint = registerChecking.doctor
             binding.edtReasons.hint = registerChecking.reasons
             binding.txtRegister.text = getString(R.string.save_appointment_changes)
-            binding.headerAppoint.title.text = getString(R.string.edit_appoint)
+            binding.headerAppoint.setTitle(getString(R.string.edit_appoint))
             binding.date.text = registerChecking.date
             binding.hour.text = registerChecking.hour
         }else{
-            binding.headerAppoint.title.text = getString(R.string.manage_appointment)
+            binding.headerAppoint.setTitle(getString(R.string.manage_appointment))
             binding.date.text = viewModel.mPreferenceUtil.defaultPref()
                 .getString(PreferenceKey.DATE_APPOINTMENT, "").toString()
 
@@ -74,8 +74,6 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
 
         binding.txtUseNameAppointment.text =
             viewModel.mPreferenceUtil.defaultPref().getString(PreferenceKey.USER_NAME,"")
-
-        binding.headerAppoint.back.setOnClickListener { back() }
 
         binding.txtSelectService.setOnClickListener {
             showPopupView(binding.txtSelectService)

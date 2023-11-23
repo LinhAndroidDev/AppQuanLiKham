@@ -33,12 +33,15 @@ class FragmentManageAppointment : BaseFragment<ManageAppointmentViewModel, Fragm
         super.bindData()
 
         viewModel.getListAppointment(
-            convertToRequestBody(id_user.toString())
+            convertToRequestBody(userId.toString())
         )
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initUi() {
+
+        binding.headerManageAppoint.setTitle(getString(R.string.manage_appointment))
+        binding.headerManageAppoint.visibleSearch()
 
         adapterManageAppointment =
             ManageAppointmentAdapter(null, requireActivity())
@@ -97,7 +100,7 @@ class FragmentManageAppointment : BaseFragment<ManageAppointmentViewModel, Fragm
                             if(viewModel.deleteSuccessful){
                                 show("Bạn đã xoá thành công lịch hẹn ${registerChecking.date} lúc ${registerChecking.hour}")
                                 viewModel.getListAppointment(
-                                    convertToRequestBody(id_user.toString())
+                                    convertToRequestBody(userId.toString())
                                 )
                                 adapterManageAppointment.notifyDataSetChanged()
                             }
@@ -108,8 +111,6 @@ class FragmentManageAppointment : BaseFragment<ManageAppointmentViewModel, Fragm
                 alertDialog.show()
             }
         }
-
-        binding.headerManageAppoint.setTitle(getString(R.string.manage_appointment))
 
         adapterManageAppointment.filter.filter(binding.headerManageAppoint.searchItem())
 

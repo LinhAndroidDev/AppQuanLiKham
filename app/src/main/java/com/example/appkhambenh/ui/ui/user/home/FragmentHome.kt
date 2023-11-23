@@ -33,7 +33,6 @@ import com.example.appkhambenh.ui.ui.user.home.adapter.FunctionHomeAdapter
 import com.example.appkhambenh.ui.ui.user.home.adapter.ImageAdapter
 import com.example.appkhambenh.ui.ui.user.home.adapter.MedicalHandBookAdapter
 import com.example.appkhambenh.ui.ui.user.qr.QrActivity
-import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.example.appkhambenh.ui.utils.onClickFunction
 import com.squareup.picasso.Picasso
 import java.util.*
@@ -72,9 +71,7 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             }
         }
 
-        val userId = viewModel.mPreferenceUtil.defaultPref()
-            .getInt(PreferenceKey.USER_ID, 0).toString()
-        viewModel.getUserInfo( convertToRequestBody(userId) )
+        viewModel.getUserInfo( convertToRequestBody(userId.toString()) )
 
         viewModel.userLiveData.observe(this) {
             if(it.result?.type != 0){
@@ -199,7 +196,7 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
     private fun scrollInfinity(){
 
-        setUpTransformer(binding.slide, 5, 0.85f, 0.18f)
+        setUpTransformer(binding.slide, 0, 0.85f, 0.18f)
 
         val images = arrayListOf(R.drawable.slide1, R.drawable.slide2, R.drawable.slide3)
         images.add(R.drawable.slide1)

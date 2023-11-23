@@ -9,7 +9,6 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityHomeBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.ui.user.csyt.ConnectCsytActivity
-import com.example.appkhambenh.ui.ui.user.appointment.AppointmentActivity
 import com.example.appkhambenh.ui.ui.user.doctor.SearchDoctorActivity
 import com.example.appkhambenh.ui.ui.user.home.FragmentHome
 import com.example.appkhambenh.ui.ui.user.home.HomeViewModel
@@ -20,13 +19,12 @@ import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.example.appkhambenh.ui.utils.animRotation45
 import com.example.appkhambenh.ui.utils.animRotationBack0
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import okhttp3.internal.cache2.Relay.Companion.edit
 
 @Suppress("DEPRECATION")
 class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
     var isRotateAdd = false
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
-    private lateinit var bottomSelectLanguage: BottomSheetBehavior<View>
+    private val bottomSheetBehavior by lazy { BottomSheetBehavior.from(binding.bottomSheet.layoutBook) }
+    private val bottomSelectLanguage by lazy { BottomSheetBehavior.from(binding.bottomSelectLanguage.layoutSelectLanguage) }
 
     companion object {
         const val RESULT = "RESULT"
@@ -107,7 +105,6 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initBottomBook() {
-        bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheet.layoutBook)
         bottomSheetBehavior.isGestureInsetBottomIgnored = false
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
@@ -149,31 +146,37 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
     @SuppressLint("ClickableViewAccessibility", "CommitPrefEdits")
     private fun initBottomSelectLanguage() {
 
+        val language = viewModel.mPreferenceUtil.defaultPref()
+            .getString(PreferenceKey.LANGUAGE, "vi").toString()
+        if(language == "vi"){
+            binding.bottomSelectLanguage.vietnamese.selectLanguage()
+            binding.bottomSelectLanguage.english.unSelectLanguage()
+        }else{
+            binding.bottomSelectLanguage.vietnamese.unSelectLanguage()
+            binding.bottomSelectLanguage.english.selectLanguage()
+        }
+
         binding.bottomSelectLanguage.vietnamese.setText("Tiếng Việt")
-        binding.bottomSelectLanguage.vietnamese.selectLanguage()
         binding.bottomSelectLanguage.english.setText("English")
-        binding.bottomSelectLanguage.english.unSelectLanguage()
 
         binding.bottomSelectLanguage.vietnamese.setOnClickListener {
             viewModel.mPreferenceUtil.defaultPref()
-                .edit().putString(PreferenceKey.LANGUAGE, "vi")
+                .edit().putString(PreferenceKey.LANGUAGE, "vi").apply()
             setLanguage(this, "vi")
             binding.bottomSelectLanguage.vietnamese.selectLanguage()
             binding.bottomSelectLanguage.english.unSelectLanguage()
-            restartFragment()
+            changeLanguageText()
         }
 
         binding.bottomSelectLanguage.english.setOnClickListener {
             viewModel.mPreferenceUtil.defaultPref()
-                .edit().putString(PreferenceKey.LANGUAGE, "en")
+                .edit().putString(PreferenceKey.LANGUAGE, "en").apply()
             setLanguage(this, "en")
             binding.bottomSelectLanguage.english.selectLanguage()
             binding.bottomSelectLanguage.vietnamese.unSelectLanguage()
-            restartFragment()
+            changeLanguageText()
         }
 
-        bottomSelectLanguage =
-            BottomSheetBehavior.from(binding.bottomSelectLanguage.layoutSelectLanguage)
         bottomSelectLanguage.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -223,12 +226,26 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
-    private fun restartFragment(){
-        val currentFragment = supportFragmentManager.findFragmentById(R.id.changeIdHome)
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.detach(currentFragment!!)
-        transaction.attach(currentFragment)
-        transaction.commit()
+    @SuppressLint("SetTextI18n")
+    private fun changeLanguageText(){
+        val fm = supportFragmentManager.findFragmentById(R.id.changeIdHome)
+        if(fm is FragmentSetting){
+            fm.changeLanguageTextSetting()
+        }
+
+        binding.bottomNvg.menu.findItem(R.id.home).title = getString(R.string.home)
+        binding.bottomNvg.menu.findItem(R.id.profile).title = getString(R.string.profile)
+        binding.bottomNvg.menu.findItem(R.id.register).title = getString(R.string.book_examination)
+        binding.bottomNvg.menu.findItem(R.id.notification).title = getString(R.string.notification)
+        binding.bottomNvg.menu.findItem(R.id.setting).title = getString(R.string.setting)
+
+        binding.bottomSheet.titleBottomBook.text = getString(R.string.book_now)
+        binding.bottomSheet.titleDoctorBook.text = getString(R.string.go_to_doctor)
+        binding.bottomSheet.noteDoctorBook.text = getString(R.string.note_doctor)
+        binding.bottomSheet.titleServiceBook.text = getString(R.string.health_services)
+        binding.bottomSheet.noteServiceBook.text = getString(R.string.note_health_services)
+        binding.bottomSheet.titleCsytBook.text = getString(R.string.csyt)
+        binding.bottomSheet.noteCsytBook.text = getString(R.string.note_csyt)
     }
 
     override fun onBackPressed() {

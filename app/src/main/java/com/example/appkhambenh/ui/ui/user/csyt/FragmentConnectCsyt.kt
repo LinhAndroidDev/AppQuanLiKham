@@ -12,6 +12,8 @@ import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.ui.user.csyt.adapter.CsytAdapter
 
 class FragmentConnectCsyt : BaseFragment<EmptyViewModel, FragmentConnectCsytBinding>(){
+    private val listCsyt by lazy { arrayListOf<Csyt>() }
+    private val csytAdapter by lazy { CsytAdapter(listCsyt) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -20,7 +22,10 @@ class FragmentConnectCsyt : BaseFragment<EmptyViewModel, FragmentConnectCsytBind
     }
 
     private fun initUi() {
-        val listCsyt = arrayListOf<Csyt>()
+
+        binding.headerCsyt.visibleSearch()
+        binding.headerCsyt.setTitle(getString(R.string.csyt))
+
         listCsyt.add(Csyt(0, "Bệnh viện Hữu Nghị Việt Đức", "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội", R.drawable.img_capital, 61824, 5))
         listCsyt.add(Csyt(0, "Bệnh viện Hữu Nghị Việt Đức", "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội", R.drawable.img_capital, 61824, 5))
         listCsyt.add(Csyt(0, "Bệnh viện Hữu Nghị Việt Đức", "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội", R.drawable.img_capital, 61824, 5))
@@ -33,7 +38,6 @@ class FragmentConnectCsyt : BaseFragment<EmptyViewModel, FragmentConnectCsytBind
         listCsyt.add(Csyt(0, "Bệnh viện Hữu Nghị Việt Đức", "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội", R.drawable.img_capital, 61824, 5))
         listCsyt.add(Csyt(0, "Bệnh viện Hữu Nghị Việt Đức", "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội", R.drawable.img_capital, 61824, 5))
 
-        val csytAdapter = CsytAdapter(listCsyt)
         csytAdapter.onClickItem = {
             if(it) {
                 val fragmentInfoCsyt = FragmentInfoCsyt()

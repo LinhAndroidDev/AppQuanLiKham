@@ -54,4 +54,8 @@ class CustomHeader : LinearLayout{
     fun visibleSetting(){
         binding.setting.visibility = View.VISIBLE
     }
+
+    fun visibleSearch(){
+        binding.searchHeader.visibility = View.VISIBLE
+    }
 }

@@ -92,6 +92,7 @@
             android:gravity="center">
 
             <TextView
+                android:id="@+id/txtUpdateInfo"
                 android:layout_marginTop="@dimen/dimen_20"
                 android:text="@string/update_info_person"
                 android:textColor="@color/black"
@@ -101,6 +102,7 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
+                android:id="@+id/txtNoteUpdateInfo"
                 android:layout_marginTop="@dimen/dimen_10"
                 android:layout_marginBottom="@dimen/dimen_20"
                 android:gravity="center"
@@ -142,6 +144,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/txtSetting"
                 android:text="@string/setting"
                 android:textSize="@dimen/dimen_sp14"
                 android:textColor="@color/black"
@@ -175,6 +178,7 @@
                     android:layout_height="@dimen/dimen_40">
 
                     <TextView
+                        android:id="@+id/txtChangePassword"
                         android:layout_centerVertical="true"
                         android:text="@string/change_password"
                         android:textSize="@dimen/dimen_sp16"
@@ -240,10 +244,11 @@
                             android:layout_height="wrap_content" />
 
                         <TextView
+                            android:id="@+id/txtLanguage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dimen_10"
-                            android:text="Tiếng Việt"
+                            android:text="@string/language"
                             android:textSize="@dimen/dimen_sp14" />
 
                     </LinearLayout>
@@ -278,7 +283,8 @@
             android:orientation="vertical">
 
             <TextView
-                android:text="Khác"
+                android:id="@+id/txtDifferent"
+                android:text="@string/different"
                 android:textSize="@dimen/dimen_sp14"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
@@ -311,6 +317,7 @@
                     android:layout_height="@dimen/dimen_40">
 
                     <TextView
+                        android:id="@+id/txtFail"
                         android:layout_centerVertical="true"
                         android:text="@string/notification_fail"
                         android:textSize="@dimen/dimen_sp16"
@@ -364,6 +371,7 @@
                     android:layout_height="@dimen/dimen_40">
 
                     <TextView
+                        android:id="@+id/txtCondition"
                         android:layout_centerVertical="true"
                         android:text="@string/condition"
                         android:textSize="@dimen/dimen_sp16"
@@ -417,6 +425,7 @@
                     android:layout_height="@dimen/dimen_40">
 
                     <TextView
+                        android:id="@+id/txtDeleteAccount"
                         android:layout_centerVertical="true"
                         android:text="@string/delete_account"
                         android:textSize="@dimen/dimen_sp16"
@@ -469,6 +478,7 @@
                     android:layout_height="@dimen/dimen_40">
 
                     <TextView
+                        android:id="@+id/txtLogout"
                         android:layout_centerVertical="true"
                         android:text="@string/logout"
                         android:textSize="@dimen/dimen_sp16"

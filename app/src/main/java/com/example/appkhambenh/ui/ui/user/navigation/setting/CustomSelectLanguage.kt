@@ -10,7 +10,7 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.LayoutCustomSelectLaguageBinding
 
 class CustomSelectLanguage : LinearLayout{
-    lateinit var binding: LayoutCustomSelectLaguageBinding
+    val binding by lazy { LayoutCustomSelectLaguageBinding.inflate(LayoutInflater.from(context)) }
 
     constructor(context: Context?) : super(context){ initView() }
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs){ initView() }
@@ -21,7 +21,6 @@ class CustomSelectLanguage : LinearLayout{
     ){ initView() }
 
     private fun initView(){
-        binding = LayoutCustomSelectLaguageBinding.inflate(LayoutInflater.from(context))
         addView(binding.root)
 
         initUi()

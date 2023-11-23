@@ -14,11 +14,11 @@ class CsytAdapter(private val listCsyt: ArrayList<Csyt>) : RecyclerView.Adapter<
     var onClickItem: ((Boolean) -> Unit)? = null
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val img: ImageView = itemView.findViewById(R.id.imgCsyt)
-        val name: TextView = itemView.findViewById(R.id.nameCsyt)
-        val address: TextView = itemView.findViewById(R.id.addressCsty)
-        val numberVisit: TextView = itemView.findViewById(R.id.numberVisitCsyt)
-        val star: TextView = itemView.findViewById(R.id.evaluateCsyt)
+        val img: ImageView by lazy { itemView.findViewById(R.id.imgCsyt) }
+        val name: TextView by lazy { itemView.findViewById(R.id.nameCsyt) }
+        val address: TextView by lazy { itemView.findViewById(R.id.addressCsty) }
+        val numberVisit: TextView by lazy { itemView.findViewById(R.id.numberVisitCsyt) }
+        val star: TextView by lazy { itemView.findViewById(R.id.evaluateCsyt) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,8 +27,6 @@ class CsytAdapter(private val listCsyt: ArrayList<Csyt>) : RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val csyt: Csyt = listCsyt[position]
-
         holder.itemView.setOnClickListener {
             onClickItem?.invoke(true)
         }

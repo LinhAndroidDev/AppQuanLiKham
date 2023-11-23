@@ -11,12 +11,12 @@ import com.example.appkhambenh.R
 class DoctorAdapter(private val doctors: ArrayList<Int>) : Adapter<DoctorAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: TextView = itemView.findViewById(R.id.txtNameDr)
-        val csyt: TextView = itemView.findViewById(R.id.csytDr)
-        val specialist: TextView = itemView.findViewById(R.id.specialistDr)
-        val numberVisit: TextView = itemView.findViewById(R.id.txtNumberVisitDr)
-        val evaluate: TextView = itemView.findViewById(R.id.txtEvaluateDr)
-        val time: TextView = itemView.findViewById(R.id.txtLatestMedicalSchedule)
+        val name: TextView by lazy { itemView.findViewById(R.id.txtNameDr) }
+        val csyt: TextView by lazy { itemView.findViewById(R.id.csytDr) }
+        val specialist: TextView by lazy { itemView.findViewById(R.id.specialistDr) }
+        val numberVisit: TextView by lazy { itemView.findViewById(R.id.txtNumberVisitDr) }
+        val evaluate: TextView by lazy { itemView.findViewById(R.id.txtEvaluateDr) }
+        val time: TextView by lazy { itemView.findViewById(R.id.txtLatestMedicalSchedule) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoctorAdapter.ViewHolder {

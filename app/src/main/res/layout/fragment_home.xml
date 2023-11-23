@@ -326,10 +326,10 @@
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/slide"
-                    android:paddingStart="@dimen/dimen_60"
-                    android:paddingEnd="@dimen/dimen_60"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_200"/>
+                    android:layout_height="@dimen/dimen_200"
+                    android:paddingStart="@dimen/dimen_60"
+                    android:paddingEnd="@dimen/dimen_60" />
 
                 <TextView
                     android:text="@string/functions"

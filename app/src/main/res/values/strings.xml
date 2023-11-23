@@ -101,7 +101,7 @@
     <string name="go_to_doctor">Khám bác sĩ</string>
     <string name="note_doctor">Kết nối với các bác sĩ chuyên khoa đầu ngành</string>
     <string name="health_services">Dịch vụ y tế</string>
-    <string name="note_health_services">Sàng lọc Sar-cov-2, gói khám sức khoẻ,...</string>
+    <string name="note_health_services">Sàng lọc Sar-cov-2, gói khám sức khoẻ,…</string>
     <string name="note_csyt">Tiếp đón ưu tiên tại các bệnh viên, phòng khám hàng đầu</string>
     <string name="confirm_delete_time">Xác Nhận Xoá Thời Gian</string>
     <string name="delete">Xoá</string>
@@ -148,4 +148,5 @@
     <string name="make_an_appoint">Đặt lịch hẹn</string>
     <string name="edit_appoint">Chỉnh sửa lịch hẹn</string>
     <string name="save_appointment_changes">Lưu thay đổi lịch hẹn</string>
+    <string name="different">Khác</string>
 </resources>

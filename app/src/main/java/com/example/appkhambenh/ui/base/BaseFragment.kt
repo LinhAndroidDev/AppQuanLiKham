@@ -2,20 +2,15 @@ package com.example.appkhambenh.ui.base
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.ProgressDialog
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Point
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.ViewModelFactoryDsl
 import androidx.viewbinding.ViewBinding
 import com.example.appkhambenh.R
 import com.example.appkhambenh.ui.utils.PreferenceKey
@@ -34,7 +29,8 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(),Ion
     protected lateinit var binding: B
     var screenWidth: Int = 0
     var screenHeight: Int = 0
-    var id_user = -1
+    val userId by lazy { viewModel.mPreferenceUtil.defaultPref()
+        .getInt(PreferenceKey.USER_ID, -1) }
 
     @SuppressLint("SuspiciousIndentation")
     override fun onCreateView(
@@ -50,14 +46,11 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(),Ion
                 viewModel.mPreferenceUtil = PreferenceUtil(it)
             }
 
-        id_user = viewModel.mPreferenceUtil.defaultPref()
-            .getInt(PreferenceKey.USER_ID, -1)
-
         bindData()
 
         val language = viewModel.mPreferenceUtil.defaultPref()
             .getString(PreferenceKey.LANGUAGE, "vi").toString()
-        setLanguage(requireActivity(), language)
+        if(language.isNotEmpty()) setLanguage(requireActivity(), language)
 
         return binding.root
     }

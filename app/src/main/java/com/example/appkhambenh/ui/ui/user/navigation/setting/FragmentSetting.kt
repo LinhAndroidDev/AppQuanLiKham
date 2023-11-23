@@ -91,6 +91,19 @@ class FragmentSetting : BaseFragment<EmptyViewModel, FragmentSettingBinding>() {
         }
     }
 
+    fun changeLanguageTextSetting(){
+        binding.txtUpdateInfo.text = getString(R.string.update_info_person)
+        binding.txtNoteUpdateInfo.text = getString(R.string.note_update_info_person)
+        binding.txtSetting.text = getString(R.string.setting)
+        binding.txtChangePassword.text = getString(R.string.change_password)
+        binding.txtLanguage.text = getString(R.string.language)
+        binding.txtDifferent.text = getString(R.string.different)
+        binding.txtFail.text = getString(R.string.notification_fail)
+        binding.txtCondition.text = getString(R.string.condition)
+        binding.txtDeleteAccount.text = getString(R.string.delete_account)
+        binding.txtLogout.text = getString(R.string.logout)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 

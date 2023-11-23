@@ -7,15 +7,15 @@
     android:orientation="vertical"
     tools:context=".ui.ui.user.csyt.FragmentInfoCsyt">
 
-    <include
+    <com.example.appkhambenh.ui.ui.common.CustomHeader
         android:id="@+id/headerInfoCsyt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/layout_header"/>
+        android:layout_height="wrap_content"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -155,7 +155,7 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginVertical="@dimen/dimen_10"
                 android:layout_marginHorizontal="@dimen/dimen_10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -184,6 +184,27 @@
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:background="@color/bg_common"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_10"/>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabCsyt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                app:tabIndicatorColor="@color/background"
+                app:tabSelectedTextColor="@color/background"
+                app:tabTextColor="@color/grey_1"
+                app:tabTextAppearance="@style/TabTextStyle"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvBookCsyt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         </LinearLayout>
 

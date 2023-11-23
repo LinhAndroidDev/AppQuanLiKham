@@ -53,7 +53,7 @@ class FragmentCheckPassword : BaseFragment<CheckPasswordViewModel, FragmentCheck
 
         binding.checkPassword.setOnClickListener {
             viewModel.checkPassword(
-                convertToRequestBody(id_user.toString()),
+                convertToRequestBody(userId.toString()),
                 convertToRequestBody(binding.edtPassWordOld.getTextView())
             )
 
