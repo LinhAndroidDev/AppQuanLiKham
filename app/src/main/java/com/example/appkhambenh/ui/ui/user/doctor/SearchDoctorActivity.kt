@@ -18,7 +18,8 @@ class SearchDoctorActivity : BaseActivity<EmptyViewModel, ActivitySearchDoctorBi
 
     private fun replaceFragment(fm: Fragment){
         val fg = supportFragmentManager.beginTransaction()
-        fg.replace(R.id.changeIdDoctor, fm).addToBackStack(null).commit()
+        fg.add(R.id.changeIdDoctor, fm, "FragmentSearchDoctor")
+            .addToBackStack(null).commit()
     }
 
     override fun getActivityBinding(inflater: LayoutInflater)

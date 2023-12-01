@@ -111,7 +111,8 @@
     <string name="patient_appoint">Bệnh nhân:</string>
     <string name="time_appoint">Thời gian:</string>
     <string name="in_appoint">Tại:</string>
-    <string name="detail">chi tiết</string>
+    <string name="detail">Chi tiết</string>
+    <string name="collapse">Thu gọn</string>
     <string name="doctor_appoint">Bác sĩ:</string>
     <string name="reason_appoint">Triệu chứng/Lí do:</string>
     <string name="booked">Đã được đặt</string>
@@ -149,4 +150,19 @@
     <string name="edit_appoint">Chỉnh sửa lịch hẹn</string>
     <string name="save_appointment_changes">Lưu thay đổi lịch hẹn</string>
     <string name="different">Khác</string>
+    <string name="edit">Chỉnh sửa</string>
+    <string name="check_internet">Bạn đang ngoại tuyến, Vui lòng kiểm tra lại đường truyền</string>
+    <string name="update_infor_success">Bạn đã cập nhật lại thông tin cá nhân thành công</string>
+    <string name="infor_doctor">Thông tin bác sĩ</string>
+    <string name="see_all_date"><u>Xem tất cả lịch</u></string>
+    <string name="work_experience">Kinh nghiệm làm việc</string>
+    <string name="price">Giá khám:</string>
+    <string name="number_of_appointments">Lượt hẹn khám</string>
+    <string name="number_of_medical_calls">Lượt gọi khám</string>
+    <string name="consulting_turn">Lượt tư vấn</string>
+    <string name="order_with_doctor">ĐẶT THEO BÁC SĨ</string>
+    <string name="order_by_service">ĐẶT THEO DỊCH VỤ</string>
+    <string name="my_favourites">Tính năng của tôi</string>
+    <string name="new_favourites">Mới</string>
+    <string name="top_medical_facility">Cơ sở y tế hàng đầu</string>
 </resources>

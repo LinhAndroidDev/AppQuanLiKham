@@ -1,10 +1,13 @@
 package com.example.appkhambenh.ui.ui.user.csyt.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appkhambenh.R
 import com.example.appkhambenh.ui.model.Csyt
@@ -26,9 +29,23 @@ class CsytAdapter(private val listCsyt: ArrayList<Csyt>) : RecyclerView.Adapter<
         return ViewHolder(itemView)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemView.setOnClickListener {
-            onClickItem?.invoke(true)
+
+        holder.itemView.setOnTouchListener { _, motionEvent ->
+            when(motionEvent?.actionMasked){
+                MotionEvent.ACTION_DOWN->{
+                    holder.itemView.alpha = 0.3f
+                }
+                MotionEvent.ACTION_UP ->{
+                    holder.itemView.alpha = 1f
+                    onClickItem?.invoke(true)
+                }
+                MotionEvent.ACTION_CANCEL->{
+                    holder.itemView.alpha = 1f
+                }
+            }
+            true
         }
     }
 

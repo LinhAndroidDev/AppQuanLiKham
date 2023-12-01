@@ -1,9 +1,12 @@
 package com.example.appkhambenh.ui.ui.user.navigation.notification.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.appkhambenh.R
@@ -26,9 +29,25 @@ class NotificationAdapter(
         return NotifiViewHolder(itemView)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: NotificationAdapter.NotifiViewHolder, position: Int) {
         val notification: RegisterChecking? = listNotification?.get(position)
         holder.txtNotification.text = setTextNotification(notification?.reasons!!, notification.date!!, notification.hour!!)
+
+        holder.itemView.setOnTouchListener { _, motionEvent ->
+            when(motionEvent?.actionMasked){
+                MotionEvent.ACTION_DOWN->{
+                    holder.itemView.alpha = 0.3f
+                }
+                MotionEvent.ACTION_UP ->{
+                    holder.itemView.alpha = 1f
+                }
+                MotionEvent.ACTION_CANCEL->{
+                    holder.itemView.alpha = 1f
+                }
+            }
+            true
+        }
     }
 
     fun reverseList(){

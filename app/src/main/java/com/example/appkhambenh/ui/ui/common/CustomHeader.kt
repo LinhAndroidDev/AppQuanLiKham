@@ -9,8 +9,9 @@ import com.example.appkhambenh.databinding.LayoutHeaderCommonBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 
 class CustomHeader : LinearLayout{
-    lateinit var binding: LayoutHeaderCommonBinding
+    val binding by lazy { LayoutHeaderCommonBinding.inflate(LayoutInflater.from(context)) }
     var isRevert: ((Boolean) -> Unit)? = null
+    var searchItem: ((String) -> Unit)? = null
 
     constructor(context: Context?) : super(context){ initView() }
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs){ initView() }
@@ -21,7 +22,6 @@ class CustomHeader : LinearLayout{
     ){ initView() }
 
     private fun initView(){
-        binding = LayoutHeaderCommonBinding.inflate(LayoutInflater.from(context))
         addView(binding.root)
 
         initUi()
@@ -35,6 +35,10 @@ class CustomHeader : LinearLayout{
         binding.setting.setOnClickListener {
             isRevert?.invoke(true)
         }
+
+        binding.searchHeader.keySearch = {
+            searchItem?.invoke(it)
+        }
     }
 
     fun setTitle(title: String){
@@ -44,8 +48,6 @@ class CustomHeader : LinearLayout{
     fun setHint(hint: String){
         binding.searchHeader.setHint(hint)
     }
-
-    fun searchItem(): String = binding.searchHeader.keySearch
 
     fun clearFocusSearch(){
         binding.searchHeader.clrFocus()

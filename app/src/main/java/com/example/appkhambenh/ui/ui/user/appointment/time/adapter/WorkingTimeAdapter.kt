@@ -46,7 +46,7 @@ class WorkingTimeAdapter(
         holder.itemView.setOnTouchListener { _, motionEvent ->
             when(motionEvent?.actionMasked){
                 MotionEvent.ACTION_DOWN->{
-                    holder.itemView.alpha = 0.5f
+                    holder.itemView.alpha = 0.3f
                 }
                 MotionEvent.ACTION_UP ->{
                     holder.itemView.alpha = 1f

@@ -86,11 +86,11 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:text="Chỉnh sửa"
-                    android:textSize="@dimen/dimen_sp14"
-                    android:textColor="@color/background"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="match_parent"
+                    android:text="@string/edit"
+                    android:textColor="@color/background"
+                    android:textSize="@dimen/dimen_sp14" />
                 <ImageView
                     android:layout_marginStart="@dimen/dimen_2"
                     android:background="@drawable/ic_action_edit_department_clinic"

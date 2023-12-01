@@ -1,43 +1,30 @@
 package com.example.appkhambenh.ui.utils
 
 import android.animation.ObjectAnimator
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
-import android.graphics.drawable.ColorDrawable
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.SpannableStringBuilder
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
-import android.transition.TransitionManager
 import android.util.Patterns
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.view.animation.Animation
 import android.view.animation.Transformation
-import android.widget.EditText
 import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.appkhambenh.R
 import com.example.appkhambenh.ui.model.DepartmentClinic
 import com.example.appkhambenh.ui.model.Doctor
 import com.example.appkhambenh.ui.ui.user.csyt.ConnectCsytActivity
-import com.example.appkhambenh.ui.ui.user.appointment.AppointmentActivity
-import com.example.appkhambenh.ui.ui.user.appointment.register.FragmentAppointment
 import com.example.appkhambenh.ui.ui.user.appointment.register.adapter.DepartmentAdapter
 import com.example.appkhambenh.ui.ui.user.appointment.register.adapter.DoctorAdapter
 import com.example.appkhambenh.ui.ui.user.doctor.SearchDoctorActivity
@@ -45,7 +32,6 @@ import com.example.appkhambenh.ui.ui.user.home.Function
 import com.example.appkhambenh.ui.ui.user.manage_appointment.ManageAppointmentActivity
 import com.example.appkhambenh.ui.ui.user.medicine.MedicineActivity
 import com.google.firebase.database.*
-import java.util.HashMap
 
 var getNameDepartment: ((String)->Unit)? = null
 var getNameDoctor: ((String)->Unit)? = null
@@ -59,21 +45,19 @@ fun getDataDepartment(
         .addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val listDepartment = ArrayList<DepartmentClinic>()
-                if(snapshot.children != null){
-                    for(dataSnapshot in snapshot.children){
-                        val department: DepartmentClinic? = dataSnapshot.getValue(
-                            DepartmentClinic::class.java)
-                        listDepartment.add(department!!)
-                    }
-                    val departmentAdapter = DepartmentAdapter(listDepartment, context)
-                    departmentAdapter.onSelectDepartment = {
-                        getNameDepartment?.invoke(it)
-                    }
-                    val linear =
-                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                    rcvDepartment.layoutManager = linear
-                    rcvDepartment.adapter = departmentAdapter
+                for(dataSnapshot in snapshot.children){
+                    val department: DepartmentClinic? = dataSnapshot.getValue(
+                        DepartmentClinic::class.java)
+                    listDepartment.add(department!!)
                 }
+                val departmentAdapter = DepartmentAdapter(listDepartment, context)
+                departmentAdapter.onSelectDepartment = {
+                    getNameDepartment?.invoke(it)
+                }
+                val linear =
+                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                rcvDepartment.layoutManager = linear
+                rcvDepartment.adapter = departmentAdapter
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -91,21 +75,19 @@ fun getDataDoctor(
         .addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val listDoctor = ArrayList<Doctor>()
-                if(snapshot.children != null){
-                    for(dataSnapshot in snapshot.children){
-                        val doctor: Doctor? = dataSnapshot.getValue(
-                            Doctor::class.java)
-                        listDoctor.add(doctor!!)
-                    }
-                    val departmentAdapter = DoctorAdapter(listDoctor, context)
-                    departmentAdapter.selectDoctor = {
-                        getNameDoctor?.invoke(it)
-                    }
-                    val linear =
-                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                    rcvDoctor.layoutManager = linear
-                    rcvDoctor.adapter = departmentAdapter
+                for(dataSnapshot in snapshot.children){
+                    val doctor: Doctor? = dataSnapshot.getValue(
+                        Doctor::class.java)
+                    listDoctor.add(doctor!!)
                 }
+                val departmentAdapter = DoctorAdapter(listDoctor, context)
+                departmentAdapter.selectDoctor = {
+                    getNameDoctor?.invoke(it)
+                }
+                val linear =
+                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                rcvDoctor.layoutManager = linear
+                rcvDoctor.adapter = departmentAdapter
             }
 
             override fun onCancelled(error: DatabaseError) {

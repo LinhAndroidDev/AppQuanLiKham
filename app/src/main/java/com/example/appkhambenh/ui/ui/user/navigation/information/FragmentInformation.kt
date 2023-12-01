@@ -1,10 +1,12 @@
 package com.example.appkhambenh.ui.ui.user.navigation.information
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentInformationBinding
 import com.example.appkhambenh.ui.base.BaseFragment
@@ -13,10 +15,12 @@ import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.example.appkhambenh.ui.utils.validateEmail
 import com.example.appkhambenh.ui.utils.validatePhone
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformationBinding>(){
-    private val sex by lazy { viewModel.mPreferenceUtil.defaultPref()
-        .getInt(PreferenceKey.USER_SEX, -1) }
+class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformationBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -24,57 +28,27 @@ class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformati
         initUi()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun initUi() {
 
         disableButtonChangeInfo()
 
         binding.backInfo.setOnClickListener { back() }
 
-        binding.edtName.setTextHint(
-            viewModel.mPreferenceUtil.defaultPref()
-                .getString(PreferenceKey.USER_NAME, "")
-        )
-
-        binding.edtEmail.setTextHint(
-            viewModel.mPreferenceUtil.defaultPref()
-                .getString(PreferenceKey.USER_EMAIL, "")
-        )
-
-        binding.rbMan.setLabel(getString(R.string.males))
-        binding.rbWomen.setLabel(getString(R.string.females))
-        if(sex == 0) checkMan() else checkWomen()
-
-        binding.rbMan.setOnClickListener {
-            if(!binding.rbMan.isCheck) {
-                if(sex == 0) disableButtonChangeInfo() else enableButtonChangeInfo()
-                checkMan()
-            }
+        binding.layoutInfo.setOnTouchListener { _, _ ->
+            closeKeyboard()
+            false
         }
 
-        binding.rbWomen.setOnClickListener {
-            if(!binding.rbWomen.isCheck) {
-                if(sex == 1) disableButtonChangeInfo() else enableButtonChangeInfo()
-                checkWomen()
+        lifecycleScope.launch {
+            delay(500L)
+            withContext(Dispatchers.Main){
+                createView()
             }
         }
-
-        binding.edtBirth.visibleViewBirth()
-        binding.edtBirth.setTextHint(
-            viewModel.mPreferenceUtil.defaultPref()
-                .getString(PreferenceKey.USER_BIRTH, "")
-        )
-        binding.edtPhone.inputTypePhone()
-        binding.edtPhone.setTextHint(
-            viewModel.mPreferenceUtil.defaultPref()
-                .getString(PreferenceKey.USER_PHONE, "")
-        )
-        binding.edtAddress.setTextHint(
-            viewModel.mPreferenceUtil.defaultPref()
-                .getString(PreferenceKey.USER_ADDRESS, "")
-        )
 
         viewModel.mPreferenceUtil.defaultPref().getString(PreferenceKey.USER_AVATAR, "").let {
-            if(it!!.isNotEmpty()){
+            if (it!!.isNotEmpty()) {
                 Picasso.get().load(it)
                     .error(R.drawable.user_ad)
                     .placeholder(R.drawable.user_ad)
@@ -94,22 +68,24 @@ class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformati
         checkEnableButtonInfo(binding.edtAddress)
 
         binding.changeInfo.setOnClickListener {
-            if(binding.edtEmail.getTextView().isNotEmpty() && !validateEmail(binding.edtEmail.getTextView())){
-                show("Email không đúng định dạng")
-            }else if(binding.edtPhone.getTextView().isNotEmpty() && !validatePhone(binding.edtPhone.getTextView())){
+            if (binding.edtEmail.getTextView()
+                    .isNotEmpty() && !validateEmail(binding.edtEmail.getTextView())
+            ) {
+                show(getString(R.string.fail_email))
+            } else if (binding.edtPhone.getTextView()
+                    .isNotEmpty() && !validatePhone(binding.edtPhone.getTextView())
+            ) {
                 show(resources.getString(R.string.warning_phone))
-            }else{
-                val user_id = viewModel.mPreferenceUtil.defaultPref()
-                    .getInt(PreferenceKey.USER_ID, -1).toString()
+            } else {
                 val name = getValueInfo(binding.edtName, PreferenceKey.USER_NAME)
                 val email = getValueInfo(binding.edtEmail, PreferenceKey.USER_EMAIL)
-                val sex = if(binding.rbMan.isCheck) 0 else 1
+                val sex = if (binding.rbMan.isCheck) 0 else 1
                 val birth = getValueInfo(binding.edtBirth, PreferenceKey.USER_BIRTH)
                 val phone = getValueInfo(binding.edtPhone, PreferenceKey.USER_PHONE)
                 val address = getValueInfo(binding.edtAddress, PreferenceKey.USER_ADDRESS)
 
                 viewModel.updateInfo(
-                    convertToRequestBody(user_id),
+                    convertToRequestBody(userId.toString()),
                     convertToRequestBody(name!!),
                     convertToRequestBody(email!!),
                     convertToRequestBody(sex.toString()),
@@ -119,17 +95,62 @@ class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformati
                 )
 
                 viewModel.isLoadingLiveData.observe(requireActivity()) { isLoading ->
-                    binding.loadingData.visibility = if(isLoading) View.VISIBLE else View.GONE
+                    binding.loadingData.visibility = if (isLoading) View.VISIBLE else View.GONE
                 }
 
-                viewModel.updateInfoSuccessfulLiveData.observe(requireActivity()){ isSuccessful->
-                    if(isSuccessful){
-                        show("Bạn đã cập nhật lại thông tin cá nhân thành công")
+                viewModel.updateInfoSuccessfulLiveData.observe(requireActivity()) { isSuccessful ->
+                    if (isSuccessful) {
+                        show(getString(R.string.update_infor_success))
                         back()
                     }
                 }
             }
         }
+    }
+
+    private fun createView() {
+        binding.edtName.setTextHint(
+            viewModel.mPreferenceUtil.defaultPref()
+                .getString(PreferenceKey.USER_NAME, "")
+        )
+
+        binding.edtEmail.setTextHint(
+            viewModel.mPreferenceUtil.defaultPref()
+                .getString(PreferenceKey.USER_EMAIL, "")
+        )
+
+        binding.rbMan.setLabel(getString(R.string.males))
+        binding.rbWomen.setLabel(getString(R.string.females))
+        if (sex == 0) checkMan() else checkWomen()
+
+        binding.rbMan.setOnClickListener {
+            if (!binding.rbMan.isCheck) {
+                if (sex == 0) disableButtonChangeInfo() else enableButtonChangeInfo()
+                checkMan()
+            }
+        }
+
+        binding.rbWomen.setOnClickListener {
+            if (!binding.rbWomen.isCheck) {
+                if (sex == 1) disableButtonChangeInfo() else enableButtonChangeInfo()
+                checkWomen()
+            }
+        }
+
+        binding.edtBirth.visibleViewBirth()
+        binding.edtBirth.setTextHint(
+            viewModel.mPreferenceUtil.defaultPref()
+                .getString(PreferenceKey.USER_BIRTH, "")
+        )
+        binding.edtPhone.inputTypePhone()
+        binding.edtPhone.setTextHint(
+            viewModel.mPreferenceUtil.defaultPref()
+                .getString(PreferenceKey.USER_PHONE, "")
+        )
+        binding.edtAddress.setTextHint(
+            viewModel.mPreferenceUtil.defaultPref()
+                .getString(PreferenceKey.USER_ADDRESS, "")
+        )
     }
 
     private fun getValueInfo(edt: CustomTextViewInfo, key: String): String? {
@@ -141,23 +162,23 @@ class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformati
         }
     }
 
-    private fun checkMan(){
+    private fun checkMan() {
         binding.rbMan.setCheck()
         binding.rbWomen.setUnCheck()
     }
 
-    private fun checkWomen(){
+    private fun checkWomen() {
         binding.rbWomen.setCheck()
         binding.rbMan.setUnCheck()
     }
 
-    private fun checkEnableButtonInfo(edt: CustomTextViewInfo){
+    private fun checkEnableButtonInfo(edt: CustomTextViewInfo) {
         edt.isEnableButtonUpdateInfo = {
-            if(it) enableButtonChangeInfo()
+            if (it) enableButtonChangeInfo()
         }
 
         edt.allTextEmpty = {
-            if(it && !checkValidateName()) disableButtonChangeInfo()
+            if (it && !checkValidateName()) disableButtonChangeInfo()
         }
     }
 
@@ -169,12 +190,12 @@ class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformati
                 || binding.edtAddress.getTextView().trim().isNotEmpty())
     }
 
-    private fun disableButtonChangeInfo(){
+    private fun disableButtonChangeInfo() {
         binding.changeInfo.alpha = 0.5f
         binding.changeInfo.isEnabled = false
     }
 
-    private fun enableButtonChangeInfo(){
+    private fun enableButtonChangeInfo() {
         binding.changeInfo.alpha = 1f
         binding.changeInfo.isEnabled = true
     }
@@ -182,6 +203,6 @@ class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformati
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    )= FragmentInformationBinding.inflate(inflater)
+    ) = FragmentInformationBinding.inflate(inflater)
 
 }

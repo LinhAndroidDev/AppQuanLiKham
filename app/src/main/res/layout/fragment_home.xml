@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.ui.user.home.FragmentHome">
 
@@ -329,7 +330,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_200"
                     android:paddingStart="@dimen/dimen_60"
-                    android:paddingEnd="@dimen/dimen_60" />
+                    android:paddingEnd="@dimen/dimen_60"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:text="@string/functions"
@@ -341,19 +343,75 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rcvFunctionMain"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_marginVertical="@dimen/dimen_10"
+                    android:layout_marginHorizontal="@dimen/dimen_15"
+                    android:background="@drawable/bg_item_function"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    android:orientation="horizontal"
-                    app:spanCount="2" />
+                    android:orientation="vertical"
+                    android:elevation="@dimen/dimen_2">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_margin="@dimen/dimen_15"
+                        android:id="@+id/rcvFunctionMain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        android:orientation="horizontal"
+                        app:spanCount="2" />
+
+                    <View
+                        android:background="@color/bg_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+
+                    <LinearLayout
+                        android:layout_marginVertical="@dimen/dimen_10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:src="@drawable/new_star"
+                            android:layout_width="@dimen/dimen_18"
+                            android:layout_height="@dimen/dimen_18"/>
+
+                        <TextView
+                            android:layout_marginStart="@dimen/dimen_5"
+                            android:text="@string/my_favourites"
+                            android:textSize="@dimen/dimen_sp14"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:layout_marginStart="@dimen/dimen_5"
+                            android:paddingVertical="@dimen/dimen_2"
+                            android:paddingHorizontal="@dimen/dimen_7"
+                            android:background="@drawable/bg_corners_25"
+                            android:backgroundTint="@color/txt_red"
+                            android:text="@string/new_favourites"
+                            android:textSize="@dimen/dimen_sp14"
+                            android:textColor="@color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <RelativeLayout
-                    android:layout_marginTop="@dimen/dimen_20"
+                    android:id="@+id/titleDoctorHighlight"
+                    android:layout_marginTop="@dimen/dimen_10"
                     android:layout_marginHorizontal="@dimen/dimen_20"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_centerVertical="true"
@@ -379,6 +437,7 @@
                     </LinearLayout>
 
                     <include
+                        android:id="@+id/seeMoreDoctor"
                         android:layout_alignParentEnd="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -389,15 +448,16 @@
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/slideHighlightDoctor"
                     android:paddingEnd="@dimen/dimen_60"
-                    android:layout_marginTop="@dimen/dimen_10"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_120" />
 
                 <RelativeLayout
+                    android:id="@+id/titleHandbook"
                     android:layout_marginTop="@dimen/dimen_20"
                     android:layout_marginHorizontal="@dimen/dimen_20"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_centerVertical="true"
@@ -418,10 +478,47 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcvMedicalHandbook"
-                    android:layout_marginTop="@dimen/dimen_20"
+                    android:layout_marginTop="@dimen/dimen_10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+                <RelativeLayout
+                    android:id="@+id/titleCsyt"
+                    android:layout_marginTop="@dimen/dimen_20"
+                    android:layout_marginHorizontal="@dimen/dimen_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:text="@string/top_medical_facility"
+                        android:textSize="@dimen/dimen_sp14"
+                        android:textColor="@color/black"
+                        android:textStyle="italic|bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <include
+                        android:id="@+id/seeMoreCsyt"
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        layout="@layout/layout_see_more"/>
+
+                </RelativeLayout>
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rcvTopCsyt"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"/>
+                </androidx.core.widget.NestedScrollView>
 
                 <LinearLayout
                     android:layout_width="match_parent"

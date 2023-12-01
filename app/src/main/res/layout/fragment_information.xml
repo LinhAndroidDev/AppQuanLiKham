@@ -7,6 +7,7 @@
     tools:context=".ui.ui.user.navigation.information.FragmentInformation">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/layoutInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

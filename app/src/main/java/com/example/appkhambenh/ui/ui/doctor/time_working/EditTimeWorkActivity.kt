@@ -30,24 +30,21 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEditTimeWorkBinding>() {
-    lateinit var bottomShareBehavior: BottomSheetBehavior<View>
-    lateinit var editTimeAdapter: EditTimeAdapter
-    var POSITION_ITEM = -1
-    var id_doctor: String = ""
+    private lateinit var bottomShareBehavior: BottomSheetBehavior<View>
+    private lateinit var editTimeAdapter: EditTimeAdapter
+    private val idDoctor by lazy { viewModel.mPreferenceUtil.defaultPref()
+        .getInt(PreferenceKey.USER_ID, -1).toString() }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    var formatDay = SimpleDateFormat("EEEE", Locale("vi", "VN"))
-    var formatDayOfMonth = SimpleDateFormat("dd", Locale("vi", "VN"))
-    var formatMonth = SimpleDateFormat("MM", Locale("vi", "VN"))
+    private val formatDay by lazy { SimpleDateFormat("EEEE", Locale("vi", "VN")) }
+    private val formatDayOfMonth by lazy { SimpleDateFormat("dd", Locale("vi", "VN")) }
+    private val formatMonth by lazy { SimpleDateFormat("MM", Locale("vi", "VN")) }
+    var POSITION_ITEM = -1
     var COUNT_CHANGE_DATE = 0
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        id_doctor = viewModel.mPreferenceUtil.defaultPref()
-            .getInt(PreferenceKey.USER_ID, -1).toString()
 
         val calendar: Calendar = Calendar.getInstance()
         binding.txtTimeEdit.text = formatDay.format(calendar.time) +
@@ -59,7 +56,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
 
         viewModel.getListWorkingTime(
             convertToRequestBody(binding.txtTimeEdit.text.toString()),
-            convertToRequestBody(id_doctor)
+            convertToRequestBody(idDoctor)
         )
 
         getData()
@@ -226,7 +223,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
                                 show("Bạn đã cập nhật $strHourSelected thành ${"$strHour:$strMinute"}")
                                 viewModel.getListWorkingTime(
                                     convertToRequestBody(binding.txtTimeEdit.text.toString()),
-                                    convertToRequestBody(id_doctor)
+                                    convertToRequestBody(idDoctor)
                                 )
                                 editTimeAdapter.notifyDataSetChanged()
                             }
@@ -280,7 +277,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
                                     show("Bạn đã xoá $strHour thành công")
                                     viewModel.getListWorkingTime(
                                         convertToRequestBody(binding.txtTimeEdit.text.toString()),
-                                        convertToRequestBody(id_doctor)
+                                        convertToRequestBody(idDoctor)
                                     )
                                     editTimeAdapter.notifyDataSetChanged()
                                 }
@@ -355,7 +352,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
     private fun resetDataDate() {
         viewModel.getListWorkingTime(
             convertToRequestBody(binding.txtTimeEdit.text.toString()),
-            convertToRequestBody(id_doctor)
+            convertToRequestBody(idDoctor)
         )
 
         getData()

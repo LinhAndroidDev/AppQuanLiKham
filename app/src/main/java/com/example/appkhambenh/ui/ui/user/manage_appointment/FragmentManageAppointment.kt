@@ -96,6 +96,7 @@ class FragmentManageAppointment : BaseFragment<ManageAppointmentViewModel, Fragm
 
                         }
 
+                        @SuppressLint("NotifyDataSetChanged")
                         override fun onFinish() {
                             if(viewModel.deleteSuccessful){
                                 show("Bạn đã xoá thành công lịch hẹn ${registerChecking.date} lúc ${registerChecking.hour}")
@@ -112,7 +113,9 @@ class FragmentManageAppointment : BaseFragment<ManageAppointmentViewModel, Fragm
             }
         }
 
-        adapterManageAppointment.filter.filter(binding.headerManageAppoint.searchItem())
+        binding.headerManageAppoint.searchItem = {
+            adapterManageAppointment.filter.filter(it)
+        }
 
         binding.headerManageAppoint.isRevert = {
             if(it) adapterManageAppointment.revertAppoint()

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.appkhambenh.R
@@ -40,7 +39,7 @@ class FunctionHomeAdapter(
         holder.itemView.setOnTouchListener { _, motionEvent ->
             when(motionEvent?.actionMasked){
                 MotionEvent.ACTION_DOWN->{
-                    holder.itemView.alpha = 0.5f
+                    holder.itemView.alpha = 0.3f
                 }
                 MotionEvent.ACTION_UP ->{
                     holder.itemView.alpha = 1f

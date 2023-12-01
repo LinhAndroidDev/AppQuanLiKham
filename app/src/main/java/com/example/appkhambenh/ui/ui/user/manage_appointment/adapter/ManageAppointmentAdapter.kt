@@ -23,23 +23,23 @@ class ManageAppointmentAdapter(
     val context: Context
 ) : RecyclerView.Adapter<ManageAppointmentAdapter.ViewHolder>(), Filterable {
 
-    var listRegisterCheckingOld: ArrayList<RegisterChecking>? = listRegisterChecking
+    val listRegisterCheckingOld by lazy { listRegisterChecking }
     var isClickEditAppoint: ((RegisterChecking?) -> Unit)? = null
     var isCancelAppoint: ((RegisterChecking?) -> Unit)? = null
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val avatar: CircleImageView = itemView.findViewById(R.id.avatarManage)
-        val namePatient: TextView = itemView.findViewById(R.id.txt_name_patient)
-        val time: TextView = itemView.findViewById(R.id.txt_time_appointment)
-        val address: TextView = itemView.findViewById(R.id.txt_address)
-        val service: TextView = itemView.findViewById(R.id.txt_service)
-        val nameDoctor: TextView = itemView.findViewById(R.id.txt_name_doctor)
-        val reasons: TextView = itemView.findViewById(R.id.txt_reasons)
-        val txtExpand: TextView = itemView.findViewById(R.id.txtExpand)
-        val imgExpand: ImageView = itemView.findViewById(R.id.imgExpand)
-        val layoutExpand: LinearLayout = itemView.findViewById(R.id.layoutExpand)
-        val cancelAppoint: LinearLayout = itemView.findViewById(R.id.llCancelAppointment)
-        val editAppoint: LinearLayout = itemView.findViewById(R.id.editAppoint)
+        val avatar: CircleImageView by lazy { itemView.findViewById(R.id.avatarManage) }
+        val namePatient: TextView by lazy { itemView.findViewById(R.id.txt_name_patient) }
+        val time: TextView by lazy { itemView.findViewById(R.id.txt_time_appointment) }
+        val address: TextView by lazy { itemView.findViewById(R.id.txt_address) }
+        val service: TextView by lazy { itemView.findViewById(R.id.txt_service) }
+        val nameDoctor: TextView by lazy { itemView.findViewById(R.id.txt_name_doctor) }
+        val reasons: TextView by lazy { itemView.findViewById(R.id.txt_reasons) }
+        val txtExpand: TextView by lazy { itemView.findViewById(R.id.txtExpand) }
+        val imgExpand: ImageView by lazy { itemView.findViewById(R.id.imgExpand) }
+        val layoutExpand: LinearLayout by lazy { itemView.findViewById(R.id.layoutExpand) }
+        val cancelAppoint: LinearLayout by lazy { itemView.findViewById(R.id.llCancelAppointment) }
+        val editAppoint: LinearLayout by lazy { itemView.findViewById(R.id.editAppoint) }
     }
 
     override fun onCreateViewHolder(
@@ -53,8 +53,8 @@ class ManageAppointmentAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ManageAppointmentAdapter.ViewHolder, position: Int) {
 
-        val activity = context as AppCompatActivity
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
+        val activity by lazy { context as AppCompatActivity }
+        val sharedPreferences by lazy { PreferenceManager.getDefaultSharedPreferences(activity) }
 
         val register = listRegisterChecking?.get(position)
         val strAvatar: String = sharedPreferences.getString(PreferenceKey.USER_AVATAR, "").toString()
@@ -74,14 +74,14 @@ class ManageAppointmentAdapter(
         holder.itemView.setOnClickListener {
             if(holder.layoutExpand.visibility == View.GONE){
                 expandView(holder.layoutExpand)
-                holder.txtExpand.text = "Thu gọn"
+                holder.txtExpand.text = activity.getString(R.string.collapse)
                 holder.imgExpand
                     .animate()
                     .rotationBy(180f)
                     .duration = timeEffectView(holder.layoutExpand)
             } else{
                 collapseView(holder.layoutExpand)
-                holder.txtExpand.text = "Chi tiết"
+                holder.txtExpand.text = activity.getString(R.string.detail)
                 holder.imgExpand
                     .animate()
                     .rotationBy(-180f)

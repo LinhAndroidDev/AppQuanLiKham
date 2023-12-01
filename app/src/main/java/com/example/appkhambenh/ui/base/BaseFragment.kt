@@ -3,12 +3,16 @@ package com.example.appkhambenh.ui.base
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.graphics.Point
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.registerReceiver
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
@@ -22,35 +26,63 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.lang.reflect.ParameterizedType
 import java.util.*
 
-@Suppress("UNREACHABLE_CODE")
-abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(),IonFragmentBack{
+
+abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), IonFragmentBack {
 
     protected lateinit var viewModel: V
     protected lateinit var binding: B
-    var screenWidth: Int = 0
-    var screenHeight: Int = 0
-    val userId by lazy { viewModel.mPreferenceUtil.defaultPref()
-        .getInt(PreferenceKey.USER_ID, -1) }
+    private var screenWidth: Int = 0
+    private var screenHeight: Int = 0
+    val userId by lazy {
+        viewModel.mPreferenceUtil.defaultPref()
+            .getInt(PreferenceKey.USER_ID, -1)
+    }
+    val avatarUser by lazy {
+        viewModel.mPreferenceUtil.defaultPref()
+            .getString(PreferenceKey.USER_AVATAR, "")
+    }
+    val nameUser by lazy {
+        viewModel.mPreferenceUtil.defaultPref()
+            .getString(PreferenceKey.USER_NAME, "")
+    }
+    val sex by lazy {
+        viewModel.mPreferenceUtil.defaultPref()
+            .getInt(PreferenceKey.USER_SEX, -1)
+    }
+    val birthUser by lazy {
+        viewModel.mPreferenceUtil.defaultPref()
+            .getString(PreferenceKey.USER_BIRTH, "")
+    }
+    val addressUser by lazy {
+        viewModel.mPreferenceUtil.defaultPref()
+            .getString(PreferenceKey.USER_ADDRESS, "")
+    }
+    val typeUser by lazy {
+        viewModel.mPreferenceUtil.defaultPref()
+            .getInt(PreferenceKey.USER_TYPE, -1)
+    }
+    private val language by lazy {
+        viewModel.mPreferenceUtil.defaultPref()
+            .getString(PreferenceKey.LANGUAGE, "vi").toString()
+    }
 
     @SuppressLint("SuspiciousIndentation")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = getFragmentBinding(inflater, container)
         viewModel =
             ViewModelProvider(this)[(this::class.java.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<V>]
-            activity?.let {
-                viewModel.mPreferenceUtil = PreferenceUtil(it)
-            }
+        activity?.let {
+            viewModel.mPreferenceUtil = PreferenceUtil(it)
+        }
 
         bindData()
 
-        val language = viewModel.mPreferenceUtil.defaultPref()
-            .getString(PreferenceKey.LANGUAGE, "vi").toString()
-        if(language.isNotEmpty()) setLanguage(requireActivity(), language)
+        if (language.isNotEmpty()) setLanguage(requireActivity(), language)
 
         return binding.root
     }
@@ -58,7 +90,7 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(),Ion
     abstract fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): B
 
     open fun bindData() {
-        viewModel.errorApiLiveData.observe(viewLifecycleOwner){
+        viewModel.errorApiLiveData.observe(viewLifecycleOwner) {
             show(it)
         }
     }
@@ -67,11 +99,11 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(),Ion
         return false
     }
 
-    fun convertToRequestBody(str: String): RequestBody{
+    fun convertToRequestBody(str: String): RequestBody {
         return str.toRequestBody("multipart/form-data".toMediaTypeOrNull())
     }
 
-    fun show(str: String){
+    fun show(str: String) {
         val toast: View = View.inflate(requireActivity(), R.layout.custom_toast, null)
         val txtToast: TextView = toast.findViewById(R.id.txtToast)
         txtToast.text = str
@@ -83,7 +115,8 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(),Ion
     }
 
     fun View.hideKeyboard() {
-        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputManager =
+            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 
@@ -96,21 +129,27 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(),Ion
         resources.updateConfiguration(config, resources.displayMetrics)
     }
 
-    fun closeKeyboard(){
-        val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    fun closeKeyboard() {
+        val inputMethodManager =
+            context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(activity?.currentFocus?.windowToken, 0)
     }
 
-    fun back(){
+    fun back() {
         closeKeyboard()
         activity?.onBackPressed()
     }
 
     private fun getSizeWindow() {
-        val display: Display = requireActivity().windowManager.defaultDisplay
-        val size = Point()
-        display.getSize(size)
-        screenWidth = size.x
-        screenHeight = size.y
+        val displayMetrics = DisplayMetrics()
+        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
+        screenHeight = displayMetrics.heightPixels
+        screenWidth = displayMetrics.widthPixels
+    }
+
+    fun isOnline(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
     }
 }

@@ -7,7 +7,7 @@
     <color name="teal_700">#FF018786</color>
 
     <!--    Color Design-->
-    <color name="background">#3f8bec</color>
+    <color name="background">#3F8BEC</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#0AA815</color>
@@ -15,12 +15,12 @@
     <!--    Color Text-->
     <color name="text">#035dcf</color>
     <color name="txt_hint">#A8A8A8</color>
-    <color name="txt_red">#E10404</color>
+    <color name="txt_red">#FF0303</color>
     <color name="txt_green">#00CC08</color>
 
     <!--    Color Background-->
     <color name="pink">#F4598E</color>
-    <color name="orange">#FBB041</color>
+    <color name="orange">#FA9705</color>
     <color name="blue">#5BB5FD</color>
     <color name="purple">#5D03FF</color>
     <color name="green_light">#8EC152</color>
@@ -42,6 +42,7 @@
     <color name="bg_purple_light">#DECEFC</color>
     <color name="bg_purple_dark">#D7C0FF</color>
     <color name="bg_blue_light">#D7F4FF</color>
+    <color name="bg_blue_white">#EBF5F8</color>
     <color name="bg_blue_dark">#B8D7FB</color>
     <color name="bg_cover_bottom_behavior">#40111111</color>
     <color name="bg_blue">#6AA0E6</color>

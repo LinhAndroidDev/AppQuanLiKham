@@ -9,8 +9,8 @@ import androidx.core.widget.doOnTextChanged
 import com.example.appkhambenh.databinding.LayoutCustomSearchBinding
 
 class CustomSearch : RelativeLayout {
-    lateinit var binding: LayoutCustomSearchBinding
-    var keySearch = ""
+    val binding by lazy { LayoutCustomSearchBinding.inflate(LayoutInflater.from(context)) }
+    var keySearch: ((String) -> Unit)? = null
 
     constructor(context: Context) : super(context){ initView() }
 
@@ -25,7 +25,6 @@ class CustomSearch : RelativeLayout {
     }
 
     private fun initView(){
-        binding = LayoutCustomSearchBinding.inflate(LayoutInflater.from(context))
         addView(binding.root)
 
         initUi()
@@ -35,7 +34,7 @@ class CustomSearch : RelativeLayout {
         disableDeleteText()
 
         binding.search.doOnTextChanged { text, _, _, _ ->
-            keySearch = text.toString()
+            keySearch?.invoke(text.toString())
             if(text?.trim()!!.isNotEmpty()) enableDeleteText() else disableDeleteText()
         }
 

@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/dimen_100"
+    android:layout_width="@dimen/dimen_90"
     android:layout_height="wrap_content"
-    android:padding="@dimen/dimen_10"
+    android:paddingBottom="@dimen/dimen_10"
+    android:paddingHorizontal="@dimen/dimen_5"
     android:orientation="vertical"
     android:gravity="center">
 
     <LinearLayout
-        android:background="@drawable/bg_item_function"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:background="@drawable/bg_corners_10"
+        android:backgroundTint="@color/white"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/dimen_5">
         <ImageView
             android:id="@+id/imgFunction"
             android:layout_margin="@dimen/dimen_12"
             android:src="@drawable/ic_action_schedule"
-            android:layout_width="@dimen/dimen_30"
-            android:layout_height="@dimen/dimen_30"/>
+            android:layout_width="@dimen/dimen_27"
+            android:layout_height="@dimen/dimen_27"/>
     </LinearLayout>
 
     <TextView
         android:id="@+id/nameFunction"
         android:layout_marginTop="@dimen/dimen_10"
-        android:text="Lịch khám"
+        android:text="Kết quả khám bệnh"
         android:textSize="@dimen/dimen_sp14"
         android:textColor="@color/black"
         android:gravity="center"

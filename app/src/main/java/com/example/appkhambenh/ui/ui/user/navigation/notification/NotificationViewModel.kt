@@ -36,9 +36,13 @@ class NotificationViewModel : BaseViewModel() {
                 override fun onNext(t: List<RegisterChecking>) {
                     isLoadingLiveData.postValue(false)
 
-                    listAppointmentLiveData.postValue(t.filter {
-                        it.checkAppointExpired()
-                    } as ArrayList<RegisterChecking>)
+                    try {
+                        listAppointmentLiveData.postValue(t.filter {
+                            it.checkAppointExpired()
+                        } as ArrayList<RegisterChecking>)
+                    }catch (e: Exception){
+                        errorApiLiveData.postValue(e.message)
+                    }
                 }
 
             })

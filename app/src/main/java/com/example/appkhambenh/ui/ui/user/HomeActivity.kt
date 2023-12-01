@@ -19,10 +19,13 @@ import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.example.appkhambenh.ui.utils.animRotation45
 import com.example.appkhambenh.ui.utils.animRotationBack0
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 @Suppress("DEPRECATION")
 class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
-    var isRotateAdd = false
+    private var isRotateAdd = false
     private val bottomSheetBehavior by lazy { BottomSheetBehavior.from(binding.bottomSheet.layoutBook) }
     private val bottomSelectLanguage by lazy { BottomSheetBehavior.from(binding.bottomSelectLanguage.layoutSelectLanguage) }
 
@@ -36,6 +39,7 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
         initUi()
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     @SuppressLint("ClickableViewAccessibility")
     private fun initUi() {
 
@@ -47,6 +51,12 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
 
         initBottomSelectLanguage()
 
+        binding.bottomNvg.isEnabled = false
+        binding.bottomNvg.isClickable = false
+        binding.bottomNvg.isFocusable = false
+        binding.bottomNvg.isFocusableInTouchMode = false
+        binding.bottomNvg.setOnClickListener(null)
+
         binding.bottomNvg.setOnItemSelectedListener {
             if (isRotateAdd) {
                 isRotateAdd = false
@@ -55,15 +65,31 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
             }
             val fmCurrent = supportFragmentManager.findFragmentById(R.id.changeIdHome)
             when (it.itemId) {
-                R.id.home -> if (fmCurrent !is FragmentHome) replaceFragment(FragmentHome())
-                R.id.profile -> if (fmCurrent !is FragmentInformation) replaceFragment(
-                    FragmentInformation()
-                )
+                R.id.home -> if (fmCurrent !is FragmentHome) GlobalScope.launch {
+                    replaceFragment(
+                        FragmentHome()
+                    )
+                }
+
+                R.id.profile -> if (fmCurrent !is FragmentInformation) GlobalScope.launch {
+                    replaceFragment(
+                        FragmentInformation()
+                    )
+                }
+
                 R.id.register -> rotateIconRegister()
-                R.id.notification -> if (fmCurrent !is FragmentNotification) replaceFragment(
-                    FragmentNotification()
-                )
-                R.id.setting -> if (fmCurrent !is FragmentSetting) replaceFragment(FragmentSetting())
+
+                R.id.notification -> if (fmCurrent !is FragmentNotification) GlobalScope.launch {
+                    replaceFragment(
+                        FragmentNotification()
+                    )
+                }
+
+                R.id.setting -> if (fmCurrent !is FragmentSetting) GlobalScope.launch {
+                    replaceFragment(
+                        FragmentSetting()
+                    )
+                }
             }
             true
         }
@@ -148,10 +174,10 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
 
         val language = viewModel.mPreferenceUtil.defaultPref()
             .getString(PreferenceKey.LANGUAGE, "vi").toString()
-        if(language == "vi"){
+        if (language == "vi") {
             binding.bottomSelectLanguage.vietnamese.selectLanguage()
             binding.bottomSelectLanguage.english.unSelectLanguage()
-        }else{
+        } else {
             binding.bottomSelectLanguage.vietnamese.unSelectLanguage()
             binding.bottomSelectLanguage.english.selectLanguage()
         }
@@ -227,9 +253,9 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun changeLanguageText(){
+    private fun changeLanguageText() {
         val fm = supportFragmentManager.findFragmentById(R.id.changeIdHome)
-        if(fm is FragmentSetting){
+        if (fm is FragmentSetting) {
             fm.changeLanguageTextSetting()
         }
 

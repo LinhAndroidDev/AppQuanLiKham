@@ -93,7 +93,7 @@
     <string name="title_language">Ngôn ngữ/ Language</string>
     <string name="language">English</string>
     <string name="notification_fail">Error</string>
-    <string name="condition">terms of use</string>
+    <string name="condition">Terms of use</string>
     <string name="delete_account">Delete account</string>
     <string name="logout">Log out</string>
     <string name="select_time_checking">Choose examination time</string>
@@ -111,7 +111,8 @@
     <string name="patient_appoint">Patient:</string>
     <string name="time_appoint">Time:</string>
     <string name="in_appoint">At:</string>
-    <string name="detail">detail</string>
+    <string name="detail">Detail</string>
+    <string name="collapse">Collapse</string>
     <string name="doctor_appoint">Doctor:</string>
     <string name="reason_appoint">Symptoms/Reasons:</string>
     <string name="booked">Reserved</string>
@@ -149,4 +150,19 @@
     <string name="edit_appoint">Edit appointment</string>
     <string name="save_appointment_changes">Save appointment changes</string>
     <string name="different">Different</string>
+    <string name="edit">Edit</string>
+    <string name="check_internet">You are offline, please check your connection again</string>
+    <string name="update_infor_success">You have successfully updated your personal information</string>
+    <string name="infor_doctor">Doctor information</string>
+    <string name="see_all_date"><u>See all schedule</u></string>
+    <string name="work_experience">Work experience</string>
+    <string name="price">Examination price:</string>
+    <string name="number_of_appointments">Number of appointments</string>
+    <string name="number_of_medical_calls">Number of medical calls</string>
+    <string name="consulting_turn">Consulting turn</string>
+    <string name="order_with_doctor">ORDER WITH DOCTOR</string>
+    <string name="order_by_service">ORDER BY SERVICE</string>
+    <string name="my_favourites">My favourites</string>
+    <string name="new_favourites">New</string>
+    <string name="top_medical_facility">Top Medical Facility</string>
 </resources>

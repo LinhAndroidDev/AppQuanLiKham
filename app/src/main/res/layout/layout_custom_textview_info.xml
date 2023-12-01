@@ -6,7 +6,6 @@
 
     <EditText
         android:id="@+id/edtInfo"
-        android:hint="Nguyễn Hữu Linh"
         android:textColor="@color/black"
         android:textSize="@dimen/dimen_sp14"
         android:paddingEnd="@dimen/dimen_60"
