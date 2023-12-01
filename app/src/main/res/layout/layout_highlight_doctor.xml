@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/dimen_10"
     app:cardCornerRadius="@dimen/dimen_10"
-    app:cardElevation="@dimen/dimen_3"
-    android:layout_margin="@dimen/dimen_10">
+    app:cardElevation="@dimen/dimen_3">
 
     <LinearLayout
-        android:background="@drawable/bg_common"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/bg_common"
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_gravity="center_vertical"
             android:id="@+id/imgHighlightDoctor"
-            android:src="@drawable/user_ad"
-            android:layout_margin="@dimen/dimen_10"
             android:layout_width="@dimen/dimen_70"
-            android:layout_height="@dimen/dimen_70"/>
+            android:layout_height="@dimen/dimen_70"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/dimen_10"
+            android:src="@drawable/user_ad" />
 
         <LinearLayout
-            android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/nameHighlight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="PSG.TS Hoàng Quang Huy"
                 android:textColor="@color/white"
                 android:textSize="@dimen/dimen_sp14"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/specialistHighlight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_10"
                 android:text="Chuyên khoa Tim mạch"
-                android:textSize="@dimen/dimen_sp12"
-                android:textStyle="italic"
                 android:textColor="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textSize="@dimen/dimen_sp12"
+                android:textStyle="italic" />
 
             <TextView
                 android:id="@+id/hospitalHighlight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_5"
                 android:text="Bệnh Viện Đa Khoa Tp.Hà Nội"
-                android:textSize="@dimen/dimen_sp12"
                 android:textColor="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textSize="@dimen/dimen_sp12" />
         </LinearLayout>
 
     </LinearLayout>

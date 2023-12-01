@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="@dimen/dimen_10"
+    android:orientation="vertical"
     android:paddingHorizontal="@dimen/dimen_20"
-    android:orientation="vertical">
+    android:paddingVertical="@dimen/dimen_10">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,41 +12,41 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:src="@drawable/icon_app_kham_benh"
             android:layout_width="@dimen/dimen_40"
-            android:layout_height="@dimen/dimen_40"/>
+            android:layout_height="@dimen/dimen_40"
+            android:src="@drawable/icon_app_kham_benh" />
 
         <LinearLayout
-            android:layout_weight="1"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dimen_10"
-            android:layout_height="wrap_content">
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/txtNotification"
-                android:layout_marginStart="@dimen/dimen_10"
-                android:text="Lịch hẹn của bạn đã quá hạnfjsdfjdbfdjbfhbvhwwrvbshcv\vs"
-                android:textSize="@dimen/dimen_sp14"
-                android:textColor="@color/black"
-                android:lineHeight="@dimen/dimen_25"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:lineHeight="@dimen/dimen_25"
+                android:text="Lịch hẹn của bạn đã quá hạnfjsdfjdbfdjbfhbvhwwrvbshcv\vs"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_sp14" />
 
         </LinearLayout>
 
         <ImageView
             android:id="@+id/menuNotification"
-            android:rotation="90"
-            android:src="@drawable/menu"
             android:layout_width="@dimen/dimen_20"
-            android:layout_height="@dimen/dimen_20"/>
+            android:layout_height="@dimen/dimen_20"
+            android:rotation="90"
+            android:src="@drawable/menu" />
 
     </LinearLayout>
 
     <View
-        android:layout_marginTop="@dimen/dimen_20"
-        android:background="@color/bg_divider"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:background="@color/bg_divider" />
 
 </LinearLayout>

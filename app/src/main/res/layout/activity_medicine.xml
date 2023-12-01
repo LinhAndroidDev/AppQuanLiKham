@@ -4,21 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ui.user.medicine.MedicineActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.ui.user.medicine.MedicineActivity">
+
     <TextView
-        android:text="@string/infor_medicine"
-        android:textSize="@dimen/dimen_sp25"
-        android:textColor="@color/text"
-        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dimen_40"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:text="@string/infor_medicine"
+        android:textColor="@color/text"
+        android:textSize="@dimen/dimen_sp25"
+        android:textStyle="bold" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvMedicine"
-        android:layout_marginVertical="@dimen/dimen_20"
-        android:layout_marginHorizontal="@dimen/dimen_10"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_10"
+        android:layout_marginVertical="@dimen/dimen_20" />
 </LinearLayout>

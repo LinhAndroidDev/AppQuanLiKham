@@ -29,7 +29,7 @@ class LoginViewModel : BaseViewModel() {
                             mPreferenceUtil.defaultPref().edit()
                                 .putInt(PreferenceKey.USER_ID, it.result?.id!!)
                                 .apply()
-                        }else{
+                        } else {
                             errorApiLiveData.value = it.message
                         }
                     }

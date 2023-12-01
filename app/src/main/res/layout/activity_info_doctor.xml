@@ -17,30 +17,30 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_marginTop="@dimen/dimen_20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_marginTop="@dimen/dimen_20"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:src="@drawable/img_doctor"
                 android:layout_width="@dimen/dimen_100"
-                android:layout_height="@dimen/dimen_100"/>
+                android:layout_height="@dimen/dimen_100"
+                android:src="@drawable/img_doctor" />
 
             <TextView
-                android:layout_marginTop="@dimen/dimen_10"
-                android:text="PGS.TS Phạm Thị Bích Thảo"
-                android:textSize="@dimen/dimen_sp16"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <LinearLayout
-                android:layout_marginTop="@dimen/dimen_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="PGS.TS Phạm Thị Bích Thảo"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_sp16"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -48,19 +48,19 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:layout_marginStart="@dimen/dimen_10"
-                        android:background="@drawable/ic_action_visit"
                         android:layout_width="@dimen/dimen_20"
-                        android:layout_height="@dimen/dimen_20"/>
+                        android:layout_height="@dimen/dimen_20"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:background="@drawable/ic_action_visit" />
 
                     <TextView
                         android:id="@+id/numberVisitCsyt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:text="618"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/dimen_sp15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textSize="@dimen/dimen_sp15" />
 
                 </LinearLayout>
 
@@ -69,19 +69,19 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:layout_marginStart="@dimen/dimen_20"
-                        android:background="@drawable/ic_action_star"
                         android:layout_width="@dimen/dimen_20"
-                        android:layout_height="@dimen/dimen_20"/>
+                        android:layout_height="@dimen/dimen_20"
+                        android:layout_marginStart="@dimen/dimen_20"
+                        android:background="@drawable/ic_action_star" />
 
                     <TextView
                         android:id="@+id/evaluateCsyt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:text="5"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/dimen_sp15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textSize="@dimen/dimen_sp15" />
 
                 </LinearLayout>
 
@@ -97,277 +97,277 @@
 
             <TextView
                 android:id="@+id/specialistDr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_5"
+                android:background="@color/grey_light"
+                android:paddingHorizontal="@dimen/dimen_4"
                 android:text="Chuyên khoa Tai Mũi Họng"
                 android:textColor="@color/text"
                 android:textSize="@dimen/dimen_sp14"
-                android:textStyle="italic"
-                android:background="@color/grey_light"
-                android:paddingHorizontal="@dimen/dimen_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textStyle="italic" />
 
             <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_20"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="bottom">
-
-                <TextView
-                    android:text="@string/price"
-                    android:textSize="@dimen/dimen_sp14"
-                    android:textColor="@color/black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <ImageView
-                    android:layout_marginStart="@dimen/dimen_5"
-                    android:src="@drawable/ic_action_price"
-                    android:layout_width="@dimen/dimen_22"
-                    android:layout_height="@dimen/dimen_22"/>
-
-                <TextView
-                    android:layout_marginStart="@dimen/dimen_3"
-                    android:text="400.000đ"
-                    android:textSize="@dimen/dimen_sp16"
-                    android:textColor="@color/text"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:paddingBottom="@dimen/dimen_10"
-                android:layout_marginTop="@dimen/dimen_15"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:gravity="bottom"
                 android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/price"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen_sp14" />
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_22"
+                    android:layout_height="@dimen/dimen_22"
+                    android:layout_marginStart="@dimen/dimen_5"
+                    android:src="@drawable/ic_action_price" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_3"
+                    android:text="400.000đ"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/dimen_sp16"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/dimen_10">
+
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:text="@string/number_of_appointments"
-                        android:textSize="@dimen/dimen_sp16"
-                        android:gravity="center"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/number_of_appointments"
+                        android:textSize="@dimen/dimen_sp16" />
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_5"
                         android:text="0"
-                        android:textSize="@dimen/dimen_sp18"
                         android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textSize="@dimen/dimen_sp18"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
                 <View
-                    android:background="@color/grey"
                     android:layout_width="@dimen/dimen_1"
-                    android:layout_height="@dimen/dimen_40"/>
+                    android:layout_height="@dimen/dimen_40"
+                    android:background="@color/grey" />
 
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:text="@string/number_of_medical_calls"
-                        android:textSize="@dimen/dimen_sp16"
-                        android:gravity="center"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/number_of_medical_calls"
+                        android:textSize="@dimen/dimen_sp16" />
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_5"
                         android:text="1463"
-                        android:textSize="@dimen/dimen_sp18"
                         android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textSize="@dimen/dimen_sp18"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
                 <View
-                    android:background="@color/grey"
                     android:layout_width="@dimen/dimen_1"
-                    android:layout_height="@dimen/dimen_40"/>
+                    android:layout_height="@dimen/dimen_40"
+                    android:background="@color/grey" />
 
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:text="@string/consulting_turn"
-                        android:textSize="@dimen/dimen_sp16"
-                        android:gravity="center"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/consulting_turn"
+                        android:textSize="@dimen/dimen_sp16" />
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_5"
                         android:text="14"
-                        android:textSize="@dimen/dimen_sp18"
                         android:textColor="@color/orange"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textSize="@dimen/dimen_sp18"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:background="@color/bg_common"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_10"/>
+                android:layout_height="@dimen/dimen_10"
+                android:background="@color/bg_common" />
 
             <LinearLayout
-                android:paddingVertical="@dimen/dimen_15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingVertical="@dimen/dimen_15">
 
                 <LinearLayout
-                    android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <View
-                        android:layout_marginStart="@dimen/dimen_15"
-                        android:background="@color/text"
                         android:layout_width="@dimen/dimen_3"
-                        android:layout_height="@dimen/dimen_30"/>
+                        android:layout_height="@dimen/dimen_30"
+                        android:layout_marginStart="@dimen/dimen_15"
+                        android:background="@color/text" />
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_15"
                         android:text="@string/infor_doctor"
-                        android:textSize="@dimen/dimen_sp16"
                         android:textColor="@color/text"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textSize="@dimen/dimen_sp16"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
                 <TextView
-                    android:layout_marginTop="@dimen/dimen_15"
-                    android:layout_marginStart="@dimen/dimen_10"
-                    android:text="@string/work_experience"
-                    android:textSize="@dimen/dimen_sp16"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_marginTop="@dimen/dimen_15"
+                    android:text="@string/work_experience"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen_sp16"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:layout_marginTop="@dimen/dimen_15"
-                    android:layout_marginHorizontal="@dimen/dimen_15"
-                    android:text="BS.PSG.TS \nBác sĩ nội trú \n25 năm trong chuyên ngành Tai Mũi Họng \n- Chữa các bệnh vùng Tai - Mũi - Họng: viêm tai, viêm mũi xoang, viêm họng, viêm loét họng, miệng, tăng tiết nước bọt vùng khoang miệng... bệnh lý các khối u vùng đầu mặt cổ \n- Chuyên gia về trị liệu giọng nói cho những người làm các nghề liên quan đến giọng như phát thanh viên, ca sĩ, giáo viên... \n- Các rối loạn giọng sau phẫu thuật \n- Chuyên gia điều trị chóng mặt, rối loạn thăng bằng, ù tai \n- Điều trị các đau mạn tính vùng sọ mặt, vùng lưỡi"
-                    android:textSize="@dimen/dimen_16"
-                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_15"
+                    android:layout_marginTop="@dimen/dimen_15"
+                    android:text="BS.PSG.TS \nBác sĩ nội trú \n25 năm trong chuyên ngành Tai Mũi Họng \n- Chữa các bệnh vùng Tai - Mũi - Họng: viêm tai, viêm mũi xoang, viêm họng, viêm loét họng, miệng, tăng tiết nước bọt vùng khoang miệng... bệnh lý các khối u vùng đầu mặt cổ \n- Chuyên gia về trị liệu giọng nói cho những người làm các nghề liên quan đến giọng như phát thanh viên, ca sĩ, giáo viên... \n- Các rối loạn giọng sau phẫu thuật \n- Chuyên gia điều trị chóng mặt, rối loạn thăng bằng, ù tai \n- Điều trị các đau mạn tính vùng sọ mặt, vùng lưỡi"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen_16" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:background="@color/bg_common"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_10"/>
+                android:layout_height="@dimen/dimen_10"
+                android:background="@color/bg_common" />
 
             <LinearLayout
-                android:background="@drawable/bg_corners_5"
-                android:backgroundTint="@color/text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_15"
                 android:layout_marginHorizontal="@dimen/dimen_15"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:background="@drawable/bg_corners_5"
+                android:backgroundTint="@color/text"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:background="@drawable/boder_top_5"
-                    android:backgroundTint="@color/bg_blue_white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:background="@drawable/boder_top_5"
+                    android:backgroundTint="@color/bg_blue_white"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <ImageView
-                        android:alpha="0.7"
-                        android:layout_marginStart="@dimen/dimen_10"
-                        android:background="@drawable/ic_action_location"
                         android:layout_width="@dimen/dimen_28"
-                        android:layout_height="@dimen/dimen_25"/>
+                        android:layout_height="@dimen/dimen_25"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:alpha="0.7"
+                        android:background="@drawable/ic_action_location" />
 
                     <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginVertical="@dimen/dimen_15"
                         android:layout_marginStart="@dimen/dimen_5"
                         android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
                         android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/txtClinic"
-                            android:textSize="@dimen/dimen_sp16"
-                            android:textColor="@color/black"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/dimen_sp16" />
 
                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dimen_5"
                             android:text="Phòng B19 - Tổ hợp Y tế Chất lượng cao Mediplus, 99 Tân Mai, Hoàng Mai, Thành phố Hà Nội"
-                            android:textSize="@dimen/dimen_sp16"
                             android:textColor="@color/black"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:textSize="@dimen/dimen_sp16" />
 
                     </LinearLayout>
 
                     <ImageView
+                        android:layout_width="@dimen/dimen_16"
+                        android:layout_height="@dimen/dimen_20"
                         android:layout_marginStart="@dimen/dimen_15"
                         android:layout_marginEnd="@dimen/dimen_10"
                         android:background="@drawable/icon_next"
-                        android:backgroundTint="@color/grey_dark"
-                        android:layout_width="@dimen/dimen_16"
-                        android:layout_height="@dimen/dimen_20"/>
+                        android:backgroundTint="@color/grey_dark" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginBottom="@dimen/dimen_3"
-                    android:background="@drawable/bg_boder_bottom"
-                    android:paddingTop="@dimen/dimen_20"
-                    android:paddingBottom="@dimen/dimen_5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginBottom="@dimen/dimen_3"
+                    android:background="@drawable/bg_boder_bottom"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/dimen_20"
+                    android:paddingBottom="@dimen/dimen_5">
 
                     <TextView
-                        android:text="@string/online_counseling"
-                        android:textSize="@dimen/dimen_sp16"
-                        android:textColor="@color/text"
-                        android:textStyle="bold"
-                        android:layout_gravity="center"
-                        android:textAllCaps="true"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/online_counseling"
+                        android:textAllCaps="true"
+                        android:textColor="@color/text"
+                        android:textSize="@dimen/dimen_sp16"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -375,16 +375,16 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvTimeWorking"
-                android:layout_marginTop="@dimen/dimen_5"
-                android:layout_marginStart="@dimen/dimen_10"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_5" />
 
             <LinearLayout
                 android:id="@+id/scrollHour"
-                android:background="@color/grey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/grey"
                 android:orientation="horizontal">
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -395,22 +395,22 @@
             </LinearLayout>
 
             <TextView
-                android:layout_marginVertical="@dimen/dimen_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginVertical="@dimen/dimen_15"
                 android:text="@string/see_all_date"
                 android:textColor="@color/background"
-                android:textSize="@dimen/dimen_sp16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <LinearLayout
-                android:background="@color/bg_common"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_10"/>
+                android:textSize="@dimen/dimen_sp16" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_100"/>
+                android:layout_height="@dimen/dimen_10"
+                android:background="@color/bg_common" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_100" />
 
         </LinearLayout>
 

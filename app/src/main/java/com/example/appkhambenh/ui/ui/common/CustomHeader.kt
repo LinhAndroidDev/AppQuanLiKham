@@ -8,20 +8,28 @@ import android.widget.LinearLayout
 import com.example.appkhambenh.databinding.LayoutHeaderCommonBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 
-class CustomHeader : LinearLayout{
+class CustomHeader : LinearLayout {
     val binding by lazy { LayoutHeaderCommonBinding.inflate(LayoutInflater.from(context)) }
     var isRevert: ((Boolean) -> Unit)? = null
     var searchItem: ((String) -> Unit)? = null
 
-    constructor(context: Context?) : super(context){ initView() }
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs){ initView() }
+    constructor(context: Context?) : super(context) {
+        initView()
+    }
+
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+        initView()
+    }
+
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
         attrs,
         defStyleAttr
-    ){ initView() }
+    ) {
+        initView()
+    }
 
-    private fun initView(){
+    private fun initView() {
         addView(binding.root)
 
         initUi()
@@ -41,23 +49,23 @@ class CustomHeader : LinearLayout{
         }
     }
 
-    fun setTitle(title: String){
+    fun setTitle(title: String) {
         binding.titleHeader.text = title
     }
 
-    fun setHint(hint: String){
+    fun setHint(hint: String) {
         binding.searchHeader.setHint(hint)
     }
 
-    fun clearFocusSearch(){
+    fun clearFocusSearch() {
         binding.searchHeader.clrFocus()
     }
 
-    fun visibleSetting(){
+    fun visibleSetting() {
         binding.setting.visibility = View.VISIBLE
     }
 
-    fun visibleSearch(){
+    fun visibleSearch() {
         binding.searchHeader.visibility = View.VISIBLE
     }
 }

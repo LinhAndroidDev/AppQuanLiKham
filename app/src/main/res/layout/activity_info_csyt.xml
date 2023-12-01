@@ -10,7 +10,7 @@
     <com.example.appkhambenh.ui.ui.common.CustomHeader
         android:id="@+id/headerInfoCsyt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -23,57 +23,57 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_marginVertical="@dimen/dimen_20"
-                android:layout_gravity="center_horizontal"
                 android:layout_width="@dimen/dimen_80"
                 android:layout_height="@dimen/dimen_80"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginVertical="@dimen/dimen_20"
                 android:src="@drawable/user_ad"
-                app:civ_border_width="@dimen/dimen_1"
-                app:civ_border_color="@color/bg_blue_light"/>
+                app:civ_border_color="@color/bg_blue_light"
+                app:civ_border_width="@dimen/dimen_1" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="Bệnh Viện Phổi Trung Ươnng"
-                android:textSize="@dimen/dimen_sp20"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textSize="@dimen/dimen_sp20"
+                android:textStyle="bold" />
 
             <LinearLayout
-                android:layout_marginTop="@dimen/dimen_20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_20"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:text="@string/number_book"
-                        android:textSize="@dimen/dimen_sp16"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:text="@string/number_book"
+                        android:textSize="@dimen/dimen_sp16" />
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_10"
                         android:text="11885"
-                        android:textSize="@dimen/dimen_sp20"
                         android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textSize="@dimen/dimen_sp20"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
                 <View
-                    android:background="@color/grey"
                     android:layout_width="@dimen/dimen_1"
-                    android:layout_height="@dimen/dimen_60"/>
+                    android:layout_height="@dimen/dimen_60"
+                    android:background="@color/grey" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -102,93 +102,93 @@
             </LinearLayout>
 
             <View
-                android:layout_marginTop="@dimen/dimen_20"
-                android:layout_marginHorizontal="@dimen/dimen_10"
-                android:background="@color/grey"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_1"/>
+                android:layout_height="@dimen/dimen_1"
+                android:layout_marginHorizontal="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:background="@color/grey" />
 
             <LinearLayout
-                android:layout_marginHorizontal="@dimen/dimen_10"
-                android:layout_marginTop="@dimen/dimen_20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_20"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:src="@drawable/ic_action_location"
-                    android:alpha="0.6"
                     android:layout_width="@dimen/dimen_25"
-                    android:layout_height="@dimen/dimen_25"/>
+                    android:layout_height="@dimen/dimen_25"
+                    android:alpha="0.6"
+                    android:src="@drawable/ic_action_location" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_20"
-                    android:text="463 Đường Hoàng Hoa Thám, Vĩnh Phúc, Ba Đình, Thành phố Hà Nội, Vĩnh Phúc, Ba Đình..."
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:text="463 Đường Hoàng Hoa Thám, Vĩnh Phúc, Ba Đình, Thành phố Hà Nội, Vĩnh Phúc, Ba Đình..." />
 
             </LinearLayout>
 
             <RelativeLayout
-                android:layout_marginTop="@dimen/dimen_10"
-                android:layout_marginHorizontal="@dimen/dimen_10"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_10">
 
                 <ImageView
-                    android:background="@drawable/ic_action_time"
-                    android:backgroundTint="@color/grey_dark"
-                    android:alpha="0.6"
                     android:layout_width="@dimen/dimen_20"
-                    android:layout_height="@dimen/dimen_20"/>
+                    android:layout_height="@dimen/dimen_20"
+                    android:alpha="0.6"
+                    android:background="@drawable/ic_action_time"
+                    android:backgroundTint="@color/grey_dark" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:text="@string/see_schedule"
                     android:textColor="@color/text"
-                    android:textSize="@dimen/dimen_sp16"
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:textSize="@dimen/dimen_sp16" />
 
             </RelativeLayout>
 
             <LinearLayout
-                android:layout_marginVertical="@dimen/dimen_10"
-                android:layout_marginHorizontal="@dimen/dimen_10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_10"
+                android:layout_marginVertical="@dimen/dimen_10"
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:alpha="0.6"
                     android:background="@drawable/bg_search_date"
-                    android:backgroundTint="@color/grey_dark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:backgroundTint="@color/grey_dark">
 
                     <ImageView
-                        android:src="@drawable/ic_action_infor"
                         android:layout_width="@dimen/dimen_18"
-                        android:layout_height="@dimen/dimen_18"/>
+                        android:layout_height="@dimen/dimen_18"
+                        android:src="@drawable/ic_action_infor" />
 
                 </LinearLayout>
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_20"
                     android:text="@string/info_csyt_under_text"
-                    android:textSize="@dimen/dimen_sp16"
                     android:textColor="@color/text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:textSize="@dimen/dimen_sp16" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:background="@color/bg_common"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_10"/>
+                android:layout_height="@dimen/dimen_10"
+                android:background="@color/bg_common" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabCsyt"
@@ -197,15 +197,15 @@
                 android:textAlignment="center"
                 app:tabIndicatorColor="@color/background"
                 app:tabSelectedTextColor="@color/background"
-                app:tabTextColor="@color/grey_1"
-                app:tabTextAppearance="@style/TabTextStyle"/>
+                app:tabTextAppearance="@style/TabTextStyle"
+                app:tabTextColor="@color/grey_1" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvBookCsyt"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </LinearLayout>
 

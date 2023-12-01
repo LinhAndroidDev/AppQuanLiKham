@@ -22,25 +22,26 @@ class SplashScreenActivity : BaseActivity<EmptyViewModel, ActivitySplashScreenBi
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
 
         initUi()
     }
 
     private fun initUi() {
-        object : CountDownTimer(3000, 3000){
+        object : CountDownTimer(3000, 3000) {
             override fun onTick(p0: Long) {
 
             }
 
             override fun onFinish() {
                 val isLogin = viewModel.mPreferenceUtil.defaultPref()
-                    .getBoolean(PreferenceKey.CHECK_LOGIN,false)
-                if(isLogin){
+                    .getBoolean(PreferenceKey.CHECK_LOGIN, false)
+                if (isLogin) {
                     val intent = Intent(this@SplashScreenActivity, HomeActivity::class.java)
                     startActivity(intent)
                     finish()
-                }else{
+                } else {
                     val intent = Intent(this@SplashScreenActivity, MainActivity::class.java)
                     startActivity(intent)
                     finish()
@@ -57,6 +58,6 @@ class SplashScreenActivity : BaseActivity<EmptyViewModel, ActivitySplashScreenBi
         binding.txtIntro.startAnimation(intro)
     }
 
-    override fun getActivityBinding(inflater: LayoutInflater)
-    = ActivitySplashScreenBinding.inflate(inflater)
+    override fun getActivityBinding(inflater: LayoutInflater) =
+        ActivitySplashScreenBinding.inflate(inflater)
 }

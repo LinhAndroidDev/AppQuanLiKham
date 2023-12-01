@@ -12,19 +12,23 @@ class CustomSearch : RelativeLayout {
     val binding by lazy { LayoutCustomSearchBinding.inflate(LayoutInflater.from(context)) }
     var keySearch: ((String) -> Unit)? = null
 
-    constructor(context: Context) : super(context){ initView() }
+    constructor(context: Context) : super(context) {
+        initView()
+    }
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs){ initView() }
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+        initView()
+    }
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
         attrs,
         defStyleAttr
-    ){
+    ) {
         initView()
     }
 
-    private fun initView(){
+    private fun initView() {
         addView(binding.root)
 
         initUi()
@@ -35,31 +39,31 @@ class CustomSearch : RelativeLayout {
 
         binding.search.doOnTextChanged { text, _, _, _ ->
             keySearch?.invoke(text.toString())
-            if(text?.trim()!!.isNotEmpty()) enableDeleteText() else disableDeleteText()
+            if (text?.trim()!!.isNotEmpty()) enableDeleteText() else disableDeleteText()
         }
 
         binding.deleteTxt.setOnClickListener { clearText() }
     }
 
-    private fun enableDeleteText(){
+    private fun enableDeleteText() {
         binding.deleteTxt.isEnabled = true
         binding.deleteTxt.visibility = View.VISIBLE
     }
 
-    private fun disableDeleteText(){
+    private fun disableDeleteText() {
         binding.deleteTxt.isEnabled = false
         binding.deleteTxt.visibility = View.GONE
     }
 
-    fun setHint(hint: String){
+    fun setHint(hint: String) {
         binding.search.hint = hint
     }
 
-    fun clearText(){
+    fun clearText() {
         binding.search.setText("")
     }
 
-    fun clrFocus(){
+    fun clrFocus() {
         binding.search.clearFocus()
     }
 }

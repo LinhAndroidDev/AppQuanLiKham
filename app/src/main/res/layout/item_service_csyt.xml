@@ -5,43 +5,43 @@
     android:orientation="vertical">
 
     <View
-        android:background="@color/bg_divider"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_1"/>
+        android:layout_height="@dimen/dimen_1"
+        android:background="@color/bg_divider" />
 
     <LinearLayout
-        android:paddingVertical="@dimen/dimen_20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingVertical="@dimen/dimen_20">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_marginHorizontal="@dimen/dimen_30"
-            android:src="@drawable/img_service"
             android:layout_width="@dimen/dimen_80"
-            android:layout_height="@dimen/dimen_80"/>
+            android:layout_height="@dimen/dimen_80"
+            android:layout_marginHorizontal="@dimen/dimen_30"
+            android:src="@drawable/img_service" />
 
         <LinearLayout
-            android:layout_marginEnd="@dimen/dimen_15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dimen_15"
             android:orientation="vertical">
 
             <TextView
-                android:text="Khám bệnh (Giáo sư, Phó GS) tại Trung tâm kỹ thuật cao"
-                android:textSize="@dimen/dimen_sp16"
-                android:textColor="@color/black"
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="Khám bệnh (Giáo sư, Phó GS) tại Trung tâm kỹ thuật cao"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_sp16"
+                android:textStyle="bold" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_15"
                 android:text="Giá dịch vụ: 500.000 đ"
-                android:textSize="@dimen/dimen_sp14"
                 android:textColor="@color/text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textSize="@dimen/dimen_sp14" />
 
         </LinearLayout>
 

@@ -15,7 +15,7 @@ object ApiClient {
     private var API_SERVICE: ApiService? = null
 
     private fun getClient(): Retrofit? {
-        return RETROFIT?: synchronized(this){
+        return RETROFIT ?: synchronized(this) {
             val retrofit: Retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -27,7 +27,7 @@ object ApiClient {
     }
 
     fun shared(): ApiService {
-        return API_SERVICE?: synchronized(this){
+        return API_SERVICE ?: synchronized(this) {
             val apiService = getClient()?.create(ApiService::class.java)
             API_SERVICE = apiService
             API_SERVICE!!

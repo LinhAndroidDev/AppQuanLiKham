@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="horizontal">
 
     <RelativeLayout
         android:id="@+id/select"
@@ -17,33 +17,33 @@
             android:visibility="gone">
 
             <LinearLayout
-                android:layout_centerInParent="true"
                 android:layout_width="@dimen/dimen_18"
                 android:layout_height="@dimen/dimen_18"
+                android:layout_centerInParent="true"
                 android:background="@drawable/bg_search_date"
-                android:backgroundTint="@color/white"/>
+                android:backgroundTint="@color/white" />
 
             <ImageView
-                android:src="@drawable/ic_action_select_language"
                 android:layout_width="@dimen/dimen_22"
-                android:layout_height="@dimen/dimen_22"/>
+                android:layout_height="@dimen/dimen_22"
+                android:src="@drawable/ic_action_select_language" />
 
         </RelativeLayout>
 
         <ImageView
             android:id="@+id/imgUnCheck"
-            android:src="@drawable/ic_action_uncheck"
             android:layout_width="@dimen/dimen_22"
-            android:layout_height="@dimen/dimen_22"/>
+            android:layout_height="@dimen/dimen_22"
+            android:src="@drawable/ic_action_uncheck" />
 
     </RelativeLayout>
 
     <TextView
         android:id="@+id/labelRto"
-        android:layout_marginStart="@dimen/dimen_5"
-        android:textSize="@dimen/dimen_sp16"
-        android:textColor="@color/black"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_5"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dimen_sp16" />
 
 </LinearLayout>

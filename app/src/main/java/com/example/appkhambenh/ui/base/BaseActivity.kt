@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Point
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
@@ -48,7 +47,7 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
 
         val language = viewModel.mPreferenceUtil.defaultPref()
             .getString(PreferenceKey.LANGUAGE, "vi").toString()
-        if(language.isNotEmpty()) setLanguage(this, language)
+        if (language.isNotEmpty()) setLanguage(this, language)
     }
 
     private fun animChangeScreen() {
@@ -73,7 +72,7 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
         return str.toRequestBody("multipart/form-data".toMediaTypeOrNull())
     }
 
-    fun show(str: String){
+    fun show(str: String) {
         val toast: View = View.inflate(this, R.layout.custom_toast, null)
         val txtToast: TextView = toast.findViewById(R.id.txtToast)
         txtToast.text = str
@@ -85,12 +84,14 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
     }
 
     fun View.hideKeyboard() {
-        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputManager =
+            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 
-    fun closeKeyboard(){
-        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    fun closeKeyboard() {
+        val inputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 
@@ -111,7 +112,7 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
         screenHeight = size.y
     }
 
-    fun back(){
+    fun back() {
         closeKeyboard()
         onBackPressed()
     }

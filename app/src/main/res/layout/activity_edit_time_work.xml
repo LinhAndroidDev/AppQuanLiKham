@@ -12,64 +12,68 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/rltTitle"
-            android:background="@drawable/bg_common"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/bg_common"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
+
             <TextView
                 android:id="@+id/txtTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="@string/edit_time_working"
-                android:textSize="@dimen/dimen_sp20"
-                android:textColor="@color/white"
-                android:textStyle="bold"
                 android:layout_marginTop="@dimen/dimen_60"
                 android:layout_marginBottom="@dimen/dimen_20"
                 android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/edit_time_working"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dimen_sp20"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <ImageView
                 android:id="@+id/backEditTimeWorking"
-                android:layout_marginStart="@dimen/dimen_20"
-                android:layout_marginBottom="@dimen/dimen_20"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_action_back_white"
                 android:layout_width="@dimen/dimen_30"
                 android:layout_height="@dimen/dimen_22"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dimen_20"
+                android:layout_marginBottom="@dimen/dimen_20"
+                android:src="@drawable/ic_action_back_white"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:id="@+id/llBoderAddHour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="@dimen/dimen_20"
             android:layout_marginEnd="@dimen/dimen_20"
-            app:layout_constraintTop_toBottomOf="@id/rltTitle"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rltTitle">
+
             <TextView
-                android:text="@string/add_hour_working"
-                android:textSize="@dimen/dimen_sp16"
-                android:textColor="@color/text"
-                android:textStyle="italic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/dimen_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:text="@string/add_hour_working"
+                android:textColor="@color/text"
+                android:textSize="@dimen/dimen_sp16"
+                android:textStyle="italic" />
+
             <ImageView
                 android:id="@+id/addHour"
-                android:layout_gravity="end"
-                android:src="@drawable/ic_action_add_appoint"
                 android:layout_width="@dimen/dimen_30"
-                android:layout_height="@dimen/dimen_30" />
+                android:layout_height="@dimen/dimen_30"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_action_add_appoint" />
         </LinearLayout>
 
         <LinearLayout
@@ -77,29 +81,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_20"
-            android:orientation="horizontal"
             android:gravity="center"
+            android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/llBoderAddHour">
+
             <ImageView
                 android:id="@+id/backDateEdit"
-                android:background="@drawable/icon_back"
                 android:layout_width="@dimen/dimen_20"
                 android:layout_height="@dimen/dimen_27"
-                android:layout_marginEnd="@dimen/dimen_15"/>
+                android:layout_marginEnd="@dimen/dimen_15"
+                android:background="@drawable/icon_back" />
+
             <TextView
                 android:id="@+id/txtTimeEdit"
-                android:text="Thứ tư, 24 tháng 5"
-                android:textSize="@dimen/dimen_sp25"
-                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/svn_berkshire_swash"/>
+                android:fontFamily="@font/svn_berkshire_swash"
+                android:text="Thứ tư, 24 tháng 5"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_sp25" />
+
             <ImageView
                 android:id="@+id/nextDateEdit"
-                android:layout_marginStart="@dimen/dimen_15"
-                android:background="@drawable/icon_next"
                 android:layout_width="@dimen/dimen_20"
-                android:layout_height="@dimen/dimen_27"/>
+                android:layout_height="@dimen/dimen_27"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:background="@drawable/icon_next" />
         </LinearLayout>
 
         <LinearLayout
@@ -109,31 +116,31 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvEditTime"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:layout_marginBottom="@dimen/dimen_200"
-                android:layout_marginHorizontal="@dimen/dimen_10"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginBottom="@dimen/dimen_200" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/addTime"
-            android:background="@drawable/bg_search_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="@dimen/dimen_25"
             android:layout_marginBottom="@dimen/dimen_25"
-            android:elevation="15dp">
+            android:background="@drawable/bg_search_date"
+            android:elevation="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <ImageView
+                android:layout_width="@dimen/dimen_30"
+                android:layout_height="@dimen/dimen_30"
                 android:layout_margin="@dimen/dimen_13"
                 android:background="@drawable/ic_action_search"
-                android:backgroundTint="@color/white"
-                android:layout_width="@dimen/dimen_30"
-                android:layout_height="@dimen/dimen_30"/>
+                android:backgroundTint="@color/white" />
 
         </LinearLayout>
 
@@ -145,14 +152,14 @@
             android:textColor="@color/black"
             android:textSize="@dimen/dimen_sp20"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
         android:id="@+id/layoutBottomDeleteHour"
-        layout="@layout/layout_bottom_delete_hour"/>
+        layout="@layout/layout_bottom_delete_hour" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

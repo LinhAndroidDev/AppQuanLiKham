@@ -100,6 +100,6 @@ class StatisticalActivity : BaseActivity<EmptyViewModel, ActivityStatisticalBind
         binding.chart.invalidate()
     }
 
-    override fun getActivityBinding(inflater: LayoutInflater)
-    = ActivityStatisticalBinding.inflate(inflater)
+    override fun getActivityBinding(inflater: LayoutInflater) =
+        ActivityStatisticalBinding.inflate(inflater)
 }

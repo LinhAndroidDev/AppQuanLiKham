@@ -39,7 +39,7 @@ class ConnectCsytActivity : BaseActivity<EmptyViewModel, ActivityConnectCsytBind
         }
 
         csytAdapter.onClickItem = {
-            if(it) {
+            if (it) {
                 val intent = Intent(this@ConnectCsytActivity, InfoCsytActivity::class.java)
                 startActivity(intent)
             }
@@ -47,21 +47,120 @@ class ConnectCsytActivity : BaseActivity<EmptyViewModel, ActivityConnectCsytBind
     }
 
     private fun dataCsyt() {
-        listCsyt.add(Csyt(0, "Bệnh viện Hữu Nghị Việt Đức", "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội", R.drawable.img_capital, 61824, 5))
-        listCsyt.add(Csyt(0, "Bệnh viện Hữu Nghị Việt Đức", "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội", R.drawable.img_capital, 61824, 5))
-        listCsyt.add(Csyt(0, "Bệnh viện Hữu Nghị Việt Đức", "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội", R.drawable.img_capital, 61824, 5))
-        listCsyt.add(Csyt(0, "Bệnh viện Hữu Nghị Việt Đức", "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội", R.drawable.img_capital, 61824, 5))
-        listCsyt.add(Csyt(0, "Bệnh viện Hữu Nghị Việt Đức", "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội", R.drawable.img_capital, 61824, 5))
-        listCsyt.add(Csyt(0, "Bệnh viện Hữu Nghị Việt Đức", "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội", R.drawable.img_capital, 61824, 5))
-        listCsyt.add(Csyt(0, "Bệnh viện Hữu Nghị Việt Đức", "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội", R.drawable.img_capital, 61824, 5))
-        listCsyt.add(Csyt(0, "Bệnh viện Hữu Nghị Việt Đức", "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội", R.drawable.img_capital, 61824, 5))
-        listCsyt.add(Csyt(0, "Bệnh viện Hữu Nghị Việt Đức", "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội", R.drawable.img_capital, 61824, 5))
-        listCsyt.add(Csyt(0, "Bệnh viện Hữu Nghị Việt Đức", "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội", R.drawable.img_capital, 61824, 5))
-        listCsyt.add(Csyt(0, "Bệnh viện Hữu Nghị Việt Đức", "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội", R.drawable.img_capital, 61824, 5))
+        listCsyt.add(
+            Csyt(
+                0,
+                "Bệnh viện Hữu Nghị Việt Đức",
+                "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội",
+                R.drawable.img_capital,
+                61824,
+                5
+            )
+        )
+        listCsyt.add(
+            Csyt(
+                0,
+                "Bệnh viện Hữu Nghị Việt Đức",
+                "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội",
+                R.drawable.img_capital,
+                61824,
+                5
+            )
+        )
+        listCsyt.add(
+            Csyt(
+                0,
+                "Bệnh viện Hữu Nghị Việt Đức",
+                "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội",
+                R.drawable.img_capital,
+                61824,
+                5
+            )
+        )
+        listCsyt.add(
+            Csyt(
+                0,
+                "Bệnh viện Hữu Nghị Việt Đức",
+                "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội",
+                R.drawable.img_capital,
+                61824,
+                5
+            )
+        )
+        listCsyt.add(
+            Csyt(
+                0,
+                "Bệnh viện Hữu Nghị Việt Đức",
+                "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội",
+                R.drawable.img_capital,
+                61824,
+                5
+            )
+        )
+        listCsyt.add(
+            Csyt(
+                0,
+                "Bệnh viện Hữu Nghị Việt Đức",
+                "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội",
+                R.drawable.img_capital,
+                61824,
+                5
+            )
+        )
+        listCsyt.add(
+            Csyt(
+                0,
+                "Bệnh viện Hữu Nghị Việt Đức",
+                "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội",
+                R.drawable.img_capital,
+                61824,
+                5
+            )
+        )
+        listCsyt.add(
+            Csyt(
+                0,
+                "Bệnh viện Hữu Nghị Việt Đức",
+                "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội",
+                R.drawable.img_capital,
+                61824,
+                5
+            )
+        )
+        listCsyt.add(
+            Csyt(
+                0,
+                "Bệnh viện Hữu Nghị Việt Đức",
+                "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội",
+                R.drawable.img_capital,
+                61824,
+                5
+            )
+        )
+        listCsyt.add(
+            Csyt(
+                0,
+                "Bệnh viện Hữu Nghị Việt Đức",
+                "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội",
+                R.drawable.img_capital,
+                61824,
+                5
+            )
+        )
+        listCsyt.add(
+            Csyt(
+                0,
+                "Bệnh viện Hữu Nghị Việt Đức",
+                "Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội",
+                R.drawable.img_capital,
+                61824,
+                5
+            )
+        )
 
         binding.rcvCsyt.adapter = csytAdapter
     }
 
-    override fun getActivityBinding(inflater: LayoutInflater)
-    = ActivityConnectCsytBinding.inflate(inflater)
+    override fun getActivityBinding(inflater: LayoutInflater) =
+        ActivityConnectCsytBinding.inflate(inflater)
 }

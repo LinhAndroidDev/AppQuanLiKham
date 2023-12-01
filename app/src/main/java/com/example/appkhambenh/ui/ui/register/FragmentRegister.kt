@@ -36,23 +36,23 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
         loadData.setTitle("Thông báo")
         loadData.setMessage("Please wait...")
 
-        viewModel.registerSuccessful.observe(viewLifecycleOwner){ isSuccessful->
-            if(isSuccessful){
+        viewModel.registerSuccessful.observe(viewLifecycleOwner) { isSuccessful ->
+            if (isSuccessful) {
                 activity?.onBackPressed()
             }
         }
 
-        viewModel.loadingLiveData.observe(viewLifecycleOwner){ isLoading->
-            if(isLoading){
+        viewModel.loadingLiveData.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
                 loadData.show()
-            }else{
+            } else {
                 loadData.dismiss()
             }
         }
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private fun initUi(){
+    private fun initUi() {
 
         binding.rbPatient.isChecked = true
 
@@ -65,7 +65,7 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
         }
 
         binding.rbAdmin.setOnCheckedChangeListener { _, b ->
-            if(b){
+            if (b) {
                 resetView()
                 binding.txtTitleName.text = "Cơ sở y tế"
                 binding.edtName.hint = "Nhập cơ sở y tế"
@@ -76,7 +76,7 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
         }
 
         binding.rbDoctor.setOnCheckedChangeListener { _, b ->
-            if(b){
+            if (b) {
                 resetView()
                 binding.txtTitleName.text = "Bác sĩ"
                 binding.edtName.hint = "Nhập tên Bác Sĩ"
@@ -87,7 +87,7 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
         }
 
         binding.rbPatient.setOnCheckedChangeListener { _, b ->
-            if(b){
+            if (b) {
                 resetView()
                 binding.txtTitleName.text = resources.getString(R.string.title_name)
                 binding.edtName.hint = resources.getString(R.string.enter_name)
@@ -101,33 +101,32 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
             val name: String = binding.edtName.text.toString()
             val email: String = binding.edtEmail.text.toString()
             var specialist: String = binding.edtSpecialist.text.toString()
-            var sex = if(binding.rbWomen.isChecked) 1 else 0
+            var sex = if (binding.rbWomen.isChecked) 1 else 0
             val password: String = binding.edtPassword.text.toString()
             val passwordRepeat: String = binding.edtRepeatPassword.text.toString()
             var birth: String = binding.edtBirth.text.toString()
             val address: String = binding.edtAddress.text.toString()
             val phone: String = binding.edtPhone.text.toString()
-            var type = if(binding.rbPatient.isChecked) 0 else 1
+            var type = if (binding.rbPatient.isChecked) 0 else 1
 
-            if(isNotEnoughInfo()){
-                setNotification(R.color.txt_green,R.string.enter_enough_info)
-            }else if(!validateEmail(email)){
+            if (isNotEnoughInfo()) {
+                setNotification(R.color.txt_green, R.string.enter_enough_info)
+            } else if (!validateEmail(email)) {
                 setNotification(R.color.txt_red, R.string.fail_email)
-            }else if(!validatePassword(password)){
+            } else if (!validatePassword(password)) {
                 setNotification(R.color.txt_red, R.string.fail_password)
-            }else if(password != passwordRepeat){
+            } else if (password != passwordRepeat) {
                 setNotification(R.color.txt_red, R.string.enter_password_again)
-            }else if(!validatePhone(phone)){
+            } else if (!validatePhone(phone)) {
                 setNotification(R.color.txt_red, R.string.warning_phone)
-            }
-            else{
-                if(binding.rbAdmin.isChecked){
+            } else {
+                if (binding.rbAdmin.isChecked) {
                     sex = 2
                     birth = ""
                     type = 2
                 }
 
-                if(!binding.rbDoctor.isChecked) specialist = ""
+                if (!binding.rbDoctor.isChecked) specialist = ""
 
                 viewModel.requestRegisterUser(
                     convertToRequestBody(email),
@@ -160,7 +159,7 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
         binding.edtAddress.setText("")
     }
 
-    private fun isNotEnoughInfo(): Boolean{
+    private fun isNotEnoughInfo(): Boolean {
         return ((!binding.rbAdmin.isChecked) && (binding.edtName.text.isEmpty()
                 || binding.edtEmail.text.isEmpty()
                 || binding.edtPassword.text.isEmpty()
@@ -174,7 +173,9 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
 
     private fun showDialogSelectDate() {
         val getDate = Calendar.getInstance()
-        val datePicker = DatePickerDialog(requireActivity(), android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+        val datePicker = DatePickerDialog(
+            requireActivity(),
+            android.R.style.Theme_Holo_Light_Dialog_MinWidth,
             DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
 
                 val selectDate: Calendar = Calendar.getInstance()
@@ -184,13 +185,17 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
 
                 binding.edtBirth.text = formatDate.format(selectDate.time)
 
-            }, getDate.get(Calendar.YEAR), getDate.get((Calendar.MONTH)), getDate.get(Calendar.DAY_OF_MONTH))
+            },
+            getDate.get(Calendar.YEAR),
+            getDate.get((Calendar.MONTH)),
+            getDate.get(Calendar.DAY_OF_MONTH)
+        )
 
         datePicker.show()
     }
 
-    private fun setNotification(color: Int, string: Int){
-        val shake: Animation = AnimationUtils.loadAnimation(requireActivity(),R.anim.anim_shake)
+    private fun setNotification(color: Int, string: Int) {
+        val shake: Animation = AnimationUtils.loadAnimation(requireActivity(), R.anim.anim_shake)
         binding.notificationRegister.text = resources.getString(string)
         binding.notificationRegister.setTextColor(resources.getColor(color))
         binding.notificationRegister.visibility = View.VISIBLE

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="@dimen/dimen_2"
     android:layout_marginHorizontal="@dimen/dimen_10"
+    android:layout_marginTop="@dimen/dimen_2"
     android:layout_marginBottom="@dimen/dimen_10"
     android:orientation="vertical"
     app:cardCornerRadius="@dimen/dimen_10"
     app:cardElevation="@dimen/dimen_1">
 
     <LinearLayout
-        android:padding="@dimen/dimen_15"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/dimen_15">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,24 +22,24 @@
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:src="@drawable/img_doctor"
                 android:layout_width="@dimen/dimen_70"
-                android:layout_height="@dimen/dimen_70"/>
+                android:layout_height="@dimen/dimen_70"
+                android:src="@drawable/img_doctor" />
 
             <LinearLayout
-                android:layout_marginStart="@dimen/dimen_20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_20"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/txtNameDr"
-                    android:text="Lê Thế Anh"
-                    android:textSize="@dimen/dimen_sp14"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="Lê Thế Anh"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen_sp14"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/csytDr"
@@ -51,141 +51,141 @@
 
                 <TextView
                     android:id="@+id/specialistDr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_5"
                     android:text="Chuyên khoa Tai Mũi Họng"
                     android:textColor="@color/text"
-                    android:textSize="@dimen/dimen_sp14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:textSize="@dimen/dimen_sp14" />
 
             </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="@dimen/dimen_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:paddingVertical="@dimen/dimen_5"
-                android:background="@drawable/bg_corners_10"
-                android:backgroundTint="@color/grey_light"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_corners_10"
+                android:backgroundTint="@color/grey_light"
+                android:gravity="center"
                 android:orientation="horizontal"
-                android:gravity="center">
+                android:paddingVertical="@dimen/dimen_5">
 
                 <ImageView
-                    android:background="@drawable/ic_action_visit"
-                    android:backgroundTint="@color/grey_dark"
                     android:layout_width="@dimen/dimen_20"
-                    android:layout_height="@dimen/dimen_20"/>
+                    android:layout_height="@dimen/dimen_20"
+                    android:background="@drawable/ic_action_visit"
+                    android:backgroundTint="@color/grey_dark" />
 
                 <TextView
                     android:id="@+id/txtNumberVisitDr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_5"
                     android:text="1460 lượt đặt khám"
-                    android:textSize="@dimen/dimen_sp14"
                     android:textColor="@color/black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:textSize="@dimen/dimen_sp14" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginStart="@dimen/dimen_10"
-                android:paddingVertical="@dimen/dimen_5"
-                android:paddingHorizontal="@dimen/dimen_7"
-                android:background="@drawable/bg_corners_10"
-                android:backgroundTint="@color/grey_light"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:layout_weight="1"
+                android:background="@drawable/bg_corners_10"
+                android:backgroundTint="@color/grey_light"
+                android:gravity="center"
                 android:orientation="horizontal"
-                android:gravity="center">
+                android:paddingHorizontal="@dimen/dimen_7"
+                android:paddingVertical="@dimen/dimen_5">
 
                 <ImageView
-                    android:background="@drawable/ic_action_star"
-                    android:backgroundTint="@color/orange"
                     android:layout_width="@dimen/dimen_20"
-                    android:layout_height="@dimen/dimen_20"/>
+                    android:layout_height="@dimen/dimen_20"
+                    android:background="@drawable/ic_action_star"
+                    android:backgroundTint="@color/orange" />
 
                 <TextView
                     android:id="@+id/txtEvaluateDr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_5"
                     android:text="4.87"
-                    android:textSize="@dimen/dimen_sp14"
                     android:textColor="@color/black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:textSize="@dimen/dimen_sp14" />
 
             </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="@dimen/dimen_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
-                    android:text="@string/latest_medical_schedule"
-                    android:textSize="@dimen/dimen_sp14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <LinearLayout
-                    android:layout_marginTop="@dimen/dimen_10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/latest_medical_schedule"
+                    android:textSize="@dimen/dimen_sp14" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_10"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:background="@drawable/ic_action_time"
-                        android:backgroundTint="@color/txt_red"
-                        android:alpha="0.6"
                         android:layout_width="@dimen/dimen_20"
-                        android:layout_height="@dimen/dimen_20"/>
+                        android:layout_height="@dimen/dimen_20"
+                        android:alpha="0.6"
+                        android:background="@drawable/ic_action_time"
+                        android:backgroundTint="@color/txt_red" />
 
                     <TextView
                         android:id="@+id/txtLatestMedicalSchedule"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_10"
                         android:text="11:00 AM, 21/11"
-                        android:textSize="@dimen/dimen_sp14"
                         android:textColor="@color/black"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textSize="@dimen/dimen_sp14" />
 
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginStart="@dimen/dimen_10"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
-                    app:cardCornerRadius="@dimen/dimen_10"
-                    app:cardElevation="0dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="@dimen/dimen_10"
+                    app:cardElevation="0dp">
 
                     <LinearLayout
-                        android:background="@drawable/bg_common"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_common"
                         android:gravity="center">
 
                         <TextView

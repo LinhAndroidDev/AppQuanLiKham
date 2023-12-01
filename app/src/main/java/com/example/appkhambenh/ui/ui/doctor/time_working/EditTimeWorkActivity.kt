@@ -32,8 +32,10 @@ import java.util.concurrent.TimeUnit
 class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEditTimeWorkBinding>() {
     private lateinit var bottomShareBehavior: BottomSheetBehavior<View>
     private lateinit var editTimeAdapter: EditTimeAdapter
-    private val idDoctor by lazy { viewModel.mPreferenceUtil.defaultPref()
-        .getInt(PreferenceKey.USER_ID, -1).toString() }
+    private val idDoctor by lazy {
+        viewModel.mPreferenceUtil.defaultPref()
+            .getInt(PreferenceKey.USER_ID, -1).toString()
+    }
 
     private val formatDay by lazy { SimpleDateFormat("EEEE", Locale("vi", "VN")) }
     private val formatDayOfMonth by lazy { SimpleDateFormat("dd", Locale("vi", "VN")) }
@@ -72,7 +74,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
         }
 
         binding.addHour.setOnClickListener {
-            showDialogHour("Thêm giờ làm việc",1, "", -1)
+            showDialogHour("Thêm giờ làm việc", 1, "", -1)
         }
 
         binding.nextDateEdit.setOnClickListener {
@@ -157,11 +159,11 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
         var strHour = "00"
         var strMinute = "00"
 
-        if(type == 2){
+        if (type == 2) {
             strHourSelected.split(":").apply {
                 hour.value = this[0].toInt()
-                for(i in listValueHour.indices){
-                    if(listValueHour[i] == this[1]){
+                for (i in listValueHour.indices) {
+                    if (listValueHour[i] == this[1]) {
                         minute.value = i
                     }
                 }
@@ -172,7 +174,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
 
         minute.setOnValueChangedListener { numberPicker, _, _ ->
             val number: Int = numberPicker.value
-            strMinute = if (number == 0) "00" else "${number*15}"
+            strMinute = if (number == 0) "00" else "${number * 15}"
         }
 
         hour.setOnValueChangedListener { numberPicker, _, _ ->
@@ -185,7 +187,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
         }
 
         selectHour.setOnClickListener {
-            if(type == 1){
+            if (type == 1) {
                 val id_doctor = viewModel.mPreferenceUtil.defaultPref()
                     .getInt(PreferenceKey.USER_ID, -1).toString()
                 viewModel.updateWorkingTime(
@@ -206,8 +208,8 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
                         getData()
                         dialog.dismiss()
                     }
-            }else if(type == 2){
-                if(strHourSelected != "$strHour:$strMinute"){
+            } else if (type == 2) {
+                if (strHourSelected != "$strHour:$strMinute") {
                     viewModel.editWorkingTime(
                         convertToRequestBody(idDay.toString()),
                         convertToRequestBody(strHourSelected),
@@ -219,7 +221,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe {
-                            if(viewModel.editSuccessful){
+                            if (viewModel.editSuccessful) {
                                 show("Bạn đã cập nhật $strHourSelected thành ${"$strHour:$strMinute"}")
                                 viewModel.getListWorkingTime(
                                     convertToRequestBody(binding.txtTimeEdit.text.toString()),
@@ -230,7 +232,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
                         }
 
                     dialog.dismiss()
-                }else{
+                } else {
                     show("Bạn chưa thay đổi giờ")
                 }
             }
@@ -244,7 +246,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
     private fun getData() {
         viewModel.workingDateLiveData.observe(this) { workingDate ->
 
-            if(workingDate.time != null) {
+            if (workingDate.time != null) {
                 binding.rcvEditTime.visibility = View.VISIBLE
                 binding.notificationEmptyData.visibility = View.GONE
                 editTimeAdapter = EditTimeAdapter(workingDate.time, this@EditTimeWorkActivity)
@@ -273,7 +275,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe {
-                                if(viewModel.deleteSuccessful){
+                                if (viewModel.deleteSuccessful) {
                                     show("Bạn đã xoá $strHour thành công")
                                     viewModel.getListWorkingTime(
                                         convertToRequestBody(binding.txtTimeEdit.text.toString()),
@@ -296,7 +298,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
                 binding.notificationEmptyData.visibility = View.VISIBLE
             }
         }
-        }
+    }
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -313,14 +315,16 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
 
         edtTime.setOnClickListener {
             val getDate = Calendar.getInstance()
-            val datePicker = DatePickerDialog(this,
+            val datePicker = DatePickerDialog(
+                this,
                 { _, year, monthOfYear, dayOfMonth ->
 
                     val calendar: Calendar = Calendar.getInstance()
                     calendar.set(year, monthOfYear, dayOfMonth)
 
                     COUNT_CHANGE_DATE =
-                        TimeUnit.MILLISECONDS.toDays(calendar.timeInMillis- getDate.timeInMillis).toInt()
+                        TimeUnit.MILLISECONDS.toDays(calendar.timeInMillis - getDate.timeInMillis)
+                            .toInt()
 
                     edtTime.text = formatDay.format(calendar.time) +
                             "," + formatDayOfMonth.format(calendar.time) +

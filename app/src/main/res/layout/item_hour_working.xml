@@ -2,39 +2,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="@dimen/dimen_5"
     android:layout_marginVertical="@dimen/dimen_10"
+    android:layout_marginEnd="@dimen/dimen_5"
     android:orientation="horizontal">
 
     <View
         android:id="@+id/viewStart"
-        android:visibility="gone"
         android:layout_width="@dimen/dimen_15"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
     <LinearLayout
+        android:id="@+id/layoutHourWorking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_time_un_select"
-        android:id="@+id/layoutHourWorking">
+        android:background="@drawable/bg_time_un_select">
 
         <TextView
             android:id="@+id/hourWorking"
-            android:layout_marginVertical="@dimen/dimen_8"
-            android:layout_marginHorizontal="@dimen/dimen_15"
-            android:text="11:00"
-            android:textSize="@dimen/dimen_sp16"
-            android:textColor="@color/black"
-            android:textStyle="bold"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_15"
+            android:layout_marginVertical="@dimen/dimen_8"
+            android:text="11:00"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dimen_sp16"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
     <View
         android:id="@+id/viewEnd"
-        android:visibility="gone"
         android:layout_width="@dimen/dimen_10"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
 </LinearLayout>

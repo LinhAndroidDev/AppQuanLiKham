@@ -58,10 +58,11 @@ class EditTimeWorkingViewModel : BaseViewModel() {
 
                 override fun onNext(t: UpdateTimeResponse) {
                     isLoadingUpdateLiveData.postValue(false)
-                    when(t.statusCode) {
+                    when (t.statusCode) {
                         ApiClient.STATUS_CODE_SUCCESS -> {
                             isSuccessfulLiveData.postValue(true)
                         }
+
                         else -> {
                             errorApiLiveData.postValue(t.message)
                         }
@@ -71,11 +72,11 @@ class EditTimeWorkingViewModel : BaseViewModel() {
             })
     }
 
-    fun deleteWorkingTime(id_day: RequestBody, hour: RequestBody){
+    fun deleteWorkingTime(id_day: RequestBody, hour: RequestBody) {
         ApiClient.shared().deleteWorkingTime(id_day, hour)
             .observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<UpdateTimeResponse>{
+            .subscribe(object : Observer<UpdateTimeResponse> {
                 override fun onSubscribe(d: Disposable) {
 
                 }
@@ -89,10 +90,11 @@ class EditTimeWorkingViewModel : BaseViewModel() {
                 }
 
                 override fun onNext(t: UpdateTimeResponse) {
-                    when(t.statusCode){
+                    when (t.statusCode) {
                         ApiClient.STATUS_CODE_SUCCESS -> {
                             deleteSuccessful = true
                         }
+
                         else -> {
                             errorApiLiveData.postValue(t.message)
                         }
@@ -105,12 +107,12 @@ class EditTimeWorkingViewModel : BaseViewModel() {
     fun editWorkingTime(
         id_day: RequestBody,
         hour: RequestBody,
-        new_hour: RequestBody
-    ){
+        new_hour: RequestBody,
+    ) {
         ApiClient.shared().editWorkingTime(id_day, hour, new_hour)
             .observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<UpdateTimeResponse>{
+            .subscribe(object : Observer<UpdateTimeResponse> {
                 override fun onSubscribe(d: Disposable) {
 
                 }
@@ -124,10 +126,11 @@ class EditTimeWorkingViewModel : BaseViewModel() {
                 }
 
                 override fun onNext(t: UpdateTimeResponse) {
-                    when(t.statusCode) {
+                    when (t.statusCode) {
                         ApiClient.STATUS_CODE_SUCCESS -> {
                             editSuccessful = true
                         }
+
                         else -> {
                             errorApiLiveData.postValue(t.message)
                         }

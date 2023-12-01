@@ -5,40 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.ui.user.medicine.MedicineDetailActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <ImageView
             android:id="@+id/backMedicineDetail"
             android:layout_width="@dimen/dimen_25"
             android:layout_height="@dimen/dimen_25"
+            android:layout_gravity="end"
             android:layout_marginTop="@dimen/dimen_40"
             android:layout_marginEnd="@dimen/dimen_20"
-            android:layout_gravity="end"
             android:src="@drawable/icon_back_delete_black" />
+
         <ImageView
-            android:layout_marginTop="@dimen/dimen_10"
             android:id="@+id/imageDetailMedicine"
-            android:src="@mipmap/ic_launcher"
-            android:layout_gravity="center"
-            android:scaleType="centerInside"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_300"
-            android:elevation="5dp"/>
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:elevation="5dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/ic_launcher" />
+
         <View
-            android:background="#2A111111"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_1"/>
+            android:layout_height="@dimen/dimen_1"
+            android:background="#2A111111" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:layout_marginTop="@dimen/dimen_20"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dimen_20"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -48,39 +52,47 @@
 
                     <TextView
                         android:id="@+id/nameDetailMedicine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/dimen_10"
                         android:gravity="center"
                         android:text="Bedipanten 100mg bổ sung vitamin B5, giảm mụn, ngăn rụng tóc hộp 20 viên"
-                        android:textSize="@dimen/dimen_sp20"
                         android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textSize="@dimen/dimen_sp20"
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/dateDetailMedicine"
-                        android:layout_marginTop="@dimen/dimen_10"
-                        android:text="15/02/2023"
-                        android:layout_gravity="end"
-                        android:layout_marginEnd="@dimen/dimen_10"
-                        android:textStyle="italic"
-                        android:textSize="@dimen/dimen_14"
-                        android:textColor="@color/txt_red"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:layout_marginEnd="@dimen/dimen_10"
+                        android:text="15/02/2023"
+                        android:textColor="@color/txt_red"
+                        android:textSize="@dimen/dimen_14"
+                        android:textStyle="italic" />
                 </LinearLayout>
+
                 <TextView
-                    android:text="Thông Tin Chi Tiết Thuốc"
-                    android:textSize="@dimen/dimen_sp25"
-                    android:textStyle="bold"
-                    android:textColor="@color/background"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/dimen_10"
                     android:layout_marginTop="@dimen/dimen_20"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:text="Thông Tin Chi Tiết Thuốc"
+                    android:textColor="@color/background"
+                    android:textSize="@dimen/dimen_sp25"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/detailInfoMedicine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_10"
+                    android:layout_marginTop="@dimen/dimen_10"
                     android:layout_marginBottom="@dimen/dimen_30"
+                    android:lineHeight="@dimen/dimen_20"
                     android:text="THÔNG TIN SẢN PHẨM
 Thành phần trong Bedipanten 100mg
 Bedipanten với thành phần chính là Vitamin B5 chứa hàm lượng lên đến 100mg.
@@ -120,12 +132,7 @@ Hạn dùng
 Bảo quản
 Bảo quản nơi khô mát, tránh ánh sáng."
                     android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp16"
-                    android:lineHeight="@dimen/dimen_20"
-                    android:layout_marginHorizontal="@dimen/dimen_10"
-                    android:layout_marginTop="@dimen/dimen_10"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:textSize="@dimen/dimen_sp16" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>

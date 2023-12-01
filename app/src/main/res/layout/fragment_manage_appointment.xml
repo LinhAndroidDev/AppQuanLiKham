@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.ui.user.manage_appointment.FragmentManageAppointment">
 
     <LinearLayout
-        android:background="@color/bg_common"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/bg_common"
+        android:orientation="vertical">
 
         <com.example.appkhambenh.ui.ui.common.CustomHeader
             android:id="@+id/headerManageAppoint"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <RelativeLayout
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv_manage_appointment"
-                android:layout_marginHorizontal="@dimen/dimen_10"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_10" />
 
             <LinearLayout
                 android:id="@+id/loadingData"
-                android:gravity="center"
-                android:background="@color/bg_loading"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/bg_loading"
+                android:gravity="center"
                 android:visibility="visible">
 
                 <com.github.ybq.android.spinkit.SpinKitView
-                    app:SpinKit_Color="@color/text"
-                    app:SpinKit_Style="FadingCircle"
                     android:layout_width="@dimen/dimen_40"
-                    android:layout_height="@dimen/dimen_40"/>
+                    android:layout_height="@dimen/dimen_40"
+                    app:SpinKit_Color="@color/text"
+                    app:SpinKit_Style="FadingCircle" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layoutHideKeyboard"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical" />
 
         </RelativeLayout>
 

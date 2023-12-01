@@ -11,62 +11,64 @@
         android:id="@+id/changeIdHome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"/>
+        android:orientation="vertical" />
 
-    <include android:id="@+id/bottomSheet"
-        layout="@layout/layout_bottom_book"/>
+    <include
+        android:id="@+id/bottomSheet"
+        layout="@layout/layout_bottom_book" />
 
     <FrameLayout
-        android:layout_gravity="bottom"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNvg"
-            android:layout_marginTop="@dimen/dimen_19"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_19"
             android:foreground="?attr/selectableItemBackground"
+            app:elevation="@dimen/dimen_5"
             app:itemIconSize="@dimen/dimen_23"
             app:itemIconTint="@color/bottom_nav_icon_color_selector"
-            app:itemTextColor="@color/bottom_nav_text_color_selector"
             app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
             app:itemTextAppearanceInactive="@style/BottomNavigationView"
+            app:itemTextColor="@color/bottom_nav_text_color_selector"
             app:labelVisibilityMode="labeled"
-            app:elevation="@dimen/dimen_5"
-            app:menu="@menu/bottom_nav"/>
+            app:menu="@menu/bottom_nav" />
 
         <LinearLayout
             android:id="@+id/layoutCoverBottom"
-            android:layout_gravity="center|bottom"
-            android:orientation="vertical"
-            android:background="@color/white"
             android:layout_width="@dimen/dimen_60"
             android:layout_height="@dimen/dimen_40"
-            android:visibility="gone"/>
+            android:layout_gravity="center|bottom"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/registerAppoint"
-            android:layout_gravity="center_horizontal"
-            android:elevation="@dimen/dimen_10"
-            android:background="@drawable/bg_add_register"
-            app:layout_anchor="@id/bottomNvg"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/bg_add_register"
+            android:elevation="@dimen/dimen_10"
+            app:layout_anchor="@id/bottomNvg">
 
             <ImageView
                 android:id="@+id/imgAdd"
-                android:layout_margin="@dimen/dimen_7"
-                android:src="@drawable/ic_action_add"
                 android:layout_width="@dimen/dimen_30"
-                android:layout_height="@dimen/dimen_30"/>
+                android:layout_height="@dimen/dimen_30"
+                android:layout_margin="@dimen/dimen_7"
+                android:src="@drawable/ic_action_add" />
 
         </LinearLayout>
 
     </FrameLayout>
 
-    <include android:id="@+id/bottomSelectLanguage"
-        layout="@layout/layout_bottom_change_language"/>
+    <include
+        android:id="@+id/bottomSelectLanguage"
+        layout="@layout/layout_bottom_change_language" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

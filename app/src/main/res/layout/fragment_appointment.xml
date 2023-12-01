@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".ui.ui.user.appointment.register.FragmentAppointment">
 
     <com.example.appkhambenh.ui.ui.common.CustomHeader
         android:id="@+id/headerAppoint"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -28,10 +28,10 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/avatarAppointment"
-                    android:layout_marginStart="@dimen/dimen_10"
-                    android:src="@drawable/user_ad"
                     android:layout_width="@dimen/dimen_40"
-                    android:layout_height="@dimen/dimen_40"/>
+                    android:layout_height="@dimen/dimen_40"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:src="@drawable/user_ad" />
 
                 <TextView
                     android:id="@+id/txtUseNameAppointment"
@@ -48,113 +48,114 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:layout_marginHorizontal="@dimen/dimen_10"
-                android:paddingTop="@dimen/dimen_5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_marginHorizontal="@dimen/dimen_10"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/dimen_5">
 
                 <TextView
-                    android:text="@string/select_service"
-                    style="@style/title_appoint_function"/>
+                    style="@style/title_appoint_function"
+                    android:text="@string/select_service" />
 
                 <TextView
                     android:id="@+id/txt_select_service"
-                    android:hint="@string/service"
+                    style="@style/edt_appoint_function"
                     android:background="@drawable/boder_edit_text"
-                    style="@style/edt_appoint_function" />
+                    android:hint="@string/service" />
 
                 <TextView
-                    android:text="@string/select_department"
-                    style="@style/title_appoint_function"/>
+                    style="@style/title_appoint_function"
+                    android:text="@string/select_department" />
 
                 <TextView
                     android:id="@+id/txt_select_department"
-                    android:hint="@string/department"
+                    style="@style/edt_appoint_function"
                     android:background="@drawable/boder_edit_text"
-                    style="@style/edt_appoint_function"/>
+                    android:hint="@string/department" />
 
                 <TextView
-                    android:text="@string/select_doctor"
-                    style="@style/title_appoint_function"/>
+                    style="@style/title_appoint_function"
+                    android:text="@string/select_doctor" />
 
                 <TextView
                     android:id="@+id/txt_select_doctor"
-                    android:hint="@string/select_doctor"
+                    style="@style/edt_appoint_function"
                     android:background="@drawable/boder_edit_text"
-                    style="@style/edt_appoint_function"/>
+                    android:hint="@string/select_doctor" />
 
                 <TextView
-                    android:text="@string/day"
-                    style="@style/title_appoint_function"/>
+                    style="@style/title_appoint_function"
+                    android:text="@string/day" />
 
                 <TextView
                     android:id="@+id/date"
-                    android:layout_marginTop="@dimen/dimen_5"
-                    android:gravity="center_vertical"
-                    android:paddingVertical="@dimen/dimen_10"
-                    android:paddingHorizontal="@dimen/dimen_10"
-                    android:textSize="@dimen/dimen_sp16"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/svn_aptima"
-                    android:text="Dịch vụ khám"
-                    android:background="@drawable/boder_edit_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:background="@drawable/boder_edit_text"
+                    android:fontFamily="@font/svn_aptima"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/dimen_10"
+                    android:paddingVertical="@dimen/dimen_10"
+                    android:text="Dịch vụ khám"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen_sp16" />
 
                 <TextView
-                    android:text="@string/hour"
-                    style="@style/title_appoint_function"/>
+                    style="@style/title_appoint_function"
+                    android:text="@string/hour" />
 
                 <TextView
                     android:id="@+id/hour"
-                    android:layout_marginTop="@dimen/dimen_5"
-                    android:gravity="center_vertical"
-                    android:paddingVertical="@dimen/dimen_10"
-                    android:paddingHorizontal="@dimen/dimen_10"
-                    android:textSize="@dimen/dimen_sp16"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/svn_aptima"
-                    android:text="Dịch vụ khám"
-                    android:background="@drawable/boder_edit_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:background="@drawable/boder_edit_text"
+                    android:fontFamily="@font/svn_aptima"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/dimen_10"
+                    android:paddingVertical="@dimen/dimen_10"
+                    android:text="Dịch vụ khám"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen_sp16" />
 
                 <TextView
-                    android:text="@string/reason"
-                    style="@style/title_appoint_function"/>
+                    style="@style/title_appoint_function"
+                    android:text="@string/reason" />
 
                 <EditText
                     android:id="@+id/edt_reasons"
-                    android:hint="@string/enter_reason"
-                    android:background="@drawable/boder_edit_text"
                     style="@style/edt_appoint_function"
-                    android:inputType="text"
-                    android:imeOptions="actionDone"/>
+                    android:background="@drawable/boder_edit_text"
+                    android:hint="@string/enter_reason"
+                    android:imeOptions="actionDone"
+                    android:inputType="text" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/register_checking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_30"
                     android:layout_gravity="center"
-                    app:cardCornerRadius="@dimen/dimen_15"
-                    app:cardBackgroundColor="@color/background">
+                    android:layout_marginTop="@dimen/dimen_30"
+                    app:cardBackgroundColor="@color/background"
+                    app:cardCornerRadius="@dimen/dimen_15">
+
                     <TextView
                         android:id="@+id/txtRegister"
-                        android:text="@string/register_checking"
-                        android:textSize="@dimen/dimen_sp14"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/dimen_15"
                         android:layout_marginVertical="@dimen/dimen_10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:text="@string/register_checking"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/dimen_sp14"
+                        android:textStyle="bold" />
                 </androidx.cardview.widget.CardView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_50"/>
+                    android:layout_height="@dimen/dimen_50" />
             </LinearLayout>
 
         </LinearLayout>

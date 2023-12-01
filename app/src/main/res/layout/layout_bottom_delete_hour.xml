@@ -1,46 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layoutDelete"
+    android:layout_width="match_parent"
 
+    android:layout_height="wrap_content"
     app:behavior_hideable="true"
     app:behavior_peekHeight="0dp"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-    <View android:layout_width="match_parent"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_125"
         android:layout_alignParentTop="true"
-        android:background="@drawable/footer_shadow_bg"
-        android:layout_height="@dimen/dimen_125"/>
+        android:background="@drawable/footer_shadow_bg" />
+
     <LinearLayout
-        android:layout_marginTop="@dimen/dimen_60"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_60"
         android:orientation="vertical">
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_7"
+            android:layout_marginHorizontal="@dimen/dimen_150"
             app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="25dp"
-            android:layout_marginHorizontal="@dimen/dimen_150"/>
+            app:cardCornerRadius="25dp" />
+
         <LinearLayout
-            android:layout_marginTop="@dimen/dimen_7"
-            android:background="@drawable/boder_bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_7"
+            android:background="@drawable/boder_bottom_sheet"
+            android:gravity="center"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/dimen_20"
-            android:gravity="center">
+            android:paddingBottom="@dimen/dimen_20">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_20"
                 android:text="@string/confirm_delete_time"
-                android:textSize="@dimen/dimen_sp16"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textSize="@dimen/dimen_sp16"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -63,17 +67,17 @@
 
                 <TextView
                     android:id="@+id/txtCancelDeleteHour"
-                    android:layout_marginStart="@dimen/dimen_100"
-                    android:layout_marginVertical="@dimen/dimen_20"
-                    android:layout_gravity="center"
-                    android:text="@string/cancel"
-                    android:textSize="@dimen/dimen_sp14"
-                    android:textColor="@color/text"
-                    android:paddingVertical="@dimen/dimen_10"
-                    android:paddingHorizontal="@dimen/dimen_30"
-                    android:background="@drawable/corners_text_view_cancel"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="@dimen/dimen_20"
+                    android:layout_marginStart="@dimen/dimen_100"
+                    android:background="@drawable/corners_text_view_cancel"
+                    android:paddingHorizontal="@dimen/dimen_30"
+                    android:paddingVertical="@dimen/dimen_10"
+                    android:text="@string/cancel"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/dimen_sp14" />
 
             </LinearLayout>
 

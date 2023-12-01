@@ -14,51 +14,54 @@
         <com.example.appkhambenh.ui.ui.common.CustomHeader
             android:id="@+id/headerWorkingTime"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_30"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <ImageView
                 android:id="@+id/imgBackTime"
-                android:background="@drawable/icon_back"
                 android:layout_width="@dimen/dimen_20"
                 android:layout_height="@dimen/dimen_27"
-                android:layout_marginEnd="@dimen/dimen_15"/>
+                android:layout_marginEnd="@dimen/dimen_15"
+                android:background="@drawable/icon_back" />
+
             <TextView
                 android:id="@+id/txtTimeWorking"
-                android:textSize="@dimen/dimen_sp25"
-                android:textColor="@color/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/svn_berkshire_swash"/>
+                android:fontFamily="@font/svn_berkshire_swash"
+                android:textColor="@color/text"
+                android:textSize="@dimen/dimen_sp25" />
+
             <ImageView
                 android:id="@+id/imgNextTime"
-                android:layout_marginStart="@dimen/dimen_15"
-                android:background="@drawable/icon_next"
                 android:layout_width="@dimen/dimen_20"
-                android:layout_height="@dimen/dimen_27"/>
+                android:layout_height="@dimen/dimen_27"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:background="@drawable/icon_next" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvTimeWorking"
-            android:layout_marginHorizontal="@dimen/dimen_10"
-            android:layout_marginTop="@dimen/dimen_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            android:layout_marginHorizontal="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:visibility="gone" />
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/notificationEmptyData"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:text="@string/have_not_time"
         android:textColor="@color/black"
         android:textSize="@dimen/dimen_sp20"

@@ -1,60 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutLogin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layoutLogin"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_app_kham"
     tools:context=".ui.ui.login.FragmentLogin">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <RelativeLayout
-            android:layout_marginTop="@dimen/dimen_20"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_20">
+
             <LinearLayout
-                android:layout_marginEnd="@dimen/dimen_15"
-                android:layout_alignParentEnd="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/dimen_15"
                 android:orientation="horizontal">
+
                 <ImageView
-                    android:src="@drawable/icon_y_te"
                     android:layout_width="@dimen/dimen_50"
-                    android:layout_height="@dimen/dimen_50"/>
+                    android:layout_height="@dimen/dimen_50"
+                    android:src="@drawable/icon_y_te" />
+
                 <TextView
-                    android:text="@string/ministry_of_health"
-                    android:textSize="@dimen/dimen_sp16"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/dimen_10"
-                    android:maxWidth="@dimen/dimen_70"
                     android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:maxWidth="@dimen/dimen_70"
+                    android:text="@string/ministry_of_health"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dimen_sp16"
+                    android:textStyle="bold" />
             </LinearLayout>
         </RelativeLayout>
+
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_20"
             android:layout_marginTop="@dimen/dimen_30"
             android:text="@string/login"
             android:textColor="@color/text"
-            android:textStyle="bold"
             android:textSize="@dimen/dimen_sp32"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginHorizontal="@dimen/dimen_15"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/dimen_15"
         android:gravity="center"
         android:orientation="vertical">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -86,35 +93,38 @@
                         android:textColor="@color/text"
                         android:textSize="@dimen/dimen_sp14"
                         android:textStyle="bold" />
+
                     <LinearLayout
-                        android:layout_marginTop="@dimen/dimen_10"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_10"
                         android:orientation="horizontal">
+
                         <ImageView
-                            android:layout_marginStart="@dimen/dimen_5"
-                            android:layout_gravity="center"
-                            android:background="@drawable/ic_action_account"
-                            android:backgroundTint="@color/background"
                             android:layout_width="@dimen/dimen_27"
-                            android:layout_height="@dimen/dimen_27"/>
+                            android:layout_height="@dimen/dimen_27"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/dimen_5"
+                            android:background="@drawable/ic_action_account"
+                            android:backgroundTint="@color/background" />
+
                         <EditText
                             android:id="@+id/edtAccount"
-                            android:layout_marginStart="@dimen/dimen_15"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_15"
                             android:hint="@string/enter_account"
+                            android:inputType="textEmailAddress"
                             android:textColor="@color/black"
                             android:textColorHint="@color/txt_hint"
-                            android:textSize="@dimen/dimen_sp16"
-                            android:inputType="textEmailAddress"/>
+                            android:textSize="@dimen/dimen_sp16" />
                     </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_10"
                         android:layout_marginStart="@dimen/dimen_10"
+                        android:layout_marginTop="@dimen/dimen_10"
                         android:text="@string/title_password"
                         android:textColor="@color/text"
                         android:textSize="@dimen/dimen_sp14"
@@ -125,37 +135,41 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_10"
                         android:layout_marginBottom="@dimen/dimen_40">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
+
                             <ImageView
-                                android:layout_marginStart="@dimen/dimen_5"
-                                android:layout_gravity="center"
-                                android:background="@drawable/ic_action_change_password"
-                                android:backgroundTint="@color/background"
                                 android:layout_width="@dimen/dimen_20"
-                                android:layout_height="@dimen/dimen_20"/>
+                                android:layout_height="@dimen/dimen_20"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="@dimen/dimen_5"
+                                android:background="@drawable/ic_action_change_password"
+                                android:backgroundTint="@color/background" />
+
                             <EditText
                                 android:id="@+id/edtPassword"
-                                android:layout_marginStart="@dimen/dimen_15"
-                                android:hint="@string/enter_password"
-                                android:textColor="@color/black"
-                                android:textColorHint="@color/txt_hint"
-                                android:textSize="@dimen/dimen_sp16"
-                                android:maxWidth="@dimen/dimen_150"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:inputType="textPassword"/>
+                                android:layout_marginStart="@dimen/dimen_15"
+                                android:hint="@string/enter_password"
+                                android:inputType="textPassword"
+                                android:maxWidth="@dimen/dimen_150"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/txt_hint"
+                                android:textSize="@dimen/dimen_sp16" />
                         </LinearLayout>
+
                         <ImageView
                             android:id="@+id/showPassword"
-                            android:background="@drawable/icon_hint_grey"
+                            android:layout_width="@dimen/dimen_25"
+                            android:layout_height="@dimen/dimen_25"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
                             android:layout_marginEnd="@dimen/dimen_10"
-                            android:layout_width="@dimen/dimen_25"
-                            android:layout_height="@dimen/dimen_25"/>
+                            android:background="@drawable/icon_hint_grey" />
                     </RelativeLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -167,34 +181,37 @@
                 app:cardBackgroundColor="@color/text"
                 app:cardCornerRadius="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_110"
+                    android:paddingVertical="@dimen/dimen_15"
                     android:text="@string/login"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/dimen_sp16"
-                    android:paddingVertical="@dimen/dimen_15"/>
+                    android:textSize="@dimen/dimen_sp16" />
 
             </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <TextView
             android:id="@+id/notificationLogin"
-            android:text="@string/please_enter_info"
-            android:textSize="@dimen/dimen_sp14"
-            android:textColor="@color/black"
-            android:layout_marginTop="@dimen/dimen_10"
-            android:layout_marginStart="@dimen/dimen_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            android:layout_marginStart="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:text="@string/please_enter_info"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dimen_sp14"
+            android:visibility="gone" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <CheckBox
                 android:id="@+id/checkForgetPassword"
                 android:layout_width="wrap_content"
@@ -206,27 +223,30 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_sp16" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginTop="@dimen/dimen_20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:layout_marginTop="@dimen/dimen_20"
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/have_you_account"
                 android:textColor="@color/black"
-                android:textSize="@dimen/dimen_sp14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textSize="@dimen/dimen_sp14" />
+
             <TextView
                 android:id="@+id/register"
-                android:text="@string/register"
-                android:textSize="@dimen/dimen_sp14"
-                android:textColor="@color/text"
-                android:layout_marginStart="@dimen/dimen_10"
-                android:textStyle="bold|italic"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:text="@string/register"
+                android:textColor="@color/text"
+                android:textSize="@dimen/dimen_sp14"
+                android:textStyle="bold|italic" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

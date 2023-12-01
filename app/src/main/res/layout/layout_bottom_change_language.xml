@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutSelectLanguage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layoutSelectLanguage"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
 
     app:behavior_hideable="true"
     app:behavior_peekHeight="0dp"
@@ -11,24 +11,24 @@
 
     <LinearLayout
         android:id="@+id/layoutCoverSheet"
-        android:visibility="gone"
-        android:background="@color/bg_cover_bottom_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"/>
+        android:background="@color/bg_cover_bottom_behavior"
+        android:orientation="vertical"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/layoutMainLanguage"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/boder_bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/boder_bottom_sheet"
         android:orientation="vertical">
 
         <FrameLayout
-            android:layout_marginTop="@dimen/dimen_20"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_20">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -41,29 +41,29 @@
 
             <ImageView
                 android:id="@+id/imgClose"
+                android:layout_width="@dimen/dimen_28"
+                android:layout_height="@dimen/dimen_28"
                 android:layout_gravity="end"
                 android:layout_marginEnd="@dimen/dimen_20"
-                android:src="@drawable/icon_delete_search"
-                android:layout_width="@dimen/dimen_28"
-                android:layout_height="@dimen/dimen_28"/>
+                android:src="@drawable/icon_delete_search" />
 
         </FrameLayout>
 
         <View
-            android:layout_marginTop="@dimen/dimen_20"
-            android:background="@color/bg_divider"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"/>
+            android:layout_height="0.5dp"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:background="@color/bg_divider" />
 
         <com.example.appkhambenh.ui.ui.user.navigation.setting.CustomSelectLanguage
             android:id="@+id/vietnamese"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <com.example.appkhambenh.ui.ui.user.navigation.setting.CustomSelectLanguage
             android:id="@+id/english"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:id="@+id/btnClose"

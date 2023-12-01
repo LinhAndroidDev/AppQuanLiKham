@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutTimeWorking"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginVertical="@dimen/dimen_10"
     android:layout_marginEnd="@dimen/dimen_10"
-    android:paddingVertical="@dimen/dimen_10"
-    android:paddingHorizontal="@dimen/dimen_15"
-    android:id="@+id/layoutTimeWorking"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/dimen_15"
+    android:paddingVertical="@dimen/dimen_10">
 
     <TextView
         android:id="@+id/timeDoctor"
-        android:text="Thứ 4"
-        android:textSize="@dimen/dimen_sp16"
-        android:textColor="@color/black"
-        android:textStyle="bold"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="Thứ 4"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dimen_sp16"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/dayDoctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_5"
         android:text="29/11"
-        android:textSize="@dimen/dimen_sp16"
         android:textColor="@color/black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:textSize="@dimen/dimen_sp16" />
 
 </LinearLayout>

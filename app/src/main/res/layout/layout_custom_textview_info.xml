@@ -6,36 +6,36 @@
 
     <EditText
         android:id="@+id/edtInfo"
-        android:textColor="@color/black"
-        android:textSize="@dimen/dimen_sp14"
-        android:paddingEnd="@dimen/dimen_60"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
+        android:paddingEnd="@dimen/dimen_60"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dimen_sp14"
         tools:ignore="RtlSymmetry" />
 
     <View
         android:id="@+id/viewGetBirth"
-        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_40"/>
+        android:layout_height="@dimen/dimen_40"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/deleteTextInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="bottom"
-        android:visibility="gone"
+        android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true">
+        android:gravity="bottom"
+        android:visibility="gone">
 
         <ImageView
+            android:layout_width="@dimen/dimen_20"
+            android:layout_height="@dimen/dimen_20"
             android:layout_marginEnd="@dimen/dimen_10"
             android:layout_marginBottom="@dimen/dimen_10"
             android:background="@drawable/icon_delete_search"
-            android:layout_width="@dimen/dimen_20"
-            android:layout_height="@dimen/dimen_20"
-            android:visibility="visible"/>
+            android:visibility="visible" />
 
     </LinearLayout>
 

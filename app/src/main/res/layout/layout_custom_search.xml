@@ -5,32 +5,32 @@
 
     <EditText
         android:id="@+id/search"
-        android:textSize="@dimen/dimen_sp14"
-        android:hint="@string/search_appoint"
-        android:textColor="@color/black"
-        android:paddingHorizontal="@dimen/dimen_35"
-        android:paddingVertical="@dimen/dimen_7"
-        android:background="@drawable/bg_corners_25"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"/>
+        android:background="@drawable/bg_corners_25"
+        android:hint="@string/search_appoint"
+        android:inputType="textEmailAddress"
+        android:paddingHorizontal="@dimen/dimen_35"
+        android:paddingVertical="@dimen/dimen_7"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dimen_sp14" />
 
     <ImageView
+        android:layout_width="@dimen/dimen_20"
+        android:layout_height="@dimen/dimen_20"
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/dimen_10"
         android:background="@drawable/ic_action_search"
-        android:backgroundTint="@color/color_search"
-        android:layout_width="@dimen/dimen_20"
-        android:layout_height="@dimen/dimen_20"/>
+        android:backgroundTint="@color/color_search" />
 
     <ImageView
         android:id="@+id/deleteTxt"
-        android:visibility="gone"
-        android:layout_centerVertical="true"
+        android:layout_width="@dimen/dimen_18"
+        android:layout_height="@dimen/dimen_18"
         android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/dimen_10"
         android:background="@drawable/icon_delete_search"
-        android:layout_width="@dimen/dimen_18"
-        android:layout_height="@dimen/dimen_18"/>
+        android:visibility="gone" />
 
 </RelativeLayout>

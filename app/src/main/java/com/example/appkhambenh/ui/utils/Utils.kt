@@ -33,21 +33,22 @@ import com.example.appkhambenh.ui.ui.user.manage_appointment.ManageAppointmentAc
 import com.example.appkhambenh.ui.ui.user.medicine.MedicineActivity
 import com.google.firebase.database.*
 
-var getNameDepartment: ((String)->Unit)? = null
-var getNameDoctor: ((String)->Unit)? = null
+var getNameDepartment: ((String) -> Unit)? = null
+var getNameDoctor: ((String) -> Unit)? = null
 
 fun getDataDepartment(
     context: Context,
-    rcvDepartment: RecyclerView
+    rcvDepartment: RecyclerView,
 ) {
     val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
     databaseReference.child("Department")
         .addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val listDepartment = ArrayList<DepartmentClinic>()
-                for(dataSnapshot in snapshot.children){
+                for (dataSnapshot in snapshot.children) {
                     val department: DepartmentClinic? = dataSnapshot.getValue(
-                        DepartmentClinic::class.java)
+                        DepartmentClinic::class.java
+                    )
                     listDepartment.add(department!!)
                 }
                 val departmentAdapter = DepartmentAdapter(listDepartment, context)
@@ -68,16 +69,17 @@ fun getDataDepartment(
 
 fun getDataDoctor(
     context: Context,
-    rcvDoctor: RecyclerView
+    rcvDoctor: RecyclerView,
 ) {
     val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
     databaseReference.child("Doctor")
         .addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val listDoctor = ArrayList<Doctor>()
-                for(dataSnapshot in snapshot.children){
+                for (dataSnapshot in snapshot.children) {
                     val doctor: Doctor? = dataSnapshot.getValue(
-                        Doctor::class.java)
+                        Doctor::class.java
+                    )
                     listDoctor.add(doctor!!)
                 }
                 val departmentAdapter = DoctorAdapter(listDoctor, context)
@@ -137,19 +139,19 @@ fun collapseView(view: View) {
 }
 
 fun timeEffectView(view: View): Long {
-    return (view.measuredHeight/ view.context.resources.displayMetrics.density).toLong()
+    return (view.measuredHeight / view.context.resources.displayMetrics.density).toLong()
 }
 
-fun validateEmail(email: String): Boolean{
+fun validateEmail(email: String): Boolean {
     return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email)
         .matches()
 }
 
-fun validatePassword(password: String): Boolean{
+fun validatePassword(password: String): Boolean {
     return !TextUtils.isEmpty(password) && password.length >= 7
 }
 
-fun validatePhone(phone: String): Boolean{
+fun validatePhone(phone: String): Boolean {
     return !TextUtils.isEmpty(phone) && (Patterns.PHONE.matcher(phone)
         .matches() && phone.length >= 10)
 }
@@ -164,11 +166,13 @@ fun Int.dpToPx(context: Context): Int {
 
 fun Int.pxToDp(): Int {
     val displayMetrics = Resources.getSystem().displayMetrics
-    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, this.toFloat(), displayMetrics).toInt()
+    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, this.toFloat(), displayMetrics)
+        .toInt()
 }
 
-fun setTextNotification(reasons: String,date: String, hour: String): SpannableString{
-    val notification = "Lịch hẹn $date lúc $hour lý do $reasons của bạn chưa được xác nhận. Chúng tôi đang cố gắng khắc phục sự cố"
+fun setTextNotification(reasons: String, date: String, hour: String): SpannableString {
+    val notification =
+        "Lịch hẹn $date lúc $hour lý do $reasons của bạn chưa được xác nhận. Chúng tôi đang cố gắng khắc phục sự cố"
     val spannable = SpannableString(notification)
 
     val dateStartIndex = notification.indexOf(date)
@@ -188,7 +192,7 @@ fun setTextNotification(reasons: String,date: String, hour: String): SpannableSt
     return spannable
 }
 
-fun setStyleTextAtPosition(str: String, strChange: String, style: Any, spannable: Spannable){
+fun setStyleTextAtPosition(str: String, strChange: String, style: Any, spannable: Spannable) {
     val strRegex = Regex(strChange)
     val strMatchResult = strRegex.find(str)
     if (strMatchResult != null) {
@@ -202,34 +206,37 @@ fun setStyleTextAtPosition(str: String, strChange: String, style: Any, spannable
     }
 }
 
-fun onClickFunction(index: Int, activity: FragmentActivity){
-    when(index){
-        Function.BOOK_DOCTOR.id ->{
+fun onClickFunction(index: Int, activity: FragmentActivity) {
+    when (index) {
+        Function.BOOK_DOCTOR.id -> {
             val intent = Intent(activity, SearchDoctorActivity::class.java)
             activity.startActivity(intent)
         }
-        Function.BOOK_CAPITAL.id ->{
+
+        Function.BOOK_CAPITAL.id -> {
             val intent = Intent(activity, ConnectCsytActivity::class.java)
             activity.startActivity(intent)
         }
-        Function.SCHEDULE.id ->{
+
+        Function.SCHEDULE.id -> {
             val intent = Intent(activity, ManageAppointmentActivity::class.java)
             activity.startActivity(intent)
         }
-        Function.MEDICINE.id ->{
+
+        Function.MEDICINE.id -> {
             val intent = Intent(activity, MedicineActivity::class.java)
             activity.startActivity(intent)
         }
     }
 }
 
-fun animRotation45(img: ImageView){
+fun animRotation45(img: ImageView) {
     val animator = ObjectAnimator.ofFloat(img, View.ROTATION, 0f, 45f)
     animator.duration = 300
     animator.start()
 }
 
-fun animRotationBack0(img: ImageView){
+fun animRotationBack0(img: ImageView) {
     val animator = ObjectAnimator.ofFloat(img, View.ROTATION, 45f, 0f)
     animator.duration = 300
     animator.start()

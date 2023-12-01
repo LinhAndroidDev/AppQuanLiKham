@@ -5,10 +5,10 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:background="@drawable/bg_common"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_common"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -22,27 +22,26 @@
                 android:layout_width="@dimen/dimen_30"
                 android:layout_height="@dimen/dimen_24"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_action_back_white"
-                />
+                android:src="@drawable/ic_action_back_white" />
 
             <TextView
                 android:id="@+id/titleHeader"
-                android:layout_marginHorizontal="@dimen/dimen_40"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:layout_marginHorizontal="@dimen/dimen_40"
                 android:textColor="@color/white"
                 android:textSize="@dimen/dimen_sp20"
                 android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/setting"
+                android:layout_width="@dimen/dimen_22"
+                android:layout_height="@dimen/dimen_22"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_action_setting"
-                android:layout_width="@dimen/dimen_22"
-                android:layout_height="@dimen/dimen_22"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
         </RelativeLayout>
 
@@ -52,13 +51,13 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_20"
             android:layout_marginBottom="@dimen/dimen_15"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </LinearLayout>
 
     <View
-        android:background="@drawable/line_divider"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_5"/>
+        android:layout_height="@dimen/dimen_5"
+        android:background="@drawable/line_divider" />
 
 </LinearLayout>

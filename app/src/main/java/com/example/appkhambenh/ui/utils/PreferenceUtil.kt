@@ -12,7 +12,7 @@ open class PreferenceUtil(val context: Context) {
 
     fun customPrefs(
         context: Context,
-        name: String
+        name: String,
     ): SharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
 
     private inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {
@@ -48,7 +48,7 @@ open class PreferenceUtil(val context: Context) {
      */
     inline operator fun <reified T : Any> SharedPreferences.get(
         key: String,
-        defaultValue: T? = null
+        defaultValue: T? = null,
     ): T? {
 
         return when (T::class) {

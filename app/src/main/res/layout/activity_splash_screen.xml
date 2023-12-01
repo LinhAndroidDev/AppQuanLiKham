@@ -4,26 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ui.splash.SplashScreenActivity"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.ui.splash.SplashScreenActivity">
+
     <LinearLayout
         android:id="@+id/txtIntro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="IBME"
-            android:textSize="@dimen/dimen_sp35"
-            android:textStyle="bold"
             android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textSize="@dimen/dimen_sp35"
+            android:textStyle="bold" />
+
         <TextView
-            android:text="Lab"
-            android:textSize="@dimen/dimen_sp16"
-            android:layout_marginStart="@dimen/dimen_5"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_5"
+            android:text="Lab"
+            android:textSize="@dimen/dimen_sp16" />
     </LinearLayout>
 </LinearLayout>

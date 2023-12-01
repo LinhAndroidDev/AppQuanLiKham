@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.ui.user.home.FragmentHome">
 
     <LinearLayout
@@ -15,23 +15,25 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:id="@+id/ll_border_info"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/dimen_50"
                 android:background="@drawable/bg_common"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:orientation="vertical">
+                app:layout_constraintTop_toTopOf="parent">
+
                 <LinearLayout
-                    android:layout_marginTop="@dimen/dimen_80"
-                    android:layout_marginBottom="@dimen/dimen_60"
-                    android:layout_marginStart="@dimen/dimen_20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_20"
+                    android:layout_marginTop="@dimen/dimen_80"
+                    android:layout_marginBottom="@dimen/dimen_60"
                     android:orientation="horizontal">
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -43,46 +45,50 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_marginStart="@dimen/dimen_10"
                         android:layout_marginTop="@dimen/dimen_10"
-                        android:layout_marginStart="@dimen/dimen_10">
+                        android:orientation="vertical">
+
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
+
                             <TextView
                                 android:id="@+id/noteDoctor"
-                                android:text="Bác sĩ: "
-                                android:textSize="@dimen/dimen_sp18"
-                                android:textColor="@color/white"
-                                android:textStyle="bold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:visibility="gone"/>
+                                android:text="Bác sĩ: "
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/dimen_sp18"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
+
                             <TextView
                                 android:id="@+id/txtUserName"
-                                android:textSize="@dimen/dimen_sp18"
-                                android:textColor="@color/white"
-                                android:textStyle="bold"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/dimen_sp18"
+                                android:textStyle="bold" />
                         </LinearLayout>
+
                         <TextView
                             android:id="@+id/txtUserBirth"
-                            android:layout_marginTop="@dimen/dimen_5"
-                            android:textSize="@dimen/dimen_sp14"
-                            android:textColor="@color/white"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/dimen_sp14" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
             <View
-                app:layout_constraintTop_toBottomOf="@+id/ll_border_info"
-                android:background="@drawable/line_divider"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_4"/>
+                android:layout_height="@dimen/dimen_4"
+                android:background="@drawable/line_divider"
+                app:layout_constraintTop_toBottomOf="@+id/ll_border_info" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"
@@ -91,63 +97,73 @@
                 android:layout_marginHorizontal="@dimen/dimen_20"
                 android:layout_marginTop="@dimen/dimen_35"
                 android:layout_marginBottom="@dimen/dimen_15"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 android:background="@color/white"
                 app:cardCornerRadius="10dp"
-                app:cardElevation="8dp">
+                app:cardElevation="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <LinearLayout
                         android:id="@+id/functionAccessoryPatients"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingVertical="@dimen/dimen_10"
                         android:orientation="horizontal"
+                        android:paddingVertical="@dimen/dimen_10"
                         android:visibility="visible">
+
                         <LinearLayout
-                            android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="center">
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
                             <ImageView
-                                android:src="@drawable/ic_action_pay"
-                                style="@style/img_function_accessory"/>
+                                style="@style/img_function_accessory"
+                                android:src="@drawable/ic_action_pay" />
+
                             <TextView
-                                android:text="@string/pay"
-                                style="@style/txt_function_accessory"/>
+                                style="@style/txt_function_accessory"
+                                android:text="@string/pay" />
                         </LinearLayout>
+
                         <LinearLayout
-                            android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="center">
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
                             <ImageView
                                 android:id="@+id/appointment"
-                                android:src="@drawable/ic_action_datlich"
-                                style="@style/img_function_accessory"/>
+                                style="@style/img_function_accessory"
+                                android:src="@drawable/ic_action_datlich" />
+
                             <TextView
-                                android:text="@string/book"
-                                style="@style/txt_function_accessory"/>
+                                style="@style/txt_function_accessory"
+                                android:text="@string/book" />
                         </LinearLayout>
+
                         <LinearLayout
-                            android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="center">
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
                             <ImageView
                                 android:id="@+id/qrCode"
-                                android:src="@drawable/ic_action_qr"
-                                style="@style/img_function_accessory"/>
+                                style="@style/img_function_accessory"
+                                android:src="@drawable/ic_action_qr" />
+
                             <TextView
-                                android:text="QR"
-                                style="@style/txt_function_accessory"/>
+                                style="@style/txt_function_accessory"
+                                android:text="QR" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -155,48 +171,57 @@
                         android:id="@+id/functionAccessoryDoctor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingVertical="@dimen/dimen_10"
                         android:orientation="horizontal"
+                        android:paddingVertical="@dimen/dimen_10"
                         android:visibility="gone">
+
                         <LinearLayout
-                            android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="center">
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
                             <ImageView
-                                android:src="@drawable/ic_action_pay"
-                                style="@style/img_function_accessory"/>
+                                style="@style/img_function_accessory"
+                                android:src="@drawable/ic_action_pay" />
+
                             <TextView
-                                android:text="Thanh toán"
-                                style="@style/txt_function_accessory"/>
+                                style="@style/txt_function_accessory"
+                                android:text="Thanh toán" />
                         </LinearLayout>
+
                         <LinearLayout
-                            android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="center">
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
                             <ImageView
                                 android:id="@+id/addAppoint"
-                                android:src="@drawable/ic_action_datlich"
-                                style="@style/img_function_accessory"/>
+                                style="@style/img_function_accessory"
+                                android:src="@drawable/ic_action_datlich" />
+
                             <TextView
-                                android:text="Thêm lịch"
-                                style="@style/txt_function_accessory"/>
+                                style="@style/txt_function_accessory"
+                                android:text="Thêm lịch" />
                         </LinearLayout>
+
                         <LinearLayout
-                            android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="center">
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
                             <ImageView
-                                android:src="@drawable/ic_action_qr"
-                                style="@style/img_function_accessory"/>
+                                style="@style/img_function_accessory"
+                                android:src="@drawable/ic_action_qr" />
+
                             <TextView
-                                android:text="QR"
-                                style="@style/txt_function_accessory"/>
+                                style="@style/txt_function_accessory"
+                                android:text="QR" />
                         </LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>
@@ -211,26 +236,27 @@
 
             <LinearLayout
                 android:id="@+id/layoutDoctor"
-                android:layout_marginTop="@dimen/dimen_20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_20"
                 android:orientation="vertical"
                 android:visibility="gone">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cv_manage_appointment_doctor"
                         style="@style/card_function_main"
                         android:layout_marginEnd="@dimen/dimen_8"
                         android:layout_weight="1"
-                        app:cardCornerRadius="10dp"
                         app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="10dp"
                         app:cardElevation="5dp">
 
-                        <LinearLayout
-                            style="@style/ll_function_main_user">
+                        <LinearLayout style="@style/ll_function_main_user">
 
                             <ImageView
                                 style="@style/img_function_main"
@@ -238,8 +264,8 @@
 
                             <TextView
                                 style="@style/txt_function_main"
-                                android:textStyle="bold"
-                                android:text="Quản lí lịch hẹn"/>
+                                android:text="Quản lí lịch hẹn"
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -251,8 +277,7 @@
                         app:cardCornerRadius="10dp"
                         app:cardElevation="5dp">
 
-                        <LinearLayout
-                            style="@style/ll_function_main_user">
+                        <LinearLayout style="@style/ll_function_main_user">
 
                             <ImageView
                                 style="@style/img_function_main"
@@ -260,9 +285,8 @@
 
                             <TextView
                                 style="@style/txt_function_main"
-                                android:textStyle="bold"
                                 android:text="Quản lí bệnh nhân"
-                                />
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
@@ -274,21 +298,22 @@
 
                     <androidx.cardview.widget.CardView
                         style="@style/card_function_main"
-                        android:layout_weight="1"
                         android:layout_marginEnd="@dimen/dimen_8"
+                        android:layout_weight="1"
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="10dp"
                         app:cardElevation="5dp">
-                        <LinearLayout
-                            style="@style/ll_function_main_user">
+
+                        <LinearLayout style="@style/ll_function_main_user">
+
                             <ImageView
-                                android:src="@drawable/ic_action_medicine"
-                                style="@style/img_function_main"/>
+                                style="@style/img_function_main"
+                                android:src="@drawable/ic_action_medicine" />
+
                             <TextView
                                 style="@style/txt_function_main"
-                                android:textStyle="bold"
                                 android:text="Quản lí thuốc"
-                                />
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -301,8 +326,7 @@
                         app:cardCornerRadius="10dp"
                         app:cardElevation="5dp">
 
-                        <LinearLayout
-                            style="@style/ll_function_main_user">
+                        <LinearLayout style="@style/ll_function_main_user">
 
                             <ImageView
                                 style="@style/img_function_main"
@@ -310,9 +334,8 @@
 
                             <TextView
                                 style="@style/txt_function_main"
-                                android:textStyle="bold"
                                 android:text="Thống kê lịch hẹn"
-                                />
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
@@ -331,75 +354,75 @@
                     android:layout_height="@dimen/dimen_200"
                     android:paddingStart="@dimen/dimen_60"
                     android:paddingEnd="@dimen/dimen_60"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <TextView
-                    android:text="@string/functions"
-                    android:textSize="@dimen/dimen_sp14"
-                    android:textColor="@color/black"
-                    android:textStyle="italic|bold"
-                    android:layout_marginTop="@dimen/dimen_20"
-                    android:layout_marginStart="@dimen/dimen_20"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_20"
+                    android:layout_marginTop="@dimen/dimen_20"
+                    android:text="@string/functions"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen_sp14"
+                    android:textStyle="italic|bold" />
 
                 <LinearLayout
-                    android:layout_marginVertical="@dimen/dimen_10"
-                    android:layout_marginHorizontal="@dimen/dimen_15"
-                    android:background="@drawable/bg_item_function"
-                    android:layout_gravity="center"
-                    android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:elevation="@dimen/dimen_2">
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/dimen_15"
+                    android:layout_marginVertical="@dimen/dimen_10"
+                    android:background="@drawable/bg_item_function"
+                    android:elevation="@dimen/dimen_2"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:layout_margin="@dimen/dimen_15"
                         android:id="@+id/rcvFunctionMain"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        android:layout_margin="@dimen/dimen_15"
                         android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                         app:spanCount="2" />
 
                     <View
-                        android:background="@color/bg_divider"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"/>
+                        android:layout_height="1dp"
+                        android:background="@color/bg_divider" />
 
                     <LinearLayout
-                        android:layout_marginVertical="@dimen/dimen_10"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center">
+                        android:layout_marginVertical="@dimen/dimen_10"
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
                         <ImageView
-                            android:src="@drawable/new_star"
                             android:layout_width="@dimen/dimen_18"
-                            android:layout_height="@dimen/dimen_18"/>
+                            android:layout_height="@dimen/dimen_18"
+                            android:src="@drawable/new_star" />
 
                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dimen_5"
                             android:text="@string/my_favourites"
-                            android:textSize="@dimen/dimen_sp14"
                             android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:textSize="@dimen/dimen_sp14"
+                            android:textStyle="bold" />
 
                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dimen_5"
-                            android:paddingVertical="@dimen/dimen_2"
-                            android:paddingHorizontal="@dimen/dimen_7"
                             android:background="@drawable/bg_corners_25"
                             android:backgroundTint="@color/txt_red"
+                            android:paddingHorizontal="@dimen/dimen_7"
+                            android:paddingVertical="@dimen/dimen_2"
                             android:text="@string/new_favourites"
-                            android:textSize="@dimen/dimen_sp14"
                             android:textColor="@color/white"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:textSize="@dimen/dimen_sp14" />
 
                     </LinearLayout>
 
@@ -407,122 +430,123 @@
 
                 <RelativeLayout
                     android:id="@+id/titleDoctorHighlight"
-                    android:layout_marginTop="@dimen/dimen_10"
-                    android:layout_marginHorizontal="@dimen/dimen_20"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_20"
+                    android:layout_marginTop="@dimen/dimen_10"
                     android:visibility="gone">
 
                     <LinearLayout
-                        android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:background="@drawable/ic_action_star"
-                            android:backgroundTint="@color/orange"
                             android:layout_width="@dimen/dimen_20"
-                            android:layout_height="@dimen/dimen_20"/>
+                            android:layout_height="@dimen/dimen_20"
+                            android:background="@drawable/ic_action_star"
+                            android:backgroundTint="@color/orange" />
 
                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dimen_5"
                             android:text="@string/doctor_hightlight"
-                            android:textSize="@dimen/dimen_sp14"
                             android:textColor="@color/black"
-                            android:textStyle="italic|bold"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:textSize="@dimen/dimen_sp14"
+                            android:textStyle="italic|bold" />
 
                     </LinearLayout>
 
                     <include
                         android:id="@+id/seeMoreDoctor"
-                        android:layout_alignParentEnd="true"
+                        layout="@layout/layout_see_more"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        layout="@layout/layout_see_more"/>
+                        android:layout_alignParentEnd="true" />
 
                 </RelativeLayout>
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/slideHighlightDoctor"
-                    android:paddingEnd="@dimen/dimen_60"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_120" />
+                    android:layout_height="@dimen/dimen_120"
+                    android:paddingEnd="@dimen/dimen_60" />
 
                 <RelativeLayout
                     android:id="@+id/titleHandbook"
-                    android:layout_marginTop="@dimen/dimen_20"
-                    android:layout_marginHorizontal="@dimen/dimen_20"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_20"
+                    android:layout_marginTop="@dimen/dimen_20"
                     android:visibility="gone">
 
                     <TextView
-                        android:layout_centerVertical="true"
-                        android:text="@string/medical_handbook"
-                        android:textSize="@dimen/dimen_sp14"
-                        android:textColor="@color/black"
-                        android:textStyle="italic|bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <include
-                        android:layout_alignParentEnd="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        layout="@layout/layout_see_more"/>
+                        android:layout_centerVertical="true"
+                        android:text="@string/medical_handbook"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_sp14"
+                        android:textStyle="italic|bold" />
+
+                    <include
+                        layout="@layout/layout_see_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true" />
 
                 </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcvMedicalHandbook"
-                    android:layout_marginTop="@dimen/dimen_10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                    android:layout_marginTop="@dimen/dimen_10"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                 <RelativeLayout
                     android:id="@+id/titleCsyt"
-                    android:layout_marginTop="@dimen/dimen_20"
-                    android:layout_marginHorizontal="@dimen/dimen_20"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_20"
+                    android:layout_marginTop="@dimen/dimen_20"
                     android:visibility="gone">
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/top_medical_facility"
-                        android:textSize="@dimen/dimen_sp14"
                         android:textColor="@color/black"
-                        android:textStyle="italic|bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textSize="@dimen/dimen_sp14"
+                        android:textStyle="italic|bold" />
 
                     <include
                         android:id="@+id/seeMoreCsyt"
-                        android:layout_alignParentEnd="true"
+                        layout="@layout/layout_see_more"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        layout="@layout/layout_see_more"/>
+                        android:layout_alignParentEnd="true" />
 
                 </RelativeLayout>
 
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rcvTopCsyt"
-                        android:layout_marginTop="@dimen/dimen_10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:nestedScrollingEnabled="false"/>
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:nestedScrollingEnabled="false" />
                 </androidx.core.widget.NestedScrollView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_200"/>
+                    android:layout_height="@dimen/dimen_200" />
 
             </LinearLayout>
 

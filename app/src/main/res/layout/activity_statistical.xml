@@ -4,87 +4,87 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".ui.ui.doctor.statistical.StatisticalActivity">
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/chart"
         android:layout_width="@dimen/dimen_300"
-        android:layout_height="@dimen/dimen_300"/>
+        android:layout_height="@dimen/dimen_300" />
 
     <LinearLayout
-        android:paddingVertical="@dimen/dimen_30"
-        android:paddingHorizontal="@dimen/dimen_10"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/dimen_10"
+        android:paddingVertical="@dimen/dimen_30">
+
         <LinearLayout
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="horizontal">
-            
+
             <ImageView
-                android:background="@drawable/ic_action_circle"
-                android:backgroundTint="@color/orange"
                 android:layout_width="@dimen/dimen_25"
-                android:layout_height="@dimen/dimen_25"/>
-            
+                android:layout_height="@dimen/dimen_25"
+                android:background="@drawable/ic_action_circle"
+                android:backgroundTint="@color/orange" />
+
             <TextView
-                android:layout_marginStart="@dimen/dimen_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_10"
                 android:text="Lịch hẹn đã thành công"
-                android:textSize="@dimen/dimen_16"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_16" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginStart="@dimen/dimen_20"
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_20"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <ImageView
-                android:background="@drawable/ic_action_circle"
-                android:backgroundTint="@color/background"
                 android:layout_width="@dimen/dimen_25"
-                android:layout_height="@dimen/dimen_25"/>
+                android:layout_height="@dimen/dimen_25"
+                android:background="@drawable/ic_action_circle"
+                android:backgroundTint="@color/background" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="Lịch hẹn đã huỷ"
-                android:textSize="@dimen/dimen_16"
-                android:textColor="@color/black"/>
-            
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_16" />
+
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginStart="@dimen/dimen_20"
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_20"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <ImageView
-                android:background="@drawable/ic_action_circle"
-                android:backgroundTint="@color/grey"
                 android:layout_width="@dimen/dimen_25"
-                android:layout_height="@dimen/dimen_25"/>
+                android:layout_height="@dimen/dimen_25"
+                android:background="@drawable/ic_action_circle"
+                android:backgroundTint="@color/grey" />
 
             <TextView
-                android:layout_marginStart="@dimen/dimen_25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_25"
                 android:text="Còn lại"
-                android:textSize="@dimen/dimen_16"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_16" />
         </LinearLayout>
-        
+
     </LinearLayout>
 
 </LinearLayout>

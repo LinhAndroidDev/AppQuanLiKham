@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.ui.register.FragmentRegister">
 
     <LinearLayout
         android:id="@+id/layoutRegister"
-        android:layout_marginHorizontal="@dimen/dimen_15"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_15"
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_marginTop="@dimen/dimen_20"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_20">
 
             <ImageView
                 android:id="@+id/backRegister"
-                android:src="@drawable/ic_action_back"
-                android:layout_marginTop="@dimen/dimen_40"
                 android:layout_width="@dimen/dimen_35"
-                android:layout_height="@dimen/dimen_27"/>
+                android:layout_height="@dimen/dimen_27"
+                android:layout_marginTop="@dimen/dimen_40"
+                android:src="@drawable/ic_action_back" />
 
             <LinearLayout
-                android:layout_alignParentEnd="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:src="@drawable/icon_y_te"
                     android:layout_width="@dimen/dimen_50"
-                    android:layout_height="@dimen/dimen_50"/>
+                    android:layout_height="@dimen/dimen_50"
+                    android:src="@drawable/icon_y_te" />
 
                 <TextView
-                    android:maxWidth="@dimen/dimen_70"
-                    android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/dimen_10"
+                    android:gravity="center"
+                    android:maxWidth="@dimen/dimen_70"
                     android:text="@string/ministry_of_health"
                     android:textColor="@color/text"
                     android:textSize="@dimen/dimen_sp16"
@@ -53,32 +53,32 @@
         </RelativeLayout>
 
         <TextView
-            android:layout_marginTop="@dimen/dimen_80"
-            android:text="@string/title_register_account"
-            android:textSize="@dimen/dimen_sp32"
-            android:textColor="@color/text"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/dimen_20"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dimen_80"
+            android:layout_marginBottom="@dimen/dimen_20"
+            android:text="@string/title_register_account"
+            android:textColor="@color/text"
+            android:textSize="@dimen/dimen_sp32"
+            android:textStyle="bold" />
 
         <TextView
             style="@style/title_register_function"
-            android:text="@string/select_user"/>
+            android:text="@string/select_user" />
 
         <RadioGroup
-            android:layout_marginTop="@dimen/dimen_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_5"
             android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/rbPatient"
-                android:text="@string/patient"
-                android:textSize="@dimen/dimen_sp16"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/patient"
+                android:textSize="@dimen/dimen_sp16" />
 
             <RadioButton
                 android:id="@+id/rbDoctor"
@@ -86,7 +86,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/dimen_30"
                 android:text="@string/doctor"
-                android:textSize="@dimen/dimen_sp16"/>
+                android:textSize="@dimen/dimen_sp16" />
 
             <RadioButton
                 android:id="@+id/rbAdmin"
@@ -94,7 +94,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/dimen_30"
                 android:text="@string/csyt"
-                android:textSize="@dimen/dimen_sp16"/>
+                android:textSize="@dimen/dimen_sp16" />
 
         </RadioGroup>
 
@@ -104,20 +104,20 @@
             android:text="@string/title_name" />
 
         <EditText
-            style="@style/edt_register_function"
             android:id="@+id/edtName"
+            style="@style/edt_register_function"
             android:hint="@string/enter_name"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress" />
 
         <TextView
             style="@style/title_register_function"
             android:text="@string/title_email" />
 
         <EditText
-            style="@style/edt_register_function"
             android:id="@+id/edtEmail"
+            style="@style/edt_register_function"
             android:hint="@string/enter_email"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress" />
 
         <LinearLayout
             android:id="@+id/layoutSex"
@@ -127,28 +127,28 @@
 
             <TextView
                 style="@style/title_register_function"
-                android:text="@string/title_sex"/>
+                android:text="@string/title_sex" />
 
             <RadioGroup
-                android:layout_marginTop="@dimen/dimen_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_5"
                 android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/rbMan"
-                    android:text="@string/males"
-                    android:textSize="@dimen/dimen_sp16"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="@string/males"
+                    android:textSize="@dimen/dimen_sp16" />
 
                 <RadioButton
                     android:id="@+id/rbWomen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_30"
                     android:text="@string/females"
-                    android:textSize="@dimen/dimen_sp16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:textSize="@dimen/dimen_sp16" />
 
             </RadioGroup>
 
@@ -166,10 +166,10 @@
                 android:text="@string/title_specialist" />
 
             <EditText
-                style="@style/edt_register_function"
                 android:id="@+id/edtSpecialist"
+                style="@style/edt_register_function"
                 android:hint="@string/enter_specialist"
-                android:inputType="textEmailAddress"/>
+                android:inputType="textEmailAddress" />
 
         </LinearLayout>
 
@@ -178,8 +178,8 @@
             android:text="@string/title_password" />
 
         <EditText
-            style="@style/edt_register_function"
             android:id="@+id/edtPassword"
+            style="@style/edt_register_function"
             android:hint="@string/enter_password"
             android:inputType="textPassword" />
 
@@ -188,10 +188,10 @@
             android:text="@string/title_repeat_password" />
 
         <EditText
-            style="@style/edt_register_function"
             android:id="@+id/edtRepeatPassword"
+            style="@style/edt_register_function"
             android:hint="@string/title_repeat_password"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword" />
 
         <LinearLayout
             android:id="@+id/layoutBirth"
@@ -200,49 +200,49 @@
             android:orientation="vertical">
 
             <TextView
-                android:text="@string/title_date"
-                style="@style/title_register_function"/>
+                style="@style/title_register_function"
+                android:text="@string/title_date" />
 
             <RelativeLayout
                 android:id="@+id/layoutDate"
-                android:layout_marginHorizontal="@dimen/dimen_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_2"
                 android:layout_marginTop="@dimen/dimen_10">
 
                 <LinearLayout
-                    android:layout_marginTop="@dimen/dimen_10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_10"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/edtBirth"
-                        android:hint="@string/enter_date"
-                        android:paddingEnd="@dimen/dimen_20"
-                        android:textSize="@dimen/dimen_sp18"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/txt_hint"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="@string/enter_date"
+                        android:paddingEnd="@dimen/dimen_20"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/txt_hint"
+                        android:textSize="@dimen/dimen_sp18"
                         tools:ignore="RtlSymmetry" />
 
                     <View
-                        android:layout_marginTop="@dimen/dimen_5"
-                        android:background="@color/black"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_0.8"/>
+                        android:layout_height="@dimen/dimen_0.8"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:background="@color/black" />
 
                 </LinearLayout>
 
                 <ImageView
                     android:id="@+id/calendar"
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_height="@dimen/dimen_30"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="@dimen/dimen_3"
                     android:layout_marginEnd="@dimen/dimen_10"
-                    android:src="@drawable/ic_action_calendar"
-                    android:layout_width="@dimen/dimen_30"
-                    android:layout_height="@dimen/dimen_30"/>
+                    android:src="@drawable/ic_action_calendar" />
 
             </RelativeLayout>
 
@@ -253,74 +253,74 @@
             android:text="@string/title_phone" />
 
         <EditText
-            style="@style/edt_register_function"
             android:id="@+id/edtPhone"
+            style="@style/edt_register_function"
             android:hint="@string/enter_phone"
-            android:inputType="phone"/>
+            android:inputType="phone" />
 
         <TextView
             style="@style/title_register_function"
             android:text="@string/title_address" />
 
         <EditText
-            style="@style/edt_register_function"
             android:id="@+id/edtAddress"
+            style="@style/edt_register_function"
             android:hint="@string/enter_address"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress" />
 
         <TextView
             android:id="@+id/notificationRegister"
-            android:text="Vui lòng nhập "
-            android:layout_marginTop="@dimen/dimen_10"
-            android:layout_marginStart="@dimen/dimen_10"
-            android:textSize="@dimen/dimen_sp14"
-            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            android:layout_marginStart="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:text="Vui lòng nhập "
+            android:textColor="@color/black"
+            android:textSize="@dimen/dimen_sp14"
+            android:visibility="gone" />
 
         <CheckBox
             android:id="@+id/cbAgree"
-            android:text="@string/agree_condition"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/agree_condition" />
 
         <LinearLayout
-            android:layout_marginVertical="@dimen/dimen_20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/dimen_20"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/cancel"
-                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="2"
                 android:gravity="center"
                 android:text="@string/cancel"
-                android:textSize="@dimen/dimen_sp16"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
+                android:textSize="@dimen/dimen_sp16"
+                android:textStyle="bold" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/register"
-                android:layout_weight="3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="30dp"
+                android:layout_weight="3"
                 app:cardBackgroundColor="@color/text"
+                app:cardCornerRadius="30dp"
                 app:cardElevation="0dp">
 
                 <TextView
-                    android:text="@string/register"
-                    android:textSize="@dimen/dimen_sp16"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:paddingVertical="@dimen/dimen_15"
-                    android:gravity="center"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingVertical="@dimen/dimen_15"
+                    android:text="@string/register"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dimen_sp16"
+                    android:textStyle="bold" />
 
             </androidx.cardview.widget.CardView>
 
