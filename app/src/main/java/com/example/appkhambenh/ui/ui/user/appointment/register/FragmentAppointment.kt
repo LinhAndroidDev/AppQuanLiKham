@@ -1,7 +1,6 @@
 package com.example.appkhambenh.ui.ui.user.appointment.register
 
 import android.annotation.SuppressLint
-import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
@@ -26,9 +25,9 @@ import com.squareup.picasso.Picasso
 
 @Suppress("DEPRECATION")
 class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentAppointmentBinding>() {
-    lateinit var popUpView: View
-    var popupWindow = PopupWindow()
-    var isUpdate = false
+    private val popUpView: View by lazy { View.inflate(context, R.layout.popup_function_appointment, null) }
+    private var popupWindow = PopupWindow()
+    private var isUpdate = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -121,12 +120,6 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
             val strDate = binding.date.text.toString()
             val strHour = binding.hour.text.toString()
             val strReasons = binding.edtReasons.text.toString()
-            val id_user = viewModel.mPreferenceUtil.defaultPref()
-                .getInt(PreferenceKey.USER_ID, -1).toString()
-
-            val loadData = ProgressDialog(requireContext())
-            loadData.setTitle("Thông báo")
-            loadData.setMessage("Please wait...")
 
             if(!isUpdate){
                 if(strService.isEmpty() || strDepartment.isEmpty() || strDoctor.isEmpty() || strReasons.isEmpty()){
@@ -144,7 +137,7 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
                             convertToRequestBody(strDate),
                             convertToRequestBody(strHour),
                             convertToRequestBody(strReasons),
-                            convertToRequestBody(id_user)
+                            convertToRequestBody(userId.toString())
                         )
 
                         val id_day = viewModel.mPreferenceUtil.defaultPref().getInt(PreferenceKey.ID_DAY, 0)
@@ -156,11 +149,7 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
                         )
 
                         viewModel.isLoadingLiveData.observe(viewLifecycleOwner) {
-                            if(it){
-                                loadData.show()
-                            }else {
-                                loadData.dismiss()
-                            }
+                            if(it) loading.show() else loading.dismiss()
                         }
 
                         viewModel.isSuccessfulLiveData.observe(viewLifecycleOwner) {
@@ -204,17 +193,17 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
                         convertToRequestBody(strDate),
                         convertToRequestBody(strHour),
                         convertToRequestBody(reasons),
-                        convertToRequestBody(id_user)
+                        convertToRequestBody(userId.toString())
                     )
 
                     viewModel.loadingEditLiveData.observe(viewLifecycleOwner){ isLoading ->
-                        if(isLoading) loadData.show() else loadData.dismiss()
+                        if(isLoading) loading.show() else loading.dismiss()
                     }
 
                     viewModel.editAppointSuccessfulLiveData.observe(viewLifecycleOwner){ isSuccess ->
                         if(isSuccess){
                             activity?.supportFragmentManager?.popBackStack()
-                            show("Bạn đã thay đổi lịch hẹn thành công")
+                            show(getString(R.string.change_appoint_successful))
                         }
                     }
                 }
@@ -227,7 +216,6 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
     }
 
     private fun showPopupView(txtView: TextView){
-        popUpView = View.inflate(context, R.layout.popup_function_appointment, null)
         val width = ViewGroup.LayoutParams.WRAP_CONTENT
         val height = ViewGroup.LayoutParams.WRAP_CONTENT
         val focusable = true

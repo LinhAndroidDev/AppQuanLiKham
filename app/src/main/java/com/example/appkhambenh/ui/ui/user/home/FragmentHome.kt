@@ -1,7 +1,6 @@
 package com.example.appkhambenh.ui.ui.user.home
 
 import android.annotation.SuppressLint
-import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -29,6 +28,8 @@ import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.ui.user.appointment.AppointmentActivity
 import com.example.appkhambenh.ui.ui.user.avatar.EditAvatarActivity
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
+import com.example.appkhambenh.ui.ui.user.csyt.CsytActivity
+import com.example.appkhambenh.ui.ui.user.csyt.InfoCsytActivity
 import com.example.appkhambenh.ui.ui.user.doctor.InfoDoctorActivity
 import com.example.appkhambenh.ui.ui.user.doctor.SearchDoctorActivity
 import com.example.appkhambenh.ui.ui.user.home.adapter.DoctorHighlightAdapter
@@ -49,7 +50,6 @@ import kotlin.math.abs
 @Suppress("DEPRECATION")
 class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     private val timer by lazy { Timer() }
-    private val loading by lazy { ProgressDialog(requireActivity()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -61,10 +61,6 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     override fun bindData() {
         super.bindData()
 
-        loading.setMessage("Please wait...")
-        loading.setTitle("Thông báo")
-        loading.setCancelable(false)
-
         viewModel.getUserInfo(convertToRequestBody(userId.toString()))
 
         viewModel.loadingLiveData.observe(this) {
@@ -73,14 +69,15 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             } else {
                 lifecycleScope.launch {
                     delay(500L)
-                    withContext(Dispatchers.Main){
+                    withContext(Dispatchers.Main) {
                         loading.dismiss()
                     }
-                    if(!isOnline(requireActivity())){
+                    if (!isOnline(requireActivity())) {
                         show(getString(R.string.check_internet))
-                    }else{
+                    } else {
                         lifecycleScope.launch {
-                            binding.txtUserBirth.text = if (typeUser != 2) birthUser else addressUser
+                            binding.txtUserBirth.text =
+                                if (typeUser != 2) birthUser else addressUser
                             binding.txtUserName.text = nameUser
 
                             if (avatarUser!!.isNotEmpty()) {
@@ -91,15 +88,18 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                             }
 
                             delay(1000L)
-                            withContext(Dispatchers.Main){
+                            withContext(Dispatchers.Main) {
                                 scrollInfinity()
                                 binding.slide.visibility = View.VISIBLE
-                                val animEnter = AnimationUtils.loadAnimation(requireActivity(), R.anim.enter_view)
+                                val animEnter = AnimationUtils.loadAnimation(
+                                    requireActivity(),
+                                    R.anim.enter_view
+                                )
                                 binding.slide.startAnimation(animEnter)
                             }
 
                             delay(500L)
-                            withContext(Dispatchers.Main){
+                            withContext(Dispatchers.Main) {
                                 binding.titleDoctorHighlight.visibility = View.VISIBLE
                                 binding.titleHandbook.visibility = View.VISIBLE
                                 binding.titleCsyt.visibility = View.VISIBLE
@@ -240,16 +240,29 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         setUpTransformer(binding.slideHighlightDoctor, 5, 1f, 0f)
     }
 
-    private fun topCsyt(){
+    private fun topCsyt() {
+        binding.seeMoreCsyt.layout.setOnClickListener {
+            val intent = Intent(requireActivity(), CsytActivity::class.java)
+            startActivity(intent)
+        }
+
         val csyts = arrayListOf<Int>()
         val adapterTopCsyt = TopCsytAdapter(requireActivity(), csyts)
-        for (i in 0..10){
+        adapterTopCsyt.onCLickItem = {
+            if (it) {
+                val intent = Intent(requireActivity(), InfoCsytActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        for (i in 0..10) {
             csyts.add(1)
         }
         binding.rcvTopCsyt.apply {
-            layoutManager = LinearLayoutManager(requireActivity(),
+            layoutManager = LinearLayoutManager(
+                requireActivity(),
                 LinearLayoutManager.HORIZONTAL,
-                false)
+                false
+            )
             adapter = adapterTopCsyt
         }
     }

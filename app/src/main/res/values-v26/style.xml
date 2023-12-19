@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="edt_update_info" parent="Widget.AppCompat.EditText">
+        <item name="android:paddingHorizontal">@dimen/dimen_10</item>
+        <item name="android:paddingVertical">@dimen/dimen_12</item>
+    </style>
+</resources>

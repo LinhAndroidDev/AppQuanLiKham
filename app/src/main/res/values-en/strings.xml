@@ -165,4 +165,23 @@
     <string name="my_favourites">My favourites</string>
     <string name="new_favourites">New</string>
     <string name="top_medical_facility">Top Medical Facility</string>
+    <string name="change_appoint_successful">You have successfully changed your appointment schedule</string>
+    <string name="at_medical_facility">At a medical facility</string>
+    <string name="note_CCCD">Scan CCCD to quickly enter information</string>
+    <string name="CCCD">ID Number/ID card</string>
+    <string name="enter_CCCD">Enter CCCD number</string>
+    <string name="ethnic">Ethnicity</string>
+    <string name="search_ethnic">Search ethnicity</string>
+    <string name="nationality">Nationality</string>
+    <string name="search_nationality">Search nationality</string>
+    <string name="job">Occupation</string>
+    <string name="search_job">Search for a career</string>
+    <string name="select_job">Career selection</string>
+    <string name="note_scan">Move the camera to the area containing the QR code to scan</string>
+    <string name="select_province">Select Province/City</string>
+    <string name="select_district">Select District</string>
+    <string name="select_ward">Select Commune/ Ward</string>
+    <string name="complete">Completed</string>
+    <string name="search_address">Search address</string>
+    <string name="title_scan">Scan CCCD code</string>
 </resources>

@@ -11,9 +11,7 @@ import com.example.appkhambenh.databinding.FragmentSearchDoctorBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.ui.user.doctor.adapter.DoctorAdapter
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -32,7 +30,7 @@ class FragmentSearchDoctor : BaseFragment<EmptyViewModel, FragmentSearchDoctorBi
 
         binding.headerDoctor.visibleSearch()
         binding.headerDoctor.setTitle(getString(R.string.consulting_doctor))
-        binding.headerDoctor.setHint(getString(R.string.search_doctor))
+        binding.headerDoctor.setHintSearch(getString(R.string.search_doctor))
 
         lifecycleScope.launch  {
             delay(300L)

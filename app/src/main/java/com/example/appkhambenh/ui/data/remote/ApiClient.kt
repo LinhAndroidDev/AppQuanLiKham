@@ -34,4 +34,16 @@ object ApiClient {
         }
     }
 
+    private fun getProvince(): Retrofit? {
+        return Retrofit.Builder()
+            .baseUrl("https://provinces.open-api.vn/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .build()
+    }
+
+    fun sharedProvince(): ApiService {
+        return getProvince()?.create(ApiService::class.java)!!
+    }
+
 }

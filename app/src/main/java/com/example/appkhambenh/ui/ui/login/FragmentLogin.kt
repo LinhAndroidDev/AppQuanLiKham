@@ -1,7 +1,6 @@
 package com.example.appkhambenh.ui.ui.login
 
 import android.annotation.SuppressLint
-import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
@@ -40,15 +39,8 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
     override fun bindData() {
         super.bindData()
 
-        val loadData = ProgressDialog(requireActivity())
-        loadData.setTitle("Thông báo")
-        loadData.setMessage("Please wait...")
         viewModel.loadingLiveData.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) {
-                loadData.show()
-            } else {
-                loadData.dismiss()
-            }
+            if (isLoading) loading.show() else loading.dismiss()
         }
 
         viewModel.loginSuccessLiveData.observe(viewLifecycleOwner) { isSuccessful ->

@@ -5,6 +5,7 @@ import com.example.appkhambenh.ui.data.remote.entity.UserInfoResponse
 import com.example.appkhambenh.ui.data.remote.entity.RegisterResponse
 import com.example.appkhambenh.ui.data.remote.entity.UploadImageResponse
 import com.example.appkhambenh.ui.model.Medicine
+import com.example.appkhambenh.ui.model.Province
 import com.example.appkhambenh.ui.model.RegisterChecking
 import com.example.appkhambenh.ui.model.WorkingDate
 import com.example.appkhambenh.ui.ui.doctor.time_working.UpdateTimeResponse
@@ -18,6 +19,7 @@ import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Query
 
 interface ApiService {
     @Multipart
@@ -159,4 +161,10 @@ interface ApiService {
         @Part("reasons") reasons: RequestBody,
         @Part("id_user") id_user: RequestBody,
     ): Observable<RegisterAppointmentResponse>
+
+    @GET("api/")
+    fun getProvinces(
+        @Query("depth") depth: String,
+        @Query("fbclid") fbclid: String
+    ): Observable<ArrayList<Province>>
 }

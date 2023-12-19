@@ -1,6 +1,7 @@
 package com.example.appkhambenh.ui.base
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Point
@@ -29,6 +30,7 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
     lateinit var binding: B
     var screenWidth: Int = 0
     var screenHeight: Int = 0
+    val loading by lazy { ProgressDialog(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +40,10 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
         viewModel =
             ViewModelProvider(this)[(this::class.java.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<V>]
         viewModel.mPreferenceUtil = PreferenceUtil(this)
+
+        loading.setMessage("Please wait...")
+        loading.setTitle(getString(R.string.notification))
+        loading.setCancelable(false)
 
         fullScreen()
 
@@ -63,9 +69,9 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
     abstract fun getActivityBinding(inflater: LayoutInflater): B
 
     open fun bindData() {
-        viewModel.errorApiLiveData.observe(this, Observer {
+        viewModel.errorApiLiveData.observe(this) {
             show(it)
-        })
+        }
     }
 
     fun convertToRequestBody(str: String): RequestBody {

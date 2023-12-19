@@ -3,13 +3,16 @@ package com.example.appkhambenh.ui.ui.user.navigation.information
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentInformationBinding
 import com.example.appkhambenh.ui.base.BaseFragment
+import com.example.appkhambenh.ui.ui.user.avatar.EditAvatarActivity
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
 import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.example.appkhambenh.ui.utils.validateEmail
@@ -28,12 +31,20 @@ class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformati
         initUi()
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint("ClickableViewAccessibility", "IntentReset")
     private fun initUi() {
 
         disableButtonChangeInfo()
 
         binding.backInfo.setOnClickListener { back() }
+
+        binding.ciEditAvatar.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "images/"
+            intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+
+            startActivityForResult(intent, 100)
+        }
 
         binding.layoutInfo.setOnTouchListener { _, _ ->
             closeKeyboard()
@@ -95,7 +106,7 @@ class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformati
                 )
 
                 viewModel.isLoadingLiveData.observe(requireActivity()) { isLoading ->
-                    binding.loadingData.visibility = if (isLoading) View.VISIBLE else View.GONE
+                    if (isLoading) loading.show() else loading.dismiss()
                 }
 
                 viewModel.updateInfoSuccessfulLiveData.observe(requireActivity()) { isSuccessful ->
@@ -198,6 +209,16 @@ class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformati
     private fun enableButtonChangeInfo() {
         binding.changeInfo.alpha = 1f
         binding.changeInfo.isEnabled = true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 100 && resultCode == AppCompatActivity.RESULT_OK) {
+            val intent = Intent(requireActivity(), EditAvatarActivity::class.java)
+            intent.putExtra("uri_avatar", data?.data.toString())
+            startActivity(intent)
+        }
     }
 
     override fun getFragmentBinding(

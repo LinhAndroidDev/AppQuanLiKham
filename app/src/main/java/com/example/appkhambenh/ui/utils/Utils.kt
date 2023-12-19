@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appkhambenh.ui.model.DepartmentClinic
 import com.example.appkhambenh.ui.model.Doctor
-import com.example.appkhambenh.ui.ui.user.csyt.ConnectCsytActivity
+import com.example.appkhambenh.ui.ui.user.csyt.CsytActivity
 import com.example.appkhambenh.ui.ui.user.appointment.register.adapter.DepartmentAdapter
 import com.example.appkhambenh.ui.ui.user.appointment.register.adapter.DoctorAdapter
 import com.example.appkhambenh.ui.ui.user.doctor.SearchDoctorActivity
@@ -214,7 +214,7 @@ fun onClickFunction(index: Int, activity: FragmentActivity) {
         }
 
         Function.BOOK_CAPITAL.id -> {
-            val intent = Intent(activity, ConnectCsytActivity::class.java)
+            val intent = Intent(activity, CsytActivity::class.java)
             activity.startActivity(intent)
         }
 

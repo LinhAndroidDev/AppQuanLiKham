@@ -2,6 +2,7 @@ package com.example.appkhambenh.ui.base
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
@@ -24,12 +25,14 @@ import java.lang.reflect.ParameterizedType
 import java.util.*
 
 
+@Suppress("DEPRECATION")
 abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), IonFragmentBack {
 
     protected lateinit var viewModel: V
     protected lateinit var binding: B
     private var screenWidth: Int = 0
     private var screenHeight: Int = 0
+    val loading by lazy { ProgressDialog(requireActivity()) }
     val userId by lazy {
         viewModel.mPreferenceUtil.defaultPref()
             .getInt(PreferenceKey.USER_ID, -1)
@@ -76,6 +79,10 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
         activity?.let {
             viewModel.mPreferenceUtil = PreferenceUtil(it)
         }
+
+        loading.setMessage("Please wait...")
+        loading.setTitle(getString(R.string.notification))
+        loading.setCancelable(false)
 
         bindData()
 

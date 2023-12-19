@@ -12,41 +12,25 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/updateInfoMain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="vertical">
 
             <RelativeLayout
+                android:layout_marginTop="@dimen/dimen_60"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dimen_60"
-                android:paddingEnd="@dimen/dimen_20">
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginStart="@dimen/dimen_20"
-                    android:background="@drawable/boder_avatar"
-                    android:padding="@dimen/dimen_4">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/avtSetting"
-                        android:layout_width="@dimen/dimen_90"
-                        android:layout_height="@dimen/dimen_90"
-                        android:src="@drawable/user_ad" />
-                </RelativeLayout>
+                android:background="@drawable/boder_avatar"
+                android:padding="@dimen/dimen_4">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/ciEditAvatar"
-                    android:layout_width="@dimen/dimen_25"
-                    android:layout_height="@dimen/dimen_25"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginStart="@dimen/dimen_88"
-                    android:layout_marginBottom="@dimen/dimen_10"
-                    android:src="@drawable/icon_photograp" />
+                    android:id="@+id/avtSetting"
+                    android:layout_width="@dimen/dimen_90"
+                    android:layout_height="@dimen/dimen_90"
+                    android:src="@drawable/user_ad" />
             </RelativeLayout>
 
             <LinearLayout
@@ -241,6 +225,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/titleLanguage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/title_language"

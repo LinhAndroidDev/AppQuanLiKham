@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutInfo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.ui.user.navigation.information.FragmentInformation">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/layoutInfo"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="visible">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -40,20 +41,36 @@
 
             </RelativeLayout>
 
-            <RelativeLayout
+            <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dimen_20"
-                android:background="@drawable/boder_avatar"
-                android:padding="@dimen/dimen_4">
+                android:paddingEnd="@dimen/dimen_20">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_20"
+                    android:background="@drawable/boder_avatar"
+                    android:padding="@dimen/dimen_4">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/avatarInfo"
+                        android:layout_width="@dimen/dimen_90"
+                        android:layout_height="@dimen/dimen_90"
+                        android:src="@drawable/user_ad" />
+                </RelativeLayout>
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/avatarInfo"
-                    android:layout_width="@dimen/dimen_90"
-                    android:layout_height="@dimen/dimen_90"
-                    android:src="@drawable/user_ad" />
-            </RelativeLayout>
+                    android:id="@+id/ciEditAvatar"
+                    android:layout_width="@dimen/dimen_23"
+                    android:layout_height="@dimen/dimen_23"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="@dimen/dimen_90"
+                    android:layout_marginBottom="@dimen/dimen_10"
+                    android:src="@drawable/icon_photograp" />
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -117,27 +134,6 @@
                         android:layout_marginStart="@dimen/dimen_30" />
 
                 </LinearLayout>
-
-                <!--                <RadioGroup-->
-                <!--                    android:layout_marginTop="@dimen/dimen_5"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:orientation="horizontal">-->
-
-                <!--                    <RadioButton-->
-                <!--                        android:id="@+id/rbMan"-->
-                <!--                        android:text="@string/males"-->
-                <!--                        android:layout_width="@dimen/dimen_80"-->
-                <!--                        android:layout_height="@dimen/dimen_25"/>-->
-
-                <!--                    <RadioButton-->
-                <!--                        android:id="@+id/rbWomen"-->
-                <!--                        android:layout_marginStart="@dimen/dimen_30"-->
-                <!--                        android:text="@string/females"-->
-                <!--                        android:layout_width="@dimen/dimen_80"-->
-                <!--                        android:layout_height="@dimen/dimen_25"/>-->
-
-                <!--                </RadioGroup>-->
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -211,20 +207,6 @@
 
         </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/loadingData"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bg_loading"
-        android:gravity="center"
-        android:visibility="gone">
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-</RelativeLayout>
+</androidx.core.widget.NestedScrollView>

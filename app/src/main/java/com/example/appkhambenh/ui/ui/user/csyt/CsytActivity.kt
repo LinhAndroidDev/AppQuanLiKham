@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import com.example.appkhambenh.R
-import com.example.appkhambenh.databinding.ActivityConnectCsytBinding
+import com.example.appkhambenh.databinding.ActivityCsytBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.model.Csyt
 import com.example.appkhambenh.ui.ui.EmptyViewModel
@@ -15,7 +15,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class ConnectCsytActivity : BaseActivity<EmptyViewModel, ActivityConnectCsytBinding>() {
+class CsytActivity : BaseActivity<EmptyViewModel, ActivityCsytBinding>() {
 
     private val listCsyt by lazy { arrayListOf<Csyt>() }
     private val csytAdapter by lazy { CsytAdapter(listCsyt) }
@@ -31,7 +31,7 @@ class ConnectCsytActivity : BaseActivity<EmptyViewModel, ActivityConnectCsytBind
 
         binding.headerCsyt.visibleSearch()
         binding.headerCsyt.setTitle(getString(R.string.csyt))
-        binding.headerCsyt.setHint(getString(R.string.search_csyt))
+        binding.headerCsyt.setHintSearch(getString(R.string.search_csyt))
 
         GlobalScope.launch(Dispatchers.Main) {
             delay(300L)
@@ -40,7 +40,7 @@ class ConnectCsytActivity : BaseActivity<EmptyViewModel, ActivityConnectCsytBind
 
         csytAdapter.onClickItem = {
             if (it) {
-                val intent = Intent(this@ConnectCsytActivity, InfoCsytActivity::class.java)
+                val intent = Intent(this@CsytActivity, InfoCsytActivity::class.java)
                 startActivity(intent)
             }
         }
@@ -162,5 +162,5 @@ class ConnectCsytActivity : BaseActivity<EmptyViewModel, ActivityConnectCsytBind
     }
 
     override fun getActivityBinding(inflater: LayoutInflater) =
-        ActivityConnectCsytBinding.inflate(inflater)
+        ActivityCsytBinding.inflate(inflater)
 }

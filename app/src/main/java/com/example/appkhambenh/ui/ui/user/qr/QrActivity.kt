@@ -2,26 +2,26 @@ package com.example.appkhambenh.ui.ui.user.qr
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.appkhambenh.R
-import com.example.appkhambenh.ui.ui.user.HomeActivity
-import com.example.appkhambenh.ui.ui.user.HomeActivity.Companion.RESULT
+import com.example.appkhambenh.databinding.ActivityQrBinding
+import com.example.appkhambenh.ui.base.BaseActivity
+import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.google.zxing.Result
 import me.dm7.barcodescanner.zxing.ZXingScannerView
 
-@Suppress("DEPRECATION")
-class QrActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
 
-    var scannerView: ZXingScannerView? = null
+@Suppress("DEPRECATION")
+class QrActivity : BaseActivity<EmptyViewModel, ActivityQrBinding>(), ZXingScannerView.ResultHandler {
+
+    private var scannerView: ZXingScannerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_qr)
 
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
@@ -33,10 +33,13 @@ class QrActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
         setPermission()
     }
 
+    override fun getActivityBinding(inflater: LayoutInflater)
+    = ActivityQrBinding.inflate(inflater)
+
     override fun handleResult(p0: Result?) {
-        val intent = Intent(applicationContext, HomeActivity::class.java)
-        intent.putExtra(RESULT, p0.toString())
-        startActivity(intent)
+        val resultIntent = Intent()
+        resultIntent.putExtra("results", p0.toString())
+        setResult(RESULT_OK, resultIntent)
         finish()
     }
 
@@ -70,7 +73,7 @@ class QrActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
-        grantResults: IntArray
+        grantResults: IntArray,
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 

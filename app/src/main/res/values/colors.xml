@@ -47,4 +47,5 @@
     <color name="bg_cover_bottom_behavior">#40111111</color>
     <color name="bg_blue">#6AA0E6</color>
 
+    <color name="invisible">#00FFFFFF</color>
 </resources>

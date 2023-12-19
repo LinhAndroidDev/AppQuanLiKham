@@ -31,6 +31,7 @@
             android:layout_marginTop="@dimen/dimen_20">
 
             <TextView
+                android:id="@+id/titleChangeLanguage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|bottom"
@@ -62,6 +63,21 @@
 
         <com.example.appkhambenh.ui.ui.user.navigation.setting.CustomSelectLanguage
             android:id="@+id/english"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.example.appkhambenh.ui.ui.user.navigation.setting.CustomSelectLanguage
+            android:id="@+id/chinese"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.example.appkhambenh.ui.ui.user.navigation.setting.CustomSelectLanguage
+            android:id="@+id/japanese"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.example.appkhambenh.ui.ui.user.navigation.setting.CustomSelectLanguage
+            android:id="@+id/thailand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

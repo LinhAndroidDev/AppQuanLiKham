@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityHomeBinding
 import com.example.appkhambenh.ui.base.BaseActivity
-import com.example.appkhambenh.ui.ui.user.csyt.ConnectCsytActivity
+import com.example.appkhambenh.ui.ui.user.csyt.CsytActivity
 import com.example.appkhambenh.ui.ui.user.doctor.SearchDoctorActivity
 import com.example.appkhambenh.ui.ui.user.home.FragmentHome
 import com.example.appkhambenh.ui.ui.user.home.HomeViewModel
@@ -20,12 +20,10 @@ import com.example.appkhambenh.ui.utils.animRotation45
 import com.example.appkhambenh.ui.utils.animRotationBack0
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 @Suppress("DEPRECATION")
 class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
-    private var isRotateAdd = false
+    private var isExpandBook = false
     private val bottomSheetBehavior by lazy { BottomSheetBehavior.from(binding.bottomSheet.layoutBook) }
     private val bottomSelectLanguage by lazy { BottomSheetBehavior.from(binding.bottomSelectLanguage.layoutSelectLanguage) }
 
@@ -39,7 +37,6 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
         initUi()
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     @SuppressLint("ClickableViewAccessibility")
     private fun initUi() {
 
@@ -58,37 +55,44 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
         binding.bottomNvg.setOnClickListener(null)
 
         binding.bottomNvg.setOnItemSelectedListener {
-            if (isRotateAdd) {
-                isRotateAdd = false
-                animRotationBack0(binding.imgAdd)
-                collapsedBottomBook()
-            }
             val fmCurrent = supportFragmentManager.findFragmentById(R.id.changeIdHome)
             when (it.itemId) {
-                R.id.home -> if (fmCurrent !is FragmentHome) GlobalScope.launch {
-                    replaceFragment(
-                        FragmentHome()
-                    )
+                R.id.home -> {
+                    checkExpandBook()
+                    if (fmCurrent !is FragmentHome) {
+                        replaceFragment(
+                            FragmentHome()
+                        )
+                    }
                 }
 
-                R.id.profile -> if (fmCurrent !is FragmentInformation) GlobalScope.launch {
-                    replaceFragment(
-                        FragmentInformation()
-                    )
+                R.id.profile -> {
+                    checkExpandBook()
+                    if (fmCurrent !is FragmentInformation) {
+                        replaceFragment(
+                            FragmentInformation()
+                        )
+                    }
                 }
 
                 R.id.register -> rotateIconRegister()
 
-                R.id.notification -> if (fmCurrent !is FragmentNotification) GlobalScope.launch {
-                    replaceFragment(
-                        FragmentNotification()
-                    )
+                R.id.notification -> {
+                    checkExpandBook()
+                    if (fmCurrent !is FragmentNotification) {
+                        replaceFragment(
+                            FragmentNotification()
+                        )
+                    }
                 }
 
-                R.id.setting -> if (fmCurrent !is FragmentSetting) GlobalScope.launch {
-                    replaceFragment(
-                        FragmentSetting()
-                    )
+                R.id.setting -> {
+                    checkExpandBook()
+                    if (fmCurrent !is FragmentSetting) {
+                        replaceFragment(
+                            FragmentSetting()
+                        )
+                    }
                 }
             }
             true
@@ -101,13 +105,21 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
         binding.layoutCoverBottom.setOnTouchListener { _, _ -> true }
     }
 
+    private fun checkExpandBook() {
+        if (isExpandBook) {
+            isExpandBook = false
+            animRotationBack0(binding.imgAdd)
+            collapsedBottomBook()
+        }
+    }
+
     private fun rotateIconRegister() {
-        if (isRotateAdd) {
-            isRotateAdd = false
+        if (isExpandBook) {
+            isExpandBook = false
             animRotationBack0(binding.imgAdd)
             collapsedBottomBook()
         } else {
-            isRotateAdd = true
+            isExpandBook = true
             animRotation45(binding.imgAdd)
             expandBottomBook()
         }
@@ -117,11 +129,6 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
     private fun replaceFragment(fm: Fragment) {
         val fg = supportFragmentManager.beginTransaction()
         fg.replace(R.id.changeIdHome, fm).commit()
-    }
-
-    internal fun goToEditProfile() {
-        replaceFragment(FragmentInformation())
-        binding.bottomNvg.menu.findItem(R.id.profile).isChecked = true
     }
 
     internal fun hideIconBook() {
@@ -152,7 +159,7 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
 
         binding.bottomSheet.layoutCoverSheet.setOnTouchListener { _, _ ->
             binding.bottomSheet.layoutCoverSheet.isEnabled = false
-            isRotateAdd = false
+            isExpandBook = false
             animRotationBack0(binding.imgAdd)
             collapsedBottomBook()
             true
@@ -164,7 +171,7 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
         }
 
         binding.bottomSheet.bottomCsyt.setOnClickListener {
-            val intent = Intent(this@HomeActivity, ConnectCsytActivity::class.java)
+            val intent = Intent(this@HomeActivity, CsytActivity::class.java)
             startActivity(intent)
         }
     }
@@ -174,33 +181,63 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
 
         val language = viewModel.mPreferenceUtil.defaultPref()
             .getString(PreferenceKey.LANGUAGE, "vi").toString()
-        if (language == "vi") {
-            binding.bottomSelectLanguage.vietnamese.selectLanguage()
-            binding.bottomSelectLanguage.english.unSelectLanguage()
-        } else {
-            binding.bottomSelectLanguage.vietnamese.unSelectLanguage()
-            binding.bottomSelectLanguage.english.selectLanguage()
+
+        when (language) {
+            "vi" -> {
+                unSelectLanguage()
+                binding.bottomSelectLanguage.vietnamese.selectLanguage()
+            }
+
+            "en" -> {
+                unSelectLanguage()
+                binding.bottomSelectLanguage.english.selectLanguage()
+            }
+
+            "zh" -> {
+                unSelectLanguage()
+                binding.bottomSelectLanguage.chinese.selectLanguage()
+            }
+
+            "ja" -> {
+                unSelectLanguage()
+                binding.bottomSelectLanguage.japanese.selectLanguage()
+            }
+
+            "th" -> {
+                unSelectLanguage()
+                binding.bottomSelectLanguage.thailand.selectLanguage()
+            }
         }
 
         binding.bottomSelectLanguage.vietnamese.setText("Tiếng Việt")
         binding.bottomSelectLanguage.english.setText("English")
+        binding.bottomSelectLanguage.chinese.setText("中国人")
+        binding.bottomSelectLanguage.japanese.setText("日本語")
+        binding.bottomSelectLanguage.thailand.setText("แบบไทย")
 
         binding.bottomSelectLanguage.vietnamese.setOnClickListener {
-            viewModel.mPreferenceUtil.defaultPref()
-                .edit().putString(PreferenceKey.LANGUAGE, "vi").apply()
-            setLanguage(this, "vi")
+            resetLanguage("vi")
             binding.bottomSelectLanguage.vietnamese.selectLanguage()
-            binding.bottomSelectLanguage.english.unSelectLanguage()
-            changeLanguageText()
         }
 
         binding.bottomSelectLanguage.english.setOnClickListener {
-            viewModel.mPreferenceUtil.defaultPref()
-                .edit().putString(PreferenceKey.LANGUAGE, "en").apply()
-            setLanguage(this, "en")
+            resetLanguage("en")
             binding.bottomSelectLanguage.english.selectLanguage()
-            binding.bottomSelectLanguage.vietnamese.unSelectLanguage()
-            changeLanguageText()
+        }
+
+        binding.bottomSelectLanguage.chinese.setOnClickListener {
+            resetLanguage("zh")
+            binding.bottomSelectLanguage.chinese.selectLanguage()
+        }
+
+        binding.bottomSelectLanguage.japanese.setOnClickListener {
+            resetLanguage("ja")
+            binding.bottomSelectLanguage.japanese.selectLanguage()
+        }
+
+        binding.bottomSelectLanguage.thailand.setOnClickListener {
+            resetLanguage("th")
+            binding.bottomSelectLanguage.thailand.selectLanguage()
         }
 
         bottomSelectLanguage.addBottomSheetCallback(object :
@@ -234,6 +271,22 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
         }
 
         binding.bottomSelectLanguage.layoutMainLanguage.setOnTouchListener { _, _ -> true }
+    }
+
+    private fun resetLanguage(language: String) {
+        viewModel.mPreferenceUtil.defaultPref()
+            .edit().putString(PreferenceKey.LANGUAGE, language).apply()
+        setLanguage(this, language)
+        unSelectLanguage()
+        changeLanguageText()
+    }
+
+    private fun unSelectLanguage() {
+        binding.bottomSelectLanguage.vietnamese.unSelectLanguage()
+        binding.bottomSelectLanguage.english.unSelectLanguage()
+        binding.bottomSelectLanguage.chinese.unSelectLanguage()
+        binding.bottomSelectLanguage.japanese.unSelectLanguage()
+        binding.bottomSelectLanguage.thailand.unSelectLanguage()
     }
 
     internal fun expandBottomSelectLanguage() {
@@ -272,6 +325,8 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
         binding.bottomSheet.noteServiceBook.text = getString(R.string.note_health_services)
         binding.bottomSheet.titleCsytBook.text = getString(R.string.csyt)
         binding.bottomSheet.noteCsytBook.text = getString(R.string.note_csyt)
+
+        binding.bottomSelectLanguage.titleChangeLanguage.text = getString(R.string.select_language)
     }
 
     override fun onBackPressed() {
@@ -281,8 +336,8 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
         } else {
             replaceFragment(FragmentHome())
             binding.bottomNvg.menu.findItem(R.id.home).isChecked = true
-            if (isRotateAdd) {
-                isRotateAdd = false
+            if (isExpandBook) {
+                isExpandBook = false
                 animRotationBack0(binding.imgAdd)
                 collapsedBottomBook()
             }

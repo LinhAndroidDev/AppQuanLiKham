@@ -1,6 +1,5 @@
 package com.example.appkhambenh.ui.ui.user.avatar
 
-import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -23,35 +22,28 @@ import java.util.*
 
 @Suppress("DEPRECATION")
 class EditAvatarActivity : BaseActivity<UploadImageViewModel, ActivityEditAvatarBinding>() {
-    var imgUri: Uri? = null
-    var loading: ProgressDialog? = null
+    private var imgUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        loading = ProgressDialog(this)
-        loading!!.setTitle("Thông báo")
-        loading!!.setMessage("Đang tải ảnh lên...")
 
         initUi()
     }
 
     override fun bindData() {
         super.bindData()
-        viewModel.loadingLiveData.observe(this, androidx.lifecycle.Observer {
-            if (!it) {
-                loading!!.dismiss()
-            }
-        })
+        viewModel.loadingLiveData.observe(this) {
+            if (!it) loading.dismiss()
+        }
 
-        viewModel.isSuccessfulLiveData.observe(this, androidx.lifecycle.Observer {
+        viewModel.isSuccessfulLiveData.observe(this) {
             if (it) {
                 Toast.makeText(this, " Bạn đã cập nhật ảnh đại diện", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this@EditAvatarActivity, HomeActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             }
-        })
+        }
     }
 
     private fun initUi() {
@@ -77,7 +69,7 @@ class EditAvatarActivity : BaseActivity<UploadImageViewModel, ActivityEditAvatar
         val now = Date()
         val fileName = formatter.format(now)
         val storage = FirebaseStorage.getInstance().getReference("images/$fileName")
-        loading!!.show()
+        loading.show()
 
         storage.putFile(imgUri!!).addOnSuccessListener {
             val storageRef = Firebase.storage.reference.child("images/$fileName")

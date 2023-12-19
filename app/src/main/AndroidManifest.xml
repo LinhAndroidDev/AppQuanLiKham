@@ -27,6 +27,16 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.ui.user.navigation.setting.address.AddressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ui.user.navigation.setting.ScanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ui.user.navigation.setting.UpdateInformationActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity
             android:name=".ui.ui.user.csyt.InfoCsytActivity"
             android:exported="false" />
         <activity
@@ -36,7 +46,7 @@
             android:name=".ui.ui.user.doctor.SearchDoctorActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ui.user.csyt.ConnectCsytActivity"
+            android:name=".ui.ui.user.csyt.CsytActivity"
             android:exported="false" />
         <activity
             android:name=".ui.ui.user.navigation.password.ChangePasswordActivity"

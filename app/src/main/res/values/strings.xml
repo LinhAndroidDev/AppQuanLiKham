@@ -165,4 +165,23 @@
     <string name="my_favourites">Tính năng của tôi</string>
     <string name="new_favourites">Mới</string>
     <string name="top_medical_facility">Cơ sở y tế hàng đầu</string>
+    <string name="change_appoint_successful">Bạn đã thay đổi lịch hẹn thành công</string>
+    <string name="at_medical_facility">Tại cơ sở y tế</string>
+    <string name="note_CCCD">Quét CCCD để nhập nhanh thông tin</string>
+    <string name="CCCD">Số Căn cước/ CMTND</string>
+    <string name="enter_CCCD">Nhập số CCCD</string>
+    <string name="ethnic">Dân tộc</string>
+    <string name="search_ethnic">Tìm kiếm dân tộc</string>
+    <string name="nationality">Quốc tich</string>
+    <string name="search_nationality">Tìm kiếm quốc tich</string>
+    <string name="job">Nghề nghiệp</string>
+    <string name="search_job">Tìm kiếm nghề nghiệp</string>
+    <string name="select_job">Lựa chọn nghề nghiệp</string>
+    <string name="note_scan">Di chuyển camera đến vùng chứa mã QR để quét</string>
+    <string name="select_province">Chọn Tỉnh/Thành phố</string>
+    <string name="select_district">Chọn Quận/ Huyện</string>
+    <string name="select_ward">Chọn Xã/ Phường</string>
+    <string name="complete">Hoàn thành</string>
+    <string name="search_address">Tìm kiếm địa ch</string>
+    <string name="title_scan">Quét mã CCCD</string>
 </resources>

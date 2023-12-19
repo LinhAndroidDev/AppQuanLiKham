@@ -12,6 +12,8 @@ import com.example.appkhambenh.R
 
 class TopCsytAdapter(val context: Context, private val csyts: ArrayList<Int>) : Adapter<TopCsytAdapter.ViewHolder>() {
 
+    var onCLickItem: ((Boolean) -> Unit)? = null
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val viewStart: View = itemView.findViewById(R.id.viewStartTopCsyt)
     }
@@ -35,6 +37,7 @@ class TopCsytAdapter(val context: Context, private val csyts: ArrayList<Int>) : 
                 }
                 MotionEvent.ACTION_UP ->{
                     holder.itemView.alpha = 1f
+                    onCLickItem?.invoke(true)
                 }
                 MotionEvent.ACTION_CANCEL->{
                     holder.itemView.alpha = 1f

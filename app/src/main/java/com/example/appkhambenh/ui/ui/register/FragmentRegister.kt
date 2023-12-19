@@ -2,7 +2,6 @@ package com.example.appkhambenh.ui.ui.register
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,10 +31,6 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
     override fun bindData() {
         super.bindData()
 
-        val loadData = ProgressDialog(requireActivity())
-        loadData.setTitle("Thông báo")
-        loadData.setMessage("Please wait...")
-
         viewModel.registerSuccessful.observe(viewLifecycleOwner) { isSuccessful ->
             if (isSuccessful) {
                 activity?.onBackPressed()
@@ -43,11 +38,7 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
         }
 
         viewModel.loadingLiveData.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) {
-                loadData.show()
-            } else {
-                loadData.dismiss()
-            }
+            if (isLoading) loading.show() else loading.dismiss()
         }
     }
 

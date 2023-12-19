@@ -53,7 +53,7 @@ class CustomHeader : LinearLayout {
         binding.titleHeader.text = title
     }
 
-    fun setHint(hint: String) {
+    fun setHintSearch(hint: String) {
         binding.searchHeader.setHint(hint)
     }
 
@@ -67,5 +67,9 @@ class CustomHeader : LinearLayout {
 
     fun visibleSearch() {
         binding.searchHeader.visibility = View.VISIBLE
+    }
+
+    fun clearSearch() {
+        binding.searchHeader.clearText()
     }
 }

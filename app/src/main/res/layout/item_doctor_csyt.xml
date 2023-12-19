@@ -100,7 +100,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Giá khám:"
+            android:text="@string/price"
             android:textColor="@color/black"
             android:textSize="@dimen/dimen_sp14" />
 
@@ -207,7 +207,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tại cơ sở y tế"
+                            android:text="@string/at_medical_facility"
                             android:textColor="@color/white"
                             android:textSize="@dimen/dimen_sp12" />
 
