@@ -14,14 +14,12 @@ import com.example.appkhambenh.databinding.FragmentTimeWorkingBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.ui.user.appointment.register.FragmentAppointment
 import com.example.appkhambenh.ui.ui.user.appointment.time.adapter.WorkingTimeAdapter
-import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-@Suppress("DEPRECATION")
 class FragmentTimeWorking : BaseFragment<TimeWorkingViewModel, FragmentTimeWorkingBinding>() {
-    lateinit var workingTimeAdapter: WorkingTimeAdapter
+    private lateinit var workingTimeAdapter: WorkingTimeAdapter
 
     @RequiresApi(Build.VERSION_CODES.O)
     var formatDay = SimpleDateFormat("EEEE", Locale("vi", "VN"))
@@ -99,15 +97,9 @@ class FragmentTimeWorking : BaseFragment<TimeWorkingViewModel, FragmentTimeWorki
                     fm.hide(requireActivity().supportFragmentManager.findFragmentByTag("FragmentTimeWorking")!!)
                         .add(R.id.changeIdAppointment, fragmentAppointment)
                         .addToBackStack(null).commit()
-                    viewModel.mPreferenceUtil.defaultPref()
-                        .edit().putString(PreferenceKey.DATE_APPOINTMENT, date)
-                        .apply()
-                    viewModel.mPreferenceUtil.defaultPref()
-                        .edit().putString(PreferenceKey.HOUR_APPOINTMENT, it.hour)
-                        .apply()
-                    viewModel.mPreferenceUtil.defaultPref()
-                        .edit().putInt(PreferenceKey.ID_DAY, workingDate.id_day!!)
-                        .apply()
+                    sharePrefer.saveDateAppoint(date)
+                    sharePrefer.saveHourAppoint(it.hour ?: "")
+                    sharePrefer.saveIdDay(workingDate.id_day ?: -1)
                 }
             }else {
                 binding.rcvTimeWorking.visibility = View.GONE

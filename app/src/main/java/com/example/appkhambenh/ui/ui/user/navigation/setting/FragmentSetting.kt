@@ -14,7 +14,6 @@ import com.example.appkhambenh.ui.ui.MainActivity
 import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
 import com.example.appkhambenh.ui.ui.user.navigation.password.ChangePasswordActivity
-import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.squareup.picasso.Picasso
 
 class FragmentSetting : BaseFragment<EmptyViewModel, FragmentSettingBinding>() {
@@ -28,23 +27,18 @@ class FragmentSetting : BaseFragment<EmptyViewModel, FragmentSettingBinding>() {
     @SuppressLint("IntentReset")
     private fun initUi() {
 
-        viewModel.mPreferenceUtil.defaultPref().getString(PreferenceKey.USER_AVATAR, "")
-            .let {
-                if(it!!.isEmpty()){
-                    binding.avtSetting.setImageResource(R.drawable.user_ad)
-                }else{
-                    Picasso.get().load(it)
-                        .placeholder(R.drawable.user_ad)
-                        .error(R.drawable.user_ad)
-                        .into(binding.avtSetting)
-                }
+        sharePrefer.getUserAvatar().let {
+            if (it.isNotEmpty()) {
+                Picasso.get().load(it)
+                    .placeholder(R.drawable.user_ad)
+                    .error(R.drawable.user_ad)
+                    .into(binding.avtSetting)
             }
+        }
 
-        binding.nameSetting.text = viewModel.mPreferenceUtil.defaultPref()
-            .getString(PreferenceKey.USER_NAME, "")
+        binding.nameSetting.text = sharePrefer.getUserName()
 
-        binding.phoneSetting.text = viewModel.mPreferenceUtil.defaultPref()
-            .getString(PreferenceKey.USER_PHONE, "")
+        binding.phoneSetting.text = sharePrefer.getUserPhone()
 
         binding.avtSetting.setOnClickListener {
             val intent = Intent(requireActivity(), SeeAvatarActivity::class.java)
@@ -75,13 +69,11 @@ class FragmentSetting : BaseFragment<EmptyViewModel, FragmentSettingBinding>() {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
 
-            viewModel.mPreferenceUtil.defaultPref()
-                .edit().putBoolean(PreferenceKey.CHECK_LOGIN, false)
-                .apply()
+            sharePrefer.saveCheckLogin(false)
         }
     }
 
-    fun changeLanguageTextSetting(){
+    fun changeLanguageTextSetting() {
         binding.txtUpdateInfo.text = getString(R.string.update_info_person)
         binding.txtNoteUpdateInfo.text = getString(R.string.note_update_info_person)
         binding.txtSetting.text = getString(R.string.setting)
@@ -98,6 +90,6 @@ class FragmentSetting : BaseFragment<EmptyViewModel, FragmentSettingBinding>() {
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    )= FragmentSettingBinding.inflate(inflater)
+    ) = FragmentSettingBinding.inflate(inflater)
 
 }

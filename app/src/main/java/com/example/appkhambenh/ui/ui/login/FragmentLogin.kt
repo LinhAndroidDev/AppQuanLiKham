@@ -15,12 +15,8 @@ import com.example.appkhambenh.databinding.FragmentLoginBinding
 import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.ui.register.FragmentRegister
-import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.example.appkhambenh.ui.utils.validateEmail
 import com.example.appkhambenh.ui.utils.validatePassword
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 
 @Suppress("DEPRECATION")
 class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
@@ -46,18 +42,16 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
         viewModel.loginSuccessLiveData.observe(viewLifecycleOwner) { isSuccessful ->
             if (isSuccessful) {
                 if (binding.checkForgetPassword.isChecked) {
-                    val email = binding.edtAccount.text.toString()
-                    val password = binding.edtPassword.text.toString()
-                    saveAccount(email, password, true)
+                    saveAccount(
+                        email = binding.edtAccount.text.toString(),
+                        password = binding.edtPassword.text.toString(),
+                        isForget = true
+                    )
                 } else if (!binding.checkForgetPassword.isChecked) {
-                    val email = ""
-                    val password = ""
-                    saveAccount(email, password, false)
+                    saveAccount("", "", false)
                 }
 
-                viewModel.mPreferenceUtil.defaultPref()
-                    .edit().putBoolean(PreferenceKey.CHECK_LOGIN, true)
-                    .apply()
+                sharePrefer.saveCheckLogin(true)
 
                 val intent = Intent(requireActivity(), HomeActivity::class.java)
                 startActivity(intent)
@@ -67,15 +61,9 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
     }
 
     private fun saveAccount(email: String, password: String, isForget: Boolean) {
-        viewModel.mPreferenceUtil.defaultPref()
-            .edit().putString(PreferenceKey.EMAIL, email)
-            .apply()
-        viewModel.mPreferenceUtil.defaultPref()
-            .edit().putString(PreferenceKey.PASSWORD, password)
-            .apply()
-        viewModel.mPreferenceUtil.defaultPref()
-            .edit().putBoolean(PreferenceKey.FORGET_PASSWORD, isForget)
-            .apply()
+        sharePrefer.saveEmail(email)
+        sharePrefer.savePassword(password)
+        sharePrefer.saveRememberPassword(isForget)
     }
 
     @SuppressLint("CommitTransaction", "ClickableViewAccessibility")
@@ -106,12 +94,11 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
             } else {
                 binding.notificationLogin.visibility = View.GONE
 
-                val requestBodyEmail: RequestBody =
-                    email.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-                val requestBodyPassword: RequestBody =
-                    password.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-
-                viewModel.requestLoginUser(requestBodyEmail, requestBodyPassword)
+                viewModel.requestLoginUser(
+                    convertToRequestBody(email),
+                    convertToRequestBody(password),
+                    requireActivity()
+                )
             }
         }
 
@@ -129,15 +116,8 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
     }
 
     private fun checkSaveAccount() {
-        val email = viewModel.mPreferenceUtil.defaultPref()
-            .getString(PreferenceKey.EMAIL, "")
-        val password = viewModel.mPreferenceUtil.defaultPref()
-            .getString(PreferenceKey.PASSWORD, "")
-        val isForgetPassword = viewModel.mPreferenceUtil.defaultPref()
-            .getBoolean(PreferenceKey.FORGET_PASSWORD, false)
-
-        binding.edtAccount.setText(email)
-        binding.edtPassword.setText(password)
+        binding.edtAccount.setText(sharePrefer.getEmail())
+        binding.edtPassword.setText(sharePrefer.getPassword())
         binding.checkForgetPassword.isChecked = true
     }
 

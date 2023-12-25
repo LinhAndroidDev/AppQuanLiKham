@@ -11,13 +11,11 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.example.appkhambenh.R
-import com.example.appkhambenh.ui.utils.PreferenceKey
-import com.example.appkhambenh.ui.utils.PreferenceUtil
-import com.example.appkhambenh.ui.utils.dpToPx
+import com.example.appkhambenh.ui.utils.ConvertUtils.dpToPx
+import com.example.appkhambenh.ui.utils.SharePreferenceRepositoryImpl
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -31,6 +29,7 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
     var screenWidth: Int = 0
     var screenHeight: Int = 0
     val loading by lazy { ProgressDialog(this) }
+    lateinit var sharePrefer: SharePreferenceRepositoryImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +38,8 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
 
         viewModel =
             ViewModelProvider(this)[(this::class.java.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<V>]
-        viewModel.mPreferenceUtil = PreferenceUtil(this)
+
+        sharePrefer = SharePreferenceRepositoryImpl(this)
 
         loading.setMessage("Please wait...")
         loading.setTitle(getString(R.string.notification))
@@ -51,9 +51,8 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
 
         bindData()
 
-        val language = viewModel.mPreferenceUtil.defaultPref()
-            .getString(PreferenceKey.LANGUAGE, "vi").toString()
-        if (language.isNotEmpty()) setLanguage(this, language)
+        val t = sharePrefer.getLanguage()
+        setLanguage(this, sharePrefer.getLanguage())
     }
 
     private fun animChangeScreen() {

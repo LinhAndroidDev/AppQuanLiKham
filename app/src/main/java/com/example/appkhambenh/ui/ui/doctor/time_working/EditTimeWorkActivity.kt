@@ -19,7 +19,6 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityEditTimeWorkBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.ui.doctor.time_working.adapter.EditTimeAdapter
-import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.database.*
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -32,10 +31,7 @@ import java.util.concurrent.TimeUnit
 class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEditTimeWorkBinding>() {
     private lateinit var bottomShareBehavior: BottomSheetBehavior<View>
     private lateinit var editTimeAdapter: EditTimeAdapter
-    private val idDoctor by lazy {
-        viewModel.mPreferenceUtil.defaultPref()
-            .getInt(PreferenceKey.USER_ID, -1).toString()
-    }
+    private val idDoctor by lazy { sharePrefer.getUserId().toString() }
 
     private val formatDay by lazy { SimpleDateFormat("EEEE", Locale("vi", "VN")) }
     private val formatDayOfMonth by lazy { SimpleDateFormat("dd", Locale("vi", "VN")) }
@@ -188,12 +184,10 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
 
         selectHour.setOnClickListener {
             if (type == 1) {
-                val id_doctor = viewModel.mPreferenceUtil.defaultPref()
-                    .getInt(PreferenceKey.USER_ID, -1).toString()
                 viewModel.updateWorkingTime(
                     convertToRequestBody(binding.txtTimeEdit.text.toString()),
                     convertToRequestBody("$strHour:$strMinute"),
-                    convertToRequestBody(id_doctor)
+                    convertToRequestBody(idDoctor)
                 )
 
                 Observable.just(1)
@@ -203,7 +197,7 @@ class EditTimeWorkActivity : BaseActivity<EditTimeWorkingViewModel, ActivityEdit
                     .subscribe {
                         viewModel.getListWorkingTime(
                             convertToRequestBody(binding.txtTimeEdit.text.toString()),
-                            convertToRequestBody(id_doctor)
+                            convertToRequestBody(idDoctor)
                         )
                         getData()
                         dialog.dismiss()

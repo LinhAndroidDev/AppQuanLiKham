@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import com.example.appkhambenh.databinding.FragmentNotificationBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.ui.user.navigation.notification.adapter.NotificationAdapter
-import com.example.appkhambenh.ui.utils.PreferenceKey
 
 class FragmentNotification : BaseFragment<NotificationViewModel, FragmentNotificationBinding>(){
-    lateinit var notificationAdapter: NotificationAdapter
+    private lateinit var notificationAdapter: NotificationAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -22,8 +21,7 @@ class FragmentNotification : BaseFragment<NotificationViewModel, FragmentNotific
 
         viewModel.getListNotification(
             convertToRequestBody(
-                viewModel.mPreferenceUtil.defaultPref()
-                    .getInt(PreferenceKey.USER_ID, -1).toString()
+                sharePrefer.getUserId().toString()
             )
         )
 

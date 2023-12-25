@@ -10,13 +10,9 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityEditAvatarBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.ui.user.HomeActivity
-import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -38,7 +34,7 @@ class EditAvatarActivity : BaseActivity<UploadImageViewModel, ActivityEditAvatar
 
         viewModel.isSuccessfulLiveData.observe(this) {
             if (it) {
-                Toast.makeText(this, " Bạn đã cập nhật ảnh đại diện", Toast.LENGTH_SHORT).show()
+                show(getString(R.string.update_avatar_successful))
                 val intent = Intent(this@EditAvatarActivity, HomeActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
@@ -84,13 +80,10 @@ class EditAvatarActivity : BaseActivity<UploadImageViewModel, ActivityEditAvatar
     }
 
     private fun sendToServer(avatar: String) {
-        val useId = viewModel.mPreferenceUtil.defaultPref()
-            .getInt(PreferenceKey.USER_ID, 0).toString()
-        val requestUserId: RequestBody =
-            useId.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val requestAvatar: RequestBody =
-            avatar.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        viewModel.uploadImage(requestUserId, requestAvatar)
+        viewModel.uploadImage(
+            convertToRequestBody(sharePrefer.getUserId().toString()),
+            convertToRequestBody(avatar)
+        )
     }
 
     override fun getActivityBinding(inflater: LayoutInflater) =

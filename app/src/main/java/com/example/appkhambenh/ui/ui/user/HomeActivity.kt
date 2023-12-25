@@ -15,11 +15,9 @@ import com.example.appkhambenh.ui.ui.user.home.HomeViewModel
 import com.example.appkhambenh.ui.ui.user.navigation.information.FragmentInformation
 import com.example.appkhambenh.ui.ui.user.navigation.notification.FragmentNotification
 import com.example.appkhambenh.ui.ui.user.navigation.setting.FragmentSetting
-import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.example.appkhambenh.ui.utils.animRotation45
 import com.example.appkhambenh.ui.utils.animRotationBack0
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import kotlinx.coroutines.DelicateCoroutinesApi
 
 @Suppress("DEPRECATION")
 class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
@@ -179,10 +177,7 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
     @SuppressLint("ClickableViewAccessibility", "CommitPrefEdits")
     private fun initBottomSelectLanguage() {
 
-        val language = viewModel.mPreferenceUtil.defaultPref()
-            .getString(PreferenceKey.LANGUAGE, "vi").toString()
-
-        when (language) {
+        when (sharePrefer.getLanguage()) {
             "vi" -> {
                 unSelectLanguage()
                 binding.bottomSelectLanguage.vietnamese.selectLanguage()
@@ -274,8 +269,7 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
     }
 
     private fun resetLanguage(language: String) {
-        viewModel.mPreferenceUtil.defaultPref()
-            .edit().putString(PreferenceKey.LANGUAGE, language).apply()
+        sharePrefer.saveLanguage(language)
         setLanguage(this, language)
         unSelectLanguage()
         changeLanguageText()

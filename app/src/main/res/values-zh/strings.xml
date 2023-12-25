@@ -184,4 +184,6 @@
     <string name="complete">已完成</string>
     <string name="search_address">搜索地址</string>
     <string name="title_scan">扫描CCCD码</string>
+    <string name="enter_number_house">输入门牌号码和街道名称</string>
+    <string name="update_avatar_successful">您已更新您的个人资料图片</string>
 </resources>

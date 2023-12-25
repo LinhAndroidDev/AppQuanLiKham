@@ -172,7 +172,7 @@
     <string name="enter_CCCD">Nhập số CCCD</string>
     <string name="ethnic">Dân tộc</string>
     <string name="search_ethnic">Tìm kiếm dân tộc</string>
-    <string name="nationality">Quốc tich</string>
+    <string name="nationality">Quốc tịch</string>
     <string name="search_nationality">Tìm kiếm quốc tich</string>
     <string name="job">Nghề nghiệp</string>
     <string name="search_job">Tìm kiếm nghề nghiệp</string>
@@ -182,6 +182,8 @@
     <string name="select_district">Chọn Quận/ Huyện</string>
     <string name="select_ward">Chọn Xã/ Phường</string>
     <string name="complete">Hoàn thành</string>
-    <string name="search_address">Tìm kiếm địa ch</string>
+    <string name="search_address">Tìm kiếm địa chỉ</string>
     <string name="title_scan">Quét mã CCCD</string>
+    <string name="enter_number_house">Nhập số nhà, tên đường</string>
+    <string name="update_avatar_successful">Bạn đã cập nhật ảnh đại diện</string>
 </resources>

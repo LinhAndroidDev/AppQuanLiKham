@@ -7,11 +7,20 @@ import android.view.View
 import android.widget.LinearLayout
 import com.example.appkhambenh.databinding.LayoutHeaderCommonBinding
 import com.example.appkhambenh.ui.base.BaseActivity
+import com.example.appkhambenh.ui.utils.ConvertUtils.dpToPx
+import com.example.appkhambenh.ui.utils.collapseView
+import com.example.appkhambenh.ui.utils.expandView
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class CustomHeader : LinearLayout {
     val binding by lazy { LayoutHeaderCommonBinding.inflate(LayoutInflater.from(context)) }
     var isRevert: ((Boolean) -> Unit)? = null
     var searchItem: ((String) -> Unit)? = null
+    var isExpand = false
 
     constructor(context: Context?) : super(context) {
         initView()
@@ -47,6 +56,11 @@ class CustomHeader : LinearLayout {
         binding.searchHeader.keySearch = {
             searchItem?.invoke(it)
         }
+
+        binding.iconSearch.setOnClickListener {
+            isExpand = !isExpand
+            if (isExpand) visibleSearch() else goneSearch()
+        }
     }
 
     fun setTitle(title: String) {
@@ -67,6 +81,15 @@ class CustomHeader : LinearLayout {
 
     fun visibleSearch() {
         binding.searchHeader.visibility = View.VISIBLE
+        expandView(binding.searchHeader, 34.dpToPx(context))
+    }
+
+    fun goneSearch() {
+        collapseView(binding.searchHeader)
+    }
+
+    fun visibleIconSearch() {
+        binding.iconSearch.visibility = View.VISIBLE
     }
 
     fun clearSearch() {

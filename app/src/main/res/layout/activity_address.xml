@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_common"
     tools:context=".ui.ui.user.navigation.setting.address.AddressActivity">
 
     <LinearLayout
@@ -16,65 +17,74 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <TextView
-            android:layout_marginTop="@dimen/dimen_15"
-            android:layout_marginStart="@dimen/dimen_15"
-            android:text="@string/address_user"
-            android:textSize="@dimen/dimen_sp16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <RadioGroup
-            android:layout_marginTop="@dimen/dimen_5"
-            android:layout_marginStart="@dimen/dimen_15"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimen_10"
+            android:background="@color/white"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/rbProvince"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:button="@null"
-                android:drawableStart="@drawable/address_selector"
-                android:drawablePadding="@dimen/dimen_15"
-                android:text="@string/select_province"
+            <TextView
+                android:layout_marginTop="@dimen/dimen_15"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:text="@string/address_user"
                 android:textSize="@dimen/dimen_sp16"
-                android:textColor="@color/background"
-                android:enabled="false"/>
-
-            <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/rbDistrict"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioGroup
+                android:layout_marginTop="@dimen/dimen_5"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:button="@null"
-                android:drawableStart="@drawable/address_selector"
-                android:drawablePadding="@dimen/dimen_15"
-                android:text="@string/select_district"
-                android:textSize="@dimen/dimen_sp16"
-                android:textColor="@color/background"
-                android:visibility="gone"
-                android:enabled="false"/>
+                android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/rbWard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:button="@null"
-                android:drawableStart="@drawable/address_selector"
-                android:drawablePadding="@dimen/dimen_15"
-                android:text="@string/select_ward"
-                android:textSize="@dimen/dimen_sp16"
-                android:textColor="@color/background"
-                android:visibility="gone"
-                android:enabled="false"/>
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rbProvince"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableStart="@drawable/address_selector"
+                    android:drawablePadding="@dimen/dimen_15"
+                    android:text="@string/select_province"
+                    android:textSize="@dimen/dimen_sp16"
+                    android:textColor="@color/background" />
 
-        </RadioGroup>
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rbDistrict"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableStart="@drawable/address_selector"
+                    android:drawablePadding="@dimen/dimen_15"
+                    android:text="@string/select_district"
+                    android:textSize="@dimen/dimen_sp16"
+                    android:textColor="@color/background"
+                    android:visibility="gone" />
 
-        <View
-            android:background="@color/bg_common"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_10"/>
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rbWard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableStart="@drawable/address_selector"
+                    android:drawablePadding="@dimen/dimen_15"
+                    android:text="@string/select_ward"
+                    android:textSize="@dimen/dimen_sp16"
+                    android:textColor="@color/background"
+                    android:visibility="gone" />
+
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/nameRoad"
+                android:layout_marginTop="@dimen/dimen_10"
+                style="@style/edt_update_information"
+                android:hint="@string/enter_number_house"
+                android:textColorHint="@color/grey_1"
+                android:inputType="textEmailAddress"
+                android:visibility="gone" />
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvAddress"
@@ -82,6 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/dimen_3"
+            android:background="@color/white"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         <View

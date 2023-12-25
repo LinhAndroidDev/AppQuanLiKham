@@ -14,7 +14,6 @@ import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.ui.user.navigation.setting.adapter.InformationAdapter
 import com.example.appkhambenh.ui.ui.user.navigation.setting.address.AddressActivity
 import com.example.appkhambenh.ui.utils.Address
-import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
@@ -29,6 +28,9 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
     companion object {
         const val REQUEST_SCAN = 2
         const val REQUEST_ADDRESS = 3
+        const val ETHNICS = "ETHNICS"
+        const val NATIONALITY = "NATIONALITY"
+        const val JOB = "JOB"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,17 +39,23 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
         initUi()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun initUi() {
 
         initTitle()
 
         initBottomSelect()
 
-        val avatar = viewModel.mPreferenceUtil.defaultPref()
-            .getString(PreferenceKey.USER_AVATAR, "").toString()
-        if(avatar.isNotEmpty()) {
-            Picasso.get().load(avatar)
-                .into(binding.avatar)
+        sharePrefer.getUserAvatar().let {
+            if (it.isNotEmpty()) {
+                Picasso.get().load(it)
+                    .into(binding.avatar)
+            }
+        }
+
+        binding.scrollView.setOnTouchListener { _, _ ->
+            super.closeKeyboard()
+            false
         }
 
         binding.bottomSelectInfo.search.doOnTextChanged { text, _, _, _ ->
@@ -76,8 +84,11 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
             binding.bottomSelectInfo.title.text = getString(R.string.ethnic)
             binding.bottomSelectInfo.search.hint = getString(R.string.search_ethnic)
 
-            adapter = InformationAdapter(Address.ethnics())
+            adapter = InformationAdapter(Address.ethnics(), ETHNICS, this)
             binding.bottomSelectInfo.rcvInformation.adapter = adapter
+            sharePrefer.getIndexEthnics().let {
+                if(it >= 0) binding.bottomSelectInfo.rcvInformation.smoothScrollToPosition(it)
+            }
             adapter.onClickItem = {
                 binding.txtEthnic.text = it
                 binding.bottomSelectInfo.search.setText("")
@@ -91,7 +102,7 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
             binding.bottomSelectInfo.title.text = getString(R.string.nationality)
             binding.bottomSelectInfo.search.hint = getString(R.string.search_nationality)
 
-            adapter = InformationAdapter(Address.nationality())
+            adapter = InformationAdapter(Address.nationality(), NATIONALITY, this)
             binding.bottomSelectInfo.rcvInformation.adapter = adapter
             adapter.onClickItem = {
                 binding.txtNationality.text = it
@@ -106,7 +117,7 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
             binding.bottomSelectInfo.title.text = getString(R.string.job)
             binding.bottomSelectInfo.search.hint = getString(R.string.search_job)
 
-            adapter = InformationAdapter(Address.job())
+            adapter = InformationAdapter(Address.job(), JOB, this)
             binding.bottomSelectInfo.rcvInformation.adapter = adapter
             adapter.onClickItem = {
                 binding.txtJob.text = it
@@ -195,7 +206,7 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
         ActivityUpdateInformationBinding.inflate(inflater)
 
     override fun onBackPressed() {
-        closeKeyboard()
+        super.closeKeyboard()
 
         if (bottomSheetInformation.state == BottomSheetBehavior.STATE_EXPANDED) {
             bottomSheetInformation.state = BottomSheetBehavior.STATE_COLLAPSED

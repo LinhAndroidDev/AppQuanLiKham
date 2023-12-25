@@ -19,6 +19,7 @@ import com.example.appkhambenh.ui.model.Service
 import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.ui.user.appointment.register.adapter.ServiceAdapter
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
+import com.example.appkhambenh.ui.ui.user.manage_appointment.FragmentManageAppointment
 import com.example.appkhambenh.ui.utils.*
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
@@ -37,8 +38,9 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
 
     @SuppressLint("CutPasteId")
     private fun initUi() {
-        val registerChecking: RegisterChecking? = arguments?.getSerializable(PreferenceKey.REGISTER_CHECKING) as RegisterChecking?
-        if(registerChecking != null){
+        val registerChecking: RegisterChecking? =
+            arguments?.getSerializable(FragmentManageAppointment.REGISTER_CHECKING) as RegisterChecking?
+        if (registerChecking != null) {
             isUpdate = true
             binding.txtSelectService.hint = registerChecking.service
             binding.txtSelectDepartment.hint = registerChecking.department
@@ -50,20 +52,17 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
             binding.hour.text = registerChecking.hour
         }else{
             binding.headerAppoint.setTitle(getString(R.string.manage_appointment))
-            binding.date.text = viewModel.mPreferenceUtil.defaultPref()
-                .getString(PreferenceKey.DATE_APPOINTMENT, "").toString()
-
-            binding.hour.text = viewModel.mPreferenceUtil.defaultPref()
-                .getString(PreferenceKey.HOUR_APPOINTMENT, "").toString()
+            binding.date.text = sharePrefer.getDateAppoint()
+            binding.hour.text = sharePrefer.getHourAppoint()
         }
 
-        val avatar = viewModel.mPreferenceUtil.defaultPref()
-            .getString(PreferenceKey.USER_AVATAR, "").toString()
-        if(avatar.isNotEmpty()) {
-            Picasso.get().load(avatar)
-                .placeholder(R.drawable.user_ad)
-                .error(R.drawable.user_ad)
-                .into(binding.avatarAppointment)
+        sharePrefer.getUserAvatar().let {
+            if(it.isNotEmpty()) {
+                Picasso.get().load(it)
+                    .placeholder(R.drawable.user_ad)
+                    .error(R.drawable.user_ad)
+                    .into(binding.avatarAppointment)
+            }
         }
 
         binding.avatarAppointment.setOnClickListener {
@@ -71,8 +70,7 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
             startActivity(intent)
         }
 
-        binding.txtUseNameAppointment.text =
-            viewModel.mPreferenceUtil.defaultPref().getString(PreferenceKey.USER_NAME,"")
+        binding.txtUseNameAppointment.text = sharePrefer.getUserName()
 
         binding.txtSelectService.setOnClickListener {
             showPopupView(binding.txtSelectService)
@@ -137,13 +135,12 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
                             convertToRequestBody(strDate),
                             convertToRequestBody(strHour),
                             convertToRequestBody(strReasons),
-                            convertToRequestBody(userId.toString())
+                            convertToRequestBody(sharePrefer.getUserId().toString())
                         )
 
-                        val id_day = viewModel.mPreferenceUtil.defaultPref().getInt(PreferenceKey.ID_DAY, 0)
                         val status = 1
                         viewModel.changeStatusWorkingTime(
-                            convertToRequestBody(id_day.toString()),
+                            convertToRequestBody(sharePrefer.getIdDay().toString()),
                             convertToRequestBody(binding.hour.text.toString()),
                             convertToRequestBody(status.toString())
                         )
@@ -193,7 +190,7 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
                         convertToRequestBody(strDate),
                         convertToRequestBody(strHour),
                         convertToRequestBody(reasons),
-                        convertToRequestBody(userId.toString())
+                        convertToRequestBody(sharePrefer.getUserId().toString())
                     )
 
                     viewModel.loadingEditLiveData.observe(viewLifecycleOwner){ isLoading ->

@@ -21,6 +21,7 @@
                 android:layout_height="wrap_content" />
 
             <androidx.core.widget.NestedScrollView
+                android:id="@+id/scrollView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -104,17 +105,10 @@
 
                     <EditText
                         android:id="@+id/name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_10"
-                        android:background="@drawable/bg_edt_update_info"
+                        style="@style/edt_update_information"
                         android:hint="@string/enter_name"
-                        android:inputType="textCapCharacters"
-                        android:paddingHorizontal="@dimen/dimen_10"
-                        android:paddingVertical="@dimen/dimen_15"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dimen_sp16"
-                        android:textStyle="bold" />
+                        android:inputType="textCapCharacters" />
 
                     <include
                         android:id="@+id/titlePhone"
@@ -168,7 +162,8 @@
                             android:paddingVertical="@dimen/dimen_2"
                             android:textColor="@color/black"
                             android:textSize="@dimen/dimen_sp16"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:inputType="number"/>
 
                     </LinearLayout>
 
@@ -192,17 +187,10 @@
 
                             <EditText
                                 android:id="@+id/birth"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/bg_edt_update_info"
+                                style="@style/edt_update_information"
                                 android:enabled="false"
                                 android:hint="dd/mm/yyyy"
-                                android:inputType="textEmailAddress"
-                                android:paddingHorizontal="@dimen/dimen_10"
-                                android:paddingVertical="@dimen/dimen_15"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/dimen_sp16"
-                                android:textStyle="bold" />
+                                android:inputType="textEmailAddress" />
 
                             <ImageView
                                 android:layout_width="@dimen/dimen_12"
@@ -255,16 +243,9 @@
 
                         <EditText
                             android:id="@+id/cccd"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/bg_edt_update_info"
+                            style="@style/edt_update_information"
                             android:hint="@string/enter_CCCD"
-                            android:inputType="number"
-                            android:paddingHorizontal="@dimen/dimen_10"
-                            android:paddingVertical="@dimen/dimen_15"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/dimen_sp16"
-                            android:textStyle="bold" />
+                            android:inputType="number" />
 
                         <LinearLayout
                             android:id="@+id/scanCCCD"
@@ -300,16 +281,10 @@
 
                         <TextView
                             android:id="@+id/address"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/bg_edt_update_info"
+                            style="@style/edt_update_information"
                             android:hint="@string/enter_address"
-                            android:paddingVertical="@dimen/dimen_15"
                             android:paddingStart="@dimen/dimen_10"
-                            android:paddingEnd="@dimen/dimen_35"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/dimen_sp16"
-                            android:textStyle="bold" />
+                            android:paddingEnd="@dimen/dimen_35" />
 
                         <ImageView
                             android:layout_width="@dimen/dimen_14"
@@ -350,15 +325,8 @@
 
                                 <TextView
                                     android:id="@+id/txtEthnic"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/bg_edt_update_info"
-                                    android:hint="@string/ethnic"
-                                    android:paddingHorizontal="@dimen/dimen_10"
-                                    android:paddingVertical="@dimen/dimen_15"
-                                    android:textColor="@color/black"
-                                    android:textSize="@dimen/dimen_sp16"
-                                    android:textStyle="bold" />
+                                    style="@style/edt_update_information"
+                                    android:hint="@string/ethnic" />
 
                                 <ImageView
                                     android:layout_width="@dimen/dimen_14"
@@ -396,15 +364,9 @@
 
                                 <TextView
                                     android:id="@+id/txtNationality"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/bg_edt_update_info"
-                                    android:hint="@string/nationality"
-                                    android:paddingHorizontal="@dimen/dimen_10"
-                                    android:paddingVertical="@dimen/dimen_15"
-                                    android:textColor="@color/black"
-                                    android:textSize="@dimen/dimen_sp16"
-                                    android:textStyle="bold" />
+                                    style="@style/edt_update_information"
+                                    android:paddingEnd="@dimen/dimen_20"
+                                    android:hint="@string/nationality" />
 
                                 <ImageView
                                     android:layout_width="@dimen/dimen_14"
@@ -437,15 +399,8 @@
 
                         <TextView
                             android:id="@+id/txtJob"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/bg_edt_update_info"
-                            android:hint="@string/select_job"
-                            android:paddingHorizontal="@dimen/dimen_10"
-                            android:paddingVertical="@dimen/dimen_15"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/dimen_sp16"
-                            android:textStyle="bold" />
+                            style="@style/edt_update_information"
+                            android:hint="@string/select_job" />
 
                         <ImageView
                             android:layout_width="@dimen/dimen_14"
