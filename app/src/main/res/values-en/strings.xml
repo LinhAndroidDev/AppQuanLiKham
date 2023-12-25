@@ -184,4 +184,6 @@
     <string name="complete">Completed</string>
     <string name="search_address">Search address</string>
     <string name="title_scan">Scan CCCD code</string>
+    <string name="enter_number_house">Enter house number and street name</string>
+    <string name="update_avatar_successful">You have updated your profile picture</string>
 </resources>

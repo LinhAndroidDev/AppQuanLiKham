@@ -35,7 +35,7 @@
         <activity
             android:name=".ui.ui.user.navigation.setting.UpdateInformationActivity"
             android:exported="false"
-            android:windowSoftInputMode="stateVisible|adjustResize" />
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
             android:name=".ui.ui.user.csyt.InfoCsytActivity"
             android:exported="false" />

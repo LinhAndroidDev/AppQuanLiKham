@@ -13,7 +13,6 @@ import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.ui.MainActivity
-import com.example.appkhambenh.ui.utils.PreferenceKey
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : BaseActivity<EmptyViewModel, ActivitySplashScreenBinding>() {
@@ -35,9 +34,8 @@ class SplashScreenActivity : BaseActivity<EmptyViewModel, ActivitySplashScreenBi
             }
 
             override fun onFinish() {
-                val isLogin = viewModel.mPreferenceUtil.defaultPref()
-                    .getBoolean(PreferenceKey.CHECK_LOGIN, false)
-                if (isLogin) {
+                val t = sharePrefer.getCheckLogin()
+                if (sharePrefer.getCheckLogin()) {
                     val intent = Intent(this@SplashScreenActivity, HomeActivity::class.java)
                     startActivity(intent)
                     finish()

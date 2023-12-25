@@ -16,12 +16,16 @@ import com.example.appkhambenh.databinding.FragmentManageAppointmentBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.ui.user.appointment.register.FragmentAppointment
 import com.example.appkhambenh.ui.ui.user.manage_appointment.adapter.ManageAppointmentAdapter
-import com.example.appkhambenh.ui.utils.PreferenceKey
+import com.example.appkhambenh.ui.utils.SharePreferenceRepository
 import com.example.appkhambenh.ui.utils.setStyleTextAtPosition
 
 class FragmentManageAppointment : BaseFragment<ManageAppointmentViewModel, FragmentManageAppointmentBinding>() {
 
     lateinit var adapterManageAppointment: ManageAppointmentAdapter
+
+    companion object {
+        const val REGISTER_CHECKING = "REGISTER_CHECKING"
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,7 +37,7 @@ class FragmentManageAppointment : BaseFragment<ManageAppointmentViewModel, Fragm
         super.bindData()
 
         viewModel.getListAppointment(
-            convertToRequestBody(userId.toString())
+            convertToRequestBody(sharePrefer.getUserId().toString())
         )
     }
 
@@ -68,7 +72,7 @@ class FragmentManageAppointment : BaseFragment<ManageAppointmentViewModel, Fragm
                     .add(R.id.changeIdManageAppointment, fragmentAppoint)
                     .addToBackStack(null).commit()
                 val bundle = Bundle()
-                bundle.putSerializable(PreferenceKey.REGISTER_CHECKING, registerChecking)
+                bundle.putSerializable(REGISTER_CHECKING, registerChecking)
                 fragmentAppoint.arguments = bundle
             }
 
@@ -101,7 +105,7 @@ class FragmentManageAppointment : BaseFragment<ManageAppointmentViewModel, Fragm
                             if(viewModel.deleteSuccessful){
                                 show("Bạn đã xoá thành công lịch hẹn ${registerChecking.date} lúc ${registerChecking.hour}")
                                 viewModel.getListAppointment(
-                                    convertToRequestBody(userId.toString())
+                                    convertToRequestBody(sharePrefer.getUserId().toString())
                                 )
                                 adapterManageAppointment.notifyDataSetChanged()
                             }

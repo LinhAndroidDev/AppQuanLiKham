@@ -1,8 +1,8 @@
 package com.example.appkhambenh.ui.ui.user.manage_appointment.adapter
 
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
-import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,23 +11,24 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appkhambenh.R
 import com.example.appkhambenh.ui.model.RegisterChecking
-import com.example.appkhambenh.ui.utils.PreferenceKey
+import com.example.appkhambenh.ui.utils.ConvertUtils.dpToPx
+import com.example.appkhambenh.ui.utils.SharePreferenceRepositoryImpl
 import com.example.appkhambenh.ui.utils.collapseView
 import com.example.appkhambenh.ui.utils.expandView
-import com.example.appkhambenh.ui.utils.timeEffectView
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
+
 class ManageAppointmentAdapter(
     var listRegisterChecking: ArrayList<RegisterChecking>?,
-    val context: Context
+    val context: Context,
 ) : RecyclerView.Adapter<ManageAppointmentAdapter.ViewHolder>(), Filterable {
 
     val listRegisterCheckingOld by lazy { listRegisterChecking }
     var isClickEditAppoint: ((RegisterChecking?) -> Unit)? = null
     var isCancelAppoint: ((RegisterChecking?) -> Unit)? = null
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val avatar: CircleImageView by lazy { itemView.findViewById(R.id.avatarManage) }
         val namePatient: TextView by lazy { itemView.findViewById(R.id.txt_name_patient) }
         val time: TextView by lazy { itemView.findViewById(R.id.txt_time_appointment) }
@@ -46,7 +47,8 @@ class ManageAppointmentAdapter(
         parent: ViewGroup,
         viewType: Int,
     ): ManageAppointmentAdapter.ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_manage_appoint, parent, false)
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_manage_appoint, parent, false)
         return ViewHolder(itemView)
     }
 
@@ -54,38 +56,39 @@ class ManageAppointmentAdapter(
     override fun onBindViewHolder(holder: ManageAppointmentAdapter.ViewHolder, position: Int) {
 
         val activity by lazy { context as AppCompatActivity }
-        val sharedPreferences by lazy { PreferenceManager.getDefaultSharedPreferences(activity) }
+        val sharePrefer by lazy { SharePreferenceRepositoryImpl(context) }
 
         val register = listRegisterChecking?.get(position)
-        val strAvatar: String = sharedPreferences.getString(PreferenceKey.USER_AVATAR, "").toString()
-        if(strAvatar.isNotEmpty()){
-            Picasso.get().load(strAvatar)
-                .placeholder(R.drawable.user_ad)
-                .error(R.drawable.user_ad)
-                .into(holder.avatar)
+        sharePrefer.getUserAvatar().let {
+            if (it.isNotEmpty()) {
+                Picasso.get().load(it)
+                    .placeholder(R.drawable.user_ad)
+                    .error(R.drawable.user_ad)
+                    .into(holder.avatar)
+            }
         }
-        holder.namePatient.text = sharedPreferences.getString(PreferenceKey.USER_NAME, "").toString()
-        holder.time.text = register?.date + " " + context.getString(R.string.at) + " " + register?.hour
+        holder.namePatient.text = sharePrefer.getUserName()
+        holder.time.text =
+            register?.date + " " + context.getString(R.string.at) + " " + register?.hour
         holder.address.text = register?.department
         holder.service.text = register?.service
         holder.nameDoctor.text = register?.doctor
         holder.reasons.text = register?.reasons
 
         holder.itemView.setOnClickListener {
-            if(holder.layoutExpand.visibility == View.GONE){
-                expandView(holder.layoutExpand)
+            if (holder.layoutExpand.height == 0) {
+                holder.layoutExpand.visibility = View.VISIBLE
+                expandView(holder.layoutExpand, 81.dpToPx(context))
                 holder.txtExpand.text = activity.getString(R.string.collapse)
-                holder.imgExpand
-                    .animate()
-                    .rotationBy(180f)
-                    .duration = timeEffectView(holder.layoutExpand)
-            } else{
+                val objectAnimator = ObjectAnimator.ofFloat(holder.imgExpand, "rotation", 0f, 180f)
+                objectAnimator.duration = 300L
+                objectAnimator.start()
+            } else {
                 collapseView(holder.layoutExpand)
                 holder.txtExpand.text = activity.getString(R.string.detail)
-                holder.imgExpand
-                    .animate()
-                    .rotationBy(-180f)
-                    .duration = timeEffectView(holder.layoutExpand)
+                val objectAnimator = ObjectAnimator.ofFloat(holder.imgExpand, "rotation", 180f, 0f)
+                objectAnimator.duration = 300L
+                objectAnimator.start()
             }
         }
 
@@ -106,15 +109,15 @@ class ManageAppointmentAdapter(
         return object : Filter() {
             override fun performFiltering(p0: CharSequence?): FilterResults {
                 val strSearch = p0.toString().lowercase().trim()
-                listRegisterChecking = if(strSearch.isEmpty()){
+                listRegisterChecking = if (strSearch.isEmpty()) {
                     listRegisterCheckingOld
-                }else{
+                } else {
                     val list = arrayListOf<RegisterChecking>()
-                    for(registerChecking in listRegisterCheckingOld!!){
-                        if(
+                    for (registerChecking in listRegisterCheckingOld!!) {
+                        if (
                             (registerChecking.date + registerChecking.hour + registerChecking.department + registerChecking.reasons)
                                 .lowercase().trim().contains(strSearch)
-                        ){
+                        ) {
                             list.add(registerChecking)
                         }
                     }
@@ -127,7 +130,7 @@ class ManageAppointmentAdapter(
             }
 
             override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
-                if(p1?.values != null){
+                if (p1?.values != null) {
                     listRegisterChecking = p1.values as ArrayList<RegisterChecking>
                     notifyDataSetChanged()
                 }
@@ -136,7 +139,7 @@ class ManageAppointmentAdapter(
         }
     }
 
-    fun revertAppoint(){
+    fun revertAppoint() {
         listRegisterChecking?.reverse()
         notifyDataSetChanged()
     }

@@ -184,4 +184,6 @@
     <string name="complete">完了</string>
     <string name="search_address">住所の検索</string>
     <string name="title_scan">CCCD コードをスキャン</string>
+    <string name="enter_number_house">家番号と通りの名前を入力してください</string>
+    <string name="update_avatar_successful">プロフィール写真を更新しました</string>
 </resources>

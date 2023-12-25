@@ -1,10 +1,11 @@
 package com.example.appkhambenh.ui.ui.user.home
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.ApiClient
 import com.example.appkhambenh.ui.data.remote.entity.UserInfoResponse
-import com.example.appkhambenh.ui.utils.PreferenceKey
+import com.example.appkhambenh.ui.utils.SharePreferenceRepositoryImpl
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,6 +16,7 @@ class HomeViewModel : BaseViewModel() {
     var userLiveData = MutableLiveData<UserInfoResponse>()
 
     private fun saveInfo(
+        context: Context,
         name: String,
         birth: String,
         avatar: String,
@@ -24,38 +26,19 @@ class HomeViewModel : BaseViewModel() {
         address: String,
         type: Int,
     ) {
-        mPreferenceUtil.defaultPref().edit()
-            .putString(PreferenceKey.USER_NAME, name)
-            .apply()
-        mPreferenceUtil.defaultPref().edit()
-            .putString(PreferenceKey.USER_BIRTH, birth)
-            .apply()
-        mPreferenceUtil.defaultPref().edit()
-            .putString(PreferenceKey.USER_AVATAR, avatar)
-            .apply()
-        mPreferenceUtil.defaultPref().edit()
-            .putString(PreferenceKey.USER_PHONE, phone)
-            .apply()
-        mPreferenceUtil.defaultPref().edit()
-            .putString(PreferenceKey.USER_EMAIL, email)
-            .apply()
-        mPreferenceUtil.defaultPref().edit()
-            .putString(PreferenceKey.USER_EMAIL, email)
-            .apply()
-        mPreferenceUtil.defaultPref().edit()
-            .putInt(PreferenceKey.USER_SEX, sex)
-            .apply()
-        mPreferenceUtil.defaultPref().edit()
-            .putString(PreferenceKey.USER_ADDRESS, address)
-            .apply()
-        mPreferenceUtil.defaultPref().edit()
-            .putInt(PreferenceKey.USER_TYPE, type)
-            .apply()
+        SharePreferenceRepositoryImpl(context).saveUserName(name)
+        SharePreferenceRepositoryImpl(context).saveUserBirth(birth)
+        SharePreferenceRepositoryImpl(context).saveUserAvatar(avatar)
+        SharePreferenceRepositoryImpl(context).saveUserPhone(phone)
+        SharePreferenceRepositoryImpl(context).saveUserEmail(email)
+        SharePreferenceRepositoryImpl(context).saveUserSex(sex)
+        SharePreferenceRepositoryImpl(context).saveUserAddress(address)
+        SharePreferenceRepositoryImpl(context).saveUserType(type)
     }
 
-    fun getUserInfo(user_id: RequestBody){
+    fun getUserInfo(userId: RequestBody, context: Context){
         loadingLiveData.value = true
-        ApiClient.shared().getUserInfo(user_id)
+        ApiClient.shared().getUserInfo(userId)
             .enqueue(object : Callback<UserInfoResponse>{
                 override fun onResponse(
                     call: Call<UserInfoResponse>,
@@ -68,14 +51,15 @@ class HomeViewModel : BaseViewModel() {
                                 ApiClient.STATUS_CODE_SUCCESS->{
                                     userLiveData.value = it
                                     saveInfo(
+                                        context,
                                         response.body()?.result?.name.toString(),
                                         response.body()?.result?.birth.toString(),
                                         response.body()?.result?.avatar.toString(),
                                         response.body()?.result?.phone.toString(),
                                         response.body()?.result?.email.toString(),
-                                        response.body()?.result?.sex!!,
+                                        response.body()?.result?.sex ?: -1,
                                         response.body()?.result?.address.toString(),
-                                        response.body()?.result?.type!!
+                                        response.body()?.result?.type ?: -1
                                     )
                                 }
                                 ApiClient.STATUS_USER_EXIST->{

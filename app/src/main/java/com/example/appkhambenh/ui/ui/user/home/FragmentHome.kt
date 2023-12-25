@@ -61,7 +61,10 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     override fun bindData() {
         super.bindData()
 
-        viewModel.getUserInfo(convertToRequestBody(userId.toString()))
+        viewModel.getUserInfo(
+            convertToRequestBody(sharePrefer.getUserId().toString()),
+            requireActivity()
+        )
 
         viewModel.loadingLiveData.observe(this) {
             if (it) {
@@ -77,14 +80,16 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                     } else {
                         lifecycleScope.launch {
                             binding.txtUserBirth.text =
-                                if (typeUser != 2) birthUser else addressUser
-                            binding.txtUserName.text = nameUser
+                                if (sharePrefer.getUserType() != 2) sharePrefer.getUserBirth() else sharePrefer.getUserAddress()
+                            binding.txtUserName.text = sharePrefer.getUserName()
 
-                            if (avatarUser!!.isNotEmpty()) {
-                                Picasso.get().load(avatarUser)
-                                    .error(R.drawable.user_ad)
-                                    .placeholder(R.drawable.user_ad)
-                                    .into(binding.avartarUser)
+                            sharePrefer.getUserAvatar().let {  avt->
+                                if (avt.isNotEmpty()) {
+                                    Picasso.get().load(avt)
+                                        .error(R.drawable.user_ad)
+                                        .placeholder(R.drawable.user_ad)
+                                        .into(binding.avartarUser)
+                                }
                             }
 
                             delay(1000L)

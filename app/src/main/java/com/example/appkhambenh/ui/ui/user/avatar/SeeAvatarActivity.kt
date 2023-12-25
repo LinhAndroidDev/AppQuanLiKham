@@ -1,6 +1,5 @@
 package com.example.appkhambenh.ui.ui.user.avatar
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.WindowManager
@@ -8,7 +7,6 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivitySeeAvatarBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.ui.EmptyViewModel
-import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.squareup.picasso.Picasso
 
 class SeeAvatarActivity : BaseActivity<EmptyViewModel, ActivitySeeAvatarBinding>() {
@@ -24,15 +22,13 @@ class SeeAvatarActivity : BaseActivity<EmptyViewModel, ActivitySeeAvatarBinding>
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
-        val avatar = viewModel.mPreferenceUtil.defaultPref()
-            .getString(PreferenceKey.USER_AVATAR, "")
-        if(avatar!!.isEmpty()) {
-            binding.imgSeeAvatar.setImageResource(R.drawable.user_ad)
-        } else {
-            Picasso.get().load(avatar)
-                .placeholder(R.drawable.user_ad)
-                .error(R.drawable.user_ad)
-                .into(binding.imgSeeAvatar)
+        sharePrefer.getUserAvatar().let {
+            if(it.isNotEmpty()) {
+                Picasso.get().load(it)
+                    .placeholder(R.drawable.user_ad)
+                    .error(R.drawable.user_ad)
+                    .into(binding.imgSeeAvatar)
+            }
         }
 
         binding.backSeeAvatar.setOnClickListener { back() }

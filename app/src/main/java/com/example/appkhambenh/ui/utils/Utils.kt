@@ -1,6 +1,7 @@
 package com.example.appkhambenh.ui.utils
 
 import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
@@ -14,9 +15,10 @@ import android.text.style.StyleSpan
 import android.util.Patterns
 import android.util.TypedValue
 import android.view.View
-import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
 import android.view.animation.Animation
-import android.view.animation.Transformation
+import android.view.animation.Animation.AnimationListener
+import android.view.animation.TranslateAnimation
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
@@ -24,14 +26,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appkhambenh.ui.model.DepartmentClinic
 import com.example.appkhambenh.ui.model.Doctor
-import com.example.appkhambenh.ui.ui.user.csyt.CsytActivity
 import com.example.appkhambenh.ui.ui.user.appointment.register.adapter.DepartmentAdapter
 import com.example.appkhambenh.ui.ui.user.appointment.register.adapter.DoctorAdapter
+import com.example.appkhambenh.ui.ui.user.csyt.CsytActivity
 import com.example.appkhambenh.ui.ui.user.doctor.SearchDoctorActivity
 import com.example.appkhambenh.ui.ui.user.home.Function
 import com.example.appkhambenh.ui.ui.user.manage_appointment.ManageAppointmentActivity
 import com.example.appkhambenh.ui.ui.user.medicine.MedicineActivity
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+
 
 var getNameDepartment: ((String) -> Unit)? = null
 var getNameDoctor: ((String) -> Unit)? = null
@@ -98,44 +105,35 @@ fun getDataDoctor(
         })
 }
 
-fun expandView(view: View) {
-    val targetHeight = view.measuredHeight
-    view.layoutParams.height = 0
-    view.visibility = View.VISIBLE
-    val animation = object : Animation() {
-        override fun applyTransformation(interpolatedTime: Float, t: Transformation?) {
-            view.layoutParams.height =
-                if (interpolatedTime == 1f) ViewGroup.LayoutParams.WRAP_CONTENT else (targetHeight * interpolatedTime).toInt()
-            view.requestLayout()
-        }
-
-        override fun willChangeBounds(): Boolean {
-            return true
-        }
+fun expandView(view: View, height: Int) {
+    view.measure(
+        View.MeasureSpec.makeMeasureSpec(
+            (view.parent as View).width,
+            View.MeasureSpec.EXACTLY
+        ),
+        View.MeasureSpec.makeMeasureSpec(1024, View.MeasureSpec.AT_MOST)
+    )
+    val anim = ValueAnimator.ofInt(view.height, height)
+    anim.addUpdateListener { valueAnimator ->
+        val value: Int = valueAnimator.animatedValue as Int
+        view.layoutParams.height = value
+        view.requestLayout()
     }
-    animation.duration = timeEffectView(view)
-    view.startAnimation(animation)
+    anim.duration = 300L
+    anim.start()
 }
 
 fun collapseView(view: View) {
-    val initialHeight = view.measuredHeight
-    val animation = object : Animation() {
-        override fun applyTransformation(interpolatedTime: Float, t: Transformation?) {
-            if (interpolatedTime == 1f) {
-                view.visibility = View.GONE
-            } else {
-                view.layoutParams.height =
-                    initialHeight - (initialHeight * interpolatedTime).toInt()
-                view.requestLayout()
-            }
-        }
+    val targetHeight = 0
 
-        override fun willChangeBounds(): Boolean {
-            return true
-        }
+    val anim = ValueAnimator.ofInt(view.height, targetHeight)
+    anim.addUpdateListener { valueAnimator ->
+        val value: Int = valueAnimator.animatedValue as Int
+        view.layoutParams.height = value
+        view.requestLayout()
     }
-    animation.duration = timeEffectView(view)
-    view.startAnimation(animation)
+    anim.duration = 300L
+    anim.start()
 }
 
 fun timeEffectView(view: View): Long {
@@ -154,20 +152,6 @@ fun validatePassword(password: String): Boolean {
 fun validatePhone(phone: String): Boolean {
     return !TextUtils.isEmpty(phone) && (Patterns.PHONE.matcher(phone)
         .matches() && phone.length >= 10)
-}
-
-fun Int.dpToPx(context: Context): Int {
-    return TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP,
-        this.toFloat(),
-        context.resources.displayMetrics
-    ).toInt()
-}
-
-fun Int.pxToDp(): Int {
-    val displayMetrics = Resources.getSystem().displayMetrics
-    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, this.toFloat(), displayMetrics)
-        .toInt()
 }
 
 fun setTextNotification(reasons: String, date: String, hour: String): SpannableString {

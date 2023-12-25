@@ -15,9 +15,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.example.appkhambenh.R
-import com.example.appkhambenh.ui.utils.PreferenceKey
-import com.example.appkhambenh.ui.utils.PreferenceUtil
-import com.example.appkhambenh.ui.utils.dpToPx
+import com.example.appkhambenh.ui.utils.ConvertUtils.dpToPx
+import com.example.appkhambenh.ui.utils.SharePreferenceRepositoryImpl
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -33,38 +32,7 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
     private var screenWidth: Int = 0
     private var screenHeight: Int = 0
     val loading by lazy { ProgressDialog(requireActivity()) }
-    val userId by lazy {
-        viewModel.mPreferenceUtil.defaultPref()
-            .getInt(PreferenceKey.USER_ID, -1)
-    }
-    val avatarUser by lazy {
-        viewModel.mPreferenceUtil.defaultPref()
-            .getString(PreferenceKey.USER_AVATAR, "")
-    }
-    val nameUser by lazy {
-        viewModel.mPreferenceUtil.defaultPref()
-            .getString(PreferenceKey.USER_NAME, "")
-    }
-    val sex by lazy {
-        viewModel.mPreferenceUtil.defaultPref()
-            .getInt(PreferenceKey.USER_SEX, -1)
-    }
-    val birthUser by lazy {
-        viewModel.mPreferenceUtil.defaultPref()
-            .getString(PreferenceKey.USER_BIRTH, "")
-    }
-    val addressUser by lazy {
-        viewModel.mPreferenceUtil.defaultPref()
-            .getString(PreferenceKey.USER_ADDRESS, "")
-    }
-    val typeUser by lazy {
-        viewModel.mPreferenceUtil.defaultPref()
-            .getInt(PreferenceKey.USER_TYPE, -1)
-    }
-    private val language by lazy {
-        viewModel.mPreferenceUtil.defaultPref()
-            .getString(PreferenceKey.LANGUAGE, "vi").toString()
-    }
+    lateinit var sharePrefer: SharePreferenceRepositoryImpl
 
     @SuppressLint("SuspiciousIndentation")
     override fun onCreateView(
@@ -76,9 +44,7 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
         binding = getFragmentBinding(inflater, container)
         viewModel =
             ViewModelProvider(this)[(this::class.java.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<V>]
-        activity?.let {
-            viewModel.mPreferenceUtil = PreferenceUtil(it)
-        }
+        sharePrefer = SharePreferenceRepositoryImpl(requireActivity())
 
         loading.setMessage("Please wait...")
         loading.setTitle(getString(R.string.notification))
@@ -86,7 +52,8 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
 
         bindData()
 
-        if (language.isNotEmpty()) setLanguage(requireActivity(), language)
+        val t = sharePrefer.getLanguage()
+        setLanguage(requireActivity(), sharePrefer.getLanguage())
 
         return binding.root
     }

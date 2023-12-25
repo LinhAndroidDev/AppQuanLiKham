@@ -14,7 +14,6 @@ import com.example.appkhambenh.databinding.FragmentInformationBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.ui.user.avatar.EditAvatarActivity
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
-import com.example.appkhambenh.ui.utils.PreferenceKey
 import com.example.appkhambenh.ui.utils.validateEmail
 import com.example.appkhambenh.ui.utils.validatePhone
 import com.squareup.picasso.Picasso
@@ -58,8 +57,8 @@ class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformati
             }
         }
 
-        viewModel.mPreferenceUtil.defaultPref().getString(PreferenceKey.USER_AVATAR, "").let {
-            if (it!!.isNotEmpty()) {
+        sharePrefer.getUserAvatar().let {
+            if (it.isNotEmpty()) {
                 Picasso.get().load(it)
                     .error(R.drawable.user_ad)
                     .placeholder(R.drawable.user_ad)
@@ -88,15 +87,15 @@ class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformati
             ) {
                 show(resources.getString(R.string.warning_phone))
             } else {
-                val name = getValueInfo(binding.edtName, PreferenceKey.USER_NAME)
-                val email = getValueInfo(binding.edtEmail, PreferenceKey.USER_EMAIL)
+                val name = getValueInfo(binding.edtName, sharePrefer.getUserName())
+                val email = getValueInfo(binding.edtEmail, sharePrefer.getUserEmail())
                 val sex = if (binding.rbMan.isCheck) 0 else 1
-                val birth = getValueInfo(binding.edtBirth, PreferenceKey.USER_BIRTH)
-                val phone = getValueInfo(binding.edtPhone, PreferenceKey.USER_PHONE)
-                val address = getValueInfo(binding.edtAddress, PreferenceKey.USER_ADDRESS)
+                val birth = getValueInfo(binding.edtBirth, sharePrefer.getUserBirth())
+                val phone = getValueInfo(binding.edtPhone, sharePrefer.getUserPhone())
+                val address = getValueInfo(binding.edtAddress, sharePrefer.getUserAddress())
 
                 viewModel.updateInfo(
-                    convertToRequestBody(userId.toString()),
+                    convertToRequestBody(sharePrefer.getUserId().toString()),
                     convertToRequestBody(name!!),
                     convertToRequestBody(email!!),
                     convertToRequestBody(sex.toString()),
@@ -121,55 +120,41 @@ class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformati
 
     private fun createView() {
         binding.edtName.setTextHint(
-            viewModel.mPreferenceUtil.defaultPref()
-                .getString(PreferenceKey.USER_NAME, "")
+            sharePrefer.getUserName()
         )
 
         binding.edtEmail.setTextHint(
-            viewModel.mPreferenceUtil.defaultPref()
-                .getString(PreferenceKey.USER_EMAIL, "")
+            sharePrefer.getUserEmail()
         )
 
         binding.rbMan.setLabel(getString(R.string.males))
         binding.rbWomen.setLabel(getString(R.string.females))
-        if (sex == 0) checkMan() else checkWomen()
+        if (sharePrefer.getUserSex() == 0) checkMan() else checkWomen()
 
         binding.rbMan.setOnClickListener {
             if (!binding.rbMan.isCheck) {
-                if (sex == 0) disableButtonChangeInfo() else enableButtonChangeInfo()
+                if (sharePrefer.getUserSex() == 0) disableButtonChangeInfo() else enableButtonChangeInfo()
                 checkMan()
             }
         }
 
         binding.rbWomen.setOnClickListener {
             if (!binding.rbWomen.isCheck) {
-                if (sex == 1) disableButtonChangeInfo() else enableButtonChangeInfo()
+                if (sharePrefer.getUserSex() == 1) disableButtonChangeInfo() else enableButtonChangeInfo()
                 checkWomen()
             }
         }
 
         binding.edtBirth.visibleViewBirth()
-        binding.edtBirth.setTextHint(
-            viewModel.mPreferenceUtil.defaultPref()
-                .getString(PreferenceKey.USER_BIRTH, "")
-        )
+        binding.edtBirth.setTextHint(sharePrefer.getUserBirth())
         binding.edtPhone.inputTypePhone()
-        binding.edtPhone.setTextHint(
-            viewModel.mPreferenceUtil.defaultPref()
-                .getString(PreferenceKey.USER_PHONE, "")
-        )
-        binding.edtAddress.setTextHint(
-            viewModel.mPreferenceUtil.defaultPref()
-                .getString(PreferenceKey.USER_ADDRESS, "")
-        )
+        binding.edtPhone.setTextHint(sharePrefer.getUserPhone())
+        binding.edtAddress.setTextHint(sharePrefer.getUserAddress())
     }
 
     private fun getValueInfo(edt: CustomTextViewInfo, key: String): String? {
         return edt.getTextView().let {
-            it.ifEmpty {
-                viewModel.mPreferenceUtil.defaultPref()
-                    .getString(key, "")
-            }
+            it.ifEmpty { key }
         }
     }
 
