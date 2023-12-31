@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.lifecycleScope
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityUpdateInformationBinding
 import com.example.appkhambenh.ui.base.BaseActivity
@@ -16,14 +17,17 @@ import com.example.appkhambenh.ui.ui.user.navigation.setting.address.AddressActi
 import com.example.appkhambenh.ui.utils.Address
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
+
 
 @Suppress("DEPRECATION")
 class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInformationBinding>() {
 
     private val bottomSheetInformation by lazy { BottomSheetBehavior.from(binding.bottomSelectInfo.layoutSelect) }
-    private lateinit var adapter: InformationAdapter
+    private lateinit var informationAdapter: InformationAdapter
 
     companion object {
         const val REQUEST_SCAN = 2
@@ -58,10 +62,6 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
             false
         }
 
-        binding.bottomSelectInfo.search.doOnTextChanged { text, _, _, _ ->
-            adapter.filter.filter(text)
-        }
-
         binding.headerUpdateInfo.setTitle(getString(R.string.update_info))
 
         binding.scanQr.setOnClickListener {
@@ -84,17 +84,19 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
             binding.bottomSelectInfo.title.text = getString(R.string.ethnic)
             binding.bottomSelectInfo.search.hint = getString(R.string.search_ethnic)
 
-            adapter = InformationAdapter(Address.ethnics(), ETHNICS, this)
-            binding.bottomSelectInfo.rcvInformation.adapter = adapter
-            sharePrefer.getIndexEthnics().let {
-                if(it >= 0) binding.bottomSelectInfo.rcvInformation.smoothScrollToPosition(it)
+            informationAdapter = InformationAdapter(Address.ethnics(), ETHNICS, this)
+            binding.bottomSelectInfo.rcvInformation.apply {
+                adapter = informationAdapter
+//                scrollToPosition(sharePrefer.getIndexEthnics())
             }
-            adapter.onClickItem = {
+            informationAdapter.onClickItem = {
                 binding.txtEthnic.text = it
-                binding.bottomSelectInfo.search.setText("")
-                binding.bottomSelectInfo.search.clearFocus()
                 bottomSheetInformation.state = BottomSheetBehavior.STATE_COLLAPSED
             }
+            initDataInfo(
+                title = getString(R.string.ethnic),
+                hint = getString(R.string.search_ethnic)
+            )
         }
 
         binding.nationality.setOnClickListener {
@@ -102,29 +104,45 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
             binding.bottomSelectInfo.title.text = getString(R.string.nationality)
             binding.bottomSelectInfo.search.hint = getString(R.string.search_nationality)
 
-            adapter = InformationAdapter(Address.nationality(), NATIONALITY, this)
-            binding.bottomSelectInfo.rcvInformation.adapter = adapter
-            adapter.onClickItem = {
+            informationAdapter = InformationAdapter(Address.nationality(), NATIONALITY, this)
+            binding.bottomSelectInfo.rcvInformation.apply {
+                adapter = informationAdapter
+//                scrollToPosition(sharePrefer.getIndexNationality())
+            }
+            informationAdapter.onClickItem = {
                 binding.txtNationality.text = it
-                binding.bottomSelectInfo.search.setText("")
-                binding.bottomSelectInfo.search.clearFocus()
                 bottomSheetInformation.state = BottomSheetBehavior.STATE_COLLAPSED
             }
+            initDataInfo(
+                title = getString(R.string.nationality),
+                hint = getString(R.string.search_nationality)
+            )
         }
 
         binding.job.setOnClickListener {
             bottomSheetInformation.state = BottomSheetBehavior.STATE_EXPANDED
             binding.bottomSelectInfo.title.text = getString(R.string.job)
-            binding.bottomSelectInfo.search.hint = getString(R.string.search_job)
+            binding.bottomSelectInfo.search.hint = getString(R.string.job)
 
-            adapter = InformationAdapter(Address.job(), JOB, this)
-            binding.bottomSelectInfo.rcvInformation.adapter = adapter
-            adapter.onClickItem = {
+            informationAdapter = InformationAdapter(Address.job(), JOB, this)
+            binding.bottomSelectInfo.rcvInformation.apply {
+                adapter = informationAdapter
+//                scrollToPosition(sharePrefer.getIndexJob())
+            }
+            informationAdapter.onClickItem = {
                 binding.txtJob.text = it
-                binding.bottomSelectInfo.search.setText("")
-                binding.bottomSelectInfo.search.clearFocus()
                 bottomSheetInformation.state = BottomSheetBehavior.STATE_COLLAPSED
             }
+            initDataInfo(
+                title = getString(R.string.job),
+                hint = getString(R.string.job)
+            )
+        }
+    }
+
+    private fun initDataInfo(title: String, hint: String) {
+        binding.bottomSelectInfo.search.doOnTextChanged { text, _, _, _ ->
+            informationAdapter.filter.filter(text)
         }
     }
 
@@ -150,6 +168,10 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
                     binding.bottomSelectInfo.layoutCoverSheet.visibility = View.VISIBLE
                 } else {
                     binding.bottomSelectInfo.layoutCoverSheet.visibility = View.GONE
+                    lifecycleScope.launch {
+                        delay(300L)
+                        resetBottomSheet()
+                    }
                 }
             }
 
@@ -165,6 +187,11 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
             bottomSheetInformation.state = BottomSheetBehavior.STATE_COLLAPSED
             true
         }
+    }
+
+    private fun resetBottomSheet() {
+        binding.bottomSelectInfo.search.setText("")
+        binding.bottomSelectInfo.search.clearFocus()
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -196,7 +223,7 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
 
             REQUEST_ADDRESS -> {
                 if (resultCode == Activity.RESULT_OK) {
-                    binding.address.text = data?.getStringExtra("address")
+                    binding.address.text = data?.getStringExtra(AddressActivity.ADDRESS)
                 }
             }
         }

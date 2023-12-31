@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -277,13 +276,14 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvInforDoctor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_15"
                     android:layout_marginTop="@dimen/dimen_15"
                     android:text="BS.PSG.TS \nBác sĩ nội trú \n25 năm trong chuyên ngành Tai Mũi Họng \n- Chữa các bệnh vùng Tai - Mũi - Họng: viêm tai, viêm mũi xoang, viêm họng, viêm loét họng, miệng, tăng tiết nước bọt vùng khoang miệng... bệnh lý các khối u vùng đầu mặt cổ \n- Chuyên gia về trị liệu giọng nói cho những người làm các nghề liên quan đến giọng như phát thanh viên, ca sĩ, giáo viên... \n- Các rối loạn giọng sau phẫu thuật \n- Chuyên gia điều trị chóng mặt, rối loạn thăng bằng, ù tai \n- Điều trị các đau mạn tính vùng sọ mặt, vùng lưỡi"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_16" />
+                    android:textSize="@dimen/dimen_sp16" />
 
             </LinearLayout>
 

@@ -4,7 +4,6 @@ import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
 import android.text.Spannable
@@ -13,12 +12,7 @@ import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.util.Patterns
-import android.util.TypedValue
 import android.view.View
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.Animation
-import android.view.animation.Animation.AnimationListener
-import android.view.animation.TranslateAnimation
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
@@ -134,10 +128,6 @@ fun collapseView(view: View) {
     }
     anim.duration = 300L
     anim.start()
-}
-
-fun timeEffectView(view: View): Long {
-    return (view.measuredHeight / view.context.resources.displayMetrics.density).toLong()
 }
 
 fun validateEmail(email: String): Boolean {

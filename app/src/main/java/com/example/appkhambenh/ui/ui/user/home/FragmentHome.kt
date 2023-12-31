@@ -51,6 +51,10 @@ import kotlin.math.abs
 class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     private val timer by lazy { Timer() }
 
+    companion object {
+        const val URI_AVATAR = "URI_AVATAR"
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -88,7 +92,7 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                                     Picasso.get().load(avt)
                                         .error(R.drawable.user_ad)
                                         .placeholder(R.drawable.user_ad)
-                                        .into(binding.avartarUser)
+                                        .into(binding.avatarUser)
                                 }
                             }
 
@@ -142,7 +146,7 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
         function()
 
-        binding.avartarUser.setOnClickListener {
+        binding.avatarUser.setOnClickListener {
             val intent = Intent(requireActivity(), SeeAvatarActivity::class.java)
             startActivity(intent)
         }
@@ -283,7 +287,6 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         binding.slide.adapter = slideAdapter
 
         val recyclerView = binding.slide.getChildAt(0) as RecyclerView
-        recyclerView.scrollToPosition(1)
         val layoutManager = recyclerView.layoutManager as LinearLayoutManager
         val itemCount = binding.slide.adapter?.itemCount ?: 0
 
@@ -370,7 +373,7 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
         if (requestCode == 100 && resultCode == AppCompatActivity.RESULT_OK) {
             val intent = Intent(requireActivity(), EditAvatarActivity::class.java)
-            intent.putExtra("uri_avatar", data?.data.toString())
+            intent.putExtra(URI_AVATAR, data?.data.toString())
             startActivity(intent)
         }
     }
@@ -386,7 +389,6 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
     override fun onDestroy() {
         super.onDestroy()
-
         loading.dismiss()
     }
 

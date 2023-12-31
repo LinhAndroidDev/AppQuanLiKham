@@ -51,7 +51,6 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
 
         bindData()
 
-        val t = sharePrefer.getLanguage()
         setLanguage(this, sharePrefer.getLanguage())
     }
 
@@ -127,6 +126,7 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
         overridePendingTransition(R.anim.none, R.anim.fade_out)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         closeKeyboard()
         super.onBackPressed()

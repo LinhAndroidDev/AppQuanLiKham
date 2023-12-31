@@ -34,7 +34,6 @@ class SplashScreenActivity : BaseActivity<EmptyViewModel, ActivitySplashScreenBi
             }
 
             override fun onFinish() {
-                val t = sharePrefer.getCheckLogin()
                 if (sharePrefer.getCheckLogin()) {
                     val intent = Intent(this@SplashScreenActivity, HomeActivity::class.java)
                     startActivity(intent)

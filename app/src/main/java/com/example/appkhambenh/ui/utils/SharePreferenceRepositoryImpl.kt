@@ -134,17 +134,17 @@ class SharePreferenceRepositoryImpl(val ctx: Context): SharePreferenceRepository
         prefs[INDEX_ETHNICS] = ethnics
     }
 
-    override fun getIndexEthnics(): Int = prefs[INDEX_ETHNICS] ?: -1
+    override fun getIndexEthnics(): Int = prefs[INDEX_ETHNICS] ?: 0
 
     override fun saveIndexNationality(nationality: Int) {
         prefs[INDEX_NATIONALITY] = nationality
     }
 
-    override fun getIndexNationality(): Int = prefs[INDEX_NATIONALITY] ?: -1
+    override fun getIndexNationality(): Int = prefs[INDEX_NATIONALITY] ?: 0
 
     override fun saveIndexJob(job: Int) {
         prefs[INDEX_JOB] = job
     }
 
-    override fun getIndexJob(): Int = prefs[INDEX_JOB] ?: -1
+    override fun getIndexJob(): Int = prefs[INDEX_JOB] ?: 0
 }

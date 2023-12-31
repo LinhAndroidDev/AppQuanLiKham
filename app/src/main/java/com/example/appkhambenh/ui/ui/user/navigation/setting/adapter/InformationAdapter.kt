@@ -20,8 +20,7 @@ class InformationAdapter(
     private var infors: ArrayList<String>,
     val type: String,
     val context: Context,
-) :
-    Adapter<InformationAdapter.ViewHolder>(), Filterable {
+) : Adapter<InformationAdapter.ViewHolder>(), Filterable {
     var onClickItem: ((String) -> Unit)? = null
     val inforOlds by lazy { infors }
     private val sharedPrefer = SharePreferenceRepositoryImpl(context)
@@ -43,14 +42,47 @@ class InformationAdapter(
     override fun onBindViewHolder(holder: InformationAdapter.ViewHolder, position: Int) {
         holder.name.text = infors[position]
 
-//        if (position == 3) {
-//            holder.layout.setBackgroundResource(R.color.bg_blue_light)
-//            holder.name.typeface = Typeface.DEFAULT_BOLD
-//        }
+        when (type) {
+            UpdateInformationActivity.ETHNICS -> {
+                checkIndex(sharedPrefer.getIndexEthnics(), position, holder.layout, holder.name)
+            }
+
+            UpdateInformationActivity.NATIONALITY -> {
+                checkIndex(sharedPrefer.getIndexNationality(), position, holder.layout, holder.name)
+            }
+
+            UpdateInformationActivity.JOB -> {
+                checkIndex(sharedPrefer.getIndexJob(), position, holder.layout, holder.name)
+            }
+        }
 
         holder.itemView.setOnClickListener {
-            onClickItem?.invoke(infors[position])
-            sharedPrefer.saveIndexEthnics(position)
+            when (type) {
+                UpdateInformationActivity.ETHNICS -> {
+                    onClickItem?.invoke(infors[position])
+                    sharedPrefer.saveIndexEthnics(position)
+                }
+
+                UpdateInformationActivity.NATIONALITY -> {
+                    onClickItem?.invoke(infors[position])
+                    sharedPrefer.saveIndexNationality(position)
+                }
+
+                UpdateInformationActivity.JOB -> {
+                    onClickItem?.invoke(infors[position])
+                    sharedPrefer.saveIndexJob(position)
+                }
+            }
+        }
+    }
+
+    private fun checkIndex(index: Int, position: Int, layout: FrameLayout, txt: TextView) {
+        if (index == position) {
+            layout.setBackgroundResource(R.color.bg_blue_light)
+            txt.typeface = Typeface.DEFAULT_BOLD
+        } else {
+            layout.setBackgroundResource(R.color.white)
+            txt.typeface = Typeface.DEFAULT
         }
     }
 

@@ -37,7 +37,7 @@
                     android:orientation="horizontal">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/avartarUser"
+                        android:id="@+id/avatarUser"
                         android:layout_width="@dimen/dimen_80"
                         android:layout_height="@dimen/dimen_80"
                         android:src="@drawable/user_ad" />
@@ -427,6 +427,13 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal" />
 
                 <RelativeLayout
                     android:id="@+id/titleDoctorHighlight"

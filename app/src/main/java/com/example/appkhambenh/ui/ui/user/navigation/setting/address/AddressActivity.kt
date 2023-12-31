@@ -24,6 +24,10 @@ class AddressActivity : BaseActivity<AddressViewModel, ActivityAddressBinding>()
     private var idDistrict = -1
     private var idWard = -1
 
+    companion object {
+        const val ADDRESS = "ADDRESS"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -50,7 +54,7 @@ class AddressActivity : BaseActivity<AddressViewModel, ActivityAddressBinding>()
             binding.nameRoad.text.let {
                 if (it.isNotEmpty()) strAddress = "${it}, $strAddress"
             }
-            val intent = intent.putExtra("address", strAddress)
+            val intent = intent.putExtra(ADDRESS, strAddress)
             setResult(RESULT_OK, intent)
             finish()
         }

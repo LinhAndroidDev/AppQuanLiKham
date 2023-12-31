@@ -1,7 +1,5 @@
 package com.example.appkhambenh.ui.utils
 
-import java.io.Serializable
-
 interface SharePreferenceRepository {
     companion object {
         const val USER_ID = "USER_ID"

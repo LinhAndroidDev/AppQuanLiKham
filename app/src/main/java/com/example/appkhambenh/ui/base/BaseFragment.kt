@@ -52,7 +52,6 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
 
         bindData()
 
-        val t = sharePrefer.getLanguage()
         setLanguage(requireActivity(), sharePrefer.getLanguage())
 
         return binding.root

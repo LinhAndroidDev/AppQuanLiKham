@@ -19,25 +19,25 @@ class AppointmentActivity : BaseActivity<EmptyViewModel, ActivityAppointmentBind
         replaceFragment(FragmentTimeWorking())
     }
 
-    private fun replaceFragment(fm: Fragment){
-        val fg : FragmentTransaction = supportFragmentManager.beginTransaction()
+    private fun replaceFragment(fm: Fragment) {
+        val fg: FragmentTransaction = supportFragmentManager.beginTransaction()
         fg.add(R.id.changeIdAppointment, fm, "FragmentTimeWorking").addToBackStack(null)
             .commit()
     }
 
-    override fun getActivityBinding(inflater: LayoutInflater)
-    = ActivityAppointmentBinding.inflate(inflater)
+    override fun getActivityBinding(inflater: LayoutInflater) =
+        ActivityAppointmentBinding.inflate(inflater)
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         val fm = supportFragmentManager.findFragmentById(R.id.changeIdAppointment)
-        if(fm != null && fm is BaseFragment<*, *>){
-            if(fm.onFragmentBack()){
+        if (fm != null && fm is BaseFragment<*, *>) {
+            if (fm.onFragmentBack()) {
                 finish()
-            }else{
+            } else {
                 super.onBackPressed()
             }
-        }else{
+        } else {
             super.onBackPressed()
         }
     }
