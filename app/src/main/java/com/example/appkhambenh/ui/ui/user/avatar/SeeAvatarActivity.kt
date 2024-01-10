@@ -3,11 +3,11 @@ package com.example.appkhambenh.ui.ui.user.avatar
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.WindowManager
+import com.bumptech.glide.Glide
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivitySeeAvatarBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.ui.EmptyViewModel
-import com.squareup.picasso.Picasso
 
 class SeeAvatarActivity : BaseActivity<EmptyViewModel, ActivitySeeAvatarBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,8 +24,8 @@ class SeeAvatarActivity : BaseActivity<EmptyViewModel, ActivitySeeAvatarBinding>
 
         sharePrefer.getUserAvatar().let {
             if(it.isNotEmpty()) {
-                Picasso.get().load(it)
-                    .placeholder(R.drawable.user_ad)
+                Glide.with(this)
+                    .load(it)
                     .error(R.drawable.user_ad)
                     .into(binding.imgSeeAvatar)
             }

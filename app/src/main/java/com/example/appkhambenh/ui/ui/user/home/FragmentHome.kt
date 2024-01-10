@@ -8,14 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentHomeBinding
 import com.example.appkhambenh.ui.base.BaseFragment
@@ -26,7 +28,6 @@ import com.example.appkhambenh.ui.ui.doctor.statistical.StatisticalActivity
 import com.example.appkhambenh.ui.ui.doctor.time_working.EditTimeWorkActivity
 import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.ui.user.appointment.AppointmentActivity
-import com.example.appkhambenh.ui.ui.user.avatar.EditAvatarActivity
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
 import com.example.appkhambenh.ui.ui.user.csyt.CsytActivity
 import com.example.appkhambenh.ui.ui.user.csyt.InfoCsytActivity
@@ -39,7 +40,6 @@ import com.example.appkhambenh.ui.ui.user.home.adapter.MedicalHandBookAdapter
 import com.example.appkhambenh.ui.ui.user.home.adapter.TopCsytAdapter
 import com.example.appkhambenh.ui.ui.user.qr.QrActivity
 import com.example.appkhambenh.ui.utils.onClickFunction
-import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -47,13 +47,8 @@ import kotlinx.coroutines.withContext
 import java.util.*
 import kotlin.math.abs
 
-@Suppress("DEPRECATION")
 class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     private val timer by lazy { Timer() }
-
-    companion object {
-        const val URI_AVATAR = "URI_AVATAR"
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -87,9 +82,9 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                                 if (sharePrefer.getUserType() != 2) sharePrefer.getUserBirth() else sharePrefer.getUserAddress()
                             binding.txtUserName.text = sharePrefer.getUserName()
 
-                            sharePrefer.getUserAvatar().let {  avt->
+                            sharePrefer.getUserAvatar().let { avt ->
                                 if (avt.isNotEmpty()) {
-                                    Picasso.get().load(avt)
+                                    Glide.with(requireActivity()).load(avt)
                                         .error(R.drawable.user_ad)
                                         .placeholder(R.drawable.user_ad)
                                         .into(binding.avatarUser)
@@ -277,7 +272,6 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     }
 
     private fun scrollInfinity() {
-
         setUpTransformer(binding.slide, 0, 0.85f, 0.18f)
 
         val images = arrayListOf(R.drawable.slide1, R.drawable.slide2, R.drawable.slide3)
@@ -286,6 +280,45 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         val slideAdapter = ImageAdapter(requireActivity(), images)
         binding.slide.adapter = slideAdapter
 
+        //create indicator
+        val paramsIndicator = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+        ).apply {
+            setMargins(10, 0, 10, 0)
+            width = 13
+            height = 13
+        }
+        val indicators =
+            Array(images.size) { ImageView(requireActivity()) }
+        if (images.size > 1) {
+            indicators.forEach {
+                it.setImageResource(R.drawable.circle_grey)
+                binding.indicator.addView(it, paramsIndicator)
+            }
+            indicators[0].visibility = View.INVISIBLE
+            indicators[images.size - 1].visibility = View.INVISIBLE
+
+            binding.slide.registerOnPageChangeCallback(object :
+                ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+
+                    indicators.mapIndexed { index, imageView ->
+                        lifecycleScope.launch {
+                            delay(200L)
+                            withContext(Dispatchers.Main) {
+                                imageView.setImageResource(
+                                    if (position == index) R.drawable.circle_bg else R.drawable.circle_grey
+                                )
+                            }
+                        }
+                    }
+                }
+            })
+        }
+
+        //set scroll infinity
         val recyclerView = binding.slide.getChildAt(0) as RecyclerView
         val layoutManager = recyclerView.layoutManager as LinearLayoutManager
         val itemCount = binding.slide.adapter?.itemCount ?: 0
@@ -309,6 +342,7 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                 binding.slide.currentItem = binding.slide.currentItem + 1
             }
         }, 0, 3000)
+
     }
 
     private fun setUpTransformer(vpg2: ViewPager2, margin: Int, a: Float, b: Float) {
@@ -366,16 +400,6 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             onClickFunction(it, requireActivity())
         }
         binding.rcvFunctionMain.adapter = adapter
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == 100 && resultCode == AppCompatActivity.RESULT_OK) {
-            val intent = Intent(requireActivity(), EditAvatarActivity::class.java)
-            intent.putExtra(URI_AVATAR, data?.data.toString())
-            startActivity(intent)
-        }
     }
 
     override fun getFragmentBinding(

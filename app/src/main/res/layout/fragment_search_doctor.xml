@@ -22,15 +22,11 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_sp14_black_bold"
                 android:layout_marginStart="@dimen/dimen_10"
                 android:layout_marginTop="@dimen/dimen_20"
                 android:layout_marginBottom="@dimen/dimen_10"
-                android:text="@string/doctor_specialist"
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_sp14"
-                android:textStyle="bold" />
+                android:text="@string/doctor_specialist" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvDoctor"

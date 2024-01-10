@@ -25,15 +25,11 @@
 
             <TextView
                 android:id="@+id/titleHandbook"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_sp14_black_bold"
                 android:layout_marginHorizontal="@dimen/dimen_15"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="Xét nghiệm hiv 6 tháng an toàn chưa? 5 đơn vị xét nghiệm tewdsvsdvSVSVGREG"
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_sp14"
-                android:textStyle="bold" />
+                android:text="Xét nghiệm hiv 6 tháng an toàn chưa? 5 đơn vị xét nghiệm tewdsvsdvSVSVGREG" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -56,12 +52,9 @@
 
                     <TextView
                         android:id="@+id/timeHandbook"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/text_sp14"
                         android:layout_marginStart="@dimen/dimen_5"
-                        android:text="22/08/2023"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dimen_sp14" />
+                        android:text="22/08/2023" />
 
                 </LinearLayout>
 
@@ -79,12 +72,9 @@
 
                     <TextView
                         android:id="@+id/minutesHandbook"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/text_sp14"
                         android:layout_marginStart="@dimen/dimen_5"
-                        android:text="15 phút đọc"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dimen_sp14" />
+                        android:text="15 phút đọc" />
 
                 </LinearLayout>
 

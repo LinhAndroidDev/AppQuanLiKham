@@ -26,7 +26,7 @@
     <string name="title_sex">性别</string>
     <string name="title_specialist">专家</string>
     <string name="enter_specialist">输入专业</string>
-    <string name="title_password">密码</string>
+    <string name="password">密码</string>
     <string name="enter_password">输入密码</string>
     <string name="title_repeat_password">输入密码</string>
     <string name="title_date">出生日期</string>

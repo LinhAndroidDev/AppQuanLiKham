@@ -13,22 +13,15 @@
         android:paddingHorizontal="@dimen/dimen_10">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_sp16_black_bold"
             android:layout_marginTop="@dimen/dimen_60"
             android:text="@string/notification"
-            android:textColor="@color/black"
-            android:textSize="@dimen/dimen_sp25"
-            android:textStyle="bold" />
+            android:textSize="@dimen/dimen_sp25" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_sp16_black_bold"
             android:layout_marginTop="@dimen/dimen_10"
-            android:text="@string/before"
-            android:textColor="@color/black"
-            android:textSize="@dimen/dimen_sp16"
-            android:textStyle="bold" />
+            android:text="@string/before" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="@dimen/dimen_10"
-    android:layout_marginEnd="@dimen/dimen_5"
+    android:layout_marginVertical="@dimen/dimen_5"
+    android:layout_marginEnd="@dimen/dimen_7"
     android:orientation="horizontal">
 
     <View
@@ -20,14 +20,10 @@
 
         <TextView
             android:id="@+id/hourWorking"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dimen_15"
+            style="@style/text_sp16_black_bold"
+            android:layout_marginHorizontal="@dimen/dimen_16"
             android:layout_marginVertical="@dimen/dimen_8"
-            android:text="11:00"
-            android:textColor="@color/black"
-            android:textSize="@dimen/dimen_sp16"
-            android:textStyle="bold" />
+            android:text="11:00" />
 
     </LinearLayout>
 

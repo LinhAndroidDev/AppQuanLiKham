@@ -6,12 +6,8 @@
 
     <EditText
         android:id="@+id/edtInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
+        style="@style/edit_sp14"
         android:paddingEnd="@dimen/dimen_60"
-        android:textColor="@color/black"
-        android:textSize="@dimen/dimen_sp14"
         tools:ignore="RtlSymmetry" />
 
     <View
@@ -30,11 +26,11 @@
         android:visibility="gone">
 
         <ImageView
-            android:layout_width="@dimen/dimen_20"
-            android:layout_height="@dimen/dimen_20"
+            android:layout_width="@dimen/dimen_12"
+            android:layout_height="@dimen/dimen_12"
             android:layout_marginEnd="@dimen/dimen_10"
             android:layout_marginBottom="@dimen/dimen_10"
-            android:background="@drawable/icon_delete_search"
+            android:src="@drawable/icon_delete_search"
             android:visibility="visible" />
 
     </LinearLayout>

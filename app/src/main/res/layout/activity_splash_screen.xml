@@ -15,18 +15,12 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_sp16_black_bold"
             android:text="IBME"
-            android:textColor="@color/black"
-            android:textSize="@dimen/dimen_sp35"
-            android:textStyle="bold" />
+            android:textSize="@dimen/dimen_sp35" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_5"
-            android:text="Lab"
-            android:textSize="@dimen/dimen_sp16" />
+            style="@style/text_sp16_no_color"
+            android:layout_marginStart="@dimen/dimen_5" />
     </LinearLayout>
 </LinearLayout>

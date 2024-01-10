@@ -40,10 +40,7 @@
 
     <TextView
         android:id="@+id/labelRto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_5"
-        android:textColor="@color/black"
-        android:textSize="@dimen/dimen_sp16" />
+        style="@style/text_sp16"
+        android:layout_marginStart="@dimen/dimen_5" />
 
 </LinearLayout>

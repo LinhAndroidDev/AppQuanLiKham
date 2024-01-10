@@ -34,29 +34,20 @@
 
                 <TextView
                     android:id="@+id/txtNameDr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lê Thế Anh"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp14"
-                    android:textStyle="bold" />
+                    style="@style/text_sp14_black_bold"
+                    android:text="Lê Thế Anh" />
 
                 <TextView
                     android:id="@+id/csytDr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp14_no_color"
                     android:layout_marginTop="@dimen/dimen_5"
-                    android:text="Bác Sĩ Ơi-Phòng Khám 020"
-                    android:textSize="@dimen/dimen_sp14" />
+                    android:text="Bác Sĩ Ơi-Phòng Khám 020" />
 
                 <TextView
                     android:id="@+id/specialistDr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp14_color_text"
                     android:layout_marginTop="@dimen/dimen_5"
-                    android:text="Chuyên khoa Tai Mũi Họng"
-                    android:textColor="@color/text"
-                    android:textSize="@dimen/dimen_sp14" />
+                    android:text="Chuyên khoa Tai Mũi Họng" />
 
             </LinearLayout>
 
@@ -86,12 +77,9 @@
 
                 <TextView
                     android:id="@+id/txtNumberVisitDr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp14"
                     android:layout_marginStart="@dimen/dimen_5"
-                    android:text="1460 lượt đặt khám"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp14" />
+                    android:text="1460 lượt đặt khám" />
 
             </LinearLayout>
 
@@ -115,12 +103,9 @@
 
                 <TextView
                     android:id="@+id/txtEvaluateDr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp14"
                     android:layout_marginStart="@dimen/dimen_5"
-                    android:text="4.87"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp14" />
+                    android:text="4.87" />
 
             </LinearLayout>
 
@@ -139,10 +124,8 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/latest_medical_schedule"
-                    android:textSize="@dimen/dimen_sp14" />
+                    style="@style/text_sp14_no_color"
+                    android:text="@string/latest_medical_schedule" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -159,12 +142,9 @@
 
                     <TextView
                         android:id="@+id/txtLatestMedicalSchedule"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/text_sp14"
                         android:layout_marginStart="@dimen/dimen_10"
-                        android:text="11:00 AM, 21/11"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dimen_sp14" />
+                        android:text="11:00 AM, 21/11" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -189,13 +169,10 @@
                         android:gravity="center">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/text_sp14_black_bold"
                             android:layout_marginVertical="@dimen/dimen_12"
                             android:text="@string/online_counseling"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/dimen_sp14"
-                            android:textStyle="bold" />
+                            android:textColor="@color/white" />
 
                     </LinearLayout>
 

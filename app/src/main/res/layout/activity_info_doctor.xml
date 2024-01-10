@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".ui.ui.user.doctor.InfoDoctorActivity">
 
@@ -12,6 +13,8 @@
         android:layout_height="wrap_content" />
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_below="@+id/headerInforDoctor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -28,13 +31,9 @@
                 android:src="@drawable/img_doctor" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_sp16_black_bold"
                 android:layout_marginTop="@dimen/dimen_10"
-                android:text="PGS.TS Phạm Thị Bích Thảo"
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_sp16"
-                android:textStyle="bold" />
+                android:text="PGS.TS Phạm Thị Bích Thảo" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -54,12 +53,9 @@
 
                     <TextView
                         android:id="@+id/numberVisitCsyt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/text_sp14"
                         android:layout_marginStart="5dp"
-                        android:text="618"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dimen_sp15" />
+                        android:text="618" />
 
                 </LinearLayout>
 
@@ -75,12 +71,9 @@
 
                     <TextView
                         android:id="@+id/evaluateCsyt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/text_sp14"
                         android:layout_marginStart="5dp"
-                        android:text="5"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dimen_sp15" />
+                        android:text="5" />
 
                 </LinearLayout>
 
@@ -88,22 +81,17 @@
 
             <TextView
                 android:id="@+id/csytDr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_sp16_no_color"
                 android:layout_marginTop="@dimen/dimen_20"
-                android:text="Bác Sĩ Ơi-Phòng Khám 020"
-                android:textSize="@dimen/dimen_sp16" />
+                android:text="Bác Sĩ Ơi-Phòng Khám 020" />
 
             <TextView
                 android:id="@+id/specialistDr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_sp14_color_text"
                 android:layout_marginTop="@dimen/dimen_5"
                 android:background="@color/grey_light"
                 android:paddingHorizontal="@dimen/dimen_4"
                 android:text="Chuyên khoa Tai Mũi Họng"
-                android:textColor="@color/text"
-                android:textSize="@dimen/dimen_sp14"
                 android:textStyle="italic" />
 
             <LinearLayout
@@ -114,11 +102,8 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/price"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp14" />
+                    style="@style/text_sp14"
+                    android:text="@string/price" />
 
                 <ImageView
                     android:layout_width="@dimen/dimen_22"
@@ -127,13 +112,9 @@
                     android:src="@drawable/ic_action_price" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp16_color_text_bold"
                     android:layout_marginStart="@dimen/dimen_3"
-                    android:text="400.000đ"
-                    android:textColor="@color/text"
-                    android:textSize="@dimen/dimen_sp16"
-                    android:textStyle="bold" />
+                    android:text="400.000đ" />
 
             </LinearLayout>
 
@@ -152,20 +133,15 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/text_sp16_no_color"
                         android:gravity="center"
-                        android:text="@string/number_of_appointments"
-                        android:textSize="@dimen/dimen_sp16" />
+                        android:text="@string/number_of_appointments" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/text_sp16_black_bold"
                         android:layout_marginTop="@dimen/dimen_5"
                         android:text="0"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dimen_sp18"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/dimen_sp18" />
 
                 </LinearLayout>
 
@@ -182,20 +158,15 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/text_sp16_no_color"
                         android:gravity="center"
-                        android:text="@string/number_of_medical_calls"
-                        android:textSize="@dimen/dimen_sp16" />
+                        android:text="@string/number_of_medical_calls" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/text_sp16_black_bold"
                         android:layout_marginTop="@dimen/dimen_5"
                         android:text="1463"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dimen_sp18"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/dimen_sp18" />
 
                 </LinearLayout>
 
@@ -212,29 +183,25 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/text_sp16_no_color"
                         android:gravity="center"
-                        android:text="@string/consulting_turn"
-                        android:textSize="@dimen/dimen_sp16" />
+                        android:text="@string/consulting_turn" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/text_sp16_black_bold"
                         android:layout_marginTop="@dimen/dimen_5"
                         android:text="14"
                         android:textColor="@color/orange"
-                        android:textSize="@dimen/dimen_sp18"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/dimen_sp18" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
+            <include
+                layout="@layout/divider_gray_10"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_10"
-                android:background="@color/bg_common" />
+                android:layout_height="@dimen/dimen_10" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -255,42 +222,31 @@
                         android:background="@color/text" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/text_sp16_color_text_bold"
                         android:layout_marginStart="@dimen/dimen_15"
-                        android:text="@string/infor_doctor"
-                        android:textColor="@color/text"
-                        android:textSize="@dimen/dimen_sp16"
-                        android:textStyle="bold" />
+                        android:text="@string/infor_doctor" />
 
                 </LinearLayout>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp16_black_bold"
                     android:layout_marginStart="@dimen/dimen_10"
                     android:layout_marginTop="@dimen/dimen_15"
-                    android:text="@string/work_experience"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp16"
-                    android:textStyle="bold" />
+                    android:text="@string/work_experience" />
 
                 <TextView
                     android:id="@+id/tvInforDoctor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp16"
                     android:layout_marginHorizontal="@dimen/dimen_15"
                     android:layout_marginTop="@dimen/dimen_15"
-                    android:text="BS.PSG.TS \nBác sĩ nội trú \n25 năm trong chuyên ngành Tai Mũi Họng \n- Chữa các bệnh vùng Tai - Mũi - Họng: viêm tai, viêm mũi xoang, viêm họng, viêm loét họng, miệng, tăng tiết nước bọt vùng khoang miệng... bệnh lý các khối u vùng đầu mặt cổ \n- Chuyên gia về trị liệu giọng nói cho những người làm các nghề liên quan đến giọng như phát thanh viên, ca sĩ, giáo viên... \n- Các rối loạn giọng sau phẫu thuật \n- Chuyên gia điều trị chóng mặt, rối loạn thăng bằng, ù tai \n- Điều trị các đau mạn tính vùng sọ mặt, vùng lưỡi"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp16" />
+                    android:text="BS.PSG.TS \nBác sĩ nội trú \n25 năm trong chuyên ngành Tai Mũi Họng \n- Chữa các bệnh vùng Tai - Mũi - Họng: viêm tai, viêm mũi xoang, viêm họng, viêm loét họng, miệng, tăng tiết nước bọt vùng khoang miệng... bệnh lý các khối u vùng đầu mặt cổ \n- Chuyên gia về trị liệu giọng nói cho những người làm các nghề liên quan đến giọng như phát thanh viên, ca sĩ, giáo viên... \n- Các rối loạn giọng sau phẫu thuật \n- Chuyên gia điều trị chóng mặt, rối loạn thăng bằng, ù tai \n- Điều trị các đau mạn tính vùng sọ mặt, vùng lưỡi" />
 
             </LinearLayout>
 
-            <LinearLayout
+            <include
+                layout="@layout/divider_gray_10"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_10"
-                android:background="@color/bg_common" />
+                android:layout_height="@dimen/dimen_10" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -326,18 +282,12 @@
 
                         <TextView
                             android:id="@+id/txtClinic"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/dimen_sp16" />
+                            style="@style/text_sp16" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/text_sp16"
                             android:layout_marginTop="@dimen/dimen_5"
-                            android:text="Phòng B19 - Tổ hợp Y tế Chất lượng cao Mediplus, 99 Tân Mai, Hoàng Mai, Thành phố Hà Nội"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/dimen_sp16" />
+                            android:text="Phòng B19 - Tổ hợp Y tế Chất lượng cao Mediplus, 99 Tân Mai, Hoàng Mai, Thành phố Hà Nội" />
 
                     </LinearLayout>
 
@@ -360,14 +310,10 @@
                     android:paddingBottom="@dimen/dimen_5">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/text_sp16_color_text_bold"
                         android:layout_gravity="center"
                         android:text="@string/online_counseling"
-                        android:textAllCaps="true"
-                        android:textColor="@color/text"
-                        android:textSize="@dimen/dimen_sp16"
-                        android:textStyle="bold" />
+                        android:textAllCaps="true" />
 
                 </LinearLayout>
 
@@ -384,36 +330,64 @@
                 android:id="@+id/scrollHour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/grey"
+                android:background="@color/grey_blue_light"
                 android:orientation="horizontal">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcvHourWorking"
+                    android:paddingVertical="@dimen/dimen_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/seeMoreDate"
+                style="@style/text_sp16_color_text"
+                android:textColor="@color/blue"
                 android:layout_gravity="center"
                 android:layout_marginVertical="@dimen/dimen_15"
-                android:text="@string/see_all_date"
-                android:textColor="@color/background"
-                android:textSize="@dimen/dimen_sp16" />
+                android:text="@string/see_all_date" />
+
+            <include
+                layout="@layout/divider_gray_10"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_10" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_10"
-                android:background="@color/bg_common" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_100" />
+                android:layout_height="@dimen/dimen_45"/>
 
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/onlineConsult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="@color/orange"
+        android:paddingVertical="@dimen/dimen_7"
+        android:gravity="center"
+        android:visibility="invisible">
+
+        <ImageView
+            android:src="@drawable/icon_movie"
+            app:tint="@color/white"
+            android:layout_width="@dimen/dimen_30"
+            android:layout_height="@dimen/dimen_30"/>
+
+        <TextView
+            style="@style/text_sp16"
+            android:text="Tư vấn trực tuyến"
+            android:textColor="@color/white"
+            android:layout_width="@dimen/dimen_80"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_5"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

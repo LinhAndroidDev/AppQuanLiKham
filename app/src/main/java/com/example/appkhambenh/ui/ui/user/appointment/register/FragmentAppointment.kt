@@ -11,6 +11,7 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentAppointmentBinding
 import com.example.appkhambenh.ui.base.BaseFragment
@@ -22,7 +23,6 @@ import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
 import com.example.appkhambenh.ui.ui.user.manage_appointment.FragmentManageAppointment
 import com.example.appkhambenh.ui.utils.*
 import com.google.firebase.database.*
-import com.squareup.picasso.Picasso
 
 @Suppress("DEPRECATION")
 class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentAppointmentBinding>() {
@@ -58,8 +58,7 @@ class FragmentAppointment : BaseFragment<FragmentAppointmentViewModel, FragmentA
 
         sharePrefer.getUserAvatar().let {
             if(it.isNotEmpty()) {
-                Picasso.get().load(it)
-                    .placeholder(R.drawable.user_ad)
+                Glide.with(requireActivity()).load(it)
                     .error(R.drawable.user_ad)
                     .into(binding.avatarAppointment)
             }

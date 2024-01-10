@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentSettingBinding
 import com.example.appkhambenh.ui.base.BaseFragment
@@ -14,7 +15,6 @@ import com.example.appkhambenh.ui.ui.MainActivity
 import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
 import com.example.appkhambenh.ui.ui.user.navigation.password.ChangePasswordActivity
-import com.squareup.picasso.Picasso
 
 class FragmentSetting : BaseFragment<EmptyViewModel, FragmentSettingBinding>() {
 
@@ -29,8 +29,7 @@ class FragmentSetting : BaseFragment<EmptyViewModel, FragmentSettingBinding>() {
 
         sharePrefer.getUserAvatar().let {
             if (it.isNotEmpty()) {
-                Picasso.get().load(it)
-                    .placeholder(R.drawable.user_ad)
+                Glide.with(requireActivity()).load(it)
                     .error(R.drawable.user_ad)
                     .into(binding.avtSetting)
             }

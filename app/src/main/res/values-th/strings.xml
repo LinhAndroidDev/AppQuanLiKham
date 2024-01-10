@@ -26,7 +26,7 @@
     <string name="title_sex">เพศ</string>
     <string name="title_specialist">ผู้เชี่ยวชาญ</string>
     <string name="enter_specialist">ป้อนข้อมูลพิเศษ</string>
-    <string name="title_password">รหัสผ่าน</string>
+    <string name="password">รหัสผ่าน</string>
     <string name="enter_password">กรอกรหัสผ่าน</string>
     <string name="title_repeat_password">ป้อนรหัสผ่านอีกครั้ง</string>
     <string name="title_date">วันเกิด</string>

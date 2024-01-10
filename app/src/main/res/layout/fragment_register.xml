@@ -37,31 +37,24 @@
                     android:src="@drawable/icon_y_te" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp16_color_text_bold"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/dimen_10"
                     android:gravity="center"
                     android:maxWidth="@dimen/dimen_70"
-                    android:text="@string/ministry_of_health"
-                    android:textColor="@color/text"
-                    android:textSize="@dimen/dimen_sp16"
-                    android:textStyle="bold" />
+                    android:text="@string/ministry_of_health" />
 
             </LinearLayout>
 
         </RelativeLayout>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_sp16_color_text_bold"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dimen_80"
             android:layout_marginBottom="@dimen/dimen_20"
             android:text="@string/title_register_account"
-            android:textColor="@color/text"
-            android:textSize="@dimen/dimen_sp32"
-            android:textStyle="bold" />
+            android:textSize="@dimen/dimen_sp32" />
 
         <TextView
             style="@style/title_register_function"
@@ -175,7 +168,7 @@
 
         <TextView
             style="@style/title_register_function"
-            android:text="@string/title_password" />
+            android:text="@string/password" />
 
         <EditText
             android:id="@+id/edtPassword"
@@ -270,13 +263,10 @@
 
         <TextView
             android:id="@+id/notificationRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_sp14_black_bold"
             android:layout_marginStart="@dimen/dimen_10"
             android:layout_marginTop="@dimen/dimen_10"
             android:text="Vui lòng nhập "
-            android:textColor="@color/black"
-            android:textSize="@dimen/dimen_sp14"
             android:visibility="gone" />
 
         <CheckBox
@@ -313,14 +303,12 @@
                 app:cardElevation="0dp">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp16_black_bold"
+                    android:layout_gravity="center"
                     android:gravity="center"
                     android:paddingVertical="@dimen/dimen_15"
                     android:text="@string/register"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/dimen_sp16"
-                    android:textStyle="bold" />
+                    android:textColor="@color/white" />
 
             </androidx.cardview.widget.CardView>
 

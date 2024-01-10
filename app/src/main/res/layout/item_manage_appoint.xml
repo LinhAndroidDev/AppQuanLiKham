@@ -36,11 +36,9 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp14"
                     android:text="@string/cancel_appoint"
-                    android:textColor="@color/background"
-                    android:textSize="@dimen/dimen_sp14" />
+                    android:textColor="@color/background" />
 
                 <ImageView
                     android:layout_width="@dimen/dimen_30"
@@ -67,21 +65,14 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/patient_appoint"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp14"
-                    android:textStyle="bold" />
+                    style="@style/text_sp14_black_bold"
+                    android:text="@string/patient_appoint" />
 
                 <TextView
                     android:id="@+id/txt_name_patient"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp14"
                     android:layout_marginStart="@dimen/dimen_5"
-                    android:text="Nguyễn Hữu Linh"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp14" />
+                    android:text="Nguyễn Hữu Linh" />
 
             </LinearLayout>
 
@@ -92,11 +83,9 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    style="@style/text_sp14"
                     android:text="@string/edit"
-                    android:textColor="@color/background"
-                    android:textSize="@dimen/dimen_sp14" />
+                    android:textColor="@color/background" />
 
                 <ImageView
                     android:layout_width="@dimen/dimen_18"
@@ -116,21 +105,14 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/time_appoint"
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_sp14"
-                android:textStyle="bold" />
+                style="@style/text_sp14_black_bold"
+                android:text="@string/time_appoint" />
 
             <TextView
                 android:id="@+id/txt_time_appointment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_sp14"
                 android:layout_marginStart="@dimen/dimen_5"
-                android:text="Thứ tư, 18 tháng 3 lúc 10:00"
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_sp14" />
+                android:text="Thứ tư, 18 tháng 3 lúc 10:00" />
         </LinearLayout>
 
         <LinearLayout
@@ -146,21 +128,14 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/in_appoint"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp14"
-                    android:textStyle="bold" />
+                    style="@style/text_sp14_black_bold"
+                    android:text="@string/in_appoint" />
 
                 <TextView
                     android:id="@+id/txt_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp14"
                     android:layout_marginStart="@dimen/dimen_5"
-                    android:text="Khoa điều trị tạm thời"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp14" />
+                    android:text="Khoa điều trị tạm thời" />
 
             </LinearLayout>
 
@@ -171,11 +146,8 @@
 
                 <TextView
                     android:id="@+id/txtExpand"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp12_no_color"
                     android:text="@string/detail"
-                    android:textColor="@color/color_search"
-                    android:textSize="@dimen/dimen_sp12"
                     android:textStyle="italic" />
 
                 <ImageView
@@ -198,8 +170,7 @@
 
             <TextView
                 android:id="@+id/txt_service"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_sp14_no_color"
                 android:text="Khám tự nguyện"
                 android:textSize="@dimen/dimen_sp14"
                 android:textStyle="italic" />
@@ -215,22 +186,14 @@
                 android:layout_marginTop="@dimen/dimen_15">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/doctor_appoint"
-                    android:textColor="@color/text"
-                    android:textSize="@dimen/dimen_sp14"
-                    android:textStyle="bold" />
+                    style="@style/text_sp14_color_text_bold"
+                    android:text="@string/doctor_appoint" />
 
                 <TextView
                     android:id="@+id/txt_name_doctor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp14_color_text_bold"
                     android:layout_marginStart="@dimen/dimen_5"
-                    android:text="Phan Văn Hùng"
-                    android:textColor="@color/text"
-                    android:textSize="@dimen/dimen_sp14"
-                    android:textStyle="bold" />
+                    android:text="Phan Văn Hùng" />
             </LinearLayout>
 
             <LinearLayout
@@ -240,21 +203,14 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/reason_appoint"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp14"
-                    android:textStyle="bold" />
+                    style="@style/text_sp14_black_bold"
+                    android:text="@string/reason_appoint" />
 
                 <TextView
                     android:id="@+id/txt_reasons"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp14"
                     android:layout_marginStart="@dimen/dimen_5"
-                    android:text="Sốt nhẹ, cảm cúm"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp14" />
+                    android:text="Sốt nhẹ, cảm cúm" />
             </LinearLayout>
 
         </LinearLayout>

@@ -28,20 +28,13 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Khám bệnh (Giáo sư, Phó GS) tại Trung tâm kỹ thuật cao"
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_sp16"
-                android:textStyle="bold" />
+                style="@style/text_sp16_black_bold"
+                android:text="Khám bệnh (Giáo sư, Phó GS) tại Trung tâm kỹ thuật cao" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_sp14_color_text"
                 android:layout_marginTop="@dimen/dimen_15"
-                android:text="Giá dịch vụ: 500.000 đ"
-                android:textColor="@color/text"
-                android:textSize="@dimen/dimen_sp14" />
+                android:text="Giá dịch vụ: 500.000 đ" />
 
         </LinearLayout>
 

@@ -40,15 +40,15 @@
 
                         <LinearLayout
                             android:id="@+id/scanQr"
-                            android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:paddingVertical="@dimen/dimen_15"
-                            android:paddingHorizontal="@dimen/dimen_15"
+                            android:layout_weight="1"
                             android:background="@drawable/bg_corners_5"
                             android:backgroundTint="@color/grey_light"
                             android:gravity="center"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="@dimen/dimen_15"
+                            android:paddingVertical="@dimen/dimen_15">
 
                             <ImageView
                                 android:layout_width="@dimen/dimen_25"
@@ -56,13 +56,10 @@
                                 android:background="@drawable/scan" />
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                style="@style/text_sp14"
                                 android:layout_marginHorizontal="@dimen/dimen_5"
                                 android:gravity="center"
-                                android:text="@string/note_CCCD"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/dimen_sp14" />
+                                android:text="@string/note_CCCD" />
 
                         </LinearLayout>
 
@@ -98,24 +95,24 @@
 
                     <include
                         android:id="@+id/titleName"
-                        android:layout_marginTop="@dimen/dimen_15"
                         layout="@layout/layout_title_update_infor"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_15" />
 
                     <EditText
                         android:id="@+id/name"
-                        android:layout_marginTop="@dimen/dimen_10"
                         style="@style/edt_update_information"
+                        android:layout_marginTop="@dimen/dimen_10"
                         android:hint="@string/enter_name"
                         android:inputType="textCapCharacters" />
 
                     <include
                         android:id="@+id/titlePhone"
-                        android:layout_marginTop="@dimen/dimen_15"
                         layout="@layout/layout_title_update_infor"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_15" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -126,13 +123,10 @@
                         android:paddingHorizontal="@dimen/dimen_15">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/text_sp16"
                             android:layout_gravity="center"
                             android:layout_marginVertical="@dimen/dimen_15"
                             android:text="+84"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/dimen_sp16"
                             android:textStyle="bold" />
 
                         <ImageView
@@ -159,20 +153,21 @@
                             android:layout_marginHorizontal="@dimen/dimen_10"
                             android:background="#00FFFFFF"
                             android:hint="@string/enter_phone"
+                            android:textColorHint="@color/txt_hint"
+                            android:inputType="phone"
                             android:paddingVertical="@dimen/dimen_2"
                             android:textColor="@color/black"
                             android:textSize="@dimen/dimen_sp16"
-                            android:textStyle="bold"
-                            android:inputType="number"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
                     <include
                         android:id="@+id/titleBirth"
-                        android:layout_marginTop="@dimen/dimen_15"
                         layout="@layout/layout_title_update_infor"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_15" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -231,15 +226,15 @@
 
                     <include
                         android:id="@+id/titleCCCD"
-                        android:layout_marginTop="@dimen/dimen_15"
                         layout="@layout/layout_title_update_infor"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_15" />
 
                     <RelativeLayout
-                        android:layout_marginTop="@dimen/dimen_10"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_10">
 
                         <EditText
                             android:id="@+id/cccd"
@@ -249,15 +244,15 @@
 
                         <LinearLayout
                             android:id="@+id/scanCCCD"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/dimen_10"
                             android:background="@drawable/bg_corners_5"
                             android:backgroundTint="@color/grey_light"
-                            android:layout_marginEnd="@dimen/dimen_10"
                             android:paddingHorizontal="@dimen/dimen_10"
-                            android:paddingVertical="@dimen/dimen_5"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:paddingVertical="@dimen/dimen_5">
 
                             <ImageView
                                 android:layout_width="@dimen/dimen_25"
@@ -269,10 +264,10 @@
 
                     <include
                         android:id="@+id/titleAddress"
-                        android:layout_marginTop="@dimen/dimen_15"
                         layout="@layout/layout_title_update_infor"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_15" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -312,10 +307,10 @@
 
                             <include
                                 android:id="@+id/titleEthnic"
-                                android:layout_marginTop="@dimen/dimen_15"
                                 layout="@layout/layout_title_update_infor"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dimen_15" />
 
                             <RelativeLayout
                                 android:id="@+id/ethnic"
@@ -351,10 +346,10 @@
 
                             <include
                                 android:id="@+id/titleNationality"
-                                android:layout_marginTop="@dimen/dimen_15"
                                 layout="@layout/layout_title_update_infor"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dimen_15" />
 
                             <RelativeLayout
                                 android:id="@+id/nationality"
@@ -365,8 +360,8 @@
                                 <TextView
                                     android:id="@+id/txtNationality"
                                     style="@style/edt_update_information"
-                                    android:paddingEnd="@dimen/dimen_20"
-                                    android:hint="@string/nationality" />
+                                    android:hint="@string/nationality"
+                                    android:paddingEnd="@dimen/dimen_20" />
 
                                 <ImageView
                                     android:layout_width="@dimen/dimen_14"
@@ -386,10 +381,10 @@
 
                     <include
                         android:id="@+id/titleJob"
-                        android:layout_marginTop="@dimen/dimen_15"
                         layout="@layout/layout_title_update_infor"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_15" />
 
                     <RelativeLayout
                         android:id="@+id/job"

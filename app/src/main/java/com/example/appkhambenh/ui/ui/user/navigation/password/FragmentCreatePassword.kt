@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentCreatePasswordBinding
 import com.example.appkhambenh.ui.base.BaseFragment
@@ -12,7 +13,6 @@ import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
 import com.example.appkhambenh.ui.ui.user.navigation.information.CustomTextViewInfo
 import com.example.appkhambenh.ui.utils.validatePassword
-import com.squareup.picasso.Picasso
 
 class FragmentCreatePassword : BaseFragment<ChangePasswordViewModel, FragmentCreatePasswordBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -25,13 +25,12 @@ class FragmentCreatePassword : BaseFragment<ChangePasswordViewModel, FragmentCre
         val password = arguments?.getString("Password", "")
 
         binding.edtPassWordNew.inputTypePassword()
-        binding.edtPassWordNew.setTextHint("Mật khẩu")
+        binding.edtPassWordNew.setTextHint(getString(R.string.password))
         checkEnableButtonInfo(binding.edtPassWordNew)
 
         sharePrefer.getUserAvatar().let {
             if(it.isNotEmpty()) {
-                Picasso.get().load(it)
-                    .placeholder(R.drawable.user_ad)
+                Glide.with(requireActivity()).load(it)
                     .error(R.drawable.user_ad)
                     .into(binding.avatarInfo)
             }

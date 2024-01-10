@@ -26,7 +26,7 @@
     <string name="title_sex">Giới tính</string>
     <string name="title_specialist">Chuyên khoa</string>
     <string name="enter_specialist">Nhập chuyên khoa</string>
-    <string name="title_password">Mật khẩu</string>
+    <string name="password">Mật khẩu</string>
     <string name="enter_password">Nhập mật khẩu</string>
     <string name="title_repeat_password">Nhập lại mật khẩu</string>
     <string name="title_date">Ngày sinh</string>

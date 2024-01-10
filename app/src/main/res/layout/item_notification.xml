@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -24,13 +25,11 @@
 
             <TextView
                 android:id="@+id/txtNotification"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_sp14"
                 android:layout_marginStart="@dimen/dimen_10"
                 android:lineHeight="@dimen/dimen_25"
                 android:text="Lịch hẹn của bạn đã quá hạnfjsdfjdbfdjbfhbvhwwrvbshcv\vs"
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_sp14" />
+                tools:ignore="UnusedAttribute" />
 
         </LinearLayout>
 

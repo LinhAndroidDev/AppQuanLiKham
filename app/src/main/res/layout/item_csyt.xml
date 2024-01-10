@@ -22,25 +22,19 @@
 
         <TextView
             android:id="@+id/nameCsyt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_sp14_black_bold"
             android:layout_marginHorizontal="@dimen/dimen_10"
             android:layout_marginTop="@dimen/dimen_10"
-            android:text="Bệnh viện Hữu Nghị Việt Đức"
-            android:textColor="@color/black"
-            android:textSize="@dimen/dimen_sp14"
-            android:textStyle="bold" />
+            android:text="Bệnh viện Hữu Nghị Việt Đức" />
 
         <TextView
             android:id="@+id/addressCsty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_sp14_no_color"
             android:layout_marginHorizontal="@dimen/dimen_10"
             android:layout_marginTop="@dimen/dimen_10"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội"
-            android:textSize="@dimen/dimen_sp14" />
+            android:text="Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,12 +55,9 @@
 
                 <TextView
                     android:id="@+id/numberVisitCsyt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp16"
                     android:layout_marginStart="5dp"
-                    android:text="61824"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp15" />
+                    android:text="61824" />
 
             </LinearLayout>
 
@@ -82,12 +73,9 @@
 
                 <TextView
                     android:id="@+id/evaluateCsyt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp16"
                     android:layout_marginStart="5dp"
-                    android:text="5"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp15" />
+                    android:text="5" />
 
             </LinearLayout>
 

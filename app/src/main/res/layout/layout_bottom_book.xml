@@ -28,12 +28,10 @@
 
         <TextView
             android:id="@+id/titleBottomBook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_sp16_no_color"
             android:layout_gravity="center"
             android:layout_marginVertical="@dimen/dimen_20"
             android:text="@string/book_now"
-            android:textSize="@dimen/dimen_sp16"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -70,21 +68,14 @@
 
                 <TextView
                     android:id="@+id/titleDoctorBook"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/go_to_doctor"
-                    android:textColor="@color/text"
-                    android:textSize="@dimen/dimen_sp16"
-                    android:textStyle="bold" />
+                    style="@style/text_sp16_color_text_bold"
+                    android:text="@string/go_to_doctor" />
 
                 <TextView
                     android:id="@+id/noteDoctorBook"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp12"
                     android:layout_marginTop="@dimen/dimen_10"
-                    android:text="@string/note_doctor"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp12" />
+                    android:text="@string/note_doctor" />
 
             </LinearLayout>
 
@@ -134,21 +125,15 @@
 
                 <TextView
                     android:id="@+id/titleServiceBook"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp16_color_text_bold"
                     android:text="@string/health_services"
-                    android:textColor="@color/txt_red"
-                    android:textSize="@dimen/dimen_sp16"
-                    android:textStyle="bold" />
+                    android:textColor="@color/txt_red" />
 
                 <TextView
                     android:id="@+id/noteServiceBook"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp12"
                     android:layout_marginTop="@dimen/dimen_10"
-                    android:text="@string/note_health_services"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp12" />
+                    android:text="@string/note_health_services" />
 
             </LinearLayout>
 
@@ -199,21 +184,15 @@
 
                 <TextView
                     android:id="@+id/titleCsytBook"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp16_color_text_bold"
                     android:text="@string/csyt"
-                    android:textColor="@color/purple"
-                    android:textSize="@dimen/dimen_sp16"
-                    android:textStyle="bold" />
+                    android:textColor="@color/purple" />
 
                 <TextView
                     android:id="@+id/noteCsytBook"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp12"
                     android:layout_marginTop="@dimen/dimen_10"
-                    android:text="@string/note_csyt"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp12" />
+                    android:text="@string/note_csyt" />
 
             </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.example.appkhambenh.ui.ui.user.doctor
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.SpannableString
@@ -8,6 +9,8 @@ import android.text.SpannableStringBuilder
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
+import android.view.View
+import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appkhambenh.R
@@ -16,6 +19,8 @@ import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.model.Hour
 import com.example.appkhambenh.ui.model.Time
 import com.example.appkhambenh.ui.ui.EmptyViewModel
+import com.example.appkhambenh.ui.ui.user.appointment.MakeAppointActivity
+import com.example.appkhambenh.ui.ui.user.appointment.OnlineConsultationActivity
 import com.example.appkhambenh.ui.ui.user.doctor.adapter.HourWorkingAdapter
 import com.example.appkhambenh.ui.ui.user.doctor.adapter.TimeWorkingAdapter
 import com.example.appkhambenh.ui.utils.collapseText
@@ -29,6 +34,11 @@ class InfoDoctorActivity : BaseActivity<EmptyViewModel, ActivityInfoDoctorBindin
     private val times by lazy { arrayListOf<Time>() }
     private val timeAdapter by lazy { TimeWorkingAdapter(this@InfoDoctorActivity, times) }
     private var isExpandText = false
+
+    companion object {
+        const val INFORMATION_DOCTOR = "INFORMATION_DOCTOR"
+        const val HOUR_INFORMATION_DOCTOR = "HOUR_INFORMATION_DOCTOR"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +74,22 @@ class InfoDoctorActivity : BaseActivity<EmptyViewModel, ActivityInfoDoctorBindin
         binding.tvInforDoctor.setOnClickListener {
             isExpandText = !isExpandText
             binding.tvInforDoctor.text = if (isExpandText) info else spannable
+        }
+
+        binding.scroll.setOnScrollChangeListener(
+            NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
+                if ((scrollY + 20) >= binding.scroll.getChildAt(0).measuredHeight - binding.scroll.measuredHeight)
+                    enableOnlineConsult() else disableOnlineConsult()
+            })
+
+        binding.seeMoreDate.setOnClickListener {
+            val intent = Intent(this@InfoDoctorActivity, OnlineConsultationActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.onlineConsult.setOnClickListener {
+            val intent = Intent(this@InfoDoctorActivity, OnlineConsultationActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -134,11 +160,29 @@ class InfoDoctorActivity : BaseActivity<EmptyViewModel, ActivityInfoDoctorBindin
 
     @SuppressLint("NotifyDataSetChanged")
     private fun setChangeTime(hours: ArrayList<String>) {
+        val hourAdapter = HourWorkingAdapter(this@InfoDoctorActivity, hours, INFORMATION_DOCTOR)
         binding.rcvHourWorking.apply {
             layoutManager =
                 LinearLayoutManager(this@InfoDoctorActivity, LinearLayoutManager.HORIZONTAL, false)
-            adapter = HourWorkingAdapter(this@InfoDoctorActivity, hours)
+            adapter = hourAdapter
         }
+
+        hourAdapter.onClickTime = {
+            val intent = Intent(this@InfoDoctorActivity, MakeAppointActivity::class.java)
+            intent.putExtra(HOUR_INFORMATION_DOCTOR, it)
+            startActivity(intent)
+        }
+
+    }
+
+    private fun enableOnlineConsult() {
+        binding.onlineConsult.visibility = View.VISIBLE
+        binding.onlineConsult.isEnabled = true
+    }
+
+    private fun disableOnlineConsult() {
+        binding.onlineConsult.visibility = View.INVISIBLE
+        binding.onlineConsult.isEnabled = false
     }
 
     override fun getActivityBinding(inflater: LayoutInflater) =

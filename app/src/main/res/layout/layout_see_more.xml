@@ -6,13 +6,10 @@
     android:orientation="horizontal">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/text_sp14_black_bold"
         android:layout_gravity="center"
         android:text="@string/see_more"
-        android:textColor="@color/grey_dark"
-        android:textSize="@dimen/dimen_sp14"
-        android:textStyle="bold" />
+        android:textColor="@color/grey_dark" />
 
     <ImageView
         android:layout_width="@dimen/dimen_25"

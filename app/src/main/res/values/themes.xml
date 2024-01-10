@@ -14,4 +14,150 @@
         <item name="colorAccent">@color/background</item>
         <!-- Customize your theme here. -->
     </style>
+
+    //Text 12sp
+    <style name="text_sp12" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_sp12</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    //Text 12sp no color
+    <style name="text_sp12_no_color" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_sp12</item>
+        <item name="android:textColor">@color/txt_hint</item>
+    </style>
+
+    //Text 12sp black bold
+    <style name="text_sp12_black_bold" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_sp12</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    //Text 12sp color text
+    <style name="text_sp12_color_text" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_sp12</item>
+        <item name="android:textColor">@color/text</item>
+    </style>
+
+    //Text 12sp color text bold
+    <style name="text_sp12_color_text_bold" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_sp12</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    //Text 14sp
+    <style name="text_sp14" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_sp14</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    //Text 14sp no color
+    <style name="text_sp14_no_color" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_sp14</item>
+        <item name="android:textColor">@color/txt_hint</item>
+    </style>
+
+    //Text 14sp black bold
+    <style name="text_sp14_black_bold" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_sp14</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    //Text 14sp color text
+    <style name="text_sp14_color_text" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_sp14</item>
+        <item name="android:textColor">@color/text</item>
+    </style>
+
+    //Text 14sp color text bold
+    <style name="text_sp14_color_text_bold" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_sp14</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    //Text 16sp
+    <style name="text_sp16" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_sp16</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    //Text 16sp no color
+    <style name="text_sp16_no_color" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_sp16</item>
+        <item name="android:textColor">@color/txt_hint</item>
+    </style>
+
+    //Text 16sp black bold
+    <style name="text_sp16_black_bold" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_sp16</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    //Text 16sp color text
+    <style name="text_sp16_color_text" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_sp16</item>
+        <item name="android:textColor">@color/text</item>
+    </style>
+
+    //Text 16sp color text bold
+    <style name="text_sp16_color_text_bold" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_sp16</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    //Edit 14sp
+    <style name="edit_sp14" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_sp14</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:inputType">textEmailAddress</item>
+    </style>
+
+    //Edit 16sp
+    <style name="edit_sp16" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_sp16</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="hintTextColor">@color/txt_hint</item>
+        <item name="android:inputType">textEmailAddress</item>
+        <item name="android:textColorHint">@color/txt_hint</item>
+    </style>
 </resources>

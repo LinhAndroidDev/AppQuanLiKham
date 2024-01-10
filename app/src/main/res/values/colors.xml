@@ -14,18 +14,21 @@
 
     <!--    Color Text-->
     <color name="text">#035dcf</color>
-    <color name="txt_hint">#A8A8A8</color>
+    <color name="txt_hint">#999999</color>
     <color name="txt_red">#FF0303</color>
     <color name="txt_green">#00CC08</color>
 
     <!--    Color Background-->
     <color name="pink">#F4598E</color>
-    <color name="orange">#FA9705</color>
+    <color name="orange">#FD8B34</color>
+    <color name="brown">#6D4202</color>
     <color name="blue">#5BB5FD</color>
     <color name="purple">#5D03FF</color>
     <color name="green_light">#8EC152</color>
     <color name="grey">#DFDFDF</color>
     <color name="grey_1">#9F9F9F</color>
+    <color name="grey_2">#D1DCE6</color>
+    <color name="grey_blue_light">#DDE5EC</color>
     <color name="grey_dark">#686868</color>
     <color name="grey_light">#F3F3F3</color>
     <color name="yellow">#FFEB3B</color>
@@ -48,4 +51,5 @@
     <color name="bg_blue">#6AA0E6</color>
 
     <color name="invisible">#00FFFFFF</color>
+    <color name="red_dark">#DD1203</color>
 </resources>

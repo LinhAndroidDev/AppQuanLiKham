@@ -26,13 +26,9 @@
 
     <TextView
         android:id="@+id/nameSlide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/text_sp14_black_bold"
         android:layout_gravity="center"
         android:layout_marginBottom="@dimen/dimen_5"
-        android:text="Khám tại nhà"
-        android:textColor="@color/black"
-        android:textSize="@dimen/dimen_sp14"
-        android:textStyle="bold" />
+        android:text="Khám tại nhà" />
 
 </LinearLayout>

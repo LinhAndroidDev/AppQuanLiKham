@@ -35,14 +35,11 @@
 
                 <TextView
                     android:id="@+id/txtUseNameAppointment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp14"
                     android:layout_centerInParent="true"
                     android:layout_marginStart="@dimen/dimen_5"
                     android:layout_toEndOf="@+id/avatarAppointment"
                     android:text="Hà Hữu Hải"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp14"
                     android:textStyle="italic" />
 
             </RelativeLayout>

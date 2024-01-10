@@ -27,13 +27,11 @@
 
             <TextView
                 android:id="@+id/titleHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_sp16_black_bold"
                 android:layout_centerHorizontal="true"
                 android:layout_marginHorizontal="@dimen/dimen_40"
                 android:textColor="@color/white"
-                android:textSize="@dimen/dimen_sp20"
-                android:textStyle="bold" />
+                android:textSize="@dimen/dimen_sp20" />
 
             <ImageView
                 android:id="@+id/setting"

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityUpdateInformationBinding
 import com.example.appkhambenh.ui.base.BaseActivity
@@ -16,7 +17,6 @@ import com.example.appkhambenh.ui.ui.user.navigation.setting.adapter.Information
 import com.example.appkhambenh.ui.ui.user.navigation.setting.address.AddressActivity
 import com.example.appkhambenh.ui.utils.Address
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.squareup.picasso.Picasso
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -52,7 +52,8 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
 
         sharePrefer.getUserAvatar().let {
             if (it.isNotEmpty()) {
-                Picasso.get().load(it)
+                Glide.with(this)
+                    .load(it)
                     .into(binding.avatar)
             }
         }
@@ -201,7 +202,7 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
         when (requestCode) {
             REQUEST_SCAN -> {
                 if (resultCode == Activity.RESULT_OK) {
-                    val strInformation = data?.getStringExtra("results")
+                    val strInformation = data?.getStringExtra(ScanActivity.DATA_CCCD)
                     val information = strInformation?.split("|")?.toTypedArray()
                     binding.cccd.setText(information!![0])
                     binding.name.setText(information[2])

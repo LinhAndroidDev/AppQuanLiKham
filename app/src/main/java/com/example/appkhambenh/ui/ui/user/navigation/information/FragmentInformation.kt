@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentInformationBinding
 import com.example.appkhambenh.ui.base.BaseFragment
@@ -16,13 +17,16 @@ import com.example.appkhambenh.ui.ui.user.avatar.EditAvatarActivity
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
 import com.example.appkhambenh.ui.utils.validateEmail
 import com.example.appkhambenh.ui.utils.validatePhone
-import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformationBinding>() {
+
+    companion object {
+        const val URI_AVATAR = "URI_AVATAR"
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -59,9 +63,8 @@ class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformati
 
         sharePrefer.getUserAvatar().let {
             if (it.isNotEmpty()) {
-                Picasso.get().load(it)
+                Glide.with(requireActivity()).load(it)
                     .error(R.drawable.user_ad)
-                    .placeholder(R.drawable.user_ad)
                     .into(binding.avatarInfo)
             }
         }
@@ -201,7 +204,7 @@ class FragmentInformation : BaseFragment<InformationViewModel, FragmentInformati
 
         if (requestCode == 100 && resultCode == AppCompatActivity.RESULT_OK) {
             val intent = Intent(requireActivity(), EditAvatarActivity::class.java)
-            intent.putExtra("uri_avatar", data?.data.toString())
+            intent.putExtra(URI_AVATAR, data?.data.toString())
             startActivity(intent)
         }
     }

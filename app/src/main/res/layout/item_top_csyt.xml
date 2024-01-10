@@ -25,26 +25,22 @@
             android:src="@drawable/img_service" />
 
         <TextView
-            android:layout_width="@dimen/dimen_100"
-            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_15"
+            style="@style/text_sp16_black_bold"
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="2"
-            android:text="Trung Tâm Y Khoa Hà Nội 4.0+"
-            android:textColor="@color/black"
-            android:textSize="@dimen/dimen_sp16"
-            android:textStyle="bold" />
+            android:text="Trung Tâm Y Khoa Hà Nội 4.0+" />
 
         <TextView
-            android:layout_width="@dimen/dimen_100"
-            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_15"
+            style="@style/text_sp14_no_color"
             android:layout_marginTop="@dimen/dimen_5"
             android:layout_marginBottom="@dimen/dimen_15"
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="3"
-            android:text="Lô số 207 và 208, Khu dân tư Tây Nam chợ Quảng Thắng, Quảng Thắng, Thanh Hoá, Tỉnh..."
-            android:textSize="@dimen/dimen_sp14" />
+            android:text="Lô số 207 và 208, Khu dân tư Tây Nam chợ Quảng Thắng, Quảng Thắng, Thanh Hoá, Tỉnh..." />
 
     </LinearLayout>
 

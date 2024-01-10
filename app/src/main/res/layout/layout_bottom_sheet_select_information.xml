@@ -24,30 +24,27 @@
         android:orientation="vertical">
 
         <View
+            android:layout_width="@dimen/dimen_50"
+            android:layout_height="@dimen/dimen_7"
             android:layout_gravity="center"
             android:background="@drawable/bg_corners_25"
-            android:backgroundTint="@color/white"
-            android:layout_width="@dimen/dimen_50"
-            android:layout_height="@dimen/dimen_7" />
+            android:backgroundTint="@color/white" />
 
         <LinearLayout
             android:id="@+id/layoutMainSheet"
-            android:layout_marginTop="@dimen/dimen_7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_7"
             android:background="@drawable/boder_bottom_sheet"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/title"
-                android:text="Dân tộc"
-                android:textSize="@dimen/dimen_sp18"
-                android:textColor="@color/black"
-                android:textStyle="bold"
+                style="@style/text_sp16_black_bold"
                 android:layout_gravity="center"
                 android:layout_marginVertical="@dimen/dimen_20"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:text="Dân tộc"
+                android:textSize="@dimen/dimen_sp18" />
 
             <View
                 android:layout_width="match_parent"
@@ -56,24 +53,22 @@
 
             <EditText
                 android:id="@+id/search"
-                android:hint="Tìm kiếm dân tộc"
-                android:textSize="@dimen/dimen_sp16"
+                style="@style/edit_sp16"
+                android:layout_marginHorizontal="@dimen/dimen_20"
+                android:layout_marginVertical="@dimen/dimen_15"
+                android:background="@drawable/boder_gray_corner_10"
                 android:drawableStart="@drawable/search"
                 android:drawablePadding="@dimen/dimen_10"
-                android:paddingVertical="@dimen/dimen_10"
+                android:hint="Tìm kiếm dân tộc"
+                android:inputType="textEmailAddress"
                 android:paddingHorizontal="@dimen/dimen_12"
-                android:layout_marginVertical="@dimen/dimen_15"
-                android:layout_marginHorizontal="@dimen/dimen_20"
-                android:background="@drawable/boder_gray_corner_10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"/>
+                android:paddingVertical="@dimen/dimen_10" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvInformation"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_400"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </LinearLayout>
 

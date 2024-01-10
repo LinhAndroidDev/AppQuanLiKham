@@ -28,12 +28,9 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_sp16_black_bold"
                 android:text="GS.TS Nguyễn Gia Bình"
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_sp18"
-                android:textStyle="bold" />
+                android:textSize="@dimen/dimen_sp18" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -47,12 +44,9 @@
                     android:src="@drawable/ic_action_visit" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp16"
                     android:layout_marginStart="@dimen/dimen_5"
-                    android:text="37"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp16" />
+                    android:text="37" />
 
                 <ImageView
                     android:layout_width="@dimen/dimen_20"
@@ -61,25 +55,19 @@
                     android:src="@drawable/ic_action_star" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp16"
                     android:layout_marginStart="@dimen/dimen_5"
-                    android:text="5"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp16" />
+                    android:text="5" />
 
             </LinearLayout>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_sp14_color_text"
                 android:layout_marginTop="@dimen/dimen_5"
                 android:background="@color/grey_light"
                 android:paddingHorizontal="@dimen/dimen_2"
                 android:paddingVertical="@dimen/dimen_1"
-                android:text="Nội khoa"
-                android:textColor="@color/text"
-                android:textSize="@dimen/dimen_sp14" />
+                android:text="Nội khoa" />
 
         </LinearLayout>
 
@@ -98,20 +86,13 @@
         android:layout_marginTop="@dimen/dimen_15">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/price"
-            android:textColor="@color/black"
-            android:textSize="@dimen/dimen_sp14" />
+            style="@style/text_sp14"
+            android:text="@string/price" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_sp14_color_text_bold"
             android:layout_alignParentEnd="true"
-            android:text="300.000đ"
-            android:textColor="@color/text"
-            android:textSize="@dimen/dimen_sp14"
-            android:textStyle="bold" />
+            android:text="300.000đ" />
 
     </RelativeLayout>
 
@@ -130,12 +111,8 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/latest_medical_schedule"
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_sp16"
-                android:textStyle="bold" />
+                style="@style/text_sp16_black_bold"
+                android:text="@string/latest_medical_schedule" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -152,12 +129,9 @@
 
                 <TextView
                     android:id="@+id/txtLatestMedicalSchedule"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp14_black_bold"
                     android:layout_marginStart="@dimen/dimen_10"
-                    android:text="07:30, Ngày 25/11"
-                    android:textSize="@dimen/dimen_sp14"
-                    android:textStyle="bold" />
+                    android:text="07:30, Ngày 25/11" />
 
             </LinearLayout>
         </LinearLayout>
@@ -197,19 +171,14 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/text_sp14_black_bold"
                             android:text="@string/book_examination"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/dimen_sp14"
-                            android:textStyle="bold" />
+                            android:textColor="@color/white" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/text_sp12"
                             android:text="@string/at_medical_facility"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/dimen_sp12" />
+                            android:textColor="@color/white" />
 
                     </LinearLayout>
 

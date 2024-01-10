@@ -6,13 +6,10 @@
 
     <TextView
         android:id="@+id/nameInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/text_sp16"
         android:layout_marginVertical="@dimen/dimen_15"
         android:layout_marginStart="@dimen/dimen_20"
-        android:text="Kinh"
-        android:textColor="@color/black"
-        android:textSize="@dimen/dimen_sp16" />
+        android:text="Kinh" />
 
     <View
         android:layout_width="match_parent"

@@ -26,7 +26,7 @@
     <string name="title_sex">Sex</string>
     <string name="title_specialist">Specialist</string>
     <string name="enter_specialist">Enter the specialty</string>
-    <string name="title_password">Password</string>
+    <string name="password">Password</string>
     <string name="enter_password">Enter password</string>
     <string name="title_repeat_password">Enter the password</string>
     <string name="title_date">Date of birth</string>

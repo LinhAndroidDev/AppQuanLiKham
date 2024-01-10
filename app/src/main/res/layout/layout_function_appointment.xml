@@ -5,11 +5,8 @@
 
     <TextView
         android:id="@+id/txt_name_function"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/text_sp14"
         android:layout_marginHorizontal="@dimen/dimen_10"
         android:layout_marginVertical="@dimen/dimen_10"
-        android:text="Nguyễn Hữu Linh"
-        android:textColor="@color/black"
-        android:textSize="@dimen/dimen_sp14" />
+        android:text="Nguyễn Hữu Linh" />
 </LinearLayout>

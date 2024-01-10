@@ -11,14 +11,10 @@
 
         <TextView
             android:id="@+id/txtLanguage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_sp16_black_bold"
             android:layout_marginVertical="@dimen/dimen_15"
             android:layout_marginStart="@dimen/dimen_20"
-            android:text="English"
-            android:textColor="@color/black"
-            android:textSize="@dimen/dimen_sp16"
-            android:textStyle="bold" />
+            android:text="English" />
 
         <RelativeLayout
             android:layout_width="@dimen/dimen_20"

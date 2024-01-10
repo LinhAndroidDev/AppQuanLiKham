@@ -31,28 +31,22 @@
                     android:src="@drawable/icon_y_te" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_sp16_black_bold"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/dimen_10"
                     android:gravity="center"
                     android:maxWidth="@dimen/dimen_70"
                     android:text="@string/ministry_of_health"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/dimen_sp16"
-                    android:textStyle="bold" />
+                    android:textColor="@color/white" />
             </LinearLayout>
         </RelativeLayout>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_sp16_color_text_bold"
             android:layout_marginHorizontal="@dimen/dimen_20"
             android:layout_marginTop="@dimen/dimen_30"
             android:text="@string/login"
-            android:textColor="@color/text"
-            android:textSize="@dimen/dimen_sp32"
-            android:textStyle="bold" />
+            android:textSize="@dimen/dimen_sp32" />
     </LinearLayout>
 
     <LinearLayout
@@ -87,12 +81,8 @@
                     android:padding="@dimen/dimen_10">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/account"
-                        android:textColor="@color/text"
-                        android:textSize="@dimen/dimen_sp14"
-                        android:textStyle="bold" />
+                        style="@style/text_sp14_color_text_bold"
+                        android:text="@string/account" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -110,25 +100,17 @@
 
                         <EditText
                             android:id="@+id/edtAccount"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_sp16"
                             android:layout_marginStart="@dimen/dimen_15"
                             android:hint="@string/enter_account"
-                            android:inputType="textEmailAddress"
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/txt_hint"
-                            android:textSize="@dimen/dimen_sp16" />
+                            android:inputType="textEmailAddress" />
                     </LinearLayout>
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/text_sp14_color_text_bold"
                         android:layout_marginStart="@dimen/dimen_10"
                         android:layout_marginTop="@dimen/dimen_10"
-                        android:text="@string/title_password"
-                        android:textColor="@color/text"
-                        android:textSize="@dimen/dimen_sp14"
-                        android:textStyle="bold" />
+                        android:text="@string/password" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -151,15 +133,11 @@
 
                             <EditText
                                 android:id="@+id/edtPassword"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                style="@style/edit_sp16"
                                 android:layout_marginStart="@dimen/dimen_15"
                                 android:hint="@string/enter_password"
                                 android:inputType="textPassword"
-                                android:maxWidth="@dimen/dimen_150"
-                                android:textColor="@color/black"
-                                android:textColorHint="@color/txt_hint"
-                                android:textSize="@dimen/dimen_sp16" />
+                                android:maxWidth="@dimen/dimen_150" />
                         </LinearLayout>
 
                         <ImageView
@@ -232,20 +210,14 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/have_you_account"
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_sp14" />
+                style="@style/text_sp14"
+                android:text="@string/have_you_account" />
 
             <TextView
                 android:id="@+id/register"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_sp14_color_text_bold"
                 android:layout_marginStart="@dimen/dimen_10"
                 android:text="@string/register"
-                android:textColor="@color/text"
-                android:textSize="@dimen/dimen_sp14"
                 android:textStyle="bold|italic" />
         </LinearLayout>
     </LinearLayout>

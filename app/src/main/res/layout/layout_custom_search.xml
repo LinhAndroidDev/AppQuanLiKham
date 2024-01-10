@@ -5,15 +5,11 @@
 
     <EditText
         android:id="@+id/search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/edit_sp14"
         android:background="@drawable/bg_corners_25"
         android:hint="@string/search_appoint"
-        android:inputType="textEmailAddress"
         android:paddingHorizontal="@dimen/dimen_35"
-        android:paddingVertical="@dimen/dimen_7"
-        android:textColor="@color/black"
-        android:textSize="@dimen/dimen_sp14" />
+        android:paddingVertical="@dimen/dimen_7" />
 
     <ImageView
         android:layout_width="@dimen/dimen_20"
@@ -25,12 +21,12 @@
 
     <ImageView
         android:id="@+id/deleteTxt"
-        android:layout_width="@dimen/dimen_18"
-        android:layout_height="@dimen/dimen_18"
+        android:layout_width="@dimen/dimen_12"
+        android:layout_height="@dimen/dimen_12"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/dimen_10"
-        android:background="@drawable/icon_delete_search"
+        android:src="@drawable/icon_delete_search"
         android:visibility="gone" />
 
 </RelativeLayout>

@@ -26,7 +26,7 @@
     <string name="title_sex">性別</string>
     <string name="title_specialist">スペシャリスト</string>
     <string name="enter_specialist">専門分野を入力してください</string>
-    <string name="title_password">パスワード</string>
+    <string name="password">パスワード</string>
     <string name="enter_password">パスワードを入力してください</string>
     <string name="title_repeat_password">パスワードを再入力してください</string>
     <string name="title_date">生年月日</string>

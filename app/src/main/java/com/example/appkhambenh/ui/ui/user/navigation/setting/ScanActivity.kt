@@ -18,6 +18,10 @@ class ScanActivity : BaseActivity<EmptyViewModel, ActivityScanBinding>() {
 
     private lateinit var codeScanner: CodeScanner
 
+    companion object {
+        const val DATA_CCCD = "DATA_CCCD"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -43,7 +47,7 @@ class ScanActivity : BaseActivity<EmptyViewModel, ActivityScanBinding>() {
         codeScanner.decodeCallback = DecodeCallback {
             runOnUiThread {
                 val resultIntent = Intent()
-                resultIntent.putExtra("results", it.toString())
+                resultIntent.putExtra(DATA_CCCD, it.toString())
                 setResult(RESULT_OK, resultIntent)
                 finish()
             }

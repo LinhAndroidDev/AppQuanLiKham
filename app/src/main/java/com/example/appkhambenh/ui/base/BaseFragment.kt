@@ -29,8 +29,8 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
 
     protected lateinit var viewModel: V
     protected lateinit var binding: B
-    private var screenWidth: Int = 0
-    private var screenHeight: Int = 0
+    var screenWidth: Int = 0
+    var screenHeight: Int = 0
     val loading by lazy { ProgressDialog(requireActivity()) }
     lateinit var sharePrefer: SharePreferenceRepositoryImpl
 

@@ -19,10 +19,10 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:layout_marginTop="@dimen/dimen_60"
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dimen_60"
                 android:background="@drawable/boder_avatar"
                 android:padding="@dimen/dimen_4">
 
@@ -43,11 +43,7 @@
 
                 <TextView
                     android:id="@+id/nameSetting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp16"
-                    android:textStyle="bold" />
+                    style="@style/text_sp16_black_bold" />
 
                 <ImageView
                     android:layout_width="@dimen/dimen_20"
@@ -59,8 +55,7 @@
 
             <TextView
                 android:id="@+id/phoneSetting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_sp16_no_color"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dimen_10"
                 android:layout_marginBottom="@dimen/dimen_20"
@@ -80,23 +75,17 @@
 
             <TextView
                 android:id="@+id/txtUpdateInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_sp16_black_bold"
                 android:layout_marginTop="@dimen/dimen_20"
-                android:text="@string/update_info_person"
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_sp16"
-                android:textStyle="bold" />
+                android:text="@string/update_info_person" />
 
             <TextView
                 android:id="@+id/txtNoteUpdateInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_sp16_no_color"
                 android:layout_marginTop="@dimen/dimen_10"
                 android:layout_marginBottom="@dimen/dimen_20"
                 android:gravity="center"
-                android:text="@string/note_update_info_person"
-                android:textSize="@dimen/dimen_sp16" />
+                android:text="@string/note_update_info_person" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -133,11 +122,8 @@
 
             <TextView
                 android:id="@+id/txtSetting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/setting"
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_sp14" />
+                style="@style/text_sp14"
+                android:text="@string/setting" />
 
             <LinearLayout
                 android:id="@+id/resetPassword"
@@ -167,12 +153,9 @@
 
                     <TextView
                         android:id="@+id/txtChangePassword"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/text_sp16"
                         android:layout_centerVertical="true"
-                        android:text="@string/change_password"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dimen_sp16" />
+                        android:text="@string/change_password" />
 
                     <View
                         android:layout_width="match_parent"
@@ -226,19 +209,14 @@
 
                         <TextView
                             android:id="@+id/titleLanguage"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/title_language"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/dimen_sp16" />
+                            style="@style/text_sp16"
+                            android:text="@string/title_language" />
 
                         <TextView
                             android:id="@+id/txtLanguage"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/text_sp14_no_color"
                             android:layout_marginTop="@dimen/dimen_10"
-                            android:text="@string/language"
-                            android:textSize="@dimen/dimen_sp14" />
+                            android:text="@string/language" />
 
                     </LinearLayout>
 
@@ -273,11 +251,8 @@
 
             <TextView
                 android:id="@+id/txtDifferent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/different"
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_sp14" />
+                style="@style/text_sp14"
+                android:text="@string/different" />
 
             <LinearLayout
                 android:id="@+id/failAccount"
@@ -307,12 +282,9 @@
 
                     <TextView
                         android:id="@+id/txtFail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/text_sp16"
                         android:layout_centerVertical="true"
-                        android:text="@string/notification_fail"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dimen_sp16" />
+                        android:text="@string/notification_fail" />
 
                     <View
                         android:layout_width="match_parent"
@@ -361,12 +333,9 @@
 
                     <TextView
                         android:id="@+id/txtCondition"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/text_sp16"
                         android:layout_centerVertical="true"
-                        android:text="@string/condition"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dimen_sp16" />
+                        android:text="@string/condition" />
 
                     <View
                         android:layout_width="match_parent"
@@ -415,12 +384,9 @@
 
                     <TextView
                         android:id="@+id/txtDeleteAccount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/text_sp16"
                         android:layout_centerVertical="true"
-                        android:text="@string/delete_account"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dimen_sp16" />
+                        android:text="@string/delete_account" />
 
                     <View
                         android:layout_width="match_parent"
@@ -468,12 +434,9 @@
 
                     <TextView
                         android:id="@+id/txtLogout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/text_sp16"
                         android:layout_centerVertical="true"
-                        android:text="@string/logout"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dimen_sp16" />
+                        android:text="@string/logout" />
 
                     <ImageView
                         android:layout_width="@dimen/dimen_20"
