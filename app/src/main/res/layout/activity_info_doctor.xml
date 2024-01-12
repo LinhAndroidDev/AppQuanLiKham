@@ -381,7 +381,7 @@
 
         <TextView
             style="@style/text_sp16"
-            android:text="Tư vấn trực tuyến"
+            android:text="@string/online_counseling"
             android:textColor="@color/white"
             android:layout_width="@dimen/dimen_80"
             android:layout_height="wrap_content"

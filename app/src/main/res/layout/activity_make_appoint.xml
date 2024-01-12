@@ -31,7 +31,7 @@
                     style="@style/text_sp14_no_color"
                     android:layout_marginVertical="@dimen/dimen_15"
                     android:layout_marginStart="@dimen/dimen_15"
-                    android:text="Thông tin đặt hẹn" />
+                    android:text="@string/infor_appoint" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -53,7 +53,7 @@
 
                         <TextView
                             style="@style/text_sp14_no_color"
-                            android:text="Cơ sở y tế" />
+                            android:text="@string/csyt" />
 
                         <TextView
                             style="@style/text_sp16_black_bold"
@@ -67,8 +67,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_15"
                     android:maxLines="1"
-                    android:text="- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-                    android:textColor="@color/grey" />
+                    android:text="- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - "
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/dimen_sp12" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -90,7 +91,7 @@
 
                         <TextView
                             style="@style/text_sp14_no_color"
-                            android:text="Chuyên khoa khám" />
+                            android:text="@string/examination_specialist" />
 
                         <TextView
                             style="@style/text_sp16_black_bold"
@@ -104,8 +105,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_15"
                     android:maxLines="1"
-                    android:text="- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-                    android:textColor="@color/grey" />
+                    android:text="- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - "
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/dimen_sp12" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -127,7 +129,7 @@
 
                         <TextView
                             style="@style/text_sp14_no_color"
-                            android:text="Bác sĩ/dịch vụ" />
+                            android:text="@string/doctor_service" />
 
                         <TextView
                             style="@style/text_sp16_black_bold"
@@ -146,8 +148,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_15"
                     android:maxLines="1"
-                    android:text="- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-                    android:textColor="@color/grey" />
+                    android:text="- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - "
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/dimen_sp12" />
 
                 <LinearLayout
                     android:id="@+id/editTime"
@@ -167,7 +170,7 @@
                     <TextView
                         style="@style/text_sp14_no_color"
                         android:layout_marginStart="@dimen/dimen_10"
-                        android:text="Giờ hẹn:" />
+                        android:text="@string/hour_appoint" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -240,101 +243,12 @@
                     style="@style/text_sp14_no_color"
                     android:layout_marginVertical="@dimen/dimen_15"
                     android:layout_marginStart="@dimen/dimen_15"
-                    android:text="Chọn người tới khám" />
+                    android:text="@string/choose_someone_to_examine" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_15"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <com.google.android.material.card.MaterialCardView
-                                android:layout_width="@dimen/dimen_50"
-                                android:layout_height="@dimen/dimen_50"
-                                android:layout_marginHorizontal="@dimen/dimen_15"
-                                android:layout_marginTop="@dimen/dimen_5"
-                                android:layout_marginBottom="@dimen/dimen_15"
-                                app:cardCornerRadius="@dimen/dimen_15"
-                                app:cardElevation="@dimen/dimen_10"
-                                app:strokeColor="@color/background"
-                                app:strokeWidth="@dimen/dimen_2">
-
-                                <ImageView
-                                    android:id="@+id/avatar"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/user_ad" />
-
-                            </com.google.android.material.card.MaterialCardView>
-
-                            <ImageView
-                                android:layout_width="@dimen/dimen_20"
-                                android:layout_height="@dimen/dimen_20"
-                                android:layout_gravity="end"
-                                android:layout_marginEnd="@dimen/dimen_10"
-                                android:elevation="@dimen/dimen_10"
-                                android:src="@drawable/icon_done" />
-                        </FrameLayout>
-
-                        <TextView
-                            style="@style/text_sp16_black_bold"
-                            android:text="Linh"
-                            android:textAllCaps="true" />
-
-                        <TextView
-                            style="@style/text_sp12_no_color"
-                            android:layout_marginTop="@dimen/dimen_5"
-                            android:background="@drawable/bg_item_function"
-                            android:paddingHorizontal="@dimen/dimen_7"
-                            android:paddingVertical="@dimen/dimen_3"
-                            android:text="Chi tiết"
-                            android:textColor="@color/grey_dark" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_15"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width="@dimen/dimen_50"
-                            android:layout_height="@dimen/dimen_50"
-                            android:layout_marginTop="@dimen/dimen_5"
-                            app:cardCornerRadius="@dimen/dimen_15"
-                            app:cardElevation="0dp"
-                            app:strokeColor="@color/background"
-                            app:strokeWidth="@dimen/dimen_2">
-
-                            <ImageView
-                                android:layout_width="@dimen/dimen_25"
-                                android:layout_height="@dimen/dimen_25"
-                                android:layout_gravity="center"
-                                android:src="@drawable/ic_action_add"
-                                app:tint="@color/background" />
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <TextView
-                            style="@style/text_sp16_color_text_bold"
-                            android:layout_marginTop="@dimen/dimen_15"
-                            android:text="Thêm"
-                            android:textColor="@color/background" />
-                    </LinearLayout>
-
-                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvMember"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
                 <View
                     android:layout_width="match_parent"
@@ -351,7 +265,7 @@
                     android:drawableStart="@drawable/ic_action_search"
                     android:drawableEnd="@drawable/icon_camera"
                     android:drawablePadding="@dimen/dimen_10"
-                    android:hint="Nhập triệu chứng"
+                    android:hint="@string/enter_reason"
                     android:inputType="text"
                     android:paddingVertical="@dimen/dimen_10" />
 
@@ -378,7 +292,7 @@
                     <TextView
                         android:id="@+id/total"
                         style="@style/text_sp16"
-                        android:text="Tổng tiền" />
+                        android:text="@string/total_money" />
 
                     <TextView
                         style="@style/text_sp16_black_bold"

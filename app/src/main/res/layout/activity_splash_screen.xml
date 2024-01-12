@@ -21,6 +21,7 @@
 
         <TextView
             style="@style/text_sp16_no_color"
+            android:text="Lab"
             android:layout_marginStart="@dimen/dimen_5" />
     </LinearLayout>
 </LinearLayout>

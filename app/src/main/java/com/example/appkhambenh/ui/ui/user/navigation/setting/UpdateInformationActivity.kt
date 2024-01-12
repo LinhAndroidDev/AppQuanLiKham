@@ -13,6 +13,7 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityUpdateInformationBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.ui.EmptyViewModel
+import com.example.appkhambenh.ui.ui.user.appointment.MakeAppointActivity
 import com.example.appkhambenh.ui.ui.user.navigation.setting.adapter.InformationAdapter
 import com.example.appkhambenh.ui.ui.user.navigation.setting.address.AddressActivity
 import com.example.appkhambenh.ui.utils.Address
@@ -28,6 +29,7 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
 
     private val bottomSheetInformation by lazy { BottomSheetBehavior.from(binding.bottomSelectInfo.layoutSelect) }
     private lateinit var informationAdapter: InformationAdapter
+    private var isAddMember = false
 
     companion object {
         const val REQUEST_SCAN = 2
@@ -46,24 +48,18 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
     @SuppressLint("ClickableViewAccessibility")
     private fun initUi() {
 
+        intent.getIntExtra(MakeAppointActivity.ADD_MEMBER, 0).let {
+            if (it > 0) isAddMember = true
+        }
+
         initTitle()
 
         initBottomSelect()
-
-        sharePrefer.getUserAvatar().let {
-            if (it.isNotEmpty()) {
-                Glide.with(this)
-                    .load(it)
-                    .into(binding.avatar)
-            }
-        }
 
         binding.scrollView.setOnTouchListener { _, _ ->
             super.closeKeyboard()
             false
         }
-
-        binding.headerUpdateInfo.setTitle(getString(R.string.update_info))
 
         binding.scanQr.setOnClickListener {
             val intent = Intent(this@UpdateInformationActivity, ScanActivity::class.java)
@@ -81,9 +77,10 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
         }
 
         binding.ethnic.setOnClickListener {
-            bottomSheetInformation.state = BottomSheetBehavior.STATE_EXPANDED
-            binding.bottomSelectInfo.title.text = getString(R.string.ethnic)
-            binding.bottomSelectInfo.search.hint = getString(R.string.search_ethnic)
+            initDataInfo(
+                title = getString(R.string.ethnic),
+                hint = getString(R.string.search_ethnic)
+            )
 
             informationAdapter = InformationAdapter(Address.ethnics(), ETHNICS, this)
             binding.bottomSelectInfo.rcvInformation.apply {
@@ -94,16 +91,13 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
                 binding.txtEthnic.text = it
                 bottomSheetInformation.state = BottomSheetBehavior.STATE_COLLAPSED
             }
-            initDataInfo(
-                title = getString(R.string.ethnic),
-                hint = getString(R.string.search_ethnic)
-            )
         }
 
         binding.nationality.setOnClickListener {
-            bottomSheetInformation.state = BottomSheetBehavior.STATE_EXPANDED
-            binding.bottomSelectInfo.title.text = getString(R.string.nationality)
-            binding.bottomSelectInfo.search.hint = getString(R.string.search_nationality)
+            initDataInfo(
+                title = getString(R.string.nationality),
+                hint = getString(R.string.search_nationality)
+            )
 
             informationAdapter = InformationAdapter(Address.nationality(), NATIONALITY, this)
             binding.bottomSelectInfo.rcvInformation.apply {
@@ -114,16 +108,13 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
                 binding.txtNationality.text = it
                 bottomSheetInformation.state = BottomSheetBehavior.STATE_COLLAPSED
             }
-            initDataInfo(
-                title = getString(R.string.nationality),
-                hint = getString(R.string.search_nationality)
-            )
         }
 
         binding.job.setOnClickListener {
-            bottomSheetInformation.state = BottomSheetBehavior.STATE_EXPANDED
-            binding.bottomSelectInfo.title.text = getString(R.string.job)
-            binding.bottomSelectInfo.search.hint = getString(R.string.job)
+            initDataInfo(
+                title = getString(R.string.job),
+                hint = getString(R.string.job)
+            )
 
             informationAdapter = InformationAdapter(Address.job(), JOB, this)
             binding.bottomSelectInfo.rcvInformation.apply {
@@ -134,20 +125,34 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
                 binding.txtJob.text = it
                 bottomSheetInformation.state = BottomSheetBehavior.STATE_COLLAPSED
             }
-            initDataInfo(
-                title = getString(R.string.job),
-                hint = getString(R.string.job)
-            )
         }
     }
 
     private fun initDataInfo(title: String, hint: String) {
+        bottomSheetInformation.state = BottomSheetBehavior.STATE_EXPANDED
+        binding.bottomSelectInfo.title.text = title
+        binding.bottomSelectInfo.search.hint = hint
+
         binding.bottomSelectInfo.search.doOnTextChanged { text, _, _, _ ->
             informationAdapter.filter.filter(text)
         }
     }
 
     private fun initTitle() {
+        if(!isAddMember) {
+            binding.headerUpdateInfo.setTitle(getString(R.string.update_info))
+            sharePrefer.getUserAvatar().let {
+                if (it.isNotEmpty()) {
+                    Glide.with(this)
+                        .load(it)
+                        .into(binding.avatar)
+                }
+            }
+        } else {
+            binding.headerUpdateInfo.setTitle(getString(R.string.add_members))
+            binding.layoutInfo.visibility = View.GONE
+        }
+
         binding.titleName.title.text = getString(R.string.title_name)
         binding.titlePhone.title.text = getString(R.string.title_phone)
         binding.titleBirth.title.text = getString(R.string.title_date)

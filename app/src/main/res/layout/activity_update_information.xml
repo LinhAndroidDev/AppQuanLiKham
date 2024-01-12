@@ -294,124 +294,132 @@
                     </RelativeLayout>
 
                     <LinearLayout
+                        android:id="@+id/layoutInfo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/dimen_5"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
+                            android:orientation="horizontal">
 
-                            <include
-                                android:id="@+id/titleEthnic"
-                                layout="@layout/layout_title_update_infor"
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dimen_15" />
+                                android:layout_marginEnd="@dimen/dimen_5"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
 
-                            <RelativeLayout
-                                android:id="@+id/ethnic"
-                                android:layout_width="match_parent"
+                                <include
+                                    android:id="@+id/titleEthnic"
+                                    layout="@layout/layout_title_update_infor"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/dimen_15" />
+
+                                <RelativeLayout
+                                    android:id="@+id/ethnic"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/dimen_10">
+
+                                    <TextView
+                                        android:id="@+id/txtEthnic"
+                                        style="@style/edt_update_information"
+                                        android:hint="@string/ethnic" />
+
+                                    <ImageView
+                                        android:layout_width="@dimen/dimen_14"
+                                        android:layout_height="@dimen/dimen_18"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginEnd="@dimen/dimen_15"
+                                        android:rotation="90"
+                                        android:src="@drawable/icon_next"
+                                        app:tint="@color/grey_dark" />
+
+                                </RelativeLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dimen_10">
+                                android:layout_marginStart="@dimen/dimen_5"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
 
-                                <TextView
-                                    android:id="@+id/txtEthnic"
-                                    style="@style/edt_update_information"
-                                    android:hint="@string/ethnic" />
+                                <include
+                                    android:id="@+id/titleNationality"
+                                    layout="@layout/layout_title_update_infor"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/dimen_15" />
 
-                                <ImageView
-                                    android:layout_width="@dimen/dimen_14"
-                                    android:layout_height="@dimen/dimen_18"
-                                    android:layout_alignParentEnd="true"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginEnd="@dimen/dimen_15"
-                                    android:rotation="90"
-                                    android:src="@drawable/icon_next"
-                                    app:tint="@color/grey_dark" />
+                                <RelativeLayout
+                                    android:id="@+id/nationality"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/dimen_10">
 
-                            </RelativeLayout>
+                                    <TextView
+                                        android:id="@+id/txtNationality"
+                                        style="@style/edt_update_information"
+                                        android:hint="@string/nationality"
+                                        android:paddingEnd="@dimen/dimen_20" />
+
+                                    <ImageView
+                                        android:layout_width="@dimen/dimen_14"
+                                        android:layout_height="@dimen/dimen_18"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginEnd="@dimen/dimen_15"
+                                        android:rotation="90"
+                                        android:src="@drawable/icon_next"
+                                        app:tint="@color/grey_dark" />
+
+                                </RelativeLayout>
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="0dp"
+                        <include
+                            android:id="@+id/titleJob"
+                            layout="@layout/layout_title_update_infor"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dimen_5"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
+                            android:layout_marginTop="@dimen/dimen_15" />
 
-                            <include
-                                android:id="@+id/titleNationality"
-                                layout="@layout/layout_title_update_infor"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dimen_15" />
+                        <RelativeLayout
+                            android:id="@+id/job"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dimen_10">
 
-                            <RelativeLayout
-                                android:id="@+id/nationality"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dimen_10">
+                            <TextView
+                                android:id="@+id/txtJob"
+                                style="@style/edt_update_information"
+                                android:hint="@string/select_job" />
 
-                                <TextView
-                                    android:id="@+id/txtNationality"
-                                    style="@style/edt_update_information"
-                                    android:hint="@string/nationality"
-                                    android:paddingEnd="@dimen/dimen_20" />
+                            <ImageView
+                                android:layout_width="@dimen/dimen_14"
+                                android:layout_height="@dimen/dimen_18"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="@dimen/dimen_15"
+                                android:rotation="90"
+                                android:src="@drawable/icon_next"
+                                app:tint="@color/grey_dark" />
 
-                                <ImageView
-                                    android:layout_width="@dimen/dimen_14"
-                                    android:layout_height="@dimen/dimen_18"
-                                    android:layout_alignParentEnd="true"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginEnd="@dimen/dimen_15"
-                                    android:rotation="90"
-                                    android:src="@drawable/icon_next"
-                                    app:tint="@color/grey_dark" />
-
-                            </RelativeLayout>
-
-                        </LinearLayout>
+                        </RelativeLayout>
 
                     </LinearLayout>
 
-                    <include
-                        android:id="@+id/titleJob"
-                        layout="@layout/layout_title_update_infor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_15" />
-
-                    <RelativeLayout
-                        android:id="@+id/job"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_10">
-
-                        <TextView
-                            android:id="@+id/txtJob"
-                            style="@style/edt_update_information"
-                            android:hint="@string/select_job" />
-
-                        <ImageView
-                            android:layout_width="@dimen/dimen_14"
-                            android:layout_height="@dimen/dimen_18"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="@dimen/dimen_15"
-                            android:rotation="90"
-                            android:src="@drawable/icon_next"
-                            app:tint="@color/grey_dark" />
-
-                    </RelativeLayout>
-
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_200" />
+                        android:layout_height="@dimen/dimen_120" />
 
                 </LinearLayout>
 

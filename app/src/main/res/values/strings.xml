@@ -146,7 +146,7 @@
     <string name="online_counseling">Tư vấn trực tuyến</string>
     <string name="consulting_doctor">Bác sĩ tư vấn</string>
     <string name="search_doctor">Chuyên khoa, triệu chứng, bác sĩ</string>
-    <string name="make_an_appoint">Đặt lịch hẹn</string>
+    <string name="make_an_appoint">Đặt lịch khám</string>
     <string name="edit_appoint">Chỉnh sửa lịch hẹn</string>
     <string name="save_appointment_changes">Lưu thay đổi lịch hẹn</string>
     <string name="different">Khác</string>
@@ -173,7 +173,7 @@
     <string name="ethnic">Dân tộc</string>
     <string name="search_ethnic">Tìm kiếm dân tộc</string>
     <string name="nationality">Quốc tịch</string>
-    <string name="search_nationality">Tìm kiếm quốc tich</string>
+    <string name="search_nationality">Tìm kiếm quốc tịch</string>
     <string name="job">Nghề nghiệp</string>
     <string name="search_job">Tìm kiếm nghề nghiệp</string>
     <string name="select_job">Lựa chọn nghề nghiệp</string>
@@ -186,4 +186,16 @@
     <string name="title_scan">Quét mã CCCD</string>
     <string name="enter_number_house">Nhập số nhà, tên đường</string>
     <string name="update_avatar_successful">Bạn đã cập nhật ảnh đại diện</string>
+    <string name="infor_appoint">Thông tin đặt hẹn</string>
+    <string name="examination_specialist">Chuyên khoa khám</string>
+    <string name="doctor_service">Bác sĩ/dịch vụ</string>
+    <string name="hour_appoint">Giờ hẹn:</string>
+    <string name="choose_someone_to_examine">Chọn người tới khám</string>
+    <string name="total_money">Tổng tiền</string>
+    <string name="confirm">XÁC NHẬN</string>
+    <string name="online_consultation_schedule">Lịch tư vấn trực tuyến</string>
+    <string name="time">Thời gian</string>
+    <string name="add_members">Thêm thành viên</string>
+    <string name="contine">Tiếp tục</string>
+    <string name="choose_a_maximum_of_5_photos">Bạn chỉ được chọn tối đa 5 ảnh</string>
 </resources>

@@ -186,4 +186,16 @@
     <string name="title_scan">Scan CCCD code</string>
     <string name="enter_number_house">Enter house number and street name</string>
     <string name="update_avatar_successful">You have updated your profile picture</string>
+    <string name="infor_appoint">Appointment information</string>
+    <string name="examination_specialist">Examination specialist</string>
+    <string name="doctor_service">Doctor/service</string>
+    <string name="hour_appoint">Appointment time:</string>
+    <string name="choose_someone_to_examine">Choose someone to examine</string>
+    <string name="total_money">Total money</string>
+    <string name="confirm">CONFIRM</string>
+    <string name="online_consultation_schedule">Online consultation schedule</string>
+    <string name="time">Time</string>
+    <string name="add_members">Add members</string>
+    <string name="contine">Continue</string>
+    <string name="choose_a_maximum_of_5_photos">You can only choose a maximum of 5 photos</string>
 </resources>

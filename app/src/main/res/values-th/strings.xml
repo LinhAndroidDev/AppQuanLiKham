@@ -186,4 +186,16 @@
     <string name="title_scan">สแกนรหัส CCCD</string>
     <string name="enter_number_house">กรอกเลขที่บ้านและชื่อถนน</string>
     <string name="update_avatar_successful">คุณได้อัพเดตรูปโปรไฟล์ของคุณแล้ว</string>
+    <string name="infor_appoint">ข้อมูลการนัดหมาย</string>
+    <string name="examination_specialist">ผู้เชี่ยวชาญด้านการสอบ</string>
+    <string name="doctor_service">แพทย์/บริการ</string>
+    <string name="hour_appoint">เวลานัดหมาย:</string>
+    <string name="choose_someone_to_examine">เลือกคนที่จะตรวจสอบ</string>
+    <string name="total_money">เงินทั้งหมด</string>
+    <string name="confirm">ยืนยัน</string>
+    <string name="online_consultation_schedule">กำหนดการให้คำปรึกษาออนไลน์</string>
+    <string name="time">เวลา</string>
+    <string name="add_members">เพิ่มสมาชิก</string>
+    <string name="contine">ดำเนินการต่อ</string>
+    <string name="choose_a_maximum_of_5_photos">คุณสามารถเลือกรูปภาพได้สูงสุด 5 รูปเท่านั้น</string>
 </resources>

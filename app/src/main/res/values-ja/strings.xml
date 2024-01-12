@@ -186,4 +186,16 @@
     <string name="title_scan">CCCD コードをスキャン</string>
     <string name="enter_number_house">家番号と通りの名前を入力してください</string>
     <string name="update_avatar_successful">プロフィール写真を更新しました</string>
+    <string name="infor_appoint">予約情報</string>
+    <string name="examination_specialist">試験スペシャリスト</string>
+    <string name="doctor_service">医師/サービス</string>
+    <string name="hour_appoint">予約時間:</string>
+    <string name="choose_someone_to_examine">検査する人を選択してください</string>
+    <string name="total_money">合計金額</string>
+    <string name="confirm">確認</string>
+    <string name="online_consultation_schedule">オンライン相談スケジュール</string>
+    <string name="time">時間</string>
+    <string name="add_members">メンバーを追加</string>
+    <string name="contine">続行</string>
+    <string name="choose_a_maximum_of_5_photos">写真は最大 5 枚までしか選択できません</string>
 </resources>

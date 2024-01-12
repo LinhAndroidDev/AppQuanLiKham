@@ -41,7 +41,7 @@
 
                     <TextView
                         style="@style/text_sp16"
-                        android:text="Lịch tư vấn trực tuyến"
+                        android:text="@string/online_consultation_schedule"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/dimen_15"
                         android:layout_marginBottom="@dimen/dimen_10"/>
@@ -135,7 +135,7 @@
                         <TextView
                             android:layout_marginTop="@dimen/dimen_30"
                             style="@style/text_sp16_black_bold"
-                            android:text="Thời gian"
+                            android:text="@string/time"
                             android:layout_marginStart="@dimen/dimen_20"/>
 
                         <androidx.recyclerview.widget.RecyclerView

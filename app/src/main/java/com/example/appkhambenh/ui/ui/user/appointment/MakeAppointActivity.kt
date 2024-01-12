@@ -8,22 +8,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityMakeAppointBinding
 import com.example.appkhambenh.ui.base.BaseActivity
+import com.example.appkhambenh.ui.model.Member
 import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.ui.user.appointment.adapter.ImageCameraAdapter
+import com.example.appkhambenh.ui.ui.user.appointment.adapter.MemberAppointAdapter
 import com.example.appkhambenh.ui.ui.user.doctor.InfoDoctorActivity
+import com.example.appkhambenh.ui.ui.user.navigation.setting.UpdateInformationActivity
 
 class MakeAppointActivity : BaseActivity<EmptyViewModel, ActivityMakeAppointBinding>() {
     private var uris = arrayListOf<Uri>()
     private lateinit var imageCameraAdapter: ImageCameraAdapter
+    private lateinit var memberAdapter: MemberAppointAdapter
 
     companion object {
         const val REQUEST_CODE_MULTI_PICTURE = 1
         const val SELECT_MULTI_PICTURE = "SELECT_MULTI_PICTURE"
         const val REQUEST_CODE_EDIT_TIME = 2
         const val EDIT_TIME = "EDIT_TIME"
+        const val ADD_MEMBER = "ADD_MEMBER"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,18 +41,30 @@ class MakeAppointActivity : BaseActivity<EmptyViewModel, ActivityMakeAppointBind
 
     @SuppressLint("ClickableViewAccessibility", "NotifyDataSetChanged")
     private fun initUi() {
-        binding.header.setTitle("Đặt lịch khám")
-        binding.footView.tvComplete.text = "Tiếp tục"
+        binding.header.setTitle(getString(R.string.make_an_appoint))
+        binding.footView.tvComplete.text = getString(R.string.contine)
 
         binding.hour.text = intent.getStringExtra(OnlineConsultationActivity.HOUR_ONLINE_CONSULT)
             ?: intent.getStringExtra(InfoDoctorActivity.HOUR_INFORMATION_DOCTOR)
 
-        sharePrefer.getUserAvatar().let {
-            if (it.isNotEmpty()) {
-                Glide.with(this)
-                    .load(it)
-                    .into(binding.avatar)
-            }
+        val members = arrayListOf(
+            Member(sharePrefer.getUserName(), sharePrefer.getUserAvatar()),
+            Member("Nguyễn Hữu Quang", ""),
+            Member("Trần Đức Ngọc", ""),
+            Member("Phan Văn Hùng", ""),
+            Member("Nguyễn Thế Dương", ""),
+            Member("", "")
+        )
+        memberAdapter = MemberAppointAdapter(this@MakeAppointActivity, members)
+        memberAdapter.addMember = {
+            val intent = Intent(this@MakeAppointActivity, UpdateInformationActivity::class.java)
+            intent.putExtra(ADD_MEMBER, 1)
+            startActivity(intent)
+        }
+        binding.rcvMember.apply {
+            layoutManager =
+                LinearLayoutManager(this@MakeAppointActivity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = memberAdapter
         }
 
         binding.scrollAppoint.setOnTouchListener { _, _ ->
@@ -94,12 +113,12 @@ class MakeAppointActivity : BaseActivity<EmptyViewModel, ActivityMakeAppointBind
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == RESULT_OK && data != null) {
-            when(requestCode) {
+            when (requestCode) {
                 REQUEST_CODE_MULTI_PICTURE -> {
                     if (data.clipData != null) {
                         val count: Int = data.clipData!!.itemCount
                         if (count + uris.size > 5) {
-                            show("Bạn chỉ được chọn tối đa 5 ảnh")
+                            show(getString(R.string.choose_a_maximum_of_5_photos))
                         } else {
                             for (i in 0 until count) {
                                 uris.add(data.clipData!!.getItemAt(i).uri)
@@ -108,6 +127,7 @@ class MakeAppointActivity : BaseActivity<EmptyViewModel, ActivityMakeAppointBind
                         }
                     }
                 }
+
                 REQUEST_CODE_EDIT_TIME -> {
                     binding.hour.text = data.getStringExtra(OnlineConsultationActivity.TIME_EDIT)
                 }

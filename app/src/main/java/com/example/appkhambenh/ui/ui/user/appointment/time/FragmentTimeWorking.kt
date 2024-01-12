@@ -23,9 +23,9 @@ class FragmentTimeWorking : BaseFragment<TimeWorkingViewModel, FragmentTimeWorki
 
     @RequiresApi(Build.VERSION_CODES.O)
     var formatDay = SimpleDateFormat("EEEE", Locale("vi", "VN"))
-    var formatDayOfMonth = SimpleDateFormat("dd", Locale("vi", "VN"))
-    var formatMonth = SimpleDateFormat("MM", Locale("vi", "VN"))
-    var COUNT_CHANGE_DATE = 0
+    private var formatDayOfMonth = SimpleDateFormat("dd", Locale("vi", "VN"))
+    private var formatMonth = SimpleDateFormat("MM", Locale("vi", "VN"))
+    private var COUNT_CHANGE_DATE = 0
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)

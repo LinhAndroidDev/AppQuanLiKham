@@ -1,5 +1,10 @@
 package com.example.appkhambenh.ui.model
 
+data class Member(
+    val name: String?,
+    val avatar: String?
+)
+
 data class User(
     val id: Int?,
     val name: String?,
