@@ -5,40 +5,47 @@ import androidx.lifecycle.MutableLiveData
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.ApiClient
 import com.example.appkhambenh.ui.data.remote.entity.LoginResponse
+import com.example.appkhambenh.ui.data.remote.model.LoginModel
 import com.example.appkhambenh.ui.utils.SharePreferenceRepositoryImpl
-import okhttp3.RequestBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class LoginViewModel : BaseViewModel() {
     val loginSuccessLiveData = MutableLiveData<Boolean>()
     val loadingLiveData = MutableLiveData<Boolean>()
 
-    fun requestLoginUser(requestBodyEmail: RequestBody, requestBodyPassword: RequestBody, context: Context) {
-        loadingLiveData.value = true
-        ApiClient.shared().loginUser(requestBodyEmail, requestBodyPassword)
-            .enqueue(object : Callback<LoginResponse> {
-                override fun onResponse(
-                    call: Call<LoginResponse>,
-                    response: Response<LoginResponse>,
-                ) {
-                    loadingLiveData.value = false
-                    response.body()?.let {
-                        if (it.statusCode == ApiClient.STATUS_CODE_SUCCESS) {
-                            loginSuccessLiveData.value = true
-                            SharePreferenceRepositoryImpl(context).saveUserId(it.result?.id ?: -1)
-                        } else {
-                            errorApiLiveData.value = it.message
+    fun requestLoginUser(loginModel: LoginModel, context: Context) {
+        loadingLiveData.postValue(true)
+        ApiClient.sharedFromWeb().loginUser(loginModel)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(object : Observer<LoginResponse> {
+                override fun onSubscribe(d: Disposable) {}
+
+                override fun onError(e: Throwable) {
+                    loadingLiveData.postValue(false)
+                    errorApiLiveData.postValue(e.message)
+                }
+
+                override fun onComplete() {}
+
+                override fun onNext(t: LoginResponse) {
+                    loadingLiveData.postValue(false)
+                    when (t.statusCode) {
+                        null -> {
+                            loginSuccessLiveData.postValue(true)
+                            SharePreferenceRepositoryImpl(context).saveAuthorization(t.data?.token.toString())
+                        }
+
+                        else -> {
+                            errorApiLiveData.postValue(t.message)
                         }
                     }
                 }
 
-                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    loadingLiveData.value = false
-                    errorApiLiveData.value = t.message
-                }
-
             })
+
     }
 }

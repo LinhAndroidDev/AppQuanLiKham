@@ -1,38 +1,39 @@
 package com.example.appkhambenh.ui.ui.user.navigation.setting.address
 
+import android.app.Activity
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.appkhambenh.ui.base.BaseViewModel
-import com.example.appkhambenh.ui.data.remote.ApiClient
-import com.example.appkhambenh.ui.model.Province
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observer
-import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.schedulers.Schedulers
+import com.example.appkhambenh.ui.model.Address
+import com.example.appkhambenh.ui.utils.getDataDistrict
+import com.example.appkhambenh.ui.utils.getDataProvince
+import com.example.appkhambenh.ui.utils.getDataWard
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class AddressViewModel : BaseViewModel() {
-    val provinces = MutableLiveData<ArrayList<Province>>()
+    var address = arrayListOf<Address>()
+    var districts = arrayListOf<Address>()
+    var wards = arrayListOf<Address>()
+    var successful = MutableLiveData<Boolean>()
 
-    fun getProvince(){
-        ApiClient.sharedProvince().getProvinces("3", "IwAR34BV5hlL5AQno3_yiJVQQaU7qSibsHN8o7HQWaBzlapjrlnf0xYhcoReg")
-            .observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<ArrayList<Province>>{
-                override fun onSubscribe(d: Disposable) {
+    fun getDataAddress(context: Activity) = viewModelScope.launch {
+        try {
+            async {
+                address = ArrayList(getDataProvince(context).values)
+            }.await()
 
-                }
+            async {
+                districts = ArrayList(getDataDistrict(context).values)
+            }.await()
 
-                override fun onError(e: Throwable) {
-                    errorApiLiveData.postValue(e.message)
-                }
+            async {
+                wards = ArrayList(getDataWard(context).values)
+            }.await()
 
-                override fun onComplete() {
-
-                }
-
-                override fun onNext(t: ArrayList<Province>) {
-                    provinces.postValue(t)
-                }
-
-            })
+            successful.postValue(true)
+        } catch (e: Exception) {
+            errorApiLiveData.postValue(e.message)
+        }
     }
 }

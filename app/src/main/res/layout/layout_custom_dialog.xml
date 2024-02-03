@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="20dp"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/notify"
+            android:text="Thông báo"
+            style="@style/text_sp16_black_bold"
+            android:textSize="@dimen/dimen_sp18"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:id="@+id/message"
+            style="@style/text_sp16"
+            android:text="Bạn có câu hỏi gì không?"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="5dp" />
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/agree"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardBackgroundColor="@color/background">
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="7dp"
+                    android:text="Đồng ý"
+                    style="@style/text_sp14_black_bold"
+                    android:textColor="@color/white" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/skip"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="0dp">
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="7dp"
+                    android:text="Từ chối"
+                    style="@style/text_sp14"
+                    android:textColor="@color/background" />
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.appkhambenh.databinding.FragmentNotificationBinding
 import com.example.appkhambenh.ui.base.BaseFragment
+import com.example.appkhambenh.ui.model.RegisterChecking
 import com.example.appkhambenh.ui.ui.user.navigation.notification.adapter.NotificationAdapter
 
 class FragmentNotification : BaseFragment<NotificationViewModel, FragmentNotificationBinding>(){
@@ -14,23 +15,23 @@ class FragmentNotification : BaseFragment<NotificationViewModel, FragmentNotific
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-    }
-
-    override fun bindData() {
-        super.bindData()
-
-        viewModel.getListNotification(
-            convertToRequestBody(
-                sharePrefer.getUserId().toString()
+        val list = arrayListOf<RegisterChecking>()
+        for (i in 0 until 10) {
+            list.add(
+                RegisterChecking(
+                    "Khám tự nguyện",
+                    "Khoa điều trị tạm thời",
+                    "Nguyễn Hữu Linh",
+                    "Thứ tư, 18 tháng 3",
+                    "10:00",
+                    "Tái khám sau phẫu thuật"
+                )
             )
-        )
-
-        viewModel.listAppointmentLiveData.observe(this){
-            binding.rcvNotification.visibility = if(it.isEmpty()) View.GONE else View.VISIBLE
-            notificationAdapter = NotificationAdapter(it)
-            notificationAdapter.reverseList()
-            binding.rcvNotification.adapter = notificationAdapter
         }
+        notificationAdapter = NotificationAdapter(list)
+        notificationAdapter.reverseList()
+        binding.rcvNotification.adapter = notificationAdapter
+
     }
 
     override fun getFragmentBinding(

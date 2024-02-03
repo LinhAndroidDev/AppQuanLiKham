@@ -1,6 +1,6 @@
 package com.example.appkhambenh.ui.utils
 
-object Address {
+object PersonalInformation {
     fun ethnics(): ArrayList<String>{
         return arrayListOf(
             "Kinh",

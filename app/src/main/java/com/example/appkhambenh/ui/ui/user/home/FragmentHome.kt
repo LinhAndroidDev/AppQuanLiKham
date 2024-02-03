@@ -24,10 +24,7 @@ import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.model.Doctor
 import com.example.appkhambenh.ui.model.FunctionMain
 import com.example.appkhambenh.ui.model.MedicalHandbook
-import com.example.appkhambenh.ui.ui.doctor.statistical.StatisticalActivity
-import com.example.appkhambenh.ui.ui.doctor.time_working.EditTimeWorkActivity
 import com.example.appkhambenh.ui.ui.user.HomeActivity
-import com.example.appkhambenh.ui.ui.user.appointment.AppointmentActivity
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
 import com.example.appkhambenh.ui.ui.user.csyt.CsytActivity
 import com.example.appkhambenh.ui.ui.user.csyt.InfoCsytActivity
@@ -61,7 +58,7 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         super.bindData()
 
         viewModel.getUserInfo(
-            convertToRequestBody(sharePrefer.getUserId().toString()),
+            sharePrefer.getAuthorization(),
             requireActivity()
         )
 
@@ -119,21 +116,6 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                 }
             }
         }
-
-        viewModel.userLiveData.observe(this) {
-            if (it.result?.type != 0) {
-                if (it.result?.type == 2) {
-                    binding.noteDoctor.text = "Cơ sở y tế: "
-                }
-                binding.noteDoctor.visibility = View.VISIBLE
-                binding.functionAccessoryDoctor.visibility = View.VISIBLE
-                binding.layoutDoctor.visibility = View.VISIBLE
-                binding.functionAccessoryPatients.visibility = View.GONE
-                binding.layoutPatient.visibility = View.GONE
-                binding.rcvFunctionMain.visibility = View.GONE
-                (activity as HomeActivity).hideIconBook()
-            }
-        }
     }
 
     @SuppressLint("IntentReset")
@@ -148,21 +130,6 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
         binding.qrCode.setOnClickListener {
             val intent = Intent(requireActivity(), QrActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.appointment.setOnClickListener {
-            val intent = Intent(requireActivity(), AppointmentActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.addAppoint.setOnClickListener {
-            val intent = Intent(requireActivity(), EditTimeWorkActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.cvStatisticalAppoint.setOnClickListener {
-            val intent = Intent(requireActivity(), StatisticalActivity::class.java)
             startActivity(intent)
         }
 

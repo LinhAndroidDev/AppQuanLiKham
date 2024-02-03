@@ -42,35 +42,35 @@ class InformationAdapter(
     override fun onBindViewHolder(holder: InformationAdapter.ViewHolder, position: Int) {
         holder.name.text = infors[position]
 
-        when (type) {
-            UpdateInformationActivity.ETHNICS -> {
-                checkIndex(sharedPrefer.getIndexEthnics(), position, holder.layout, holder.name)
-            }
-
-            UpdateInformationActivity.NATIONALITY -> {
-                checkIndex(sharedPrefer.getIndexNationality(), position, holder.layout, holder.name)
-            }
-
-            UpdateInformationActivity.JOB -> {
-                checkIndex(sharedPrefer.getIndexJob(), position, holder.layout, holder.name)
-            }
-        }
+//        when (type) {
+//            UpdateInformationActivity.ETHNICS -> {
+//                checkIndex(sharedPrefer.getIndexEthnics(), position, holder.layout, holder.name)
+//            }
+//
+//            UpdateInformationActivity.NATIONALITY -> {
+//                checkIndex(sharedPrefer.getIndexNationality(), position, holder.layout, holder.name)
+//            }
+//
+//            UpdateInformationActivity.JOB -> {
+//                checkIndex(sharedPrefer.getIndexJob(), position, holder.layout, holder.name)
+//            }
+//        }
 
         holder.itemView.setOnClickListener {
             when (type) {
                 UpdateInformationActivity.ETHNICS -> {
                     onClickItem?.invoke(infors[position])
-                    sharedPrefer.saveIndexEthnics(position)
+//                    sharedPrefer.saveIndexEthnics(position)
                 }
 
                 UpdateInformationActivity.NATIONALITY -> {
                     onClickItem?.invoke(infors[position])
-                    sharedPrefer.saveIndexNationality(position)
+//                    sharedPrefer.saveIndexNationality(position)
                 }
 
                 UpdateInformationActivity.JOB -> {
                     onClickItem?.invoke(infors[position])
-                    sharedPrefer.saveIndexJob(position)
+//                    sharedPrefer.saveIndexJob(position)
                 }
             }
         }
@@ -84,6 +84,11 @@ class InformationAdapter(
             layout.setBackgroundResource(R.color.white)
             txt.typeface = Typeface.DEFAULT
         }
+    }
+
+    fun clearList() {
+        infors.clear()
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = infors.size

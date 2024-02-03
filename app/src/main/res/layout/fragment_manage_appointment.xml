@@ -26,7 +26,8 @@
                 android:id="@+id/rcv_manage_appointment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dimen_10" />
+                android:layout_marginHorizontal="@dimen/dimen_10"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
             <LinearLayout
                 android:id="@+id/loadingData"
@@ -34,7 +35,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/bg_loading"
                 android:gravity="center"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <com.github.ybq.android.spinkit.SpinKitView
                     android:layout_width="@dimen/dimen_40"

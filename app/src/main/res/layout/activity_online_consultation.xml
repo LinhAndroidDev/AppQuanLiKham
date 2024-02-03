@@ -27,24 +27,24 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/back_ground_common"
                     android:orientation="vertical">
 
                     <TextView
                         style="@style/text_sp16_black_bold"
-                        android:text="Ths Nguyễn Thị Thanh"
-                        android:textSize="@dimen/dimen_sp18"
                         android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/dimen_20"/>
+                        android:layout_marginTop="@dimen/dimen_20"
+                        android:text="Ths Nguyễn Thị Thanh"
+                        android:textSize="@dimen/dimen_sp18" />
 
                     <TextView
                         style="@style/text_sp16"
-                        android:text="@string/online_consultation_schedule"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/dimen_15"
-                        android:layout_marginBottom="@dimen/dimen_10"/>
+                        android:layout_marginBottom="@dimen/dimen_10"
+                        android:text="@string/online_consultation_schedule" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rcvTimeWorking"

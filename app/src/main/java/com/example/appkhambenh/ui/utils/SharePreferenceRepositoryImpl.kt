@@ -1,6 +1,7 @@
 package com.example.appkhambenh.ui.utils
 
 import android.content.Context
+import com.example.appkhambenh.ui.utils.SharePreferenceRepository.Companion.AUTHORIZATION
 import com.example.appkhambenh.ui.utils.SharePreferenceRepository.Companion.CHECK_LOGIN
 import com.example.appkhambenh.ui.utils.SharePreferenceRepository.Companion.DATE_APPOINTMENT
 import com.example.appkhambenh.ui.utils.SharePreferenceRepository.Companion.EMAIL
@@ -27,6 +28,12 @@ class SharePreferenceRepositoryImpl(val ctx: Context): SharePreferenceRepository
     PreferenceUtil(ctx) {
 
     private val prefs by lazy { defaultPref() }
+
+    override fun saveAuthorization(authorization: String) {
+        prefs[AUTHORIZATION] = authorization
+    }
+
+    override fun getAuthorization(): String = prefs[AUTHORIZATION] ?: ""
 
     override fun saveUserId(id: Int) {
         prefs[USER_ID] = id

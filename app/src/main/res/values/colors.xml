@@ -13,12 +13,14 @@
     <color name="green">#0AA815</color>
 
     <!--    Color Text-->
+    <color name="text_common">#FF000000</color>
     <color name="text">#035dcf</color>
     <color name="txt_hint">#999999</color>
     <color name="txt_red">#FF0303</color>
     <color name="txt_green">#00CC08</color>
 
     <!--    Color Background-->
+    <color name="back_ground_common">#FFFFFFFF</color>
     <color name="pink">#F4598E</color>
     <color name="orange">#FD8B34</color>
     <color name="brown">#6D4202</color>

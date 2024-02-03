@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentRegisterBinding
 import com.example.appkhambenh.ui.base.BaseFragment
+import com.example.appkhambenh.ui.data.remote.model.RegisterModel
 import com.example.appkhambenh.ui.utils.validateEmail
 import com.example.appkhambenh.ui.utils.validatePassword
 import com.example.appkhambenh.ui.utils.validatePhone
@@ -120,15 +121,7 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
                 if (!binding.rbDoctor.isChecked) specialist = ""
 
                 viewModel.requestRegisterUser(
-                    convertToRequestBody(email),
-                    convertToRequestBody(sex.toString()),
-                    convertToRequestBody(specialist),
-                    convertToRequestBody(password),
-                    convertToRequestBody(name),
-                    convertToRequestBody(birth),
-                    convertToRequestBody(phone),
-                    convertToRequestBody(address),
-                    convertToRequestBody(type.toString())
+                    RegisterModel(name, type, email, password, phone, birth, sex)
                 )
             }
         }

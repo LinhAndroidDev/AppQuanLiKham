@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/back_ground_common"
     tools:context=".ui.ui.user.home.FragmentHome">
 
     <LinearLayout
@@ -95,7 +95,7 @@
                 android:layout_marginHorizontal="@dimen/dimen_20"
                 android:layout_marginTop="@dimen/dimen_35"
                 android:layout_marginBottom="@dimen/dimen_15"
-                android:background="@color/white"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -164,64 +164,6 @@
                                 android:text="QR" />
                         </LinearLayout>
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/functionAccessoryDoctor"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingVertical="@dimen/dimen_10"
-                        android:visibility="gone">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                style="@style/img_function_accessory"
-                                android:src="@drawable/ic_action_pay" />
-
-                            <TextView
-                                style="@style/txt_function_accessory"
-                                android:text="Thanh toán" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/addAppoint"
-                                style="@style/img_function_accessory"
-                                android:src="@drawable/ic_action_datlich" />
-
-                            <TextView
-                                style="@style/txt_function_accessory"
-                                android:text="Thêm lịch" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                style="@style/img_function_accessory"
-                                android:src="@drawable/ic_action_qr" />
-
-                            <TextView
-                                style="@style/txt_function_accessory"
-                                android:text="QR" />
-                        </LinearLayout>
-                    </LinearLayout>
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
@@ -231,110 +173,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/layoutDoctor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_20"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cv_manage_appointment_doctor"
-                        style="@style/card_function_main"
-                        android:layout_marginEnd="@dimen/dimen_8"
-                        android:layout_weight="1"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="5dp">
-
-                        <LinearLayout style="@style/ll_function_main_user">
-
-                            <ImageView
-                                style="@style/img_function_main"
-                                android:src="@drawable/ic_action_schedule" />
-
-                            <TextView
-                                style="@style/txt_function_main"
-                                android:text="Quản lí lịch hẹn" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        style="@style/card_function_main"
-                        android:layout_marginEnd="@dimen/dimen_20"
-                        android:layout_weight="1"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="5dp">
-
-                        <LinearLayout style="@style/ll_function_main_user">
-
-                            <ImageView
-                                style="@style/img_function_main"
-                                android:src="@drawable/ic_action_patient" />
-
-                            <TextView
-                                style="@style/txt_function_main"
-                                android:text="Quản lí bệnh nhân" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <androidx.cardview.widget.CardView
-                        style="@style/card_function_main"
-                        android:layout_marginEnd="@dimen/dimen_8"
-                        android:layout_weight="1"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="5dp">
-
-                        <LinearLayout style="@style/ll_function_main_user">
-
-                            <ImageView
-                                style="@style/img_function_main"
-                                android:src="@drawable/ic_action_medicine" />
-
-                            <TextView
-                                style="@style/txt_function_main"
-                                android:text="Quản lí thuốc" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cvStatisticalAppoint"
-                        style="@style/card_function_main"
-                        android:layout_marginEnd="@dimen/dimen_20"
-                        android:layout_weight="1"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="5dp">
-
-                        <LinearLayout style="@style/ll_function_main_user">
-
-                            <ImageView
-                                style="@style/img_function_main"
-                                android:src="@drawable/ic_action_statistical" />
-
-                            <TextView
-                                style="@style/txt_function_main"
-                                android:text="Thống kê lịch hẹn" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-                </LinearLayout>
-
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layoutPatient"

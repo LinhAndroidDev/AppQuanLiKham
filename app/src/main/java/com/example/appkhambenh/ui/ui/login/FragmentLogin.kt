@@ -14,6 +14,7 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentLoginBinding
 import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.base.BaseFragment
+import com.example.appkhambenh.ui.data.remote.model.LoginModel
 import com.example.appkhambenh.ui.ui.register.FragmentRegister
 import com.example.appkhambenh.ui.utils.validateEmail
 import com.example.appkhambenh.ui.utils.validatePassword
@@ -95,9 +96,8 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
                 binding.notificationLogin.visibility = View.GONE
 
                 viewModel.requestLoginUser(
-                    convertToRequestBody(email),
-                    convertToRequestBody(password),
-                    requireActivity()
+                    loginModel = LoginModel(email, password, 0),
+                    context = requireActivity()
                 )
             }
         }
@@ -111,7 +111,7 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
 
         binding.layoutLogin.setOnTouchListener { view, _ ->
             view.hideKeyboard()
-            true
+            false
         }
     }
 

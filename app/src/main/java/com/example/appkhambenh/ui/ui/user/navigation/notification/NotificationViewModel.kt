@@ -13,38 +13,4 @@ import okhttp3.RequestBody
 class NotificationViewModel : BaseViewModel() {
     val isLoadingLiveData = MutableLiveData<Boolean>()
     val listAppointmentLiveData = MutableLiveData<ArrayList<RegisterChecking>>()
-
-    fun getListNotification(id_user: RequestBody){
-        isLoadingLiveData.postValue(true)
-        ApiClient.shared().getListAppointment(id_user)
-            .observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<List<RegisterChecking>> {
-                override fun onSubscribe(d: Disposable) {
-
-                }
-
-                override fun onError(e: Throwable) {
-                    isLoadingLiveData.postValue(false)
-                    errorApiLiveData.postValue(e.message)
-                }
-
-                override fun onComplete() {
-
-                }
-
-                override fun onNext(t: List<RegisterChecking>) {
-                    isLoadingLiveData.postValue(false)
-
-                    try {
-                        listAppointmentLiveData.postValue(t.filter {
-                            it.checkAppointExpired()
-                        } as ArrayList<RegisterChecking>)
-                    }catch (e: Exception){
-                        errorApiLiveData.postValue(e.message)
-                    }
-                }
-
-            })
-    }
 }

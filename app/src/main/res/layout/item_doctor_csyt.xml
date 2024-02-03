@@ -130,6 +130,7 @@
                 <TextView
                     android:id="@+id/txtLatestMedicalSchedule"
                     style="@style/text_sp14_black_bold"
+                    android:textColor="@color/grey_dark"
                     android:layout_marginStart="@dimen/dimen_10"
                     android:text="07:30, Ngày 25/11" />
 

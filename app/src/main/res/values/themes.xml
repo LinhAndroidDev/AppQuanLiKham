@@ -20,7 +20,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/dimen_sp12</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/text_common</item>
     </style>
 
     //Text 12sp no color
@@ -36,7 +36,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/dimen_sp12</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/text_common</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -62,7 +62,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/dimen_sp14</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/text_common</item>
     </style>
 
     //Text 14sp no color
@@ -78,7 +78,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/dimen_sp14</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/text_common</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -104,7 +104,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/dimen_sp16</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/text_common</item>
     </style>
 
     //Text 16sp no color
@@ -120,7 +120,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/dimen_sp16</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/text_common</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -146,7 +146,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/dimen_sp14</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/text_common</item>
         <item name="android:inputType">textEmailAddress</item>
     </style>
 
@@ -155,7 +155,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/dimen_sp16</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/text_common</item>
         <item name="hintTextColor">@color/txt_hint</item>
         <item name="android:inputType">textEmailAddress</item>
         <item name="android:textColorHint">@color/txt_hint</item>

@@ -5,6 +5,7 @@
     android:id="@+id/layoutInfo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/back_ground_common"
     tools:context=".ui.ui.user.navigation.information.FragmentInformation">
 
     <RelativeLayout

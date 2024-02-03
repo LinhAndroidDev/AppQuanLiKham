@@ -3,9 +3,17 @@ package com.example.appkhambenh.ui.ui.user.navigation.setting
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Typeface
+import android.net.Uri
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -13,13 +21,17 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityUpdateInformationBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.ui.EmptyViewModel
+import com.example.appkhambenh.ui.ui.common.DialogCustom
 import com.example.appkhambenh.ui.ui.user.appointment.MakeAppointActivity
 import com.example.appkhambenh.ui.ui.user.navigation.setting.adapter.InformationAdapter
 import com.example.appkhambenh.ui.ui.user.navigation.setting.address.AddressActivity
-import com.example.appkhambenh.ui.utils.Address
+import com.example.appkhambenh.ui.utils.PersonalInformation
+import com.example.appkhambenh.ui.utils.setStyleTextAtPosition
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -28,7 +40,7 @@ import java.util.Date
 class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInformationBinding>() {
 
     private val bottomSheetInformation by lazy { BottomSheetBehavior.from(binding.bottomSelectInfo.layoutSelect) }
-    private lateinit var informationAdapter: InformationAdapter
+    private var informationAdapter = InformationAdapter(arrayListOf(""), "", this)
     private var isAddMember = false
 
     companion object {
@@ -37,6 +49,8 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
         const val ETHNICS = "ETHNICS"
         const val NATIONALITY = "NATIONALITY"
         const val JOB = "JOB"
+        const val REQUEST_CAMERA_PERMISSION = 100
+        const val OPEN_INFORMATION_APP = 101
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,13 +76,11 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
         }
 
         binding.scanQr.setOnClickListener {
-            val intent = Intent(this@UpdateInformationActivity, ScanActivity::class.java)
-            startActivityForResult(intent, REQUEST_SCAN)
+            startScanCCCD()
         }
 
         binding.scanCCCD.setOnClickListener {
-            val intent = Intent(this@UpdateInformationActivity, ScanActivity::class.java)
-            startActivityForResult(intent, REQUEST_SCAN)
+            startScanCCCD()
         }
 
         binding.address.setOnClickListener {
@@ -77,16 +89,12 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
         }
 
         binding.ethnic.setOnClickListener {
+            informationAdapter.clearList()
+            informationAdapter = InformationAdapter(PersonalInformation.ethnics(), ETHNICS, this)
             initDataInfo(
                 title = getString(R.string.ethnic),
                 hint = getString(R.string.search_ethnic)
             )
-
-            informationAdapter = InformationAdapter(Address.ethnics(), ETHNICS, this)
-            binding.bottomSelectInfo.rcvInformation.apply {
-                adapter = informationAdapter
-//                scrollToPosition(sharePrefer.getIndexEthnics())
-            }
             informationAdapter.onClickItem = {
                 binding.txtEthnic.text = it
                 bottomSheetInformation.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -94,16 +102,12 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
         }
 
         binding.nationality.setOnClickListener {
+            informationAdapter.clearList()
+            informationAdapter = InformationAdapter(PersonalInformation.nationality(), NATIONALITY, this)
             initDataInfo(
                 title = getString(R.string.nationality),
                 hint = getString(R.string.search_nationality)
             )
-
-            informationAdapter = InformationAdapter(Address.nationality(), NATIONALITY, this)
-            binding.bottomSelectInfo.rcvInformation.apply {
-                adapter = informationAdapter
-//                scrollToPosition(sharePrefer.getIndexNationality())
-            }
             informationAdapter.onClickItem = {
                 binding.txtNationality.text = it
                 bottomSheetInformation.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -111,16 +115,12 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
         }
 
         binding.job.setOnClickListener {
+            informationAdapter.clearList()
+            informationAdapter = InformationAdapter(PersonalInformation.job(), JOB, this)
             initDataInfo(
                 title = getString(R.string.job),
                 hint = getString(R.string.job)
             )
-
-            informationAdapter = InformationAdapter(Address.job(), JOB, this)
-            binding.bottomSelectInfo.rcvInformation.apply {
-                adapter = informationAdapter
-//                scrollToPosition(sharePrefer.getIndexJob())
-            }
             informationAdapter.onClickItem = {
                 binding.txtJob.text = it
                 bottomSheetInformation.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -128,18 +128,117 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
         }
     }
 
+    private fun startScanCCCD() {
+        val permission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            when (ActivityCompat.shouldShowRequestPermissionRationale(
+                this,
+                android.Manifest.permission.CAMERA
+            )) {
+                false -> {
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(android.Manifest.permission.CAMERA),
+                        REQUEST_CAMERA_PERMISSION
+                    )
+                }
+
+                else -> {
+                    val dialog = DialogCustom()
+                    dialog.show(supportFragmentManager, "")
+                    dialog.title = "Bạn đã từ chối quyền truy cập"
+                    val note =
+                        "Để truy cập lại camera, bạn cần mở Cài đặt --> -Thông tin ứng dụng -> Quyền ứng dụng --> Máy ảnh --> Cho phép truy cập"
+                    val spannable = SpannableString(note)
+                    setStyleTextAtPosition(note, "Cài đặt", StyleSpan(Typeface.BOLD), spannable)
+                    setStyleTextAtPosition(
+                        note,
+                        "Cài đặt",
+                        ForegroundColorSpan(getColor(R.color.txt_hint)),
+                        spannable
+                    )
+                    setStyleTextAtPosition(
+                        note,
+                        "Thông tin ứng dụng",
+                        StyleSpan(Typeface.BOLD),
+                        spannable
+                    )
+                    setStyleTextAtPosition(
+                        note,
+                        "Thông tin ứng dụng",
+                        ForegroundColorSpan(getColor(R.color.txt_hint)),
+                        spannable
+                    )
+                    setStyleTextAtPosition(
+                        note,
+                        "Quyền ứng dụng",
+                        StyleSpan(Typeface.BOLD),
+                        spannable
+                    )
+                    setStyleTextAtPosition(
+                        note,
+                        "Quyền ứng dụng",
+                        ForegroundColorSpan(getColor(R.color.txt_hint)),
+                        spannable
+                    )
+                    setStyleTextAtPosition(note, "Máy ảnh", StyleSpan(Typeface.BOLD), spannable)
+                    setStyleTextAtPosition(
+                        note,
+                        "Máy ảnh",
+                        ForegroundColorSpan(getColor(R.color.txt_hint)),
+                        spannable
+                    )
+                    setStyleTextAtPosition(
+                        note,
+                        "Cho phép truy cập",
+                        StyleSpan(Typeface.BOLD),
+                        spannable
+                    )
+                    setStyleTextAtPosition(
+                        note,
+                        "Cho phép truy cập",
+                        ForegroundColorSpan(getColor(R.color.txt_hint)),
+                        spannable
+                    )
+                    dialog.message = spannable
+                    dialog.yes = {
+                        val intent =
+                            Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                        val uri = Uri.fromParts("package", packageName, null)
+                        intent.data = uri
+                        startActivityForResult(intent, OPEN_INFORMATION_APP)
+                        dialog.dismiss()
+                    }
+                    dialog.no = {
+                        dialog.dismiss()
+                    }
+                }
+            }
+        } else {
+            val intent = Intent(this@UpdateInformationActivity, ScanActivity::class.java)
+            startActivityForResult(intent, REQUEST_SCAN)
+        }
+    }
+
     private fun initDataInfo(title: String, hint: String) {
         bottomSheetInformation.state = BottomSheetBehavior.STATE_EXPANDED
         binding.bottomSelectInfo.title.text = title
         binding.bottomSelectInfo.search.hint = hint
-
+        lifecycleScope.launch {
+            delay(400L)
+            withContext(Dispatchers.Main) {
+                binding.bottomSelectInfo.rcvInformation.apply {
+                    adapter = informationAdapter
+                }
+            }
+        }
         binding.bottomSelectInfo.search.doOnTextChanged { text, _, _, _ ->
             informationAdapter.filter.filter(text)
         }
     }
 
     private fun initTitle() {
-        if(!isAddMember) {
+        if (!isAddMember) {
             binding.headerUpdateInfo.setTitle(getString(R.string.update_info))
             sharePrefer.getUserAvatar().let {
                 if (it.isNotEmpty()) {
@@ -233,6 +332,23 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
                 }
             }
         }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray,
+    ) {
+        when (requestCode) {
+            REQUEST_CAMERA_PERMISSION -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    val intent = Intent(this@UpdateInformationActivity, ScanActivity::class.java)
+                    startActivityForResult(intent, REQUEST_SCAN)
+                }
+                return
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     override fun getActivityBinding(inflater: LayoutInflater) =

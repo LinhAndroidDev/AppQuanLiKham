@@ -2,6 +2,7 @@ package com.example.appkhambenh.ui.utils
 
 interface SharePreferenceRepository {
     companion object {
+        const val AUTHORIZATION = "AUTHORIZATION"
         const val USER_ID = "USER_ID"
         const val USER_NAME = "USER_NAME"
         const val USER_BIRTH = "USER_BIRTH"
@@ -23,6 +24,10 @@ interface SharePreferenceRepository {
         const val INDEX_NATIONALITY = "INDEX_NATIONALITY"
         const val INDEX_JOB = "INDEX_JOB"
     }
+
+    fun saveAuthorization(authorization: String)
+
+    fun getAuthorization(): String
 
     fun saveUserId(id: Int)
 

@@ -6,23 +6,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RadioButton
+import androidx.lifecycle.lifecycleScope
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityAddressBinding
 import com.example.appkhambenh.ui.base.BaseActivity
-import com.example.appkhambenh.ui.model.District
-import com.example.appkhambenh.ui.model.Province
-import com.example.appkhambenh.ui.model.Ward
+import com.example.appkhambenh.ui.model.Address
 import com.example.appkhambenh.ui.ui.user.navigation.setting.adapter.AddressAdapter
-import com.example.appkhambenh.ui.ui.user.navigation.setting.adapter.DistrictAdapter
-import com.example.appkhambenh.ui.ui.user.navigation.setting.adapter.WardAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AddressActivity : BaseActivity<AddressViewModel, ActivityAddressBinding>() {
     private var strAddress = ""
-    private var address = arrayListOf<Province>()
-    private var districts = arrayListOf<District>()
-    private var wards = arrayListOf<Ward>()
-    private var idDistrict = -1
-    private var idWard = -1
+    private val addressAdapter by lazy { AddressAdapter() }
+    private var strProvince = ""
+    private var strDistrict = ""
+    private var strWard = ""
+    private var codeProvince = ""
 
     companion object {
         const val ADDRESS = "ADDRESS"
@@ -36,19 +37,31 @@ class AddressActivity : BaseActivity<AddressViewModel, ActivityAddressBinding>()
 
     override fun bindData() {
         super.bindData()
-        getDataProvince()
+        lifecycleScope.launch {
+            withContext(Dispatchers.Main) {
+                delay(10L)
+                viewModel.getDataAddress(this@AddressActivity)
+                viewModel.successful.observe(this@AddressActivity) {
+                    getDataProvince()
+                }
+            }
+        }
     }
 
     override fun getActivityBinding(inflater: LayoutInflater) =
         ActivityAddressBinding.inflate(inflater)
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "ClickableViewAccessibility")
     private fun initUi() {
         binding.headerAddress.setTitle(getString(R.string.title_address))
         binding.headerAddress.visibleIconSearch()
         binding.headerAddress.setHintSearch(getString(R.string.search_address))
         binding.rbProvince.isChecked = true
         disableFootView()
+
+        binding.headerAddress.searchItem = {
+            addressAdapter.filter.filter(it)
+        }
 
         binding.footViewAddress.tvComplete.setOnClickListener {
             binding.nameRoad.text.let {
@@ -75,80 +88,64 @@ class AddressActivity : BaseActivity<AddressViewModel, ActivityAddressBinding>()
                 resetAddress(binding.rbDistrict, R.string.select_district)
                 resetAddress(binding.rbWard, R.string.select_ward)
                 binding.rbWard.visibility = View.GONE
-                getDataDistrict(address, idDistrict)
+                getDataDistrict(codeProvince)
             }
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun getDataProvince() {
-        viewModel.getProvince()
-        viewModel.provinces.observe(this) { provinces ->
-            address = provinces
-            val addressAdapter = AddressAdapter(this@AddressActivity, provinces)
-            binding.headerAddress.searchItem = {
-                addressAdapter.filter.filter(it)
-            }
+        viewModel.address.let { address ->
             binding.rcvAddress.adapter = addressAdapter
-            addressAdapter.onClickItem = { nameProvince ->
-                idDistrict = provinces.indexOfFirst { it.name == nameProvince }
-                districts.clear()
-                for (district in provinces[idDistrict].districts!!.indices) {
-                    districts.add(provinces[idDistrict].districts!![district])
-                }
-                getDataDistrict(provinces, idDistrict)
+            addressAdapter.resetList(address)
+            addressAdapter.onClickItem = { provinceSelected ->
+                rbRegistered(
+                    rbRegistered = binding.rbProvince,
+                    name = provinceSelected.name,
+                    rbShow = binding.rbDistrict
+                )
+                strProvince = provinceSelected.name
+                codeProvince = provinceSelected.code
+                getDataDistrict(codeProvince)
             }
         }
     }
 
-    private fun getDataDistrict(provinces: ArrayList<Province>, idxDistrict: Int) {
-        val districtAdapter = DistrictAdapter(this@AddressActivity, districts)
-        binding.headerAddress.searchItem = {
-            districtAdapter.filter.filter(it)
-        }
-        binding.rcvAddress.adapter = districtAdapter
-        rbRegistered(
-            rbRegistered = binding.rbProvince,
-            name = provinces[idxDistrict].name,
-            rbShow = binding.rbDistrict
-        )
-
-        districtAdapter.onClickItem = { nameDistrict ->
-            idWard = provinces[idxDistrict].districts?.indexOfFirst { it.name == nameDistrict }!!
-            wards.clear()
-            for (ward in provinces[idxDistrict].districts?.get(idWard)?.wards!!.indices) {
-                wards.add(provinces[idxDistrict].districts?.get(idWard)?.wards!![ward])
+    private fun getDataDistrict(code: String) {
+        viewModel.districts.filter {
+            it.getDistrictByCodeProvince(code)
+        }.let { districts ->
+            addressAdapter.resetList(districts as ArrayList<Address>)
+            addressAdapter.onClickItem = { districtSelected ->
+                rbRegistered(
+                    rbRegistered = binding.rbDistrict,
+                    name = districtSelected.name,
+                    rbShow = binding.rbWard
+                )
+                strDistrict = districtSelected.name
+                getDataWard(districtSelected.code)
             }
-            getDataWard(provinces, idxDistrict, idWard)
         }
     }
 
-    private fun getDataWard(provinces: ArrayList<Province>, idxDis: Int, idxWard: Int) {
-        val wardAdapter = WardAdapter(this@AddressActivity, wards)
-        binding.headerAddress.searchItem = {
-            wardAdapter.filter.filter(it)
-        }
-        binding.rcvAddress.adapter = wardAdapter
-        rbRegistered(
-            rbRegistered = binding.rbDistrict,
-            name = provinces[idxDis].districts!![idxWard].name,
-            rbShow = binding.rbWard
-        )
-        binding.headerAddress.clearSearch()
-
-        wardAdapter.onClickItem = { nameWard ->
-            rbRegistered(
-                rbRegistered = binding.rbWard,
-                name = nameWard
-            )
-            binding.nameRoad.visibility = View.VISIBLE
-            binding.rcvAddress.visibility = View.GONE
-            enableFootView()
-            val pr = provinces[idxDis].name
-            val dtr = provinces[idxDis].districts!![idxWard].name
-            val w = nameWard
-
-            strAddress = "$w, $dtr, $pr"
+    private fun getDataWard(code: String) {
+        viewModel.wards.filter {
+            it.getWardByCodeDistrict(code)
+        }.let { wards ->
+            addressAdapter.resetList(wards as ArrayList<Address>)
+            binding.headerAddress.clearSearch()
+            addressAdapter.onClickItem = { wardSelected ->
+                rbRegistered(
+                    rbRegistered = binding.rbWard,
+                    name = wardSelected.name
+                )
+                strWard = wardSelected.name
+                binding.nameRoad.visibility = View.VISIBLE
+                binding.rcvAddress.visibility = View.GONE
+                binding.rbWard.isChecked = false
+                enableFootView()
+                strAddress = "$strWard, $strDistrict, $strProvince"
+            }
         }
     }
 
