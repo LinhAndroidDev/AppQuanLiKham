@@ -14,7 +14,6 @@ import com.example.appkhambenh.ui.model.Member
 
 class MemberAppointAdapter(val context: Context, private val members: ArrayList<Member>) :
     Adapter<MemberAppointAdapter.ViewHolder>() {
-
     private var index = 0
     var addMember: (() -> Unit)? = null
 
@@ -24,12 +23,21 @@ class MemberAppointAdapter(val context: Context, private val members: ArrayList<
         parent: ViewGroup,
         viewType: Int,
     ): MemberAppointAdapter.ViewHolder {
-        val v by lazy { ItemMemberAppointBinding.inflate(LayoutInflater.from(context)) }
+        val v by lazy {
+            ItemMemberAppointBinding.inflate(
+                LayoutInflater.from(context),
+                parent,
+                false
+            )
+        }
         return ViewHolder(v)
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    override fun onBindViewHolder(holder: MemberAppointAdapter.ViewHolder, @SuppressLint("RecyclerView") position: Int) {
+    override fun onBindViewHolder(
+        holder: MemberAppointAdapter.ViewHolder,
+        @SuppressLint("RecyclerView") position: Int,
+    ) {
 
         Glide.with(context)
             .load(members[position].avatar)

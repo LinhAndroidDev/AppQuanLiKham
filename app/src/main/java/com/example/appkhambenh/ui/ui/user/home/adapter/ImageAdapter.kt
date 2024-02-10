@@ -4,36 +4,36 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
-import androidx.viewpager2.widget.ViewPager2
 import com.example.appkhambenh.R
+import com.example.appkhambenh.databinding.ItemSlideBinding
 
 class ImageAdapter(
     val context: Context,
     private val images: ArrayList<Int>,
-): Adapter<ImageAdapter.ViewHolder>() {
+) : Adapter<ImageAdapter.ViewHolder>() {
 
     var onClickItem: ((Boolean) -> Unit)? = null
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val slide: ImageView = itemView.findViewById(R.id.slide)
-        val name: TextView = itemView.findViewById(R.id.nameSlide)
-    }
+    inner class ViewHolder(val v: ItemSlideBinding) : RecyclerView.ViewHolder(v.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageAdapter.ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_slide, parent, false)
-        return ViewHolder(itemView)
+        val v by lazy {
+            ItemSlideBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        }
+        return ViewHolder(v)
     }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ImageAdapter.ViewHolder, position: Int) {
-        holder.slide.setImageResource(images[position])
-        holder.name.text = when (position) {
+        holder.v.slide.setImageResource(images[position])
+        holder.v.nameSlide.text = when (position) {
             0 -> context.getString(R.string.doctor_has_experience)
             1 -> context.getString(R.string.priority_to_check)
             2 -> context.getString(R.string.book_online)
@@ -42,15 +42,17 @@ class ImageAdapter(
         }
 
         holder.itemView.setOnTouchListener { _, motionEvent ->
-            when(motionEvent?.actionMasked){
-                MotionEvent.ACTION_DOWN->{
+            when (motionEvent?.actionMasked) {
+                MotionEvent.ACTION_DOWN -> {
                     holder.itemView.alpha = 0.3f
                 }
-                MotionEvent.ACTION_UP ->{
+
+                MotionEvent.ACTION_UP -> {
                     holder.itemView.alpha = 1f
                     onClickItem?.invoke(true)
                 }
-                MotionEvent.ACTION_CANCEL->{
+
+                MotionEvent.ACTION_CANCEL -> {
                     holder.itemView.alpha = 1f
                 }
             }

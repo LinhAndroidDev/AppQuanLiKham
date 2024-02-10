@@ -10,38 +10,44 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.viewpager.widget.ViewPager
 import com.example.appkhambenh.R
+import com.example.appkhambenh.databinding.ItemDoctorCsytBinding
 
 class DoctorCsytAdapter(
-    private val doctors: ArrayList<Int>
+    private val doctors: ArrayList<Int>,
 ) : Adapter<DoctorCsytAdapter.ViewHolder>() {
-
     var onClickItem: ((Boolean) -> Unit)? = null
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-    }
+    inner class ViewHolder(val v: ItemDoctorCsytBinding) : RecyclerView.ViewHolder(v.root)
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
     ): DoctorCsytAdapter.ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_doctor_csyt, parent, false)
-        return ViewHolder(itemView)
+        val v by lazy {
+            ItemDoctorCsytBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        }
+        return ViewHolder(v)
     }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: DoctorCsytAdapter.ViewHolder, position: Int) {
 
         holder.itemView.setOnTouchListener { _, motionEvent ->
-            when(motionEvent?.actionMasked){
-                MotionEvent.ACTION_DOWN->{
+            when (motionEvent?.actionMasked) {
+                MotionEvent.ACTION_DOWN -> {
                     holder.itemView.alpha = 0.3f
                 }
-                MotionEvent.ACTION_UP ->{
+
+                MotionEvent.ACTION_UP -> {
                     holder.itemView.alpha = 1f
                     onClickItem?.invoke(true)
                 }
-                MotionEvent.ACTION_CANCEL->{
+
+                MotionEvent.ACTION_CANCEL -> {
                     holder.itemView.alpha = 1f
                 }
             }

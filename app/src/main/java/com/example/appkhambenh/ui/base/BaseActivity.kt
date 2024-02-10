@@ -46,11 +46,8 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
         loading.setCancelable(false)
 
         fullScreen()
-
         animChangeScreen()
-
         bindData()
-
         setLanguage(this, sharePrefer.getLanguage())
     }
 
@@ -97,6 +94,12 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
         val inputMethodManager =
             getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+    }
+
+    fun showKeyBoard() {
+        val inputMethodManager =
+            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
     }
 
     fun setLanguage(activity: Activity, languageCode: String) {

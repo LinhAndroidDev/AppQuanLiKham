@@ -18,7 +18,9 @@
             <com.example.appkhambenh.ui.ui.common.CustomHeader
                 android:id="@+id/headerUpdateInfo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true" />
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/scrollView"
@@ -123,11 +125,10 @@
                         android:paddingHorizontal="@dimen/dimen_15">
 
                         <TextView
-                            style="@style/text_sp16"
+                            style="@style/text_sp16_black_bold"
                             android:layout_gravity="center"
                             android:layout_marginVertical="@dimen/dimen_15"
-                            android:text="+84"
-                            android:textStyle="bold" />
+                            android:text="+84" />
 
                         <ImageView
                             android:layout_width="@dimen/dimen_10"
@@ -147,18 +148,15 @@
 
                         <EditText
                             android:id="@+id/phone"
+                            style="@style/text_sp16_black_bold"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginHorizontal="@dimen/dimen_10"
                             android:background="#00FFFFFF"
                             android:hint="@string/enter_phone"
                             android:textColorHint="@color/txt_hint"
                             android:inputType="phone"
-                            android:paddingVertical="@dimen/dimen_2"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/dimen_sp16"
-                            android:textStyle="bold" />
+                            android:paddingVertical="@dimen/dimen_2" />
 
                     </LinearLayout>
 
@@ -183,7 +181,8 @@
                             <EditText
                                 android:id="@+id/birth"
                                 style="@style/edt_update_information"
-                                android:enabled="false"
+                                android:focusable="false"
+                                android:clickable="true"
                                 android:hint="dd/mm/yyyy"
                                 android:inputType="textEmailAddress" />
 

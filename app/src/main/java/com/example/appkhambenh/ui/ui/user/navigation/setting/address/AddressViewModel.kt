@@ -12,7 +12,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class AddressViewModel : BaseViewModel() {
-    var address = arrayListOf<Address>()
+    var provinces = arrayListOf<Address>()
     var districts = arrayListOf<Address>()
     var wards = arrayListOf<Address>()
     var successful = MutableLiveData<Boolean>()
@@ -20,7 +20,7 @@ class AddressViewModel : BaseViewModel() {
     fun getDataAddress(context: Activity) = viewModelScope.launch {
         try {
             async {
-                address = ArrayList(getDataProvince(context).values)
+                provinces = ArrayList(getDataProvince(context).values)
             }.await()
 
             async {

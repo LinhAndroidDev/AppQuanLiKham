@@ -95,9 +95,10 @@ class AddressActivity : BaseActivity<AddressViewModel, ActivityAddressBinding>()
 
     @SuppressLint("NotifyDataSetChanged")
     private fun getDataProvince() {
-        viewModel.address.let { address ->
+        viewModel.provinces.let { province ->
             binding.rcvAddress.adapter = addressAdapter
-            addressAdapter.resetList(address)
+            addressAdapter.resetList(province)
+            binding.headerAddress.clearSearch()
             addressAdapter.onClickItem = { provinceSelected ->
                 rbRegistered(
                     rbRegistered = binding.rbProvince,
@@ -115,7 +116,9 @@ class AddressActivity : BaseActivity<AddressViewModel, ActivityAddressBinding>()
         viewModel.districts.filter {
             it.getDistrictByCodeProvince(code)
         }.let { districts ->
+            binding.rcvAddress.adapter = addressAdapter
             addressAdapter.resetList(districts as ArrayList<Address>)
+            binding.headerAddress.clearSearch()
             addressAdapter.onClickItem = { districtSelected ->
                 rbRegistered(
                     rbRegistered = binding.rbDistrict,
@@ -132,6 +135,7 @@ class AddressActivity : BaseActivity<AddressViewModel, ActivityAddressBinding>()
         viewModel.wards.filter {
             it.getWardByCodeDistrict(code)
         }.let { wards ->
+            binding.rcvAddress.adapter = addressAdapter
             addressAdapter.resetList(wards as ArrayList<Address>)
             binding.headerAddress.clearSearch()
             addressAdapter.onClickItem = { wardSelected ->

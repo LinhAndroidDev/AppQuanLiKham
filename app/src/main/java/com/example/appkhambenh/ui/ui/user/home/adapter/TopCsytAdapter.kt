@@ -8,38 +8,45 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
-import com.example.appkhambenh.R
+import com.example.appkhambenh.databinding.ItemTopCsytBinding
 
-class TopCsytAdapter(val context: Context, private val csyts: ArrayList<Int>) : Adapter<TopCsytAdapter.ViewHolder>() {
+class TopCsytAdapter(val context: Context, private val csyts: ArrayList<Int>) :
+    Adapter<TopCsytAdapter.ViewHolder>() {
 
     var onCLickItem: ((Boolean) -> Unit)? = null
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val viewStart: View = itemView.findViewById(R.id.viewStartTopCsyt)
-    }
+    inner class ViewHolder(val v: ItemTopCsytBinding) : RecyclerView.ViewHolder(v.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopCsytAdapter.ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_top_csyt, parent, false)
-        return ViewHolder(itemView)
+        val v by lazy {
+            ItemTopCsytBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        }
+        return ViewHolder(v)
     }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: TopCsytAdapter.ViewHolder, position: Int) {
-        when(position){
-            0 -> holder.viewStart.visibility = View.VISIBLE
-            else -> holder.viewStart.visibility = View.GONE
+        when (position) {
+            0 -> holder.v.viewStartTopCsyt.visibility = View.VISIBLE
+            else -> holder.v.viewStartTopCsyt.visibility = View.GONE
         }
 
         holder.itemView.setOnTouchListener { _, motionEvent ->
-            when(motionEvent?.actionMasked){
-                MotionEvent.ACTION_DOWN->{
+            when (motionEvent?.actionMasked) {
+                MotionEvent.ACTION_DOWN -> {
                     holder.itemView.alpha = 0.3f
                 }
-                MotionEvent.ACTION_UP ->{
+
+                MotionEvent.ACTION_UP -> {
                     holder.itemView.alpha = 1f
                     onCLickItem?.invoke(true)
                 }
-                MotionEvent.ACTION_CANCEL->{
+
+                MotionEvent.ACTION_CANCEL -> {
                     holder.itemView.alpha = 1f
                 }
             }

@@ -62,7 +62,8 @@
                 android:hint="Tìm kiếm dân tộc"
                 android:inputType="textEmailAddress"
                 android:paddingHorizontal="@dimen/dimen_12"
-                android:paddingVertical="@dimen/dimen_10" />
+                android:paddingVertical="@dimen/dimen_10"
+                android:imeOptions="actionDone"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvInformation"

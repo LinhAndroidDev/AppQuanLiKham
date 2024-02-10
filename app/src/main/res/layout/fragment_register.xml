@@ -203,38 +203,20 @@
                 android:layout_marginHorizontal="@dimen/dimen_2"
                 android:layout_marginTop="@dimen/dimen_10">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/edtBirth"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/enter_date"
-                        android:paddingEnd="@dimen/dimen_20"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/txt_hint"
-                        android:textSize="@dimen/dimen_sp18"
-                        tools:ignore="RtlSymmetry" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_0.8"
-                        android:layout_marginTop="@dimen/dimen_5"
-                        android:background="@color/black" />
-
-                </LinearLayout>
+                <EditText
+                    android:id="@+id/edtBirth"
+                    style="@style/edt_register_function"
+                    android:hint="@string/enter_date"
+                    android:inputType="textEmailAddress"
+                    android:focusable="false"
+                    android:clickable="true"/>
 
                 <ImageView
                     android:id="@+id/calendar"
                     android:layout_width="@dimen/dimen_30"
                     android:layout_height="@dimen/dimen_30"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginTop="@dimen/dimen_3"
-                    android:layout_marginEnd="@dimen/dimen_10"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/ic_action_calendar" />
 
             </RelativeLayout>

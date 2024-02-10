@@ -21,7 +21,7 @@ import java.util.*
 @Suppress("DEPRECATION")
 class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding>() {
 
-    private var formatDate = SimpleDateFormat("dd/MM/yyyy", Locale.UK)
+    private val calendar by lazy { Calendar.getInstance() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -136,7 +136,7 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
         binding.edtName.setText("")
         binding.edtEmail.setText("")
         binding.edtSpecialist.setText("")
-        binding.edtBirth.text = ""
+        binding.edtBirth.setText("")
         binding.edtPhone.setText("")
         binding.edtPassword.setText("")
         binding.edtRepeatPassword.setText("")
@@ -156,26 +156,23 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
     }
 
     private fun showDialogSelectDate() {
-        val getDate = Calendar.getInstance()
-        val datePicker = DatePickerDialog(
+        DatePickerDialog(
             requireActivity(),
-            android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-            DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-
-                val selectDate: Calendar = Calendar.getInstance()
-                selectDate.set(Calendar.YEAR, year)
-                selectDate.set(Calendar.MONTH, month)
-                selectDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-
-                binding.edtBirth.text = formatDate.format(selectDate.time)
-
+            { _, year, month, dayOfMonth ->
+                calendar.set(Calendar.YEAR, year)
+                calendar.set(Calendar.MONTH, month)
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                setDateWithText()
             },
-            getDate.get(Calendar.YEAR),
-            getDate.get((Calendar.MONTH)),
-            getDate.get(Calendar.DAY_OF_MONTH)
-        )
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        ).show()
+    }
 
-        datePicker.show()
+    private fun setDateWithText() {
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        binding.edtBirth.setText(dateFormat.format(calendar.time))
     }
 
     private fun setNotification(color: Int, string: Int) {

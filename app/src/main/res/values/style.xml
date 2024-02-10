@@ -118,6 +118,7 @@
         <item name="android:background">@drawable/bg_edt_update_info</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColorHint">@color/txt_hint</item>
+        <item name="android:imeOptions">actionDone</item>
     </style>
 
 </resources>

@@ -1,15 +1,12 @@
 package com.example.appkhambenh.ui.ui.common
 
-import android.app.Dialog
 import android.os.Bundle
 import android.text.SpannableString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.LayoutCustomDialogBinding
-import com.google.android.material.shape.MaterialShapeDrawable
 
 class DialogCustom : DialogFragment() {
     var yes: (() -> Unit)? = null

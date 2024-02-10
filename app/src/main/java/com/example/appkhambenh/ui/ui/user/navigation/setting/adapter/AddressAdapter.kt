@@ -1,16 +1,13 @@
 package com.example.appkhambenh.ui.ui.user.navigation.setting.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
-import com.example.appkhambenh.R
+import com.example.appkhambenh.databinding.ItemAddressBinding
 import com.example.appkhambenh.ui.model.Address
 
 class AddressAdapter() : Adapter<AddressAdapter.ViewHolder>(), Filterable {
@@ -18,17 +15,21 @@ class AddressAdapter() : Adapter<AddressAdapter.ViewHolder>(), Filterable {
     val addressOlds by lazy { address }
     var onClickItem: ((Address) -> Unit)? = null
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val address: TextView = itemView.findViewById(R.id.address)
-    }
+    inner class ViewHolder(val v: ItemAddressBinding) : RecyclerView.ViewHolder(v.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressAdapter.ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_address, parent, false)
-        return ViewHolder(itemView)
+        val v by lazy {
+            ItemAddressBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        }
+        return ViewHolder(v)
     }
 
     override fun onBindViewHolder(holder: AddressAdapter.ViewHolder, position: Int) {
-        holder.address.text = address[position].name
+        holder.v.address.text = address[position].name
 
         holder.itemView.setOnClickListener {
             onClickItem?.invoke(address[position])
@@ -41,12 +42,12 @@ class AddressAdapter() : Adapter<AddressAdapter.ViewHolder>(), Filterable {
         return object : Filter() {
             override fun performFiltering(p0: CharSequence?): FilterResults {
                 val strSearch = p0.toString().lowercase().trim()
-                address = if(strSearch.isEmpty()){
+                address = if (strSearch.isEmpty()) {
                     addressOlds
-                }else{
+                } else {
                     val list = arrayListOf<Address>()
-                    for(adr in addressOlds){
-                        if(adr.name.lowercase().trim().contains(strSearch)){
+                    for (adr in addressOlds) {
+                        if (adr.name.lowercase().trim().contains(strSearch)) {
                             list.add(adr)
                         }
                     }
@@ -60,7 +61,7 @@ class AddressAdapter() : Adapter<AddressAdapter.ViewHolder>(), Filterable {
 
             @SuppressLint("NotifyDataSetChanged")
             override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
-                if(p1?.values != null){
+                if (p1?.values != null) {
                     address = p1.values as ArrayList<Address>
                     notifyDataSetChanged()
                 }

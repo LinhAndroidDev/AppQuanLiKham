@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Typeface
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
@@ -13,6 +12,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.appkhambenh.R
+import com.example.appkhambenh.databinding.ItemInformationBinding
 import com.example.appkhambenh.ui.ui.user.navigation.setting.UpdateInformationActivity
 import com.example.appkhambenh.ui.utils.SharePreferenceRepositoryImpl
 
@@ -25,22 +25,24 @@ class InformationAdapter(
     val inforOlds by lazy { infors }
     private val sharedPrefer = SharePreferenceRepositoryImpl(context)
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: TextView = itemView.findViewById(R.id.nameInfo)
-        val layout: FrameLayout = itemView.findViewById(R.id.layoutCoverInfo)
-    }
+    inner class ViewHolder(val v: ItemInformationBinding) : RecyclerView.ViewHolder(v.root)
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
     ): InformationAdapter.ViewHolder {
-        val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_information, parent, false)
-        return ViewHolder(itemView)
+        val v by lazy {
+            ItemInformationBinding.inflate(
+                LayoutInflater.from(context),
+                parent,
+                false
+            )
+        }
+        return ViewHolder(v)
     }
 
     override fun onBindViewHolder(holder: InformationAdapter.ViewHolder, position: Int) {
-        holder.name.text = infors[position]
+        holder.v.nameInfo.text = infors[position]
 
 //        when (type) {
 //            UpdateInformationActivity.ETHNICS -> {
@@ -86,6 +88,7 @@ class InformationAdapter(
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun clearList() {
         infors.clear()
         notifyDataSetChanged()

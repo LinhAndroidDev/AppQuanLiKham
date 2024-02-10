@@ -10,17 +10,13 @@ import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.utils.ConvertUtils.dpToPx
 import com.example.appkhambenh.ui.utils.collapseView
 import com.example.appkhambenh.ui.utils.expandView
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+
 
 class CustomHeader : LinearLayout {
     val binding by lazy { LayoutHeaderCommonBinding.inflate(LayoutInflater.from(context)) }
     var isRevert: ((Boolean) -> Unit)? = null
     var searchItem: ((String) -> Unit)? = null
-    var isExpand = false
+    private var isExpand = false
 
     constructor(context: Context?) : super(context) {
         initView()
@@ -84,7 +80,7 @@ class CustomHeader : LinearLayout {
         expandView(binding.searchHeader, 34.dpToPx(context))
     }
 
-    fun goneSearch() {
+    private fun goneSearch() {
         collapseView(binding.searchHeader)
     }
 

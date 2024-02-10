@@ -8,6 +8,7 @@ import android.widget.RelativeLayout
 import androidx.core.widget.doOnTextChanged
 import com.example.appkhambenh.databinding.LayoutCustomSearchBinding
 
+
 class CustomSearch : RelativeLayout {
     val binding by lazy { LayoutCustomSearchBinding.inflate(LayoutInflater.from(context)) }
     var keySearch: ((String) -> Unit)? = null
@@ -65,5 +66,9 @@ class CustomSearch : RelativeLayout {
 
     fun clrFocus() {
         binding.search.clearFocus()
+    }
+
+    fun searchFocus() {
+        binding.search.requestFocus()
     }
 }

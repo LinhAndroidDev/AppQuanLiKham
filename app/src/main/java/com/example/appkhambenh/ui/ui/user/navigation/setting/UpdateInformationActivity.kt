@@ -2,6 +2,7 @@ package com.example.appkhambenh.ui.ui.user.navigation.setting
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Typeface
@@ -33,7 +34,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 
 @Suppress("DEPRECATION")
@@ -42,6 +45,7 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
     private val bottomSheetInformation by lazy { BottomSheetBehavior.from(binding.bottomSelectInfo.layoutSelect) }
     private var informationAdapter = InformationAdapter(arrayListOf(""), "", this)
     private var isAddMember = false
+    private val calendar by lazy { Calendar.getInstance() }
 
     companion object {
         const val REQUEST_SCAN = 2
@@ -88,6 +92,21 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
             startActivityForResult(intent, REQUEST_ADDRESS)
         }
 
+        binding.birth.setOnClickListener {
+            DatePickerDialog(
+                this,
+                { _, year, month, dayOfMonth ->
+                    calendar.set(Calendar.YEAR, year)
+                    calendar.set(Calendar.MONTH, month)
+                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    setDateWithText()
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            ).show()
+        }
+
         binding.ethnic.setOnClickListener {
             informationAdapter.clearList()
             informationAdapter = InformationAdapter(PersonalInformation.ethnics(), ETHNICS, this)
@@ -103,7 +122,8 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
 
         binding.nationality.setOnClickListener {
             informationAdapter.clearList()
-            informationAdapter = InformationAdapter(PersonalInformation.nationality(), NATIONALITY, this)
+            informationAdapter =
+                InformationAdapter(PersonalInformation.nationality(), NATIONALITY, this)
             initDataInfo(
                 title = getString(R.string.nationality),
                 hint = getString(R.string.search_nationality)
@@ -128,6 +148,11 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
         }
     }
 
+    private fun setDateWithText() {
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        binding.birth.setText(dateFormat.format(calendar.time))
+    }
+
     private fun startScanCCCD() {
         val permission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
         if (permission != PackageManager.PERMISSION_GRANTED) {
@@ -148,7 +173,7 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
                     dialog.show(supportFragmentManager, "")
                     dialog.title = "Bạn đã từ chối quyền truy cập"
                     val note =
-                        "Để truy cập lại camera, bạn cần mở Cài đặt --> -Thông tin ứng dụng -> Quyền ứng dụng --> Máy ảnh --> Cho phép truy cập"
+                        "Để truy cập lại camera, bạn cần mở Cài đặt --> Thông tin ứng dụng --> Quyền ứng dụng --> Máy ảnh --> Cho phép truy cập"
                     val spannable = SpannableString(note)
                     setStyleTextAtPosition(note, "Cài đặt", StyleSpan(Typeface.BOLD), spannable)
                     setStyleTextAtPosition(
@@ -288,6 +313,7 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
         binding.bottomSelectInfo.layoutMainSheet.setOnTouchListener { _, _ -> true }
 
         binding.bottomSelectInfo.layoutCoverSheet.setOnTouchListener { _, _ ->
+            this.closeKeyboard()
             binding.bottomSelectInfo.layoutCoverSheet.isEnabled = false
             bottomSheetInformation.state = BottomSheetBehavior.STATE_COLLAPSED
             true
@@ -312,16 +338,15 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
                     binding.name.setText(information[2])
                     binding.address.text = information[5]
 
-                    val format = SimpleDateFormat("dd/MM/yyyy")
                     binding.birth.setText(
-                        format.format(
+                        SimpleDateFormat("dd/MM/yyyy").format(
                             SimpleDateFormat("ddMMyyyy").parse(
                                 information[3]
                             ) as Date
                         )
                     )
 
-                    if (information[4] == getString(R.string.males)) binding.males.isChecked =
+                    if (information[4] == "Nam") binding.males.isChecked =
                         true else binding.females.isChecked = true
                 }
             }
