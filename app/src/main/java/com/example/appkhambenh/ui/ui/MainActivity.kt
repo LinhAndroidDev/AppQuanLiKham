@@ -9,8 +9,10 @@ import com.example.appkhambenh.databinding.ActivityMainBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.ui.login.FragmentLogin
+import dagger.hilt.android.AndroidEntryPoint
 
 @Suppress("DEPRECATION")
+@AndroidEntryPoint
 class MainActivity : BaseActivity<EmptyViewModel, ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

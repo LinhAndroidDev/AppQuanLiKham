@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
+        android:name=".ui.data.remote.helper.MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -49,7 +50,7 @@
             android:windowSoftInputMode="stateVisible|adjustPan"
             android:configChanges="orientation|screenSize|screenLayout"/>
         <activity
-            android:name=".ui.ui.user.csyt.InfoCsytActivity"
+            android:name=".ui.ui.user.hospital.InfoHospitalActivity"
             android:exported="false"
             android:configChanges="orientation|screenSize|screenLayout"/>
         <activity
@@ -61,7 +62,7 @@
             android:exported="false"
             android:configChanges="orientation|screenSize|screenLayout"/>
         <activity
-            android:name=".ui.ui.user.csyt.CsytActivity"
+            android:name=".ui.ui.user.hospital.HospitalActivity"
             android:exported="false"
             android:configChanges="orientation|screenSize|screenLayout"/>
         <activity
@@ -69,14 +70,7 @@
             android:exported="false"
             android:configChanges="orientation|screenSize|screenLayout"/>
         <activity
-            android:name=".ui.ui.doctor.statistical.StatisticalActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.ui.user.manage_appointment.ManageAppointmentActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|screenLayout"/>
-        <activity
-            android:name=".ui.ui.doctor.time_working.EditTimeWorkActivity"
             android:exported="false"
             android:configChanges="orientation|screenSize|screenLayout"/>
         <activity
@@ -93,10 +87,6 @@
         <activity
             android:name=".ui.ui.user.medicine.MedicineActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.ui.user.appointment.AppointmentActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|screenLayout"/>
         <activity
             android:name=".ui.ui.user.qr.QrActivity"
             android:exported="false" />

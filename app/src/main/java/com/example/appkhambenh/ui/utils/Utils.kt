@@ -14,7 +14,7 @@ import android.util.Patterns
 import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.FragmentActivity
-import com.example.appkhambenh.ui.ui.user.csyt.CsytActivity
+import com.example.appkhambenh.ui.ui.user.hospital.HospitalActivity
 import com.example.appkhambenh.ui.ui.user.doctor.SearchDoctorActivity
 import com.example.appkhambenh.ui.ui.user.home.Function
 import com.example.appkhambenh.ui.ui.user.manage_appointment.ManageAppointmentActivity
@@ -109,7 +109,7 @@ fun onClickFunction(index: Int, activity: FragmentActivity) {
         }
 
         Function.BOOK_CAPITAL.id -> {
-            val intent = Intent(activity, CsytActivity::class.java)
+            val intent = Intent(activity, HospitalActivity::class.java)
             activity.startActivity(intent)
         }
 

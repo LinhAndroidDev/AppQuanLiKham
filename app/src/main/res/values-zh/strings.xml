@@ -136,11 +136,11 @@
     <string name="book_online">在线预约</string>
     <string name="manage_appointment">管理约会</string>
     <string name="medical_handbook">医疗手册</string>
-    <string name="info_csyt">医疗机构信息</string>
+    <string name="info_hospital">医疗机构信息</string>
     <string name="number_book">预订</string>
     <string name="evaluate">评估</string>
     <string name="see_schedule"><u>查看时间表</u></string>
-    <string name="info_csyt_under_text"><u>医疗机构信息</u></string>
+    <string name="info_hospital_under_text"><u>医疗机构信息</u></string>
     <string name="doctor_specialist">专家</string>
     <string name="latest_medical_schedule">最新体检时间表</string>
     <string name="online_counseling">在线咨询</string>

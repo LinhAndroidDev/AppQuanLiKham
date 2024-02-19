@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.lifecycle.lifecycleScope
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentRegisterBinding
 import com.example.appkhambenh.ui.base.BaseFragment
@@ -15,10 +16,14 @@ import com.example.appkhambenh.ui.data.remote.model.RegisterModel
 import com.example.appkhambenh.ui.utils.validateEmail
 import com.example.appkhambenh.ui.utils.validatePassword
 import com.example.appkhambenh.ui.utils.validatePhone
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
 @Suppress("DEPRECATION")
+@AndroidEntryPoint
 class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding>() {
 
     private val calendar by lazy { Calendar.getInstance() }
@@ -38,8 +43,8 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
             }
         }
 
-        viewModel.loadingLiveData.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) loading.show() else loading.dismiss()
+        viewModel.loading.observe(viewLifecycleOwner) {
+            if (it) loading.show() else loading.dismiss()
         }
     }
 
@@ -52,7 +57,7 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
 
         binding.cancel.setOnClickListener { back() }
 
-        binding.layoutDate.setOnClickListener {
+        binding.edtBirth.setOnClickListener {
             showDialogSelectDate()
         }
 
@@ -120,9 +125,11 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
 
                 if (!binding.rbDoctor.isChecked) specialist = ""
 
-                viewModel.requestRegisterUser(
-                    RegisterModel(name, type, email, password, phone, birth, sex)
-                )
+                lifecycleScope.launch(Dispatchers.Main) {
+                    viewModel.requestRegisterUser(
+                        RegisterModel(name, type, email, password, phone, birth, sex)
+                    )
+                }
             }
         }
 

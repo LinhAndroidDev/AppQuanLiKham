@@ -136,11 +136,11 @@
     <string name="book_online">กำหนดเวลาการนัดหมายออนไลน์</string>
     <string name="manage_appointment">จัดการการนัดหมาย</string>
     <string name="medical_handbook">คู่มือทางการแพทย์</string>
-    <string name="info_csyt">ข้อมูลสถานพยาบาล</string>
+    <string name="info_hospital">ข้อมูลสถานพยาบาล</string>
     <string name="number_book">การจอง</string>
     <string name="evaluate">ประเมิน</string>
     <string name="see_schedule"><u>ดูกำหนดการ</u></string>
-    <string name="info_csyt_under_text"><u>ข้อมูลสถานพยาบาล</u></string>
+    <string name="info_hospital_under_text"><u>ข้อมูลสถานพยาบาล</u></string>
     <string name="doctor_specialist">ผู้เชี่ยวชาญ</string>
     <string name="latest_medical_schedule">กำหนดการตรวจสุขภาพล่าสุด</string>
     <string name="online_counseling">การให้คำปรึกษาออนไลน์</string>

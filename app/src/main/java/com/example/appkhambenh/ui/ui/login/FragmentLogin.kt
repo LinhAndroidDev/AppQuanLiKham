@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.lifecycleScope
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentLoginBinding
 import com.example.appkhambenh.ui.ui.user.HomeActivity
@@ -18,8 +19,12 @@ import com.example.appkhambenh.ui.data.remote.model.LoginModel
 import com.example.appkhambenh.ui.ui.register.FragmentRegister
 import com.example.appkhambenh.ui.utils.validateEmail
 import com.example.appkhambenh.ui.utils.validatePassword
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Suppress("DEPRECATION")
+@AndroidEntryPoint
 class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
 
     override fun getFragmentBinding(
@@ -36,8 +41,8 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
     override fun bindData() {
         super.bindData()
 
-        viewModel.loadingLiveData.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) loading.show() else loading.dismiss()
+        viewModel.loading.observe(viewLifecycleOwner) {
+            if (it) loading.show() else loading.dismiss()
         }
 
         viewModel.loginSuccessLiveData.observe(viewLifecycleOwner) { isSuccessful ->
@@ -95,10 +100,12 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
             } else {
                 binding.notificationLogin.visibility = View.GONE
 
-                viewModel.requestLoginUser(
-                    loginModel = LoginModel(email, password, 0),
-                    context = requireActivity()
-                )
+                lifecycleScope.launch(Dispatchers.Main) {
+                    viewModel.requestLoginUser(
+                        loginModel = LoginModel(email, password, 0),
+                        context = requireActivity()
+                    )
+                }
             }
         }
 

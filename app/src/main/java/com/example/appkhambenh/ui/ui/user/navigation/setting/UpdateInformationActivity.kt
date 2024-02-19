@@ -175,56 +175,11 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
                     val note =
                         "Để truy cập lại camera, bạn cần mở Cài đặt --> Thông tin ứng dụng --> Quyền ứng dụng --> Máy ảnh --> Cho phép truy cập"
                     val spannable = SpannableString(note)
-                    setStyleTextAtPosition(note, "Cài đặt", StyleSpan(Typeface.BOLD), spannable)
-                    setStyleTextAtPosition(
-                        note,
-                        "Cài đặt",
-                        ForegroundColorSpan(getColor(R.color.txt_hint)),
-                        spannable
-                    )
-                    setStyleTextAtPosition(
-                        note,
-                        "Thông tin ứng dụng",
-                        StyleSpan(Typeface.BOLD),
-                        spannable
-                    )
-                    setStyleTextAtPosition(
-                        note,
-                        "Thông tin ứng dụng",
-                        ForegroundColorSpan(getColor(R.color.txt_hint)),
-                        spannable
-                    )
-                    setStyleTextAtPosition(
-                        note,
-                        "Quyền ứng dụng",
-                        StyleSpan(Typeface.BOLD),
-                        spannable
-                    )
-                    setStyleTextAtPosition(
-                        note,
-                        "Quyền ứng dụng",
-                        ForegroundColorSpan(getColor(R.color.txt_hint)),
-                        spannable
-                    )
-                    setStyleTextAtPosition(note, "Máy ảnh", StyleSpan(Typeface.BOLD), spannable)
-                    setStyleTextAtPosition(
-                        note,
-                        "Máy ảnh",
-                        ForegroundColorSpan(getColor(R.color.txt_hint)),
-                        spannable
-                    )
-                    setStyleTextAtPosition(
-                        note,
-                        "Cho phép truy cập",
-                        StyleSpan(Typeface.BOLD),
-                        spannable
-                    )
-                    setStyleTextAtPosition(
-                        note,
-                        "Cho phép truy cập",
-                        ForegroundColorSpan(getColor(R.color.txt_hint)),
-                        spannable
-                    )
+                    setStyleText(note, "Cài đặt", spannable)
+                    setStyleText(note, "Thông tin ứng dụng", spannable)
+                    setStyleText(note, "Quyền ứng dụng", spannable)
+                    setStyleText(note, "Máy ảnh", spannable)
+                    setStyleText(note, "Cho phép truy cập", spannable)
                     dialog.message = spannable
                     dialog.yes = {
                         val intent =
@@ -243,6 +198,16 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
             val intent = Intent(this@UpdateInformationActivity, ScanActivity::class.java)
             startActivityForResult(intent, REQUEST_SCAN)
         }
+    }
+
+    private fun setStyleText(note: String, str: String, spannable: SpannableString) {
+        setStyleTextAtPosition(note, str, StyleSpan(Typeface.BOLD), spannable)
+        setStyleTextAtPosition(
+            note,
+            str,
+            ForegroundColorSpan(getColor(R.color.txt_hint)),
+            spannable
+        )
     }
 
     private fun initDataInfo(title: String, hint: String) {

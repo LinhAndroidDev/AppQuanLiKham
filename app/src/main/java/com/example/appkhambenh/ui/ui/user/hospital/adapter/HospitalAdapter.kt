@@ -1,4 +1,4 @@
-package com.example.appkhambenh.ui.ui.user.csyt.adapter
+package com.example.appkhambenh.ui.ui.user.hospital.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -6,11 +6,11 @@ import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appkhambenh.databinding.ItemCsytBinding
-import com.example.appkhambenh.ui.model.Csyt
+import com.example.appkhambenh.ui.data.remote.model.Hospital
 
-class CsytAdapter(private val listCsyt: ArrayList<Csyt>) :
-    RecyclerView.Adapter<CsytAdapter.ViewHolder>() {
-    var onClickItem: ((Boolean) -> Unit)? = null
+class HospitalAdapter(private val hospitals: ArrayList<Hospital>) :
+    RecyclerView.Adapter<HospitalAdapter.ViewHolder>() {
+    var onClickItem: ((Hospital) -> Unit)? = null
 
     inner class ViewHolder(val v: ItemCsytBinding) : RecyclerView.ViewHolder(v.root)
 
@@ -28,6 +28,8 @@ class CsytAdapter(private val listCsyt: ArrayList<Csyt>) :
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
+        holder.v.nameCsyt.text = hospitals[position].name
+
         holder.itemView.setOnTouchListener { _, motionEvent ->
             when (motionEvent?.actionMasked) {
                 MotionEvent.ACTION_DOWN -> {
@@ -36,7 +38,7 @@ class CsytAdapter(private val listCsyt: ArrayList<Csyt>) :
 
                 MotionEvent.ACTION_UP -> {
                     holder.itemView.alpha = 1f
-                    onClickItem?.invoke(true)
+                    onClickItem?.invoke(hospitals[position])
                 }
 
                 MotionEvent.ACTION_CANCEL -> {
@@ -48,6 +50,6 @@ class CsytAdapter(private val listCsyt: ArrayList<Csyt>) :
     }
 
     override fun getItemCount(): Int {
-        return listCsyt.size
+        return hospitals.size
     }
 }

@@ -26,8 +26,8 @@ import com.example.appkhambenh.ui.model.FunctionMain
 import com.example.appkhambenh.ui.model.MedicalHandbook
 import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
-import com.example.appkhambenh.ui.ui.user.csyt.CsytActivity
-import com.example.appkhambenh.ui.ui.user.csyt.InfoCsytActivity
+import com.example.appkhambenh.ui.ui.user.hospital.HospitalActivity
+import com.example.appkhambenh.ui.ui.user.hospital.InfoHospitalActivity
 import com.example.appkhambenh.ui.ui.user.doctor.InfoDoctorActivity
 import com.example.appkhambenh.ui.ui.user.doctor.SearchDoctorActivity
 import com.example.appkhambenh.ui.ui.user.home.adapter.DoctorHighlightAdapter
@@ -62,7 +62,7 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             requireActivity()
         )
 
-        viewModel.loadingLiveData.observe(this) {
+        viewModel.loading.observe(this) {
             if (it) {
                 loading.show()
             } else {
@@ -213,7 +213,7 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
     private fun topCsyt() {
         binding.seeMoreCsyt.layout.setOnClickListener {
-            val intent = Intent(requireActivity(), CsytActivity::class.java)
+            val intent = Intent(requireActivity(), HospitalActivity::class.java)
             startActivity(intent)
         }
 
@@ -221,7 +221,7 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         val adapterTopCsyt = TopCsytAdapter(requireActivity(), csyts)
         adapterTopCsyt.onCLickItem = {
             if (it) {
-                val intent = Intent(requireActivity(), InfoCsytActivity::class.java)
+                val intent = Intent(requireActivity(), InfoHospitalActivity::class.java)
                 startActivity(intent)
             }
         }

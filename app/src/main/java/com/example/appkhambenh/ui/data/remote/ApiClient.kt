@@ -33,15 +33,4 @@ object ApiClient {
             API_SERVICE!!
         }
     }
-
-    private fun getFromWeb(): Retrofit? =
-        Retrofit.Builder()
-            .baseUrl("http://192.168.1.11:8017/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .build()
-
-    fun sharedFromWeb(): ApiService =
-        getFromWeb()?.create(ApiService::class.java)!!
-
 }

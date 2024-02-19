@@ -1,12 +1,12 @@
 package com.example.appkhambenh.ui.data.remote
 
+import com.example.appkhambenh.ui.data.remote.entity.HospitalResponse
 import com.example.appkhambenh.ui.data.remote.entity.LoginResponse
 import com.example.appkhambenh.ui.data.remote.entity.UserInfoResponse
 import com.example.appkhambenh.ui.data.remote.entity.RegisterResponse
 import com.example.appkhambenh.ui.data.remote.entity.UploadImageResponse
 import com.example.appkhambenh.ui.data.remote.model.LoginModel
 import com.example.appkhambenh.ui.data.remote.model.RegisterModel
-import com.example.appkhambenh.ui.model.Address
 import com.example.appkhambenh.ui.model.Medicine
 import com.example.appkhambenh.ui.ui.user.navigation.password.PasswordResponse
 import io.reactivex.rxjava3.core.Observable
@@ -19,16 +19,17 @@ import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
-import retrofit2.http.Query
 
 interface ApiService {
     @POST("login")
-    fun loginUser(
-        @Body loginModel: LoginModel
-    ): Observable<LoginResponse>
+    suspend fun loginUser(
+        @Body loginModel: LoginModel,
+    ): Response<LoginResponse>
 
     @POST("register")
-    fun registerUser(@Body registerModel: RegisterModel): Observable<RegisterResponse>
+    suspend fun registerUser(
+        @Body registerModel: RegisterModel
+    ): Response<RegisterResponse>
 
     @GET("medicine.php")
     fun getListMedicine(): Observable<List<Medicine>>
@@ -43,7 +44,7 @@ interface ApiService {
 
     @POST("account/user_info.php")
     fun getUserInfo(
-        @Header("Authorization") token: String
+        @Header("Authorization") token: String,
     ): Observable<UserInfoResponse>
 
     @Multipart
@@ -71,4 +72,7 @@ interface ApiService {
         @Part("id") id: RequestBody,
         @Part("password") password: RequestBody,
     ): Observable<PasswordResponse>
+
+    @GET("admin/hospital/get_list_hospital")
+    suspend fun getListHospital(): Response<HospitalResponse>
 }

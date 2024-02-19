@@ -3,50 +3,37 @@ package com.example.appkhambenh.ui.ui.register
 import androidx.lifecycle.MutableLiveData
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.ApiClient
-import com.example.appkhambenh.ui.data.remote.entity.RegisterResponse
 import com.example.appkhambenh.ui.data.remote.model.RegisterModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.schedulers.Schedulers
+import com.example.appkhambenh.ui.data.remote.repository.RegisterRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class RegisterViewModel : BaseViewModel() {
-    val loadingLiveData = MutableLiveData<Boolean>()
+@HiltViewModel
+class RegisterViewModel @Inject constructor(private val registerRepository: RegisterRepository) :
+    BaseViewModel() {
     val registerSuccessful = MutableLiveData<Boolean>()
 
-    fun requestRegisterUser(
+    suspend fun requestRegisterUser(
         registerModel: RegisterModel,
     ) {
-
-        loadingLiveData.postValue(true)
-
-        ApiClient.sharedFromWeb()
-            .registerUser(registerModel)
-            .observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : io.reactivex.rxjava3.core.Observer<RegisterResponse> {
-                override fun onSubscribe(d: Disposable) {}
-
-                override fun onError(e: Throwable) {
-                    loadingLiveData.postValue(false)
-                    errorApiLiveData.postValue(e.message)
-                }
-
-                override fun onComplete() {}
-
-                override fun onNext(t: RegisterResponse) {
-                    loadingLiveData.postValue(false)
-                    when (t.statusCode) {
-                        200 -> {
-                            registerSuccessful.value = true
-                            errorApiLiveData.postValue(t.message)
-                        }
-
-                        else -> {
-                            errorApiLiveData.postValue(t.message)
+        loading.postValue(true)
+        try {
+            registerRepository.registerUser(registerModel).let { response ->
+                if (response.isSuccessful) {
+                    loading.postValue(false)
+                    response.body().let {
+                        errorApiLiveData.postValue(it?.message)
+                        when (it?.statusCode) {
+                            ApiClient.STATUS_CODE_SUCCESS -> {
+                                registerSuccessful.postValue(true)
+                            }
                         }
                     }
                 }
-
-            })
+            }
+        } catch (e: Exception) {
+            loading.postValue(false)
+            errorApiLiveData.postValue(e.message)
+        }
     }
 }

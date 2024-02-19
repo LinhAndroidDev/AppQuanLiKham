@@ -136,11 +136,11 @@
     <string name="book_online">オンラインで予約をする</string>
     <string name="manage_appointment">予定を管理する</string>
     <string name="medical_handbook">医療ハンドブック</string>
-    <string name="info_csyt">医療機関情報</string>
+    <string name="info_hospital">医療機関情報</string>
     <string name="number_book">予約</string>
     <string name="evaluate">評価</string>
     <string name="see_schedule"><u>スケジュールを参照</u></string>
-    <string name="info_csyt_under_text"><u>医療機関情報</u></string>
+    <string name="info_hospital_under_text"><u>医療機関情報</u></string>
     <string name="doctor_specialist">スペシャリスト</string>
     <string name="latest_medical_schedule">最新の健康診断スケジュール</string>
     <string name="online_counseling">オンラインカウンセリング</string>

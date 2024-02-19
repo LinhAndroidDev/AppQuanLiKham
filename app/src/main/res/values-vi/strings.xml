@@ -136,11 +136,11 @@
     <string name="book_online">Đặt lịch khám online</string>
     <string name="manage_appointment">Quản lí lịch hẹn</string>
     <string name="medical_handbook">Cẩm nang y tế</string>
-    <string name="info_csyt">Thông tin cơ sở y tế</string>
+    <string name="info_hospital">Thông tin cơ sở y tế</string>
     <string name="number_book">Lượt đặt khám</string>
     <string name="evaluate">Đánh giá</string>
     <string name="see_schedule"><u>Xem lịch</u></string>
-    <string name="info_csyt_under_text"><u>Thông tin cơ sở y tế</u></string>
+    <string name="info_hospital_under_text"><u>Thông tin cơ sở y tế</u></string>
     <string name="doctor_specialist">Bác sĩ chuyên khoa</string>
     <string name="latest_medical_schedule">Lịch khám gần nhất</string>
     <string name="online_counseling">Tư vấn trực tuyến</string>

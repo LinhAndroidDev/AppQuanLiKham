@@ -12,6 +12,7 @@ import com.example.appkhambenh.databinding.ActivityAddressBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.model.Address
 import com.example.appkhambenh.ui.ui.user.navigation.setting.adapter.AddressAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

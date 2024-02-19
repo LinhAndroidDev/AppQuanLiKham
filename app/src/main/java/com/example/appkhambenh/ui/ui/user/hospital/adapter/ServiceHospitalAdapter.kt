@@ -1,30 +1,25 @@
-package com.example.appkhambenh.ui.ui.user.csyt.adapter
+package com.example.appkhambenh.ui.ui.user.hospital.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
-import androidx.viewpager.widget.ViewPager
-import com.example.appkhambenh.R
-import com.example.appkhambenh.databinding.ItemDoctorCsytBinding
+import com.example.appkhambenh.databinding.ItemServiceCsytBinding
+import com.example.appkhambenh.ui.data.remote.model.Specialist
 
-class DoctorCsytAdapter(
-    private val doctors: ArrayList<Int>,
-) : Adapter<DoctorCsytAdapter.ViewHolder>() {
-    var onClickItem: ((Boolean) -> Unit)? = null
+class ServiceHospitalAdapter(private val services: ArrayList<Specialist>) :
+    Adapter<ServiceHospitalAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val v: ItemDoctorCsytBinding) : RecyclerView.ViewHolder(v.root)
+    inner class ViewHolder(val v: ItemServiceCsytBinding) : RecyclerView.ViewHolder(v.root)
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ): DoctorCsytAdapter.ViewHolder {
+    ): ServiceHospitalAdapter.ViewHolder {
         val v by lazy {
-            ItemDoctorCsytBinding.inflate(
+            ItemServiceCsytBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -34,7 +29,9 @@ class DoctorCsytAdapter(
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    override fun onBindViewHolder(holder: DoctorCsytAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ServiceHospitalAdapter.ViewHolder, position: Int) {
+
+        holder.v.nameSpecial.text = services[position].nameSpecial
 
         holder.itemView.setOnTouchListener { _, motionEvent ->
             when (motionEvent?.actionMasked) {
@@ -44,7 +41,6 @@ class DoctorCsytAdapter(
 
                 MotionEvent.ACTION_UP -> {
                     holder.itemView.alpha = 1f
-                    onClickItem?.invoke(true)
                 }
 
                 MotionEvent.ACTION_CANCEL -> {
@@ -56,6 +52,6 @@ class DoctorCsytAdapter(
     }
 
     override fun getItemCount(): Int {
-        return doctors.size
+        return services.size
     }
 }

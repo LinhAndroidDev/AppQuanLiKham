@@ -136,11 +136,11 @@
     <string name="book_online">Book an appointment online</string>
     <string name="manage_appointment">Manage appointment schedules</string>
     <string name="medical_handbook">Medical handbook</string>
-    <string name="info_csyt">Medical facility information</string>
+    <string name="info_hospital">Medical facility information</string>
     <string name="number_book">Number of appointments</string>
     <string name="evaluate">Evaluate</string>
     <string name="see_schedule"><u>See schedule</u></string>
-    <string name="info_csyt_under_text"><u>Medical facility information</u></string>
+    <string name="info_hospital_under_text"><u>Medical facility information</u></string>
     <string name="doctor_specialist">Specialist</string>
     <string name="latest_medical_schedule">Latest medical schedule</string>
     <string name="online_counseling">Online counseling</string>

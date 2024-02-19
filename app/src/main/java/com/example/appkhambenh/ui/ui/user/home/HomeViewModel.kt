@@ -16,7 +16,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class HomeViewModel : BaseViewModel() {
-    var loadingLiveData = MutableLiveData<Boolean>()
     var userLiveData = MutableLiveData<UserInfoResponse>()
 
     private fun saveInfo(
@@ -30,7 +29,7 @@ class HomeViewModel : BaseViewModel() {
     }
 
     fun getUserInfo(token: String, context: Context){
-        loadingLiveData.postValue(true)
+        loading.postValue(true)
         ApiClient.shared().getUserInfo(token)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -40,7 +39,7 @@ class HomeViewModel : BaseViewModel() {
                 }
 
                 override fun onError(e: Throwable) {
-                    loadingLiveData.postValue(false)
+                    loading.postValue(false)
                     errorApiLiveData.postValue(e.message)
                 }
 
@@ -49,7 +48,7 @@ class HomeViewModel : BaseViewModel() {
                 }
 
                 override fun onNext(t: UserInfoResponse) {
-                    loadingLiveData.postValue(false)
+                    loading.postValue(false)
                     when(t.statusCode) {
                         ApiClient.STATUS_CODE_SUCCESS -> {
                             userLiveData.postValue(t)

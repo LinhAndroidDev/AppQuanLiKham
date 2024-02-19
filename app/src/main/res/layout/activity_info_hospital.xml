@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.ui.user.csyt.InfoCsytActivity">
+    tools:context=".ui.ui.user.hospital.InfoHospitalActivity">
 
     <com.example.appkhambenh.ui.ui.common.CustomHeader
-        android:id="@+id/headerInfoCsyt"
+        android:id="@+id/headerInfoHospital"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -32,6 +32,7 @@
                 app:civ_border_width="@dimen/dimen_1" />
 
             <TextView
+                android:id="@+id/nameHospital"
                 style="@style/text_sp16_black_bold"
                 android:layout_gravity="center_horizontal"
                 android:text="Bệnh Viện Phổi Trung Ươnng"
@@ -161,7 +162,7 @@
                 <TextView
                     style="@style/text_sp16_color_text"
                     android:layout_marginStart="@dimen/dimen_20"
-                    android:text="@string/info_csyt_under_text" />
+                    android:text="@string/info_hospital_under_text" />
 
             </LinearLayout>
 
@@ -171,7 +172,7 @@
                 android:layout_height="@dimen/dimen_10" />
 
             <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabCsyt"
+                android:id="@+id/tabHospital"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
@@ -181,7 +182,7 @@
                 app:tabTextColor="@color/grey_1" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcvBookCsyt"
+                android:id="@+id/rcvBookHospital"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"

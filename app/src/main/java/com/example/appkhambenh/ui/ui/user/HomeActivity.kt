@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityHomeBinding
 import com.example.appkhambenh.ui.base.BaseActivity
-import com.example.appkhambenh.ui.ui.user.csyt.CsytActivity
+import com.example.appkhambenh.ui.ui.user.hospital.HospitalActivity
 import com.example.appkhambenh.ui.ui.user.doctor.SearchDoctorActivity
 import com.example.appkhambenh.ui.ui.user.home.FragmentHome
 import com.example.appkhambenh.ui.ui.user.home.HomeViewModel
@@ -18,8 +18,10 @@ import com.example.appkhambenh.ui.ui.user.navigation.setting.FragmentSetting
 import com.example.appkhambenh.ui.utils.animRotation45
 import com.example.appkhambenh.ui.utils.animRotationBack0
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import dagger.hilt.android.AndroidEntryPoint
 
 @Suppress("DEPRECATION")
+@AndroidEntryPoint
 class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
     private var isExpandBook = false
     private val bottomSheetBehavior by lazy { BottomSheetBehavior.from(binding.bottomSheet.layoutBook) }
@@ -169,7 +171,7 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
         }
 
         binding.bottomSheet.bottomCsyt.setOnClickListener {
-            val intent = Intent(this@HomeActivity, CsytActivity::class.java)
+            val intent = Intent(this@HomeActivity, HospitalActivity::class.java)
             startActivity(intent)
         }
     }
