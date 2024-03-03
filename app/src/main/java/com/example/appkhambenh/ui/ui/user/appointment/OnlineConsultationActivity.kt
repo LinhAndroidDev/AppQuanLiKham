@@ -16,6 +16,7 @@ import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.ui.user.doctor.adapter.HourWorkingAdapter
 import com.example.appkhambenh.ui.ui.user.doctor.adapter.TimeWorkingAdapter
 import com.example.appkhambenh.ui.utils.ConvertUtils.dpToPx
+import com.example.appkhambenh.ui.utils.setBgViewTint
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -127,8 +128,7 @@ class OnlineConsultationActivity :
 
     private fun enableFootView() {
         binding.footView.tvComplete.let {
-            it.backgroundTintList =
-                ColorStateList.valueOf(getColor(R.color.orange))
+            setBgViewTint(it, getColor(R.color.orange))
             it.setTextColor(getColor(R.color.white))
             it.alpha = 1f
             it.isEnabled = true

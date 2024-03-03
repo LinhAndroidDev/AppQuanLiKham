@@ -1,78 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/deleteMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimen_20"
-        android:layout_marginTop="@dimen/dimen_5"
-        android:layout_marginBottom="@dimen/dimen_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="15dp">
+        app:cardCornerRadius="18dp"
+        app:cardElevation="0dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/txtEditDepartment"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/dimen_2"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/dimen_22"
-                    android:layout_height="@dimen/dimen_22"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dimen_10"
-                    android:background="@drawable/ic_action_edit_department_clinic" />
+                android:layout_marginHorizontal="@dimen/dimen_15"
+                android:layout_marginTop="@dimen/dimen_15">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/dimen_15"
-                    android:paddingVertical="@dimen/dimen_8"
-                    android:text="Edit"
-                    android:textColor="@color/text"
-                    android:textSize="@dimen/dimen_sp14" />
+                    style="@style/text_sp16_black_bold"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:text="Giờ làm việc"
+                    android:textSize="@dimen/dimen_18" />
+
+                <ImageView
+                    android:id="@+id/close"
+                    android:layout_width="@dimen/dimen_15"
+                    android:layout_height="@dimen/dimen_15"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/icon_delete_search"
+                    app:tint="@color/grey_1" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_30"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_sp16_black_bold"
+                    android:text="● Thứ 2: 07:00 -16:30" />
+
+                <TextView
+                    style="@style/text_sp16"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:text="Nghỉ trưa: 12:00 - 13:30"
+                    android:textColor="@color/txt_hint" />
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_0.8"
-                android:layout_marginHorizontal="@dimen/dimen_10"
-                android:background="#0C000000" />
-
             <LinearLayout
-                android:id="@+id/txtDeleteDepartment"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/dimen_2"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/dimen_22"
-                    android:layout_height="@dimen/dimen_22"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dimen_10"
-                    android:background="@drawable/ic_action_delete" />
+                android:layout_marginStart="@dimen/dimen_30"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/dimen_15"
-                    android:paddingVertical="@dimen/dimen_8"
-                    android:text="Delete"
-                    android:textColor="@color/text"
-                    android:textSize="@dimen/dimen_sp14" />
+                    style="@style/text_sp16_black_bold"
+                    android:text="● Thứ 3: 07:00 -16:30" />
+
+                <TextView
+                    style="@style/text_sp16"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:text="Nghỉ trưa: 12:00 - 13:30"
+                    android:textColor="@color/txt_hint" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_30"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_sp16_black_bold"
+                    android:text="● Thứ 4: 07:00 -16:30" />
+
+                <TextView
+                    style="@style/text_sp16"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:text="Nghỉ trưa: 12:00 - 13:30"
+                    android:textColor="@color/txt_hint" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_30"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_sp16_black_bold"
+                    android:text="● Thứ 5: 07:00 -16:30" />
+
+                <TextView
+                    style="@style/text_sp16"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:text="Nghỉ trưa: 12:00 - 13:30"
+                    android:textColor="@color/txt_hint" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_30"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_sp16_black_bold"
+                    android:text="● Thứ 6: 07:00 -16:30" />
+
+                <TextView
+                    style="@style/text_sp16"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:text="Nghỉ trưa: 12:00 - 13:30"
+                    android:textColor="@color/txt_hint" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_30"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_sp16_black_bold"
+                    android:text="● Thứ 7: Nghỉ" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_30"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginBottom="@dimen/dimen_25"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_sp16_black_bold"
+                    android:text="● CN: Nghỉ" />
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

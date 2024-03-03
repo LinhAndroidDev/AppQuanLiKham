@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_light"
+    tools:context=".ui.ui.user.navigation.communication.FragmentCommunity">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.example.appkhambenh.ui.ui.common.CustomHeader
+            android:id="@+id/headerCommunity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_15"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:background="@drawable/bg_corners_10"
+            android:backgroundTint="#EAEAEA"
+            android:padding="@dimen/dimen_2">
+
+            <com.example.appkhambenh.ui.ui.common.CustomTvExamination
+                android:id="@+id/allCommunity"
+                style="@style/text_sp12_black_bold"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingVertical="@dimen/dimen_9"
+                android:text="Tất cả"
+                tools:ignore="SmallSp" />
+
+            <com.example.appkhambenh.ui.ui.common.CustomTvExamination
+                android:id="@+id/mine"
+                style="@style/text_sp12_black_bold"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingVertical="@dimen/dimen_9"
+                android:text="Câu hỏi của bạn"
+                tools:ignore="SmallSp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:paddingVertical="@dimen/dimen_8"
+                android:paddingHorizontal="@dimen/dimen_15"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginHorizontal="@dimen/dimen_15"
+                android:background="@drawable/select_tv_community"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:src="@drawable/search"
+                    android:layout_width="@dimen/dimen_20"
+                    android:layout_height="@dimen/dimen_20"/>
+
+                <EditText
+                    android:layout_marginStart="@dimen/dimen_15"
+                    android:hint="Tìm kiếm câu hỏi"
+                    android:textColorHint="@color/txt_hint"
+                    android:textColor="@color/text_common"
+                    android:textSize="@dimen/dimen_sp16"
+                    android:background="@color/white"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"/>
+
+                <View
+                    android:background="@color/grey"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_width="1dp"
+                    android:layout_height="@dimen/dimen_30"/>
+
+                <ImageView
+                    android:layout_marginStart="@dimen/dimen_15"
+                    android:src="@drawable/ic_filter"
+                    app:tint="@color/txt_hint"
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_height="@dimen/dimen_30"/>
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvCommunity"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/noData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:src="@drawable/ic_no_data"
+                android:layout_width="@dimen/dimen_100"
+                android:layout_height="@dimen/dimen_80"/>
+
+            <TextView
+                style="@style/text_sp14"
+                android:text="Không có dữ liệu"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/createQuestion"
+        android:background="@drawable/bg_create_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingVertical="@dimen/dimen_5"
+        android:paddingHorizontal="@dimen/dimen_7"
+        android:gravity="center">
+
+        <ImageView
+            android:src="@drawable/ic_create_question"
+            android:layout_width="@dimen/dimen_30"
+            android:layout_height="@dimen/dimen_40"/>
+
+        <TextView
+            style="@style/text_sp14"
+            android:text="Đặt \ncâu hỏi"
+            android:textColor="@color/white"
+            android:gravity="center"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

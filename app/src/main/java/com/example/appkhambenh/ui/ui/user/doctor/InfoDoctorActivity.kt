@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityInfoDoctorBinding
 import com.example.appkhambenh.ui.base.BaseActivity
+import com.example.appkhambenh.ui.data.remote.model.Specialist
 import com.example.appkhambenh.ui.model.Hour
 import com.example.appkhambenh.ui.model.Time
 import com.example.appkhambenh.ui.ui.EmptyViewModel
@@ -23,6 +24,7 @@ import com.example.appkhambenh.ui.ui.user.appointment.MakeAppointActivity
 import com.example.appkhambenh.ui.ui.user.appointment.OnlineConsultationActivity
 import com.example.appkhambenh.ui.ui.user.doctor.adapter.HourWorkingAdapter
 import com.example.appkhambenh.ui.ui.user.doctor.adapter.TimeWorkingAdapter
+import com.example.appkhambenh.ui.ui.user.hospital.InfoHospitalActivity
 import com.example.appkhambenh.ui.utils.collapseText
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -39,6 +41,7 @@ class InfoDoctorActivity : BaseActivity<EmptyViewModel, ActivityInfoDoctorBindin
     private var isExpandText = false
     private var formatDay = SimpleDateFormat("EE", Locale("vi", "VN"))
     private var formatDayOfMonth = SimpleDateFormat("dd/MM", Locale("vi", "VN"))
+    private lateinit var doctor: Specialist
 
     companion object {
         const val INFORMATION_DOCTOR = "INFORMATION_DOCTOR"
@@ -53,6 +56,16 @@ class InfoDoctorActivity : BaseActivity<EmptyViewModel, ActivityInfoDoctorBindin
 
     @SuppressLint("SetTextI18n")
     private fun initUi() {
+
+        intent.getSerializableExtra(InfoHospitalActivity.OBJECT_DOCTOR).let {
+            if(it != null) {
+                doctor = it as Specialist
+                binding.nameDoctor.text = doctor.userCreateName
+                binding.specialistDoctor.text = doctor.nameSpecial
+            }
+        }
+
+
         binding.headerInforDoctor.setTitle(getString(R.string.infor_doctor))
 
         val str = "Bác Sĩ Ơi - Phòng Khám 020"

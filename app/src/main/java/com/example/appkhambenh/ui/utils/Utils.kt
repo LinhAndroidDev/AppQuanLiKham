@@ -2,7 +2,9 @@ package com.example.appkhambenh.ui.utils
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
 import android.text.Spannable
@@ -14,11 +16,15 @@ import android.util.Patterns
 import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.FragmentActivity
+import com.example.appkhambenh.R
+import com.example.appkhambenh.ui.model.FunctionMain
 import com.example.appkhambenh.ui.ui.user.hospital.HospitalActivity
 import com.example.appkhambenh.ui.ui.user.doctor.SearchDoctorActivity
 import com.example.appkhambenh.ui.ui.user.home.Function
+import com.example.appkhambenh.ui.ui.user.manage_appointment.ExaminationScheduleActivity
 import com.example.appkhambenh.ui.ui.user.manage_appointment.ManageAppointmentActivity
 import com.example.appkhambenh.ui.ui.user.medicine.MedicineActivity
+import com.example.appkhambenh.ui.ui.user.service.ExaminationServiceActivity
 
 fun expandView(view: View, height: Int) {
     view.measure(
@@ -57,7 +63,7 @@ fun validateEmail(email: String): Boolean {
 }
 
 fun validatePassword(password: String): Boolean {
-    return !TextUtils.isEmpty(password) && password.length >= 7
+    return !TextUtils.isEmpty(password) && password.length >= 6
 }
 
 fun validatePhone(phone: String): Boolean {
@@ -101,6 +107,20 @@ fun setStyleTextAtPosition(str: String, strChange: String, style: Any, spannable
     }
 }
 
+fun functionHome(context: Context): ArrayList<FunctionMain> {
+    val function = arrayListOf<FunctionMain>()
+    function.add(FunctionMain(R.drawable.icon_doctor, context.getString(R.string.appoint_doctor)))
+    function.add(FunctionMain(R.drawable.ic_action_schedule, context.getString(R.string.examination_schedule)))
+    function.add(FunctionMain(R.drawable.ic_action_department, context.getString(R.string.hospital_examination)))
+    function.add(FunctionMain(R.drawable.ic_action_results, context.getString(R.string.examination_results)))
+    function.add(FunctionMain(R.drawable.ic_action_service, context.getString(R.string.check_service)))
+    function.add(FunctionMain(R.drawable.ic_action_history, context.getString(R.string.medical_examination_history)))
+    function.add(FunctionMain(R.drawable.ic_action_contact, context.getString(R.string.contact)))
+    function.add(FunctionMain(R.drawable.ic_action_medicine, context.getString(R.string.drug_information)))
+
+    return function
+}
+
 fun onClickFunction(index: Int, activity: FragmentActivity) {
     when (index) {
         Function.BOOK_DOCTOR.id -> {
@@ -122,6 +142,16 @@ fun onClickFunction(index: Int, activity: FragmentActivity) {
             val intent = Intent(activity, MedicineActivity::class.java)
             activity.startActivity(intent)
         }
+
+        Function.RESULTS.id -> {
+            val intent = Intent(activity, ExaminationScheduleActivity::class.java)
+            activity.startActivity(intent)
+        }
+
+        Function.BOOK_SERVICE.id -> {
+            val intent = Intent(activity, ExaminationServiceActivity::class.java)
+            activity.startActivity(intent)
+        }
     }
 }
 
@@ -135,4 +165,8 @@ fun animRotationBack0(img: ImageView) {
     val animator = ObjectAnimator.ofFloat(img, View.ROTATION, 45f, 0f)
     animator.duration = 300
     animator.start()
+}
+
+fun setBgViewTint(v: View, color: Int) {
+    v.backgroundTintList = ColorStateList.valueOf(color)
 }

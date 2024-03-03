@@ -1,65 +1,59 @@
 package com.example.appkhambenh.ui.ui.user.home
 
 import android.content.Context
-import androidx.lifecycle.MutableLiveData
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.ApiClient
-import com.example.appkhambenh.ui.data.remote.entity.UserInfoResponse
+import com.example.appkhambenh.ui.data.remote.model.UserModel
+import com.example.appkhambenh.ui.data.remote.repository.GetInfoRepository
 import com.example.appkhambenh.ui.utils.SharePreferenceRepositoryImpl
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observer
-import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.schedulers.Schedulers
-import okhttp3.RequestBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.appkhambenh.ui.utils.convertIntToDate
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class HomeViewModel : BaseViewModel() {
-    var userLiveData = MutableLiveData<UserInfoResponse>()
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val getInfoRepository: GetInfoRepository) :
+    BaseViewModel() {
 
     private fun saveInfo(
         context: Context,
-        infoResponse: UserInfoResponse
+        user: UserModel,
     ) {
-        SharePreferenceRepositoryImpl(context).saveUserId(infoResponse.data!!._id)
-        SharePreferenceRepositoryImpl(context).saveUserName(infoResponse.data.name.toString())
-        SharePreferenceRepositoryImpl(context).saveUserEmail(infoResponse.data.mail.toString())
-        SharePreferenceRepositoryImpl(context).saveUserType(infoResponse.data.type_account!!)
+        SharePreferenceRepositoryImpl(context).saveUserId(user._id)
+        SharePreferenceRepositoryImpl(context).saveUserName(user.name)
+        SharePreferenceRepositoryImpl(context).saveUserEmail(user.email)
+        if (user.birthday != null) {
+            SharePreferenceRepositoryImpl(context).saveUserBirth(convertIntToDate(user.birthday))
+        }
+        user.gender.let {
+            SharePreferenceRepositoryImpl(context).saveUserSex(it ?: 0)
+        }
+        SharePreferenceRepositoryImpl(context).saveUserAvatar("")
     }
 
-    fun getUserInfo(token: String, context: Context){
+    suspend fun getUserInfo(context: Context) {
         loading.postValue(true)
-        ApiClient.shared().getUserInfo(token)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe(object : Observer<UserInfoResponse>{
-                override fun onSubscribe(d: Disposable) {
-
-                }
-
-                override fun onError(e: Throwable) {
+        val token = SharePreferenceRepositoryImpl(context).getAuthorization()
+        try {
+            getInfoRepository.getUserInfo("Bearer $token")
+                .let { response ->
                     loading.postValue(false)
-                    errorApiLiveData.postValue(e.message)
-                }
+                    if (response.isSuccessful) {
+                        response.body().let {
+                            when (it?.statusCode) {
+                                ApiClient.STATUS_CODE_SUCCESS -> {
+                                    saveInfo(context, it.data)
+                                }
 
-                override fun onComplete() {
-
-                }
-
-                override fun onNext(t: UserInfoResponse) {
-                    loading.postValue(false)
-                    when(t.statusCode) {
-                        ApiClient.STATUS_CODE_SUCCESS -> {
-                            userLiveData.postValue(t)
-                            saveInfo(context, t)
-                        }
-                        else -> {
-                            errorApiLiveData.postValue(t.message)
+                                else -> {
+                                    errorApiLiveData.postValue(it?.message)
+                                }
+                            }
                         }
                     }
                 }
-
-            })
+        } catch (e: Exception) {
+            loading.postValue(false)
+            errorApiLiveData.postValue(e.message)
+        }
     }
 }

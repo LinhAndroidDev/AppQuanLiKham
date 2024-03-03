@@ -11,8 +11,6 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityEditAvatarBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.ui.user.HomeActivity
-import com.example.appkhambenh.ui.ui.user.home.FragmentHome
-import com.example.appkhambenh.ui.ui.user.navigation.information.FragmentInformation
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
@@ -54,8 +52,8 @@ class EditAvatarActivity : BaseActivity<UploadImageViewModel, ActivityEditAvatar
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
 
-        val strUri: String = intent.getStringExtra(FragmentInformation.URI_AVATAR).toString()
-        imgUri = Uri.parse(strUri)
+//        val strUri: String = intent.getStringExtra(FragmentInformation.URI_AVATAR).toString()
+//        imgUri = Uri.parse(strUri)
         Glide.with(this)
             .load(imgUri)
             .into(binding.imgAvatarEdit)

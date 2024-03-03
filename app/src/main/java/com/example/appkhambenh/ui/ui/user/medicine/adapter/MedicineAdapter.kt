@@ -1,61 +1,39 @@
 package com.example.appkhambenh.ui.ui.user.medicine.adapter
 
 import android.content.Context
-import android.content.Intent
-import android.text.TextUtils
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.appkhambenh.R
+import com.example.appkhambenh.databinding.ItemMedicineBinding
 import com.example.appkhambenh.ui.model.Medicine
-import com.example.appkhambenh.ui.ui.user.medicine.MedicineDetailActivity
-import com.squareup.picasso.Picasso
+import com.example.appkhambenh.ui.utils.strikethroughText
 
 class MedicineAdapter(
     val context: Context,
-    private val listMedicine: List<Medicine>
     ): RecyclerView.Adapter<MedicineAdapter.MedicineViewHolder>() {
+    var listMedicine = arrayListOf<Medicine>()
 
-    class MedicineViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val image: ImageView = itemView.findViewById(R.id.imageMedicine)
-        val name: TextView = itemView.findViewById(R.id.nameMedicine)
-        val detail: TextView = itemView.findViewById(R.id.detailMedicine)
-        val seeDetail: CardView = itemView.findViewById(R.id.seeDetailMedicine)
-    }
+    inner class MedicineViewHolder(val v: ItemMedicineBinding) : RecyclerView.ViewHolder(v.root)
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
     ): MedicineViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_medicine, parent, false)
-        return MedicineViewHolder(itemView)
+        val v by lazy { ItemMedicineBinding.inflate(LayoutInflater.from(parent.context), parent, false) }
+        return MedicineViewHolder(v)
     }
 
     override fun onBindViewHolder(holder: MedicineViewHolder, position: Int) {
-        val medicine: Medicine = listMedicine[position]
-        Picasso.get().load(medicine.image)
-            .placeholder(R.drawable.loadimage)
-            .error(R.drawable.errorimage)
-            .into(holder.image)
-        holder.name.maxLines = 2
-        holder.name.ellipsize = TextUtils.TruncateAt.END
-        holder.name.text = medicine.name
-        holder.detail.maxLines = 2
-        holder.detail.ellipsize = TextUtils.TruncateAt.END
-        holder.detail.text = medicine.detail
+        Glide.with(context)
+            .load("https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lkqjvzefdkxn44")
+            .placeholder(R.drawable.icon_app_kham_benh)
+            .error(R.drawable.icon_app_kham_benh)
+            .into(holder.v.imgMedicine)
 
-        holder.seeDetail.setOnClickListener {
-            val intent = Intent(context, MedicineDetailActivity::class.java)
-            intent.putExtra("medicine",medicine)
-            context.startActivity(intent)
-        }
+        holder.v.tvSale.text = strikethroughText("85.000 đ")
     }
 
-    override fun getItemCount(): Int {
-        return listMedicine.size
-    }
+    override fun getItemCount(): Int = 9
 }

@@ -22,7 +22,6 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentHomeBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.model.Doctor
-import com.example.appkhambenh.ui.model.FunctionMain
 import com.example.appkhambenh.ui.model.MedicalHandbook
 import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
@@ -36,7 +35,9 @@ import com.example.appkhambenh.ui.ui.user.home.adapter.ImageAdapter
 import com.example.appkhambenh.ui.ui.user.home.adapter.MedicalHandBookAdapter
 import com.example.appkhambenh.ui.ui.user.home.adapter.TopCsytAdapter
 import com.example.appkhambenh.ui.ui.user.qr.QrActivity
+import com.example.appkhambenh.ui.utils.functionHome
 import com.example.appkhambenh.ui.utils.onClickFunction
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -44,6 +45,7 @@ import kotlinx.coroutines.withContext
 import java.util.*
 import kotlin.math.abs
 
+@AndroidEntryPoint
 class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     private val timer by lazy { Timer() }
 
@@ -57,10 +59,9 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     override fun bindData() {
         super.bindData()
 
-        viewModel.getUserInfo(
-            sharePrefer.getAuthorization(),
-            requireActivity()
-        )
+        lifecycleScope.launch(Dispatchers.Main) {
+            viewModel.getUserInfo(requireActivity())
+        }
 
         viewModel.loading.observe(this) {
             if (it) {
@@ -75,8 +76,7 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                         show(getString(R.string.check_internet))
                     } else {
                         lifecycleScope.launch {
-                            binding.txtUserBirth.text =
-                                if (sharePrefer.getUserType() != 2) sharePrefer.getUserBirth() else sharePrefer.getUserAddress()
+                            binding.txtUserBirth.text = sharePrefer.getUserBirth()
                             binding.txtUserName.text = sharePrefer.getUserName()
 
                             sharePrefer.getUserAvatar().let { avt ->
@@ -106,9 +106,7 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                                 binding.titleCsyt.visibility = View.VISIBLE
 
                                 doctorHighlight()
-
                                 medicalHandbook()
-
                                 topCsyt()
                             }
                         }
@@ -327,42 +325,7 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     }
 
     private fun function() {
-        val functions = arrayListOf<FunctionMain>()
-        functions.add(FunctionMain(R.drawable.icon_doctor, getString(R.string.appoint_doctor)))
-        functions.add(
-            FunctionMain(
-                R.drawable.ic_action_schedule,
-                getString(R.string.examination_schedule)
-            )
-        )
-        functions.add(
-            FunctionMain(
-                R.drawable.ic_action_department,
-                getString(R.string.hospital_examination)
-            )
-        )
-        functions.add(
-            FunctionMain(
-                R.drawable.ic_action_results,
-                getString(R.string.examination_results)
-            )
-        )
-        functions.add(FunctionMain(R.drawable.ic_action_service, getString(R.string.check_service)))
-        functions.add(
-            FunctionMain(
-                R.drawable.ic_action_history,
-                getString(R.string.medical_examination_history)
-            )
-        )
-        functions.add(FunctionMain(R.drawable.ic_action_contact, getString(R.string.contact)))
-        functions.add(
-            FunctionMain(
-                R.drawable.ic_action_medicine,
-                getString(R.string.drug_information)
-            )
-        )
-
-        val adapter = FunctionHomeAdapter(functions)
+        val adapter = FunctionHomeAdapter(functionHome(requireActivity()))
         adapter.onClickItem = {
             onClickFunction(it, requireActivity())
         }

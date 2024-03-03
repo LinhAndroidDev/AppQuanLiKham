@@ -2,34 +2,22 @@ package com.example.appkhambenh.ui.ui.user.medicine
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appkhambenh.databinding.ActivityMedicineBinding
 import com.example.appkhambenh.ui.base.BaseActivity
+import com.example.appkhambenh.ui.ui.user.medicine.adapter.CatalogAdapter
 import com.example.appkhambenh.ui.ui.user.medicine.adapter.MedicineAdapter
 
 class MedicineActivity : BaseActivity<MedicineViewModel, ActivityMedicineBinding>() {
-    private lateinit var medicineAdapter: MedicineAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-    }
+        binding.searchHeader.setBgGreySearch()
+        binding.searchHeader.setHint("Tìm kiếm sản phẩm")
+        binding.rcvCatalog.adapter = CatalogAdapter(this)
+        binding.rcvMedicine.adapter = MedicineAdapter(this)
 
-    override fun bindData() {
-        super.bindData()
-
-        viewModel.loadingLiveData.observe(this) { isLoading ->
-            if (isLoading) loading.show() else loading.dismiss()
-        }
-
-        viewModel.getDataMedicine()
-
-        viewModel.listMedicineLiveData.observe(this) {
-            medicineAdapter = MedicineAdapter(this, it)
-            val linear = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-            binding.rcvMedicine.layoutManager = linear
-            binding.rcvMedicine.adapter = medicineAdapter
-        }
+        binding.backHeader.setOnClickListener { this.back() }
     }
 
     override fun getActivityBinding(inflater: LayoutInflater)

@@ -132,6 +132,7 @@
                     android:backgroundTint="@color/grey_dark" />
 
                 <TextView
+                    android:id="@+id/seeSchedule"
                     style="@style/text_sp16_color_text"
                     android:layout_alignParentEnd="true"
                     android:text="@string/see_schedule" />

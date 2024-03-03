@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/bgHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_common"
@@ -20,10 +21,11 @@
 
             <ImageView
                 android:id="@+id/backHeader"
-                android:layout_width="@dimen/dimen_30"
-                android:layout_height="@dimen/dimen_24"
+                android:layout_width="@dimen/dimen_32"
+                android:layout_height="@dimen/dimen_32"
+                android:src="@drawable/ic_back_long"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_action_back_white" />
+                app:tint="@color/white"/>
 
             <TextView
                 android:id="@+id/titleHeader"

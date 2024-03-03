@@ -13,7 +13,7 @@ import com.example.appkhambenh.ui.data.remote.model.Specialist
 class DoctorHospitalAdapter(
     private val doctors: ArrayList<Specialist>,
 ) : Adapter<DoctorHospitalAdapter.ViewHolder>() {
-    var onClickItem: ((Boolean) -> Unit)? = null
+    var onClickItem: ((Specialist) -> Unit)? = null
 
     inner class ViewHolder(val v: ItemDoctorCsytBinding) : RecyclerView.ViewHolder(v.root)
 
@@ -45,7 +45,7 @@ class DoctorHospitalAdapter(
 
                 MotionEvent.ACTION_UP -> {
                     holder.itemView.alpha = 1f
-                    onClickItem?.invoke(true)
+                    onClickItem?.invoke(doctors[position])
                 }
 
                 MotionEvent.ACTION_CANCEL -> {

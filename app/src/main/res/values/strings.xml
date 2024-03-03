@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">AppKhamBenh</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -129,7 +129,7 @@
     <string name="contact">Liên hệ</string>
     <string name="drug_information">Thông tin thuốc</string>
     <string name="home">Trang chủ</string>
-    <string name="profile">Cá nhân</string>
+    <string name="community">Cộng đồng chat với bác sĩ</string>
     <string name="book_examination">Đặt khám</string>
     <string name="doctor_has_experience">Bác Sĩ có nhiều kinh nghiệm</string>
     <string name="priority_to_check">Ưu tiên Check in qua app</string>
@@ -198,4 +198,11 @@
     <string name="add_members">Thêm thành viên</string>
     <string name="contine">Tiếp tục</string>
     <string name="choose_a_maximum_of_5_photos">Bạn chỉ được chọn tối đa 5 ảnh</string>
+
+    <string name="pending_ex" tools:ignore="MissingTranslation">Chờ duyệt</string>
+    <string name="approved_ex" tools:ignore="MissingTranslation">Đã duyệt</string>
+    <string name="examining_ex" tools:ignore="MissingTranslation">Đang khám</string>
+    <string name="complete_ex" tools:ignore="MissingTranslation">Hoàn thành</string>
+    <string name="too_late_ex" tools:ignore="MissingTranslation">Quá hẹn</string>
+    <string name="canceled_ex" tools:ignore="MissingTranslation">Đã huỷ</string>
 </resources>

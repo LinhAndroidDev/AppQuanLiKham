@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:paddingHorizontal="@dimen/dimen_15"
+    android:paddingTop="@dimen/dimen_20"
+    android:paddingBottom="@dimen/dimen_15"
+    android:layout_marginBottom="@dimen/dimen_10"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:src="@drawable/icon_app_kham_benh"
+            android:layout_width="@dimen/dimen_35"
+            android:layout_height="@dimen/dimen_35"/>
+
+        <LinearLayout
+            android:layout_marginStart="@dimen/dimen_15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/text_sp16_black_bold"
+                android:text="Nam, 32 tuổi"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/dimen_5"
+                style="@style/text_sp16"
+                android:text="01/03/2024"
+                android:textColor="@color/txt_hint"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="@dimen/dimen_20"
+        style="@style/text_sp16_black_bold"
+        android:text="Đau ngực, 2 vai sau và cuốn họng khi vận động dùng sức ."/>
+
+    <TextView
+        android:layout_marginTop="@dimen/dimen_10"
+        style="@style/text_sp16"
+        android:text="Chào bác sĩ. Em là nam 32 tuổi. Em có hút thuốc lá lâu năm. Từ 1 năm đổ lại đây. Mỗi lúc em vận động dùng sức. Bưng vác hay làm gì cứ dùng sức là em bị nhói cơ ngực trước và cuốn họng. Cả 2 vai em cũng bị. Giống như bị cuột rút vậy ạ. Thở thì em vẫn thở bình thường ko vấn đề gì. Nhưng rất khó chịu. Phải nghỉ ngơi tầm 10 phút thì mới hết ạ. Triệu chứng này không bị thường xuyên. Bác sĩ cho em hỏi như vậy bệnh em có nặng không ạ" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginTop="@dimen/dimen_10"
+        android:background="@color/bg_blue_white"
+        android:padding="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avtDoctor"
+            android:src="@drawable/img_doctor"
+            android:layout_width="@dimen/dimen_35"
+            android:layout_height="@dimen/dimen_35"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:civ_border_width="@dimen/dimen_2"
+            app:civ_border_color="@color/white"/>
+
+        <TextView
+            android:id="@+id/tvAnswered"
+            style="@style/text_sp14"
+            android:text="Được trả lời bởi"
+            android:layout_marginStart="@dimen/dimen_10"
+            app:layout_constraintStart_toEndOf="@id/avtDoctor"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/nameDoctor"
+            android:layout_marginTop="@dimen/dimen_5"
+            style="@style/text_sp16_color_text"
+            android:text="BS Hoàng Thị Lan Vân"
+            android:layout_marginStart="@dimen/dimen_10"
+            app:layout_constraintTop_toBottomOf="@+id/tvAnswered"
+            app:layout_constraintStart_toEndOf="@id/avtDoctor"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    </LinearLayout>
+    
+    <RelativeLayout
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/specialistDoctor"
+            style="@style/text_sp14_color_text"
+            android:background="@color/grey"
+            android:padding="@dimen/dimen_5"
+            android:text="Chuyên khoa Tai Mũi Họng" />
+        
+        <TextView
+            android:id="@+id/numberFavourite"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            style="@style/text_sp16_black_bold"
+            android:text="0"/>
+        
+        <ImageView
+            android:id="@+id/favourite"
+            android:layout_marginEnd="@dimen/dimen_3"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_heart"
+            android:layout_toStartOf="@id/numberFavourite"
+            android:layout_width="@dimen/dimen_25"
+            android:layout_height="@dimen/dimen_25"/>
+
+        <TextView
+            android:id="@+id/numberComment"
+            android:layout_marginEnd="@dimen/dimen_10"
+            android:layout_centerVertical="true"
+            style="@style/text_sp16_black_bold"
+            android:layout_toStartOf="@id/favourite"
+            android:text="3"/>
+
+        <ImageView
+            android:id="@+id/comment"
+            android:layout_marginEnd="@dimen/dimen_3"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_message"
+            android:layout_toStartOf="@id/numberComment"
+            android:layout_width="@dimen/dimen_25"
+            android:layout_height="@dimen/dimen_25"/>
+    </RelativeLayout>
+</LinearLayout>

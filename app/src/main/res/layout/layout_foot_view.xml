@@ -20,7 +20,7 @@
         android:backgroundTint="@color/background"
         android:gravity="center"
         android:paddingVertical="@dimen/dimen_12"
-        android:text="@string/complete"
+        android:text="@string/complete_ex"
         android:textColor="@color/white"
         android:textSize="@dimen/dimen_sp18"
         android:textStyle="bold"

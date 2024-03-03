@@ -23,6 +23,7 @@
     <color name="back_ground_common">#FFFFFFFF</color>
     <color name="pink">#F4598E</color>
     <color name="orange">#FD8B34</color>
+    <color name="orange_light">#FCE9CD</color>
     <color name="brown">#6D4202</color>
     <color name="blue">#5BB5FD</color>
     <color name="purple">#5D03FF</color>

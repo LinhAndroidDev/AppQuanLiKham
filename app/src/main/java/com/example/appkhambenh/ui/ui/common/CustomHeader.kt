@@ -1,10 +1,13 @@
 package com.example.appkhambenh.ui.ui.common
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
+import androidx.core.widget.ImageViewCompat
+import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.LayoutHeaderCommonBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.utils.ConvertUtils.dpToPx
@@ -90,5 +93,13 @@ class CustomHeader : LinearLayout {
 
     fun clearSearch() {
         binding.searchHeader.clearText()
+    }
+
+    fun setBgWhite() {
+        binding.bgHeader.setBackgroundResource(R.color.white)
+        ImageViewCompat.setImageTintList(
+            binding.backHeader,
+            ColorStateList.valueOf(context.getColor(R.color.black))
+        )
     }
 }

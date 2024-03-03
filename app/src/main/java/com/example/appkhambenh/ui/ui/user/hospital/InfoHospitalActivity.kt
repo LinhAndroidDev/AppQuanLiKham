@@ -11,6 +11,7 @@ import com.example.appkhambenh.databinding.ActivityInfoHospitalBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.data.remote.model.Hospital
 import com.example.appkhambenh.ui.ui.EmptyViewModel
+import com.example.appkhambenh.ui.ui.common.DialogHourWorking
 import com.example.appkhambenh.ui.ui.user.hospital.adapter.ServiceHospitalAdapter
 import com.example.appkhambenh.ui.ui.user.doctor.InfoDoctorActivity
 import com.example.appkhambenh.ui.ui.user.hospital.adapter.DoctorHospitalAdapter
@@ -28,6 +29,10 @@ class InfoHospitalActivity : BaseActivity<EmptyViewModel, ActivityInfoHospitalBi
             this@InfoHospitalActivity,
             R.anim.anim_show_view
         )
+    }
+
+    companion object {
+        const val OBJECT_DOCTOR = "OBJECT_DOCTOR"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +59,11 @@ class InfoHospitalActivity : BaseActivity<EmptyViewModel, ActivityInfoHospitalBi
                 binding.rcvBookHospital.startAnimation(fadeIn)
                 getDoctors()
             }
+        }
+
+        binding.seeSchedule.setOnClickListener {
+            val dialogHourWorking = DialogHourWorking()
+            dialogHourWorking.show(supportFragmentManager, "")
         }
     }
 
@@ -91,6 +101,7 @@ class InfoHospitalActivity : BaseActivity<EmptyViewModel, ActivityInfoHospitalBi
         binding.rcvBookHospital.adapter = adapter
         adapter.onClickItem = {
             val intent = Intent(this@InfoHospitalActivity, InfoDoctorActivity::class.java)
+            intent.putExtra(OBJECT_DOCTOR, it)
             startActivity(intent)
         }
     }

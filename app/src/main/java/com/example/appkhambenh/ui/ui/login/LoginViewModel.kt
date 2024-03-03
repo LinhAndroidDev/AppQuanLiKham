@@ -15,17 +15,19 @@ class LoginViewModel @Inject constructor(private val loginRepository: LoginRepos
     BaseViewModel() {
     val loginSuccessLiveData = MutableLiveData<Boolean>()
 
-    suspend fun requestLoginUser(loginModel: LoginModel, context: Context) {
+    suspend fun requestLoginUser(context: Context, loginModel: LoginModel) {
         loading.postValue(true)
         try {
             loginRepository.loginUser(loginModel).let { response ->
+                loading.postValue(false)
                 if (response.isSuccessful) {
-                    loading.postValue(false)
                     response.body().let {
                         when (it?.statusCode) {
                             ApiClient.STATUS_CODE_SUCCESS -> {
                                 loginSuccessLiveData.postValue(true)
-                                SharePreferenceRepositoryImpl(context).saveAuthorization(it.data?.token.toString())
+                                it.data?.token?.let { token ->
+                                    SharePreferenceRepositoryImpl(context).saveAuthorization(token)
+                                }
                             }
 
                             else -> {

@@ -28,59 +28,68 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.ui.user.navigation.communication.CreateQuestionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ui.user.service.ExaminationServiceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ui.user.manage_appointment.ExaminationScheduleActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ui.user.appointment.OnlineConsultationActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|screenLayout"/>
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false" />
         <activity
             android:name=".ui.ui.user.appointment.MakeAppointActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
             android:exported="false"
-            android:windowSoftInputMode="stateVisible|adjustPan"
-            android:configChanges="orientation|screenSize|screenLayout"/>
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
             android:name=".ui.ui.user.navigation.setting.address.AddressActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|screenLayout"/>
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false" />
         <activity
             android:name=".ui.ui.user.navigation.setting.ScanActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|screenLayout"/>
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false" />
         <activity
             android:name=".ui.ui.user.navigation.setting.UpdateInformationActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
             android:exported="false"
-            android:windowSoftInputMode="stateVisible|adjustPan"
-            android:configChanges="orientation|screenSize|screenLayout"/>
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
             android:name=".ui.ui.user.hospital.InfoHospitalActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|screenLayout"/>
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false" />
         <activity
             android:name=".ui.ui.user.doctor.InfoDoctorActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|screenLayout"/>
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false" />
         <activity
             android:name=".ui.ui.user.doctor.SearchDoctorActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|screenLayout"/>
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false" />
         <activity
             android:name=".ui.ui.user.hospital.HospitalActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|screenLayout"/>
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false" />
         <activity
             android:name=".ui.ui.user.navigation.password.ChangePasswordActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|screenLayout"/>
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false" />
         <activity
             android:name=".ui.ui.user.manage_appointment.ManageAppointmentActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|screenLayout"/>
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false" />
         <activity
             android:name=".ui.ui.user.avatar.SeeAvatarActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|screenLayout"/>
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false" />
         <activity
             android:name=".ui.ui.user.avatar.EditAvatarActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|screenLayout"/>
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false" />
         <activity
             android:name=".ui.ui.user.medicine.MedicineDetailActivity"
             android:exported="false" />
@@ -92,9 +101,9 @@
             android:exported="false" />
         <activity
             android:name=".ui.ui.user.HomeActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
             android:exported="false"
-            android:windowTranslucentStatus="true"
-            android:configChanges="orientation|screenSize|screenLayout" />
+            android:windowTranslucentStatus="true" />
         <activity
             android:name=".ui.ui.MainActivity"
             android:exported="false"

@@ -107,6 +107,18 @@
         <item name="android:textSize">@dimen/dimen_sp16</item>
     </style>
 
+    //Tab Selected Examination
+    <style name="TabExamination" parent="Widget.Design.TabLayout">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    //Tab UnSelected Examination
+    <style name="TabUnSelectedExamination" parent="Widget.Design.TabLayout">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
     //Edit Text Update Information
     <style name="edt_update_information">
         <item name="android:layout_width">match_parent</item>

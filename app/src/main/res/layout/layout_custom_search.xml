@@ -6,17 +6,18 @@
     <EditText
         android:id="@+id/search"
         style="@style/edit_sp14"
-        android:background="@drawable/bg_corners_25"
+        android:background="@drawable/bg_corners_5"
+        android:backgroundTint="@color/bg_blue_white"
         android:hint="@string/search_appoint"
         android:paddingHorizontal="@dimen/dimen_35"
         android:paddingVertical="@dimen/dimen_7" />
 
     <ImageView
-        android:layout_width="@dimen/dimen_20"
-        android:layout_height="@dimen/dimen_20"
+        android:layout_width="@dimen/dimen_15"
+        android:layout_height="@dimen/dimen_15"
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/dimen_10"
-        android:background="@drawable/ic_action_search"
+        android:background="@drawable/search"
         android:backgroundTint="@color/color_search" />
 
     <ImageView

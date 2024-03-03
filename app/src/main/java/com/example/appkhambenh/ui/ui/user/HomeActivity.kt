@@ -12,7 +12,7 @@ import com.example.appkhambenh.ui.ui.user.hospital.HospitalActivity
 import com.example.appkhambenh.ui.ui.user.doctor.SearchDoctorActivity
 import com.example.appkhambenh.ui.ui.user.home.FragmentHome
 import com.example.appkhambenh.ui.ui.user.home.HomeViewModel
-import com.example.appkhambenh.ui.ui.user.navigation.information.FragmentInformation
+import com.example.appkhambenh.ui.ui.user.navigation.communication.FragmentCommunity
 import com.example.appkhambenh.ui.ui.user.navigation.notification.FragmentNotification
 import com.example.appkhambenh.ui.ui.user.navigation.setting.FragmentSetting
 import com.example.appkhambenh.ui.utils.animRotation45
@@ -68,9 +68,9 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
 
                 R.id.profile -> {
                     checkExpandBook()
-                    if (fmCurrent !is FragmentInformation) {
+                    if (fmCurrent !is FragmentCommunity) {
                         replaceFragment(
-                            FragmentInformation()
+                            FragmentCommunity()
                         )
                     }
                 }
@@ -129,11 +129,6 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
     private fun replaceFragment(fm: Fragment) {
         val fg = supportFragmentManager.beginTransaction()
         fg.replace(R.id.changeIdHome, fm).commit()
-    }
-
-    internal fun hideIconBook() {
-        binding.registerAppoint.visibility = View.GONE
-        binding.layoutCoverBottom.visibility = View.VISIBLE
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -309,7 +304,7 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
         }
 
         binding.bottomNvg.menu.findItem(R.id.home).title = getString(R.string.home)
-        binding.bottomNvg.menu.findItem(R.id.profile).title = getString(R.string.profile)
+        binding.bottomNvg.menu.findItem(R.id.profile).title = getString(R.string.community)
         binding.bottomNvg.menu.findItem(R.id.register).title = getString(R.string.book_examination)
         binding.bottomNvg.menu.findItem(R.id.notification).title = getString(R.string.notification)
         binding.bottomNvg.menu.findItem(R.id.setting).title = getString(R.string.setting)

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.ui.user.navigation.communication.CreateQuestionActivity">
+
+    <com.example.appkhambenh.ui.ui.common.CustomHeader
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        style="@style/text_sp14_color_text"
+        android:paddingVertical="@dimen/dimen_20"
+        android:background="@color/bg_blue_white"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:text="* Câu hỏi của bạn sẽ được chia sẻ trên cộng đồng \nvới chế độ ẩn danh"/>
+
+    <TextView
+        android:layout_marginTop="@dimen/dimen_15"
+        android:layout_marginStart="@dimen/dimen_15"
+        style="@style/text_sp14"
+        android:text="Giới tính"/>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <com.example.appkhambenh.ui.ui.common.CustomBtnGender
+            android:id="@+id/male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.example.appkhambenh.ui.ui.common.CustomBtnGender
+            android:id="@+id/female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

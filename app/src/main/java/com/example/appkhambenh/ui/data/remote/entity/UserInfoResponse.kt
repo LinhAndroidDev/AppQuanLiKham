@@ -1,15 +1,8 @@
 package com.example.appkhambenh.ui.data.remote.entity
 
 import com.example.appkhambenh.ui.base.BaseResponse
+import com.example.appkhambenh.ui.data.remote.model.UserModel
 
 data class UserInfoResponse(
-    override val data: Result?,
-) : BaseResponse<UserInfoResponse.Result?>() {
-    data class Result(
-        val _id: Int,
-        val name: String?,
-        val mail: String?,
-        val type_account: Int?,
-        val status: Int?
-    )
-}
+    override val data: UserModel,
+) : BaseResponse<UserModel>()

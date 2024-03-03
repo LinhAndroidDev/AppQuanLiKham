@@ -19,8 +19,8 @@ class RegisterViewModel @Inject constructor(private val registerRepository: Regi
         loading.postValue(true)
         try {
             registerRepository.registerUser(registerModel).let { response ->
+                loading.postValue(false)
                 if (response.isSuccessful) {
-                    loading.postValue(false)
                     response.body().let {
                         errorApiLiveData.postValue(it?.message)
                         when (it?.statusCode) {

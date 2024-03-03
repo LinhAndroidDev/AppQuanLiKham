@@ -1,12 +1,15 @@
 package com.example.appkhambenh.ui.ui.common
 
 import android.content.Context
+import android.graphics.PorterDuff
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
 import androidx.core.widget.doOnTextChanged
+import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.LayoutCustomSearchBinding
+import com.example.appkhambenh.ui.utils.setBgViewTint
 
 
 class CustomSearch : RelativeLayout {
@@ -70,5 +73,9 @@ class CustomSearch : RelativeLayout {
 
     fun searchFocus() {
         binding.search.requestFocus()
+    }
+
+    fun setBgGreySearch() {
+        setBgViewTint(binding.search, context.getColor(R.color.grey_light))
     }
 }

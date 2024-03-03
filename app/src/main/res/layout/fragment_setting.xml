@@ -322,7 +322,7 @@
                         android:layout_height="@dimen/dimen_24"
                         android:layout_marginHorizontal="@dimen/dimen_7"
                         android:layout_marginVertical="@dimen/dimen_8"
-                        android:background="@drawable/ic_action_condition_setting" />
+                        android:background="@drawable/ic_protect" />
 
                 </LinearLayout>
 

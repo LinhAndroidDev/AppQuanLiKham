@@ -28,7 +28,7 @@ interface ApiService {
 
     @POST("register")
     suspend fun registerUser(
-        @Body registerModel: RegisterModel
+        @Body registerModel: RegisterModel,
     ): Response<RegisterResponse>
 
     @GET("medicine.php")
@@ -42,10 +42,10 @@ interface ApiService {
     ): Call<UploadImageResponse>
 
 
-    @POST("account/user_info.php")
-    fun getUserInfo(
-        @Header("Authorization") token: String,
-    ): Observable<UserInfoResponse>
+    @GET("profile")
+    suspend fun getUserInfo(
+        @Header("Authorization") token: String
+    ): Response<UserInfoResponse>
 
     @Multipart
     @POST("account/update_info.php")

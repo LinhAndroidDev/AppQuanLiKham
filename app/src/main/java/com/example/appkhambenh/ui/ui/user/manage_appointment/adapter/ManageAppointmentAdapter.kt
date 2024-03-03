@@ -67,16 +67,15 @@ class ManageAppointmentAdapter(
         holder.v.txtReasons.text = register?.reasons
 
         holder.itemView.setOnClickListener {
-            if (holder.v.layoutExpand.height == 0) {
+            if (holder.v.layoutExpand.visibility == View.GONE) {
                 holder.v.layoutExpand.visibility = View.VISIBLE
-                expandView(holder.v.layoutExpand, 81.dpToPx(context))
                 holder.v.txtExpand.text = activity.getString(R.string.collapse)
                 val objectAnimator =
                     ObjectAnimator.ofFloat(holder.v.imgExpand, "rotation", 0f, 180f)
                 objectAnimator.duration = 300L
                 objectAnimator.start()
             } else {
-                collapseView(holder.v.layoutExpand)
+                holder.v.layoutExpand.visibility = View.GONE
                 holder.v.txtExpand.text = activity.getString(R.string.detail)
                 val objectAnimator =
                     ObjectAnimator.ofFloat(holder.v.imgExpand, "rotation", 180f, 0f)

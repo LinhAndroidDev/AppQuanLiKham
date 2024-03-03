@@ -22,7 +22,7 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityUpdateInformationBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.ui.EmptyViewModel
-import com.example.appkhambenh.ui.ui.common.DialogCustom
+import com.example.appkhambenh.ui.ui.common.DialogRequestPermission
 import com.example.appkhambenh.ui.ui.user.appointment.MakeAppointActivity
 import com.example.appkhambenh.ui.ui.user.navigation.setting.adapter.InformationAdapter
 import com.example.appkhambenh.ui.ui.user.navigation.setting.address.AddressActivity
@@ -169,7 +169,7 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
                 }
 
                 else -> {
-                    val dialog = DialogCustom()
+                    val dialog = DialogRequestPermission()
                     dialog.show(supportFragmentManager, "")
                     dialog.title = "Bạn đã từ chối quyền truy cập"
                     val note =

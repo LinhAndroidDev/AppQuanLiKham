@@ -13,6 +13,7 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentRegisterBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.data.remote.model.RegisterModel
+import com.example.appkhambenh.ui.utils.convertDateToInt
 import com.example.appkhambenh.ui.utils.validateEmail
 import com.example.appkhambenh.ui.utils.validatePassword
 import com.example.appkhambenh.ui.utils.validatePhone
@@ -36,16 +37,6 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
 
     override fun bindData() {
         super.bindData()
-
-        viewModel.registerSuccessful.observe(viewLifecycleOwner) { isSuccessful ->
-            if (isSuccessful) {
-                activity?.onBackPressed()
-            }
-        }
-
-        viewModel.loading.observe(viewLifecycleOwner) {
-            if (it) loading.show() else loading.dismiss()
-        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -98,13 +89,12 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
             val name: String = binding.edtName.text.toString()
             val email: String = binding.edtEmail.text.toString()
             var specialist: String = binding.edtSpecialist.text.toString()
-            var sex = if (binding.rbWomen.isChecked) 1 else 0
+            val sex = if (binding.rbWomen.isChecked) 1 else 0
             val password: String = binding.edtPassword.text.toString()
             val passwordRepeat: String = binding.edtRepeatPassword.text.toString()
-            var birth: String = binding.edtBirth.text.toString()
+            val birth: String = binding.edtBirth.text.toString()
             val address: String = binding.edtAddress.text.toString()
             val phone: String = binding.edtPhone.text.toString()
-            var type = if (binding.rbPatient.isChecked) 0 else 1
 
             if (isNotEnoughInfo()) {
                 setNotification(R.color.txt_green, R.string.enter_enough_info)
@@ -117,18 +107,29 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
             } else if (!validatePhone(phone)) {
                 setNotification(R.color.txt_red, R.string.warning_phone)
             } else {
-                if (binding.rbAdmin.isChecked) {
-                    sex = 2
-                    birth = ""
-                    type = 2
-                }
-
-                if (!binding.rbDoctor.isChecked) specialist = ""
 
                 lifecycleScope.launch(Dispatchers.Main) {
                     viewModel.requestRegisterUser(
-                        RegisterModel(name, type, email, password, phone, birth, sex)
+                        RegisterModel(
+                            userName = name,
+                            userType = 0,
+                            userEmail = email,
+                            userPassword = password,
+                            userPhoneNumber = phone,
+                            userBirthday = convertDateToInt(birth),
+                            userGender = sex
+                        )
                     )
+
+                    viewModel.loading.observe(viewLifecycleOwner) {
+                        if (it) loading.show() else loading.dismiss()
+                    }
+
+                    viewModel.registerSuccessful.observe(viewLifecycleOwner) { isSuccessful ->
+                        if (isSuccessful) {
+                            activity?.onBackPressed()
+                        }
+                    }
                 }
             }
         }
