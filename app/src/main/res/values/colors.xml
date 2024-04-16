@@ -52,6 +52,7 @@
     <color name="bg_blue_dark">#B8D7FB</color>
     <color name="bg_cover_bottom_behavior">#40111111</color>
     <color name="bg_blue">#6AA0E6</color>
+    <color name="black_light">#252525</color>
 
     <color name="invisible">#00FFFFFF</color>
     <color name="red_dark">#DD1203</color>

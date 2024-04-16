@@ -6,25 +6,28 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.LinearLayout
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityOnlineConsultationBinding
 import com.example.appkhambenh.ui.base.BaseActivity
+import com.example.appkhambenh.ui.data.remote.model.HourModel
 import com.example.appkhambenh.ui.model.Hour
 import com.example.appkhambenh.ui.model.Time
 import com.example.appkhambenh.ui.ui.EmptyViewModel
+import com.example.appkhambenh.ui.ui.user.doctor.InfoDoctorViewModel
 import com.example.appkhambenh.ui.ui.user.doctor.adapter.HourWorkingAdapter
 import com.example.appkhambenh.ui.ui.user.doctor.adapter.TimeWorkingAdapter
 import com.example.appkhambenh.ui.utils.ConvertUtils.dpToPx
-import com.example.appkhambenh.ui.utils.setBgViewTint
+import com.example.appkhambenh.ui.utils.setBgColorViewTint
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
+@AndroidEntryPoint
 class OnlineConsultationActivity :
-    BaseActivity<EmptyViewModel, ActivityOnlineConsultationBinding>() {
+    BaseActivity<InfoDoctorViewModel, ActivityOnlineConsultationBinding>() {
     private val times by lazy { arrayListOf<Time>() }
-    private val timeAdapter by lazy { TimeWorkingAdapter(this@OnlineConsultationActivity, times) }
+    private val timeAdapter by lazy { TimeWorkingAdapter(this@OnlineConsultationActivity) }
     private var isEditTime = false
     private var formatDay = SimpleDateFormat("EE", Locale("vi", "VN"))
     private var formatDayOfMonth = SimpleDateFormat("dd/MM", Locale("vi", "VN"))
@@ -39,6 +42,14 @@ class OnlineConsultationActivity :
         super.onCreate(savedInstanceState)
 
         initUi()
+    }
+
+    override fun bindData() {
+        super.bindData()
+
+        viewModel.loading.observe(this) {
+            if(it) loading.show() else loading.dismiss()
+        }
     }
 
     private fun initUi() {
@@ -61,55 +72,50 @@ class OnlineConsultationActivity :
         }
         disableFootView()
 
-        val hours = arrayListOf(
-            Hour(arrayListOf("11:00", "11:15", "11:30", "11:45")),
-            Hour(arrayListOf("09:00", "09:15", "09:30", "09:45", "10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45")),
-            Hour(arrayListOf("13:00", "13:15", "13:30", "13:45", "14:00", "14:15", "14:30")),
-            Hour(arrayListOf("10:00", "10:15", "10:30", "10:45", "11:00", "11:15")),
-            Hour(arrayListOf("08:00", "08:15", "08:30", "08:45", "09:00", "09:15", "09:30")),
-            Hour(arrayListOf("11:00", "11:15", "11:30", "11:45")),
-            Hour(arrayListOf("16:00", "16:15", "16:30", "16:45"))
-        )
-        for(i in 0 until 7) {
-            val calendar: Calendar = Calendar.getInstance()
-            calendar.add(Calendar.DAY_OF_YEAR, i)
-            times.add(
-                Time(
-                    formatDay.format(calendar.time),
-                    formatDayOfMonth.format(calendar.time),
-                    hours[i]
-                )
-            )
-        }
-
-        setChangeTime(times[0].hours?.hour!!)
-
-        binding.rcvTimeWorking.apply {
-            layoutManager =
-                LinearLayoutManager(
-                    this@OnlineConsultationActivity,
-                    LinearLayoutManager.HORIZONTAL,
-                    false
-                )
-            adapter = timeAdapter
-        }
-
-        timeAdapter.onClickTime = {
-            setChangeTime(times[it].hours?.hour!!)
-            disableFootView()
-        }
+//        val hours = arrayListOf(
+//            Hour(arrayListOf("11:00", "11:15", "11:30", "11:45")),
+//            Hour(arrayListOf("09:00", "09:15", "09:30", "09:45", "10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45")),
+//            Hour(arrayListOf("13:00", "13:15", "13:30", "13:45", "14:00", "14:15", "14:30")),
+//            Hour(arrayListOf("10:00", "10:15", "10:30", "10:45", "11:00", "11:15")),
+//            Hour(arrayListOf("08:00", "08:15", "08:30", "08:45", "09:00", "09:15", "09:30")),
+//            Hour(arrayListOf("11:00", "11:15", "11:30", "11:45")),
+//            Hour(arrayListOf("16:00", "16:15", "16:30", "16:45"))
+//        )
+//        for(i in 0 until 7) {
+//            val calendar: Calendar = Calendar.getInstance()
+//            calendar.add(Calendar.DAY_OF_YEAR, i)
+//            times.add(
+//                Time(
+//                    formatDay.format(calendar.time),
+//                    formatDayOfMonth.format(calendar.time),
+//                    hours[i]
+//                )
+//            )
+//        }
+//
+//        timeAdapter.items = times
+//        setChangeTime(times[0].hours?.hour!!)
+//
+//        binding.rcvTimeWorking.apply {
+//            adapter = timeAdapter
+//        }
+//
+//        timeAdapter.onClickTime = {
+//            setChangeTime(times[it].hours?.hour!!)
+//            disableFootView()
+//        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun setChangeTime(hours: ArrayList<String>) {
-        val hourAdapter = HourWorkingAdapter(this@OnlineConsultationActivity, hours, ONLINE_CONSULT)
+    private fun setChangeTime(hours: ArrayList<HourModel>) {
+        val hourAdapter = HourWorkingAdapter(this@OnlineConsultationActivity, ONLINE_CONSULT)
+        hourAdapter.items = hours
         binding.rcvHourWorking.apply {
             adapter = hourAdapter
         }
 
         hourAdapter.onClickTime = { hour ->
             enableFootView()
-
             binding.footView.tvComplete.setOnClickListener {
                 val intent = Intent(this@OnlineConsultationActivity, MakeAppointActivity::class.java)
                 if(!isEditTime) {
@@ -127,23 +133,23 @@ class OnlineConsultationActivity :
     }
 
     private fun enableFootView() {
-        binding.footView.tvComplete.let {
-            setBgViewTint(it, getColor(R.color.orange))
-            it.setTextColor(getColor(R.color.white))
-            it.alpha = 1f
-            it.isEnabled = true
-            it.elevation = resources.getDimension(R.dimen.dimen_10)
+        binding.footView.tvComplete.apply {
+            setBgColorViewTint(binding.footView.tvComplete, getColor(R.color.orange))
+            setTextColor(getColor(R.color.white))
+            alpha = 1f
+            isEnabled = true
+            elevation = resources.getDimension(R.dimen.dimen_10)
         }
     }
 
     private fun disableFootView() {
-        binding.footView.tvComplete.let {
-            it.backgroundTintList =
+        binding.footView.tvComplete.apply {
+            backgroundTintList =
                 ColorStateList.valueOf(getColor(R.color.brown))
-            it.setTextColor(getColor(R.color.grey_1))
-            it.alpha = 0.5f
-            it.isEnabled = false
-            it.elevation = 0f
+            setTextColor(getColor(R.color.grey_1))
+            alpha = 0.5f
+            isEnabled = false
+            elevation = 0f
         }
     }
 

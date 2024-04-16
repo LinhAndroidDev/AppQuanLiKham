@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/footView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
@@ -18,12 +19,12 @@
         android:layout_margin="@dimen/dimen_15"
         android:background="@drawable/bg_corners_10"
         android:backgroundTint="@color/background"
+        android:elevation="@dimen/dimen_10"
         android:gravity="center"
         android:paddingVertical="@dimen/dimen_12"
         android:text="@string/complete_ex"
         android:textColor="@color/white"
         android:textSize="@dimen/dimen_sp18"
-        android:textStyle="bold"
-        android:elevation="@dimen/dimen_10"/>
+        android:textStyle="bold" />
 
 </LinearLayout>

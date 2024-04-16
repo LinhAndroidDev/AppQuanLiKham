@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.example.appkhambenh.databinding.FragmentCommunityBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.ui.EmptyViewModel
+import com.example.appkhambenh.ui.ui.user.navigation.communication.adapter.CommunityAdapter
 
 class FragmentCommunity : BaseFragment<EmptyViewModel, FragmentCommunityBinding>() {
 
@@ -42,7 +43,12 @@ class FragmentCommunity : BaseFragment<EmptyViewModel, FragmentCommunityBinding>
     }
 
     private fun initListCommunity() {
-        binding.rcvCommunity.adapter = CommunityAdapter(requireActivity())
+        val adapter = CommunityAdapter(requireActivity())
+        binding.rcvCommunity.adapter = adapter
+        adapter.onClickItem = {
+            val intent = Intent(requireActivity(), QuestionActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun getFragmentBinding(

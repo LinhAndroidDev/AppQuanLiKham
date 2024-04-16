@@ -4,5 +4,5 @@ import com.example.appkhambenh.ui.base.BaseResponse
 import com.example.appkhambenh.ui.data.remote.model.UserModel
 
 data class UserInfoResponse(
-    override val data: UserModel,
-) : BaseResponse<UserModel>()
+    override val data: UserModel?,
+) : BaseResponse<UserModel?>()

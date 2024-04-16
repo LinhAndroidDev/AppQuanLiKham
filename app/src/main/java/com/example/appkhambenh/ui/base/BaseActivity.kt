@@ -4,13 +4,13 @@ import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Context
 import android.graphics.Color
-import android.graphics.Point
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.example.appkhambenh.R
@@ -26,8 +26,6 @@ import java.util.*
 abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActivity() {
     lateinit var viewModel: V
     lateinit var binding: B
-    var screenWidth: Int = 0
-    var screenHeight: Int = 0
     val loading by lazy { ProgressDialog(this) }
     lateinit var sharePrefer: SharePreferenceRepositoryImpl
 
@@ -38,13 +36,15 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
 
         viewModel =
             ViewModelProvider(this)[(this::class.java.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<V>]
-
         sharePrefer = SharePreferenceRepositoryImpl(this)
-
         loading.setMessage("Please wait...")
         loading.setTitle(getString(R.string.notification))
         loading.setCancelable(false)
 
+        initUi()
+    }
+
+    private fun initUi() {
         fullScreen()
         animChangeScreen()
         bindData()
@@ -69,10 +69,19 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
         }
     }
 
+    fun replaceFragment(fm: Fragment, changeId: Int) {
+        val fg = supportFragmentManager.beginTransaction()
+        fg.addToBackStack(null)
+        fg.replace(changeId, fm).commit()
+    }
+
     fun convertToRequestBody(str: String): RequestBody {
         return str.toRequestBody("multipart/form-data".toMediaTypeOrNull())
     }
 
+    /**
+     * Show Notification When Have Action Confirm Or Fail
+     */
     fun show(str: String) {
         val toast: View = View.inflate(this, R.layout.custom_toast, null)
         val txtToast: TextView = toast.findViewById(R.id.txtToast)
@@ -109,14 +118,6 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
         val config = resources.configuration
         config.setLocale(locale)
         resources.updateConfiguration(config, resources.displayMetrics)
-    }
-
-    private fun getSizeWindow() {
-        val display: Display = windowManager.defaultDisplay
-        val size = Point()
-        display.getSize(size)
-        screenWidth = size.x
-        screenHeight = size.y
     }
 
     fun back() {

@@ -103,7 +103,7 @@
                         android:layout_marginTop="@dimen/dimen_15" />
 
                     <EditText
-                        android:id="@+id/name"
+                        android:id="@+id/edtName"
                         style="@style/edt_update_information"
                         android:layout_marginTop="@dimen/dimen_10"
                         android:hint="@string/enter_name"
@@ -147,7 +147,7 @@
                             android:background="@color/grey_dark" />
 
                         <EditText
-                            android:id="@+id/phone"
+                            android:id="@+id/edtPhone"
                             style="@style/text_sp16_black_bold"
                             android:layout_width="match_parent"
                             android:layout_gravity="center"
@@ -179,7 +179,7 @@
                             android:layout_weight="1">
 
                             <EditText
-                                android:id="@+id/birth"
+                                android:id="@+id/edtBirth"
                                 style="@style/edt_update_information"
                                 android:focusable="false"
                                 android:clickable="true"
@@ -236,7 +236,7 @@
                         android:layout_marginTop="@dimen/dimen_10">
 
                         <EditText
-                            android:id="@+id/cccd"
+                            android:id="@+id/edtCCCD"
                             style="@style/edt_update_information"
                             android:hint="@string/enter_CCCD"
                             android:inputType="number" />
@@ -274,7 +274,7 @@
                         android:layout_marginTop="@dimen/dimen_10">
 
                         <TextView
-                            android:id="@+id/address"
+                            android:id="@+id/tvAddress"
                             style="@style/edt_update_information"
                             android:hint="@string/enter_address"
                             android:paddingStart="@dimen/dimen_10"
@@ -427,6 +427,7 @@
         </LinearLayout>
 
         <include
+            android:id="@+id/complete"
             layout="@layout/layout_foot_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

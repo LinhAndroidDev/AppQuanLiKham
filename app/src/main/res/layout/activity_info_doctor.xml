@@ -81,7 +81,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/csytDr"
+                android:id="@+id/tvHospital"
                 style="@style/text_sp16_no_color"
                 android:layout_marginTop="@dimen/dimen_20"
                 android:text="Bác Sĩ Ơi-Phòng Khám 020" />
@@ -325,7 +325,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_10"
-                android:layout_marginTop="@dimen/dimen_5" />
+                android:layout_marginTop="@dimen/dimen_5"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"/>
 
             <LinearLayout
                 android:id="@+id/scrollHour"
@@ -338,7 +340,9 @@
                     android:id="@+id/rcvHourWorking"
                     android:paddingVertical="@dimen/dimen_5"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="horizontal"/>
 
             </LinearLayout>
 

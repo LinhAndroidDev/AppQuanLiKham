@@ -13,7 +13,7 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentRegisterBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.data.remote.model.RegisterModel
-import com.example.appkhambenh.ui.utils.convertDateToInt
+import com.example.appkhambenh.ui.utils.DateUtils
 import com.example.appkhambenh.ui.utils.validateEmail
 import com.example.appkhambenh.ui.utils.validatePassword
 import com.example.appkhambenh.ui.utils.validatePhone
@@ -37,6 +37,10 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
 
     override fun bindData() {
         super.bindData()
+
+        viewModel.loading.observe(viewLifecycleOwner) {
+            if (it) loading.show() else loading.dismiss()
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -112,20 +116,16 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
                     viewModel.requestRegisterUser(
                         RegisterModel(
                             userName = name,
-                            userType = 0,
+                            userType = 4,
                             userEmail = email,
                             userPassword = password,
                             userPhoneNumber = phone,
-                            userBirthday = convertDateToInt(birth),
+                            userBirthday = DateUtils.convertDateToLong(birth),
                             userGender = sex
                         )
                     )
 
-                    viewModel.loading.observe(viewLifecycleOwner) {
-                        if (it) loading.show() else loading.dismiss()
-                    }
-
-                    viewModel.registerSuccessful.observe(viewLifecycleOwner) { isSuccessful ->
+                    viewModel.registerSuccessful.collect { isSuccessful ->
                         if (isSuccessful) {
                             activity?.onBackPressed()
                         }
@@ -179,7 +179,7 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
     }
 
     private fun setDateWithText() {
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val dateFormat = SimpleDateFormat(DateUtils.DAY_OF_YEAR, Locale.getDefault())
         binding.edtBirth.setText(dateFormat.format(calendar.time))
     }
 

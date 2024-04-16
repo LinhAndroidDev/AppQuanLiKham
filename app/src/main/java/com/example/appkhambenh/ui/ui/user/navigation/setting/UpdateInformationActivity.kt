@@ -15,24 +15,25 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.postDelayed
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityUpdateInformationBinding
 import com.example.appkhambenh.ui.base.BaseActivity
-import com.example.appkhambenh.ui.ui.EmptyViewModel
+import com.example.appkhambenh.ui.data.remote.model.ProfileModel
 import com.example.appkhambenh.ui.ui.common.DialogRequestPermission
 import com.example.appkhambenh.ui.ui.user.appointment.MakeAppointActivity
 import com.example.appkhambenh.ui.ui.user.navigation.setting.adapter.InformationAdapter
 import com.example.appkhambenh.ui.ui.user.navigation.setting.address.AddressActivity
+import com.example.appkhambenh.ui.utils.DateUtils
 import com.example.appkhambenh.ui.utils.PersonalInformation
 import com.example.appkhambenh.ui.utils.setStyleTextAtPosition
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -40,59 +41,78 @@ import java.util.Locale
 
 
 @Suppress("DEPRECATION")
-class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInformationBinding>() {
-
+@AndroidEntryPoint
+class UpdateInformationActivity :
+    BaseActivity<UpdateInformationViewModel, ActivityUpdateInformationBinding>() {
     private val bottomSheetInformation by lazy { BottomSheetBehavior.from(binding.bottomSelectInfo.layoutSelect) }
-    private var informationAdapter = InformationAdapter(arrayListOf(""), "", this)
+    private var informationAdapter = InformationAdapter()
     private var isAddMember = false
     private val calendar by lazy { Calendar.getInstance() }
 
     companion object {
         const val REQUEST_SCAN = 2
         const val REQUEST_ADDRESS = 3
-        const val ETHNICS = "ETHNICS"
-        const val NATIONALITY = "NATIONALITY"
-        const val JOB = "JOB"
         const val REQUEST_CAMERA_PERMISSION = 100
         const val OPEN_INFORMATION_APP = 101
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         initUi()
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    private fun initUi() {
+    override fun bindData() {
+        super.bindData()
 
+        viewModel.loading.observe(this) {
+            if (it) loading.show() else loading.dismiss()
+        }
+
+        lifecycleScope.launch(Dispatchers.Main) {
+            viewModel.getUserInfo()
+            viewModel.infoUser.collect { user ->
+                user?.name?.let { binding.edtName.setText(it) }
+                user?.phoneNumber?.let { binding.edtPhone.setText(it) }
+                user?.birthday?.let { binding.edtBirth.setText(DateUtils.convertLongToDate(it)) }
+                user?.identification?.let { binding.edtCCCD.setText(it) }
+                user?.address?.let { binding.tvAddress.text = it }
+                user?.gender?.let {
+                    if (it == 0) {
+                        binding.males.isChecked = true
+                    } else {
+                        binding.females.isChecked = true
+                    }
+                }
+            }
+        }
+    }
+
+    private fun initUi() {
         intent.getIntExtra(MakeAppointActivity.ADD_MEMBER, 0).let {
             if (it > 0) isAddMember = true
         }
-
         initTitle()
-
         initBottomSelect()
+        onClickView()
+    }
 
+    @SuppressLint("ClickableViewAccessibility")
+    private fun onClickView() {
         binding.scrollView.setOnTouchListener { _, _ ->
             super.closeKeyboard()
             false
         }
-
         binding.scanQr.setOnClickListener {
             startScanCCCD()
         }
-
         binding.scanCCCD.setOnClickListener {
             startScanCCCD()
         }
-
-        binding.address.setOnClickListener {
+        binding.tvAddress.setOnClickListener {
             val intent = Intent(this@UpdateInformationActivity, AddressActivity::class.java)
             startActivityForResult(intent, REQUEST_ADDRESS)
         }
-
-        binding.birth.setOnClickListener {
+        binding.edtBirth.setOnClickListener {
             DatePickerDialog(
                 this,
                 { _, year, month, dayOfMonth ->
@@ -106,12 +126,10 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
                 calendar.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
-
         binding.ethnic.setOnClickListener {
-            informationAdapter.clearList()
-            informationAdapter = InformationAdapter(PersonalInformation.ethnics(), ETHNICS, this)
+            informationAdapter.resetList(PersonalInformation.ethnics())
             initDataInfo(
-                title = getString(R.string.ethnic),
+                titleInfo = getString(R.string.ethnic),
                 hint = getString(R.string.search_ethnic)
             )
             informationAdapter.onClickItem = {
@@ -119,13 +137,10 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
                 bottomSheetInformation.state = BottomSheetBehavior.STATE_COLLAPSED
             }
         }
-
         binding.nationality.setOnClickListener {
-            informationAdapter.clearList()
-            informationAdapter =
-                InformationAdapter(PersonalInformation.nationality(), NATIONALITY, this)
+            informationAdapter.resetList(PersonalInformation.nationality())
             initDataInfo(
-                title = getString(R.string.nationality),
+                titleInfo = getString(R.string.nationality),
                 hint = getString(R.string.search_nationality)
             )
             informationAdapter.onClickItem = {
@@ -133,12 +148,10 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
                 bottomSheetInformation.state = BottomSheetBehavior.STATE_COLLAPSED
             }
         }
-
         binding.job.setOnClickListener {
-            informationAdapter.clearList()
-            informationAdapter = InformationAdapter(PersonalInformation.job(), JOB, this)
+            informationAdapter.resetList(PersonalInformation.job())
             initDataInfo(
-                title = getString(R.string.job),
+                titleInfo = getString(R.string.job),
                 hint = getString(R.string.job)
             )
             informationAdapter.onClickItem = {
@@ -146,11 +159,37 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
                 bottomSheetInformation.state = BottomSheetBehavior.STATE_COLLAPSED
             }
         }
+        binding.complete.footView.setOnClickListener {
+            callUpdateInformation()
+        }
+    }
+
+    private fun callUpdateInformation() {
+        with(binding) {
+            val profile = ProfileModel(
+                userName = edtName.text.toString(),
+                userPhoneNumber = edtPhone.text.toString(),
+                userBirthday = DateUtils.convertDateToLong(edtBirth.text.toString()),
+                identification = edtCCCD.text.toString(),
+                address = tvAddress.text.toString(),
+                dan_toc = txtEthnic.text.toString(),
+                quoc_tich = txtNationality.text.toString(),
+                NgheNghip = txtJob.text.toString(),
+                email = sharePrefer.getUserEmail(),
+                userGender = if (binding.males.isChecked) 0 else 1
+            )
+            lifecycleScope.launch {
+                viewModel.updateProfile(profile, sharePrefer.getUserId())
+                viewModel.successful.collect {
+                    if (it) this@UpdateInformationActivity.back()
+                }
+            }
+        }
     }
 
     private fun setDateWithText() {
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        binding.birth.setText(dateFormat.format(calendar.time))
+        val dateFormat = SimpleDateFormat(DateUtils.DAY_OF_YEAR, Locale.getDefault())
+        binding.edtBirth.setText(dateFormat.format(calendar.time))
     }
 
     private fun startScanCCCD() {
@@ -210,46 +249,47 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
         )
     }
 
-    private fun initDataInfo(title: String, hint: String) {
+    private fun initDataInfo(titleInfo: String, hint: String) {
         bottomSheetInformation.state = BottomSheetBehavior.STATE_EXPANDED
-        binding.bottomSelectInfo.title.text = title
-        binding.bottomSelectInfo.search.hint = hint
-        lifecycleScope.launch {
-            delay(400L)
-            withContext(Dispatchers.Main) {
-                binding.bottomSelectInfo.rcvInformation.apply {
+        with(binding.bottomSelectInfo) {
+            title.text = titleInfo
+            search.hint = hint
+            binding.root.postDelayed(400L) {
+                rcvInformation.apply {
                     adapter = informationAdapter
                 }
             }
-        }
-        binding.bottomSelectInfo.search.doOnTextChanged { text, _, _, _ ->
-            informationAdapter.filter.filter(text)
+            search.doOnTextChanged { text, _, _, _ ->
+                informationAdapter.filter.filter(text)
+            }
         }
     }
 
     private fun initTitle() {
-        if (!isAddMember) {
-            binding.headerUpdateInfo.setTitle(getString(R.string.update_info))
-            sharePrefer.getUserAvatar().let {
-                if (it.isNotEmpty()) {
-                    Glide.with(this)
-                        .load(it)
-                        .into(binding.avatar)
+        with(binding) {
+            if (!isAddMember) {
+                headerUpdateInfo.setTitle(getString(R.string.update_info))
+                sharePrefer.getUserAvatar().let {
+                    if (it.isNotEmpty()) {
+                        Glide.with(this@UpdateInformationActivity)
+                            .load(it)
+                            .into(avatar)
+                    }
                 }
+            } else {
+                headerUpdateInfo.setTitle(getString(R.string.add_members))
+                layoutInfo.visibility = View.GONE
             }
-        } else {
-            binding.headerUpdateInfo.setTitle(getString(R.string.add_members))
-            binding.layoutInfo.visibility = View.GONE
-        }
 
-        binding.titleName.title.text = getString(R.string.title_name)
-        binding.titlePhone.title.text = getString(R.string.title_phone)
-        binding.titleBirth.title.text = getString(R.string.title_date)
-        binding.titleCCCD.title.text = getString(R.string.CCCD)
-        binding.titleAddress.title.text = getString(R.string.title_address)
-        binding.titleEthnic.title.text = getString(R.string.ethnic)
-        binding.titleNationality.title.text = getString(R.string.nationality)
-        binding.titleJob.title.text = getString(R.string.job)
+            titleName.title.text = getString(R.string.title_name)
+            titlePhone.title.text = getString(R.string.title_phone)
+            titleBirth.title.text = getString(R.string.title_date)
+            titleCCCD.title.text = getString(R.string.CCCD)
+            titleAddress.title.text = getString(R.string.title_address)
+            titleEthnic.title.text = getString(R.string.ethnic)
+            titleNationality.title.text = getString(R.string.nationality)
+            titleJob.title.text = getString(R.string.job)
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -258,14 +298,15 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
         bottomSheetInformation.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
-                if (newState == BottomSheetBehavior.STATE_EXPANDED) {
-                    binding.bottomSelectInfo.layoutCoverSheet.isEnabled = true
-                    binding.bottomSelectInfo.layoutCoverSheet.visibility = View.VISIBLE
-                } else {
-                    binding.bottomSelectInfo.layoutCoverSheet.visibility = View.GONE
-                    lifecycleScope.launch {
-                        delay(300L)
-                        resetBottomSheet()
+                binding.bottomSelectInfo.layoutCoverSheet.apply {
+                    if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+                        this.isEnabled = true
+                        this.visibility = View.VISIBLE
+                    } else {
+                        this.visibility = View.GONE
+                        binding.root.postDelayed(300L) {
+                            resetBottomSheet()
+                        }
                     }
                 }
             }
@@ -286,8 +327,10 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
     }
 
     private fun resetBottomSheet() {
-        binding.bottomSelectInfo.search.setText("")
-        binding.bottomSelectInfo.search.clearFocus()
+        binding.bottomSelectInfo.search.apply {
+            this.setText("")
+            this.clearFocus()
+        }
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -299,26 +342,28 @@ class UpdateInformationActivity : BaseActivity<EmptyViewModel, ActivityUpdateInf
                 if (resultCode == Activity.RESULT_OK) {
                     val strInformation = data?.getStringExtra(ScanActivity.DATA_CCCD)
                     val information = strInformation?.split("|")?.toTypedArray()
-                    binding.cccd.setText(information!![0])
-                    binding.name.setText(information[2])
-                    binding.address.text = information[5]
+                    information?.let {
+                        binding.edtCCCD.setText(it[0])
+                        binding.edtName.setText(it[2])
+                        binding.tvAddress.text = it[5]
 
-                    binding.birth.setText(
-                        SimpleDateFormat("dd/MM/yyyy").format(
-                            SimpleDateFormat("ddMMyyyy").parse(
-                                information[3]
-                            ) as Date
+                        binding.edtBirth.setText(
+                            SimpleDateFormat("dd/MM/yyyy").format(
+                                SimpleDateFormat("ddMMyyyy").parse(
+                                    it[3]
+                                ) as Date
+                            )
                         )
-                    )
 
-                    if (information[4] == "Nam") binding.males.isChecked =
-                        true else binding.females.isChecked = true
+                        if (it[4] == "Nam") binding.males.isChecked =
+                            true else binding.females.isChecked = true
+                    }
                 }
             }
 
             REQUEST_ADDRESS -> {
                 if (resultCode == Activity.RESULT_OK) {
-                    binding.address.text = data?.getStringExtra(AddressActivity.ADDRESS)
+                    binding.tvAddress.text = data?.getStringExtra(AddressActivity.ADDRESS)
                 }
             }
         }

@@ -1,6 +1,7 @@
 package com.example.appkhambenh.ui.data.remote.entity
 
+import com.example.appkhambenh.ui.base.BaseResponse
+
 data class RegisterResponse(
-    val message: String,
-    val statusCode: Int,
-)
+    override val data: String?
+) : BaseResponse<String?>()

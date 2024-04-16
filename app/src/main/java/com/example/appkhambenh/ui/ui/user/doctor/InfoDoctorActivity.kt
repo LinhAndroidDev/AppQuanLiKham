@@ -8,92 +8,92 @@ import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.view.postDelayed
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityInfoDoctorBinding
 import com.example.appkhambenh.ui.base.BaseActivity
-import com.example.appkhambenh.ui.data.remote.model.Specialist
-import com.example.appkhambenh.ui.model.Hour
+import com.example.appkhambenh.ui.data.remote.model.DoctorModel
+import com.example.appkhambenh.ui.data.remote.model.HourModel
 import com.example.appkhambenh.ui.model.Time
-import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.ui.user.appointment.MakeAppointActivity
 import com.example.appkhambenh.ui.ui.user.appointment.OnlineConsultationActivity
 import com.example.appkhambenh.ui.ui.user.doctor.adapter.HourWorkingAdapter
 import com.example.appkhambenh.ui.ui.user.doctor.adapter.TimeWorkingAdapter
-import com.example.appkhambenh.ui.ui.user.hospital.InfoHospitalActivity
+import com.example.appkhambenh.ui.utils.DateUtils
 import com.example.appkhambenh.ui.utils.collapseText
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class InfoDoctorActivity : BaseActivity<EmptyViewModel, ActivityInfoDoctorBinding>() {
-
+@AndroidEntryPoint
+class InfoDoctorActivity : BaseActivity<InfoDoctorViewModel, ActivityInfoDoctorBinding>() {
     private val times by lazy { arrayListOf<Time>() }
-    private val timeAdapter by lazy { TimeWorkingAdapter(this@InfoDoctorActivity, times) }
+    private val timeAdapter by lazy { TimeWorkingAdapter(this@InfoDoctorActivity) }
+    private lateinit var hourAdapter: HourWorkingAdapter
     private var isExpandText = false
     private var formatDay = SimpleDateFormat("EE", Locale("vi", "VN"))
     private var formatDayOfMonth = SimpleDateFormat("dd/MM", Locale("vi", "VN"))
-    private lateinit var doctor: Specialist
+    @SuppressLint("SimpleDateFormat")
+    private var formatDate = SimpleDateFormat(DateUtils.DAY_OF_YEAR)
+    private var doctor: DoctorModel? = null
+    private var timeWorking = arrayListOf<ArrayList<HourModel>>()
+    private var date = ""
 
     companion object {
         const val INFORMATION_DOCTOR = "INFORMATION_DOCTOR"
-        const val HOUR_INFORMATION_DOCTOR = "HOUR_INFORMATION_DOCTOR"
+        const val TIME_WORKING_DOCTOR = "TIME_WORKING_DOCTOR"
+        const val HOUR_WORKING_DOCTOR = "HOUR_WORKING_DOCTOR"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initUi()
+        onClickView()
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun initUi() {
+    private fun initTimeWorking() {
+        for(i in 0 until 7) {
+            val calendar: Calendar = Calendar.getInstance()
+            calendar.add(Calendar.DAY_OF_YEAR, i)
+            times.add(
+                Time(
+                    day = formatDay.format(calendar.time),
+                    time = formatDayOfMonth.format(calendar.time),
+                    hours = timeWorking[0],
+                    date = formatDate.format(calendar.time)
+                )
+            )
+        }
 
-        intent.getSerializableExtra(InfoHospitalActivity.OBJECT_DOCTOR).let {
-            if(it != null) {
-                doctor = it as Specialist
-                binding.nameDoctor.text = doctor.userCreateName
-                binding.specialistDoctor.text = doctor.nameSpecial
+        setChangeTime(timeWorking[0])
+        date = times[0].date.toString()
+        timeAdapter.apply {
+            items = times
+            binding.rcvTimeWorking.adapter = this
+            onClickTime = {
+                if (it <= timeWorking.size - 1) {
+                    date = times[it].date.toString()
+                    binding.rcvHourWorking.postDelayed(300L) {
+                        binding.rcvHourWorking.smoothScrollToPosition(0)
+                    }
+                    setChangeTime(timeWorking[it])
+                } else {
+                    hourAdapter.clearList()
+                }
             }
         }
+    }
 
-
-        binding.headerInforDoctor.setTitle(getString(R.string.infor_doctor))
-
-        val str = "Bác Sĩ Ơi - Phòng Khám 020"
-        val content = SpannableString(str)
-        content.setSpan(UnderlineSpan(), 0, str.length, 0)
-        content.setSpan(StyleSpan(Typeface.BOLD), 0, str.length, 0)
-        binding.txtClinic.text = content
-
-        lifecycleScope.launch {
-            delay(300L)
-            withContext(Dispatchers.Main) {
-                createTime()
-            }
-        }
-
-        val info =
-            "BS.PSG.TS \nBác sĩ nội trú \n25 năm trong chuyên ngành Tai Mũi Họng \n- Chữa các bệnh vùng Tai - Mũi - Họng: viêm tai, viêm mũi xoang, viêm họng, viêm loét họng, miệng, tăng tiết nước bọt vùng khoang miệng... bệnh lý các khối u vùng đầu mặt cổ \n- Chuyên gia về trị liệu giọng nói cho những người làm các nghề liên quan đến giọng như phát thanh viên, ca sĩ, giáo viên... \n- Các rối loạn giọng sau phẫu thuật \n- Chuyên gia điều trị chóng mặt, rối loạn thăng bằng, ù tai \n- Điều trị các đau mạn tính vùng sọ mặt, vùng lưỡi"
-        var spannable = SpannableStringBuilder()
-        if (info.length > 120) {
-            spannable = collapseText(this, info.substring(0, 120) + "... ${getString(R.string.see_more)}")
-        }
-
-        binding.tvInforDoctor.text = spannable
-        binding.tvInforDoctor.setOnClickListener {
-            isExpandText = !isExpandText
-            binding.tvInforDoctor.text = if (isExpandText) info else spannable
-        }
-
+    private fun onClickView() {
         binding.scroll.setOnScrollChangeListener(
             NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
                 if ((scrollY + 20) >= binding.scroll.getChildAt(0).measuredHeight - binding.scroll.measuredHeight)
@@ -111,70 +111,90 @@ class InfoDoctorActivity : BaseActivity<EmptyViewModel, ActivityInfoDoctorBindin
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private fun createTime() {
-        val hours = arrayListOf(
-            Hour(arrayListOf("11:00", "11:15", "11:30", "11:45")),
-            Hour(arrayListOf("09:00", "09:15", "09:30", "09:45", "10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45")),
-            Hour(arrayListOf("13:00", "13:15", "13:30", "13:45", "14:00", "14:15", "14:30")),
-            Hour(arrayListOf("10:00", "10:15", "10:30", "10:45", "11:00", "11:15")),
-            Hour(arrayListOf("08:00", "08:15", "08:30", "08:45", "09:00", "09:15", "09:30")),
-            Hour(arrayListOf("11:00", "11:15", "11:30", "11:45")),
-            Hour(arrayListOf("16:00", "16:15", "16:30", "16:45"))
-        )
-        for(i in 0 until 7) {
-            val calendar: Calendar = Calendar.getInstance()
-            calendar.add(Calendar.DAY_OF_YEAR, i)
-            times.add(
-                Time(
-                    formatDay.format(calendar.time),
-                    formatDayOfMonth.format(calendar.time),
-                    hours[i]
-                )
-            )
+    @SuppressLint("SetTextI18n")
+    private fun initUi() {
+
+//        intent.getParcelableExtra<Service>(InfoHospitalActivity.OBJECT_DOCTOR).let {
+//            if(it != null) {
+//                binding.nameDoctor.text = it.userCreateName
+//                binding.specialistDoctor.text = it.nameSpecial
+//            }
+//        }
+
+        intent.getParcelableExtra<DoctorModel>(SearchDoctorActivity.OBJECT_DOCTOR).let {
+            if(it != null) {
+                doctor = it
+                binding.nameDoctor.text = it.name
+                binding.tvHospital.text = it.hospitalName
+
+                lifecycleScope.launch(Dispatchers.Main) {
+                    //DateUtils.getDateCurrentToLong()
+                    viewModel.getTimeWorking(it.id, 1712854800)
+                    viewModel.timeWorking.collect { time ->
+                        time?.forEach { timeModel ->
+                            timeModel.timeWorking?.let { tml ->
+                                timeWorking.add(tml)
+                            }
+                        }
+                        time?.let { tm ->
+                            if(tm.size > 0) initTimeWorking()
+                        }
+                    }
+                }
+            }
         }
 
-        setChangeTime(times[0].hours?.hour!!)
+        binding.headerInforDoctor.setTitle(getString(R.string.infor_doctor))
 
-        binding.rcvTimeWorking.apply {
-            layoutManager =
-                LinearLayoutManager(this@InfoDoctorActivity, LinearLayoutManager.HORIZONTAL, false)
-            adapter = timeAdapter
+        val str = "Bác Sĩ Ơi - Phòng Khám 020"
+        val content = SpannableString(str).apply {
+            setSpan(UnderlineSpan(), 0, str.length, 0)
+            setSpan(StyleSpan(Typeface.BOLD), 0, str.length, 0)
+        }
+        binding.txtClinic.text = content
+
+        val info =
+            "BS.PSG.TS \nBác sĩ nội trú \n25 năm trong chuyên ngành Tai Mũi Họng \n- Chữa các bệnh vùng Tai - Mũi - Họng: viêm tai, viêm mũi xoang, viêm họng, viêm loét họng, miệng, tăng tiết nước bọt vùng khoang miệng... bệnh lý các khối u vùng đầu mặt cổ \n- Chuyên gia về trị liệu giọng nói cho những người làm các nghề liên quan đến giọng như phát thanh viên, ca sĩ, giáo viên... \n- Các rối loạn giọng sau phẫu thuật \n- Chuyên gia điều trị chóng mặt, rối loạn thăng bằng, ù tai \n- Điều trị các đau mạn tính vùng sọ mặt, vùng lưỡi"
+        var spannable = SpannableStringBuilder()
+        if (info.length > 120) {
+            spannable = collapseText(this, info.substring(0, 120) + "... ${getString(R.string.see_more)}")
         }
 
-        timeAdapter.onClickTime = {
-            binding.rcvHourWorking.postDelayed(Runnable {
-                binding.rcvHourWorking.smoothScrollToPosition(0)
-            }, 300)
-            setChangeTime(times[it].hours?.hour!!)
+        binding.tvInforDoctor.text = spannable
+        binding.tvInforDoctor.setOnClickListener {
+            isExpandText = !isExpandText
+            binding.tvInforDoctor.text = if (isExpandText) info else spannable
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun setChangeTime(hours: ArrayList<String>) {
-        val hourAdapter = HourWorkingAdapter(this@InfoDoctorActivity, hours, INFORMATION_DOCTOR)
-        binding.rcvHourWorking.apply {
-            layoutManager =
-                LinearLayoutManager(this@InfoDoctorActivity, LinearLayoutManager.HORIZONTAL, false)
-            adapter = hourAdapter
+    private fun setChangeTime(hours: ArrayList<HourModel>) {
+        hourAdapter = HourWorkingAdapter(this@InfoDoctorActivity, INFORMATION_DOCTOR).apply {
+            items = hours
+            binding.rcvHourWorking.adapter = this
+            onClickTime = {
+                val intent = Intent(this@InfoDoctorActivity, MakeAppointActivity::class.java).apply {
+                    putExtra(INFORMATION_DOCTOR, doctor)
+                    putExtra(HOUR_WORKING_DOCTOR, it)
+                    putExtra(TIME_WORKING_DOCTOR, date)
+                }
+                startActivity(intent)
+            }
         }
-
-        hourAdapter.onClickTime = {
-            val intent = Intent(this@InfoDoctorActivity, MakeAppointActivity::class.java)
-            intent.putExtra(HOUR_INFORMATION_DOCTOR, it)
-            startActivity(intent)
-        }
-
     }
 
     private fun enableOnlineConsult() {
-        binding.onlineConsult.visibility = View.VISIBLE
-        binding.onlineConsult.isEnabled = true
+        binding.onlineConsult.apply {
+            visibility = View.VISIBLE
+            isEnabled = true
+        }
     }
 
     private fun disableOnlineConsult() {
-        binding.onlineConsult.visibility = View.INVISIBLE
-        binding.onlineConsult.isEnabled = false
+        binding.onlineConsult.apply {
+            visibility = View.INVISIBLE
+            isEnabled = false
+        }
     }
 
     override fun getActivityBinding(inflater: LayoutInflater) =

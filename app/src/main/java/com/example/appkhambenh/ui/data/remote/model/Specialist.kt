@@ -1,30 +1,29 @@
 package com.example.appkhambenh.ui.data.remote.model
 
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
 
 data class Specialist(
+    @SerializedName("_id")
+    val id: Int? = null,
+
     @SerializedName("Specialist_Name")
-    val nameSpecial: String,
-
-    @SerializedName("Specialist_createAt")
-    val createAt: Long,
-
-    @SerializedName("Specialist_statusAccept")
-    val statusAccept: Int,
-
-    @SerializedName("Specialist_userCreate_accountType")
-    val accountType: Int,
+    val name: String? = null,
 
     @SerializedName("Specialist_userCreate_id")
-    val userCreateId: Int,
+    val userCreateId: Int? = null,
 
     @SerializedName("Specialist_userCreate_name")
-    val userCreateName: String,
+    val userCreateName: String? = null,
+
+    @SerializedName("Specialist_userCreate_accountType")
+    val accountTypeCreate: Int? = null,
+
+    @SerializedName("Specialist_createAt")
+    val createAt: Long? = null,
+
+    @SerializedName("Specialist_statusAccept")
+    val statusAccept: Int? = null,
 
     @SerializedName("__v")
-    val v: Int,
-
-    @SerializedName("_id")
-    val id: Int
-): Serializable
+    val v: Int? = null,
+)

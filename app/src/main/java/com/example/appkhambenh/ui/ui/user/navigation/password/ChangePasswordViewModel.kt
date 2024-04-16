@@ -1,49 +1,35 @@
 package com.example.appkhambenh.ui.ui.user.navigation.password
 
-import androidx.lifecycle.MutableLiveData
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.ApiClient
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observer
-import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.schedulers.Schedulers
-import okhttp3.RequestBody
+import com.example.appkhambenh.ui.data.remote.model.ChangePasswordModel
+import com.example.appkhambenh.ui.data.remote.repository.ChangePasswordRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import javax.inject.Inject
 
-class ChangePasswordViewModel : BaseViewModel() {
-    var isLoadingLiveData = MutableLiveData<Boolean>()
-    var isSuccessfulLiveData = MutableLiveData<Boolean>()
+@HiltViewModel
+class ChangePasswordViewModel @Inject constructor(private val repository: ChangePasswordRepository) :
+    BaseViewModel() {
+        val isSuccessful = MutableStateFlow(false)
 
-    fun changePassword(id: RequestBody, password: RequestBody){
-        isLoadingLiveData.postValue(true)
-        ApiClient.shared().changePassword(id, password)
-            .observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<PasswordResponse>{
-                override fun onSubscribe(d: Disposable) {
-
-                }
-
-                override fun onError(e: Throwable) {
-                    isLoadingLiveData.postValue(false)
-                    errorApiLiveData.postValue(e.message)
-                }
-
-                override fun onComplete() {
-
-                }
-
-                override fun onNext(t: PasswordResponse) {
-                    isLoadingLiveData.postValue(false)
-                    when(t.statusCode){
-                        ApiClient.STATUS_CODE_SUCCESS -> {
-                            isSuccessfulLiveData.postValue(true)
-                        }
-                        else -> {
-                            errorApiLiveData.postValue(t.message)
+        suspend fun changePassword(userId: Int, changePasswordModel: ChangePasswordModel) {
+            loading.postValue(true)
+            repository.changePassword(userId, changePasswordModel).let {
+                try {
+                    loading.postValue(false)
+                    if(it.isSuccessful) {
+                        errorApiLiveData.postValue(it.body()?.message)
+                        when(it.body()?.statusCode) {
+                            ApiClient.STATUS_CODE_SUCCESS -> {
+                                isSuccessful.value = true
+                            }
                         }
                     }
+                } catch (e: Exception) {
+                    loading.postValue(false)
+                    errorApiLiveData.postValue(e.message)
                 }
-
-            })
-    }
+            }
+        }
 }

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_10"
+        app:cardCornerRadius="@dimen/dimen_15"
+        app:cardElevation="@dimen/dimen_1"
+        app:strokeColor="@color/grey"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_15"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/text_sp16_black_bold"
+                android:text="IVIE 01" />
+
+            <TextView
+                style="@style/text_sp16"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="7 ngày (15 phút gọi)"
+                android:textColor="@color/txt_hint" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10">
+
+                <TextView
+                    style="@style/text_sp16_black_bold"
+                    android:text="150.000đ"
+                    android:textColor="@color/red_dark" />
+
+                <TextView
+                    android:id="@+id/priceReduce"
+                    style="@style/text_sp14_black_bold"
+                    android:layout_marginStart="@dimen/dimen_3"
+                    android:text="187.500đ"
+                    android:textColor="@color/grey_dark" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/text_sp16_color_text_bold"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:background="@drawable/boder_blue_corner_5"
+                android:gravity="center"
+                android:paddingVertical="@dimen/dimen_8"
+                android:text="Mua gói" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

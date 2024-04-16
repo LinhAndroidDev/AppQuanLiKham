@@ -1,139 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.ui.user.medicine.MedicineDetailActivity">
 
-    <LinearLayout
+    <com.example.appkhambenh.ui.ui.common.CustomHeader
+        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content" />
 
-        <ImageView
-            android:id="@+id/backMedicineDetail"
-            android:layout_width="@dimen/dimen_25"
-            android:layout_height="@dimen/dimen_25"
-            android:layout_gravity="end"
-            android:layout_marginTop="@dimen/dimen_40"
-            android:layout_marginEnd="@dimen/dimen_20"
-            android:src="@drawable/icon_back_delete_black" />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imageDetailMedicine"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_300"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/dimen_10"
-            android:elevation="5dp"
-            android:scaleType="centerInside"
-            android:src="@mipmap/ic_launcher" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_1"
-            android:background="#2A111111" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/pagerMedicine"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp" />
+
+                <TextView
+                    android:id="@+id/tvIndexPager"
+                    style="@style/text_sp16"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="@dimen/dimen_15"
+                    android:layout_marginBottom="@dimen/dimen_15"
+                    android:background="@drawable/bg_corners_25"
+                    android:backgroundTint="#4B111111"
+                    android:paddingHorizontal="@dimen/dimen_10"
+                    android:paddingVertical="@dimen/dimen_5"
+                    android:text="2/2"
+                    android:textColor="@color/white" />
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_15"
                 android:layout_marginTop="@dimen/dimen_20"
-                android:orientation="vertical">
+                android:layout_marginEnd="@dimen/dimen_30"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/nameDetailMedicine"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/dimen_10"
-                        android:gravity="center"
-                        android:text="Bedipanten 100mg bổ sung vitamin B5, giảm mụn, ngăn rụng tóc hộp 20 viên"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dimen_sp20"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/dateDetailMedicine"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_marginTop="@dimen/dimen_10"
-                        android:layout_marginEnd="@dimen/dimen_10"
-                        android:text="15/02/2023"
-                        android:textColor="@color/txt_red"
-                        android:textSize="@dimen/dimen_14"
-                        android:textStyle="italic" />
-                </LinearLayout>
-
-                <TextView
+                <include
+                    layout="@layout/layout_authenticated"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/dimen_10"
-                    android:layout_marginTop="@dimen/dimen_20"
-                    android:text="Thông Tin Chi Tiết Thuốc"
-                    android:textColor="@color/background"
-                    android:textSize="@dimen/dimen_sp25"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="@dimen/dimen_5" />
 
                 <TextView
-                    android:id="@+id/detailInfoMedicine"
+                    style="@style/text_sp16"
+                    android:layout_marginStart="@dimen/dimen_5"
+                    android:text="Tinh Dầu Hoa Bưởi Thiên Nhiên Lucky Star 30ml"
+                    android:textSize="@dimen/dimen_sp20" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/text_sp12"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="Đã bán 10"
+                android:textColor="@color/txt_hint" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_15"
+                android:layout_marginTop="@dimen/dimen_5"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_sp16_color_text_bold"
+                    android:text="35.000 đ" />
+
+                <TextView
+                    android:id="@+id/priceReduce"
+                    style="@style/text_sp16"
+                    android:layout_marginStart="@dimen/dimen_5"
+                    android:text="85.000 đ"
+                    android:textColor="@color/txt_hint" />
+
+                <TextView
+                    style="@style/text_sp14_black_bold"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:background="@drawable/bg_corners_5"
+                    android:backgroundTint="#FFF1F6"
+                    android:paddingHorizontal="@dimen/dimen_5"
+                    android:paddingVertical="@dimen/dimen_3"
+                    android:text="-59%"
+                    android:textColor="@color/txt_red" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <com.example.appkhambenh.ui.ui.common.CustomBtnNumber
+                    android:id="@+id/btnMinus"
+                    android:layout_width="@dimen/dimen_45"
+                    android:layout_height="@dimen/dimen_45"/>
+
+                <EditText
+                    android:id="@+id/edtNumberProduct"
+                    style="@style/text_sp16"
+                    android:layout_height="@dimen/dimen_45"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:background="@drawable/boder_grey_corner_5"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:paddingHorizontal="@dimen/dimen_25"
+                    android:text="1" />
+
+                <com.example.appkhambenh.ui.ui.common.CustomBtnNumber
+                    android:id="@+id/btnPlus"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_width="@dimen/dimen_45"
+                    android:layout_height="@dimen/dimen_45"/>
+            </LinearLayout>
+
+            <TextView
+                style="@style/text_sp14"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="Đơn vị: Lọ"
+                android:textColor="@color/txt_hint" />
+
+            <TextView
+                style="@style/text_sp16_black_bold"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:text="Thông tin sản phẩm:" />
+
+            <TextView
+                style="@style/text_sp16"
+                android:layout_marginHorizontal="@dimen/dimen_15"
+                android:text="Mô tả sản phẩm: \n\nTinh dầu bưởi có thể hiểu là một loại tinh dầu được chiết xuất từ vỏ bưởi" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:background="@color/bg_blue_white"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/dimen_10"
-                    android:layout_marginTop="@dimen/dimen_10"
-                    android:layout_marginBottom="@dimen/dimen_30"
-                    android:lineHeight="@dimen/dimen_20"
-                    android:text="THÔNG TIN SẢN PHẨM
-Thành phần trong Bedipanten 100mg
-Bedipanten với thành phần chính là Vitamin B5 chứa hàm lượng lên đến 100mg.
+                    android:layout_marginTop="@dimen/dimen_30"
+                    android:background="@color/white">
 
-Ngoài ra, trong Bedipanten còn chứa 1mg Vitamin B1.
+                    <ImageView
+                        android:id="@+id/imgShop"
+                        android:layout_width="@dimen/dimen_70"
+                        android:layout_height="@dimen/dimen_70"
+                        android:layout_marginVertical="@dimen/dimen_15"
+                        android:layout_marginStart="@dimen/dimen_15"
+                        android:src="@drawable/img_service"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-Tá dược: Lactose, tinh bột, magnesi stearate, talc vừa đủ một viên.
+                    <include
+                        layout="@layout/layout_authenticated"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:layout_marginBottom="@dimen/dimen_8"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
 
-Công dụng
-Bổ sung vitamin B5 cho cơ thể, giúp cải thiện tình trạng thiếu hụt vitamin B5 trong các trường hợp: rối loạn tiết chất nhờn ở da, hạn chế rụng tóc, đau dây thần kinh.
+                    <TextView
+                        android:id="@+id/tvNameShop"
+                        style="@style/text_sp16_black_bold"
+                        android:layout_marginStart="@dimen/dimen_15"
+                        android:layout_marginTop="@dimen/dimen_15"
+                        android:text="Lucky Star Pharmacy"
+                        app:layout_constraintStart_toEndOf="@id/imgShop"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-Cách dùng
-Người lớn: ngày uống 2 lần, mỗi lần 1 viên
+                    <TextView
+                        android:id="@+id/tvAddressShop"
+                        style="@style/text_sp14"
+                        android:layout_marginStart="@dimen/dimen_15"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:text="177/15 Ngô Chí Quốc, Phường Bình Chiểu, Quận Thủ Đức, TP Hồ Chí Minh"
+                        android:textColor="@color/txt_hint"
+                        app:layout_constraintStart_toEndOf="@id/imgShop"
+                        app:layout_constraintTop_toBottomOf="@id/tvNameShop" />
 
-Thiếu niên: ngày uống 1 lần, mỗi lần 1 viên
+                    <ImageView
+                        android:id="@+id/imgNext"
+                        android:layout_width="@dimen/dimen_25"
+                        android:layout_height="@dimen/dimen_30"
+                        android:layout_marginEnd="@dimen/dimen_15"
+                        android:src="@drawable/ic_action_next_setting"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-Có thể uống trước hoặc sau khi ăn
+                <TextView
+                    style="@style/text_sp16_black_bold"
+                    android:layout_marginStart="@dimen/dimen_15"
+                    android:layout_marginTop="@dimen/dimen_30"
+                    android:text="Sản phẩm liên quan" />
 
-Đối tượng sử dụng
-Các trường hợp thiếu vitamin B5 gây ra các biểu hiện như: da nhờn, rối loạn tiết chất nhờn, mụn trứng cá, rụng tóc.
-
-Lưu ý
-Sản phẩm này không phải là thuốc và không có tác dụng thay thế thuốc chữa bệnh.
-
-Không sử dụng cho người mẫn cảm với bất kỳ thành phần nào của sản phẩm.
-
-Đọc kỹ hướng dẫn sử dụng trước khi dùng.
-
-Để xa tầm tay trẻ em.
-
-Quy cách đóng gói
-Hộp 2 vỉ x 10 viên nén.
-
-Hạn dùng
-36 tháng kể từ ngày sản xuất.
-
-Bảo quản
-Bảo quản nơi khô mát, tránh ánh sáng."
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/dimen_sp16" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvRelatedProducts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="2" />
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
-    </LinearLayout>
-</RelativeLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

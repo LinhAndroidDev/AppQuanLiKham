@@ -37,15 +37,6 @@ class CustomTextViewInfo : RelativeLayout
         initView()
     }
 
-    constructor(
-        context: Context?,
-        attrs: AttributeSet?,
-        defStyleAttr: Int,
-        defStyleRes: Int,
-    ) : super(context, attrs, defStyleAttr, defStyleRes){
-        initView()
-    }
-
     @SuppressLint("ClickableViewAccessibility")
     private fun initView() {
         binding = LayoutCustomTextviewInfoBinding.inflate(LayoutInflater.from(context))

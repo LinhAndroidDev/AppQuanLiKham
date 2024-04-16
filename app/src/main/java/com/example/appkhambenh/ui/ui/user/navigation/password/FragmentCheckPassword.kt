@@ -52,30 +52,7 @@ class FragmentCheckPassword : BaseFragment<CheckPasswordViewModel, FragmentCheck
         }
 
         binding.checkPassword.setOnClickListener {
-            viewModel.checkPassword(
-                convertToRequestBody(sharePrefer.getUserId().toString()),
-                convertToRequestBody(binding.edtPassWordOld.getTextView())
-            )
 
-            viewModel.isLoadingLiveData.observe(viewLifecycleOwner){
-                if(it) {
-                    binding.loadingData.visibility = View.VISIBLE
-                }else {
-                    binding.loadingData.visibility = View.GONE
-                }
-            }
-
-            viewModel.isSuccessfulLiveData.observe(viewLifecycleOwner){
-                if(it){
-                    val fragmentCreatePassword = FragmentCreatePassword()
-                    val fm = requireActivity().supportFragmentManager.beginTransaction()
-                        fm.setCustomAnimations(R.anim.fade_in, R.anim.exit, R.anim.enter, R.anim.fade_out)
-                        fm.replace(R.id.changeIdPassword, fragmentCreatePassword).addToBackStack(null).commit()
-                    val bundle = Bundle()
-                    bundle.putString("Password", binding.edtPassWordOld.getTextView())
-                    fragmentCreatePassword.arguments = bundle
-                }
-            }
         }
     }
 

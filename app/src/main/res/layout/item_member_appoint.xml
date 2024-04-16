@@ -1,103 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/dimen_15">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        android:id="@+id/layoutMember"
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_marginStart="@dimen/dimen_15">
 
-        <FrameLayout
+        <LinearLayout
+            android:id="@+id/layoutMember"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvMember"
+                    android:layout_width="@dimen/dimen_50"
+                    android:layout_height="@dimen/dimen_50"
+                    android:layout_marginHorizontal="@dimen/dimen_15"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:layout_marginBottom="@dimen/dimen_15"
+                    app:cardCornerRadius="@dimen/dimen_15"
+                    app:cardElevation="@dimen/dimen_10"
+                    app:strokeColor="@color/background"
+                    app:strokeWidth="@dimen/dimen_2">
+
+                    <ImageView
+                        android:id="@+id/avatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:importantForAccessibility="no"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/user_ad" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <ImageView
+                    android:id="@+id/imgSelected"
+                    android:layout_width="@dimen/dimen_20"
+                    android:layout_height="@dimen/dimen_20"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/dimen_10"
+                    android:elevation="@dimen/dimen_10"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/icon_done"
+                    android:visibility="visible" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/nameMember"
+                style="@style/text_sp16_black_bold"
+                android:text="Linh"
+                android:textAllCaps="true" />
+
+            <TextView
+                style="@style/text_sp12_no_color"
+                android:layout_marginTop="@dimen/dimen_5"
+                android:background="@drawable/bg_item_function"
+                android:paddingHorizontal="@dimen/dimen_7"
+                android:paddingVertical="@dimen/dimen_3"
+                android:text="@string/detail"
+                android:textColor="@color/grey_dark" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutAddMember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_15"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cvMember"
                 android:layout_width="@dimen/dimen_50"
                 android:layout_height="@dimen/dimen_50"
-                android:layout_marginHorizontal="@dimen/dimen_15"
                 android:layout_marginTop="@dimen/dimen_5"
-                android:layout_marginBottom="@dimen/dimen_15"
                 app:cardCornerRadius="@dimen/dimen_15"
-                app:cardElevation="@dimen/dimen_10"
+                app:cardElevation="0dp"
                 app:strokeColor="@color/background"
                 app:strokeWidth="@dimen/dimen_2">
 
                 <ImageView
-                    android:id="@+id/avatar"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/user_ad"
-                    android:importantForAccessibility="no" />
-
+                    android:layout_width="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_25"
+                    android:layout_gravity="center"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_action_add"
+                    app:tint="@color/background" />
             </com.google.android.material.card.MaterialCardView>
 
-            <ImageView
-                android:id="@+id/imgSelected"
-                android:layout_width="@dimen/dimen_20"
-                android:layout_height="@dimen/dimen_20"
-                android:layout_gravity="end"
-                android:layout_marginEnd="@dimen/dimen_10"
-                android:elevation="@dimen/dimen_10"
-                android:src="@drawable/icon_done"
-                android:visibility="visible"
-                android:importantForAccessibility="no" />
-        </FrameLayout>
+            <TextView
+                style="@style/text_sp16_color_text_bold"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:text="Thêm"
+                android:textColor="@color/background" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/nameMember"
-            style="@style/text_sp16_black_bold"
-            android:text="Linh"
-            android:textAllCaps="true" />
-
-        <TextView
-            style="@style/text_sp12_no_color"
-            android:layout_marginTop="@dimen/dimen_5"
-            android:background="@drawable/bg_item_function"
-            android:paddingHorizontal="@dimen/dimen_7"
-            android:paddingVertical="@dimen/dimen_3"
-            android:text="@string/detail"
-            android:textColor="@color/grey_dark" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layoutAddMember"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dimen_15"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="@dimen/dimen_50"
-            android:layout_height="@dimen/dimen_50"
-            android:layout_marginTop="@dimen/dimen_5"
-            app:cardCornerRadius="@dimen/dimen_15"
-            app:cardElevation="0dp"
-            app:strokeColor="@color/background"
-            app:strokeWidth="@dimen/dimen_2">
-
-            <ImageView
-                android:layout_width="@dimen/dimen_25"
-                android:layout_height="@dimen/dimen_25"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_action_add"
-                app:tint="@color/background"
-                android:importantForAccessibility="no" />
-        </com.google.android.material.card.MaterialCardView>
-
-        <TextView
-            style="@style/text_sp16_color_text_bold"
-            android:layout_marginTop="@dimen/dimen_15"
-            android:text="Thêm"
-            android:textColor="@color/background" />
-    </LinearLayout>
-
-</RelativeLayout>
+    </RelativeLayout>
+</layout>

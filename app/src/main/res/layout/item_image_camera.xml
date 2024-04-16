@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/dimen_90"
-    android:layout_height="@dimen/dimen_90"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginStart="@dimen/dimen_15"
-    android:layout_marginTop="@dimen/dimen_15"
-    app:cardCornerRadius="@dimen/dimen_10">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <com.google.android.material.card.MaterialCardView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="@dimen/dimen_90"
+        android:layout_height="@dimen/dimen_90"
+        android:layout_marginStart="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_15"
+        app:cardCornerRadius="@dimen/dimen_10">
 
-        <ImageView
-            android:id="@+id/imgCamera"
-            android:scaleType="centerCrop"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/deleteImg"
-            android:src="@drawable/icon_delete_search"
-            app:tint="@color/red_dark"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/dimen_5"
-            android:layout_marginTop="@dimen/dimen_5"
-            android:layout_width="@dimen/dimen_18"
-            android:layout_height="@dimen/dimen_18"/>
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/imgCamera"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
 
-</com.google.android.material.card.MaterialCardView>
+            <ImageView
+                android:id="@+id/deleteImg"
+                android:layout_width="@dimen/dimen_18"
+                android:layout_height="@dimen/dimen_18"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/dimen_5"
+                android:layout_marginEnd="@dimen/dimen_5"
+                android:src="@drawable/icon_delete_search"
+                app:tint="@color/red_dark" />
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

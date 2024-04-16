@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/dimen_15"
+    android:layout_marginTop="@dimen/dimen_15">
+
+    <TextView
+        android:id="@+id/tvDoctorComment"
+        style="@style/text_sp16"
+        android:background="@drawable/bg_corners_10_no_bottom_left"
+        android:padding="@dimen/dimen_10"
+        android:layout_marginEnd="@dimen/dimen_100"
+        android:text="Chào em" />
+</RelativeLayout>

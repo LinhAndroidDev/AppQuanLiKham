@@ -36,13 +36,14 @@
                 android:textSize="@dimen/dimen_sp20" />
 
             <ImageView
-                android:id="@+id/setting"
-                android:layout_width="@dimen/dimen_22"
-                android:layout_height="@dimen/dimen_22"
+                android:id="@+id/delete"
+                android:layout_width="@dimen/dimen_30"
+                android:layout_height="@dimen/dimen_30"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_action_setting"
-                android:visibility="gone" />
+                android:src="@drawable/ic_delete"
+                android:visibility="gone"
+                app:tint="@color/grey_2" />
 
             <ImageView
                 android:id="@+id/iconSearch"

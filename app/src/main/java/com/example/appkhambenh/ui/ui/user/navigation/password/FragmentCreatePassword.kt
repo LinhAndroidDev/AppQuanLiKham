@@ -5,20 +5,34 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentCreatePasswordBinding
 import com.example.appkhambenh.ui.base.BaseFragment
+import com.example.appkhambenh.ui.data.remote.model.ChangePasswordModel
 import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
 import com.example.appkhambenh.ui.ui.user.navigation.information.CustomTextViewInfo
 import com.example.appkhambenh.ui.utils.validatePassword
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
-class FragmentCreatePassword : BaseFragment<ChangePasswordViewModel, FragmentCreatePasswordBinding>() {
+@AndroidEntryPoint
+class FragmentCreatePassword :
+    BaseFragment<ChangePasswordViewModel, FragmentCreatePasswordBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initUi()
+    }
+
+    override fun bindData() {
+        super.bindData()
+
+        viewModel.loading.observe(viewLifecycleOwner) {
+            if(it) loading.show() else loading.dismiss()
+        }
     }
 
     private fun initUi() {
@@ -29,7 +43,7 @@ class FragmentCreatePassword : BaseFragment<ChangePasswordViewModel, FragmentCre
         checkEnableButtonInfo(binding.edtPassWordNew)
 
         sharePrefer.getUserAvatar().let {
-            if(it.isNotEmpty()) {
+            if (it.isNotEmpty()) {
                 Glide.with(requireActivity()).load(it)
                     .error(R.drawable.user_ad)
                     .into(binding.avatarInfo)
@@ -41,38 +55,34 @@ class FragmentCreatePassword : BaseFragment<ChangePasswordViewModel, FragmentCre
         }
 
         binding.hidePassword.setOnCheckedChangeListener { _, b ->
-            if(b) {
+            if (b) {
                 binding.edtPassWordNew.showPassword()
-            }else {
+            } else {
                 binding.edtPassWordNew.hidePassword()
             }
         }
 
         binding.createPassword.setOnClickListener {
-            if (!validatePassword(binding.edtPassWordNew.getTextView())){
+            if (!validatePassword(binding.edtPassWordNew.getTextView())) {
                 show(resources.getString(R.string.fail_password))
-            }else if(binding.edtPassWordNew.getTextView() == password){
+            } else if (binding.edtPassWordNew.getTextView() == password) {
                 show("Mật khẩu mới phải khác mật khẩu cũ")
-            }else {
-                viewModel.changePassword(
-                    convertToRequestBody(sharePrefer.getUserId().toString()),
-                    convertToRequestBody(binding.edtPassWordNew.getTextView())
-                )
-
-                viewModel.isLoadingLiveData.observe(viewLifecycleOwner){
-                    if(it){
-                        binding.loadingData.visibility = View.VISIBLE
-                    }else{
-                        binding.loadingData.visibility = View.GONE
-                    }
-                }
-
-                viewModel.isSuccessfulLiveData.observe(viewLifecycleOwner){
-                    if(it){
-                        show("Bạn đã thay đổi mật khẩu thành công")
-                        val intent = Intent(requireActivity(), HomeActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
+            } else {
+                lifecycleScope.launch {
+                    viewModel.changePassword(
+                        sharePrefer.getUserId(),
+                        ChangePasswordModel(
+                            sharePrefer.getPassword(),
+                            binding.edtPassWordNew.getTextView()
+                        )
+                    )
+                    viewModel.isSuccessful.collect { isSuccess ->
+                        if(isSuccess) {
+                            val intent = Intent(requireActivity(), HomeActivity::class.java)
+                            intent.flags =
+                                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(intent)
+                        }
                     }
                 }
             }
@@ -82,18 +92,18 @@ class FragmentCreatePassword : BaseFragment<ChangePasswordViewModel, FragmentCre
 
     }
 
-    private fun checkEnableButtonInfo(edt: CustomTextViewInfo){
+    private fun checkEnableButtonInfo(edt: CustomTextViewInfo) {
         edt.isEnableButtonUpdateInfo = {
-            if(it) enableButtonChangeInfo() else disableButtonChangeInfo()
+            if (it) enableButtonChangeInfo() else disableButtonChangeInfo()
         }
     }
 
-    private fun disableButtonChangeInfo(){
+    private fun disableButtonChangeInfo() {
         binding.createPassword.alpha = 0.5f
         binding.createPassword.isEnabled = false
     }
 
-    private fun enableButtonChangeInfo(){
+    private fun enableButtonChangeInfo() {
         binding.createPassword.alpha = 1f
         binding.createPassword.isEnabled = true
     }
@@ -101,7 +111,7 @@ class FragmentCreatePassword : BaseFragment<ChangePasswordViewModel, FragmentCre
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    )= FragmentCreatePasswordBinding.inflate(inflater)
+    ) = FragmentCreatePasswordBinding.inflate(inflater)
 
     override fun onFragmentBack(): Boolean {
         return false

@@ -43,7 +43,7 @@ class InfoHospitalActivity : BaseActivity<EmptyViewModel, ActivityInfoHospitalBi
 
     private fun initUi() {
 
-        hospital = intent.getSerializableExtra(HospitalActivity.OBJECT_HOSPITAL) as Hospital
+        hospital = intent.getParcelableExtra<Hospital>(HospitalActivity.OBJECT_HOSPITAL) as Hospital
 
         binding.headerInfoHospital.setTitle(getString(R.string.info_hospital))
         binding.nameHospital.text = hospital.name
@@ -97,7 +97,8 @@ class InfoHospitalActivity : BaseActivity<EmptyViewModel, ActivityInfoHospitalBi
     }
 
     private fun getDoctors() {
-        val adapter = DoctorHospitalAdapter(hospital.specialist)
+        val adapter = DoctorHospitalAdapter()
+        adapter.items = hospital.specialist
         binding.rcvBookHospital.adapter = adapter
         adapter.onClickItem = {
             val intent = Intent(this@InfoHospitalActivity, InfoDoctorActivity::class.java)
@@ -107,7 +108,8 @@ class InfoHospitalActivity : BaseActivity<EmptyViewModel, ActivityInfoHospitalBi
     }
 
     private fun getServices() {
-        val adapter = ServiceHospitalAdapter(hospital.specialist)
+        val adapter = ServiceHospitalAdapter()
+        adapter.items = hospital.specialist
         binding.rcvBookHospital.adapter = adapter
     }
 

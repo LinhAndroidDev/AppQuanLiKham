@@ -1,55 +1,41 @@
 package com.example.appkhambenh.ui.ui.user.avatar
 
-import androidx.lifecycle.MutableLiveData
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.ApiClient
-import com.example.appkhambenh.ui.data.remote.entity.UploadImageResponse
-import okhttp3.RequestBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.appkhambenh.ui.data.remote.repository.UpdateAvatarRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import okhttp3.MultipartBody
+import javax.inject.Inject
 
-class UploadImageViewModel : BaseViewModel() {
-    val loadingLiveData = MutableLiveData<Boolean>()
-    val isSuccessfulLiveData = MutableLiveData<Boolean>()
+@HiltViewModel
+class UploadImageViewModel @Inject constructor(private val repository: UpdateAvatarRepository) :
+    BaseViewModel() {
+    val isSuccessful = MutableStateFlow(false)
 
-    fun uploadImage(
-        userId: RequestBody,
-        avatar: RequestBody
-    ){
-        loadingLiveData.value = true
-        ApiClient.shared().uploadImage(userId, avatar)
-            .enqueue(object : Callback<UploadImageResponse>{
-                override fun onResponse(
-                    call: Call<UploadImageResponse>,
-                    response: Response<UploadImageResponse>,
-                ) {
-                    loadingLiveData.value = false
-                    if(response.isSuccessful){
-                        response.body().let {
-                            when(it?.statusCode){
-                                ApiClient.STATUS_CODE_SUCCESS->{
-                                    isSuccessfulLiveData.value = true
-                                }
-                                ApiClient.STATUS_USER_NOT_EXIT->{
-                                    errorApiLiveData.value = it.message
-                                }
-                                ApiClient.STATUS_USER_EXIST->{
-                                    errorApiLiveData.value = it.message
-                                }
-                                ApiClient.STATUS_SERVER_NOT_RESPONSE->{
-                                    errorApiLiveData.value = it.message
-                                }
-                            }
+    suspend fun updateAvatar(id: Int, avatar: MultipartBody.Part) {
+        loading.postValue(true)
+        try {
+            repository.updateAvatar(id, avatar).let {
+                loading.postValue(false)
+                if (it.isSuccessful) {
+                    when(it.body()?.statusCode) {
+                        ApiClient.STATUS_CODE_SUCCESS -> {
+                            errorApiLiveData.postValue(it.body()?.message)
+                            isSuccessful.value = true
+                        }
+
+                        else -> {
+                            errorApiLiveData.postValue(it.body()?.message)
                         }
                     }
+                } else {
+                    errorApiLiveData.postValue(it.body()?.message)
                 }
-
-                override fun onFailure(call: Call<UploadImageResponse>, t: Throwable) {
-                    loadingLiveData.value = false
-                    errorApiLiveData.value = t.message
-                }
-
-            })
+            }
+        } catch (e: Exception) {
+            loading.postValue(false)
+            errorApiLiveData.postValue(e.message)
+        }
     }
 }

@@ -17,7 +17,6 @@ import com.example.appkhambenh.ui.utils.expandView
 
 class CustomHeader : LinearLayout {
     val binding by lazy { LayoutHeaderCommonBinding.inflate(LayoutInflater.from(context)) }
-    var isRevert: ((Boolean) -> Unit)? = null
     var searchItem: ((String) -> Unit)? = null
     private var isExpand = false
 
@@ -48,10 +47,6 @@ class CustomHeader : LinearLayout {
             (context as BaseActivity<*, *>).back()
         }
 
-        binding.setting.setOnClickListener {
-            isRevert?.invoke(true)
-        }
-
         binding.searchHeader.keySearch = {
             searchItem?.invoke(it)
         }
@@ -74,8 +69,8 @@ class CustomHeader : LinearLayout {
         binding.searchHeader.clrFocus()
     }
 
-    fun visibleSetting() {
-        binding.setting.visibility = View.VISIBLE
+    fun visibleDelete() {
+        binding.delete.visibility = View.VISIBLE
     }
 
     fun visibleSearch() {
@@ -101,5 +96,9 @@ class CustomHeader : LinearLayout {
             binding.backHeader,
             ColorStateList.valueOf(context.getColor(R.color.black))
         )
+    }
+
+    fun hideBtnBack() {
+        binding.backHeader.visibility = View.GONE
     }
 }

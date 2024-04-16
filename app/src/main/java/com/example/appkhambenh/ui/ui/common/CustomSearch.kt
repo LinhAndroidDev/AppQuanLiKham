@@ -1,7 +1,6 @@
 package com.example.appkhambenh.ui.ui.common
 
 import android.content.Context
-import android.graphics.PorterDuff
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,7 @@ import android.widget.RelativeLayout
 import androidx.core.widget.doOnTextChanged
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.LayoutCustomSearchBinding
-import com.example.appkhambenh.ui.utils.setBgViewTint
+import com.example.appkhambenh.ui.utils.setBgColorViewTint
 
 
 class CustomSearch : RelativeLayout {
@@ -34,18 +33,15 @@ class CustomSearch : RelativeLayout {
 
     private fun initView() {
         addView(binding.root)
-
         initUi()
     }
 
     private fun initUi() {
         disableDeleteText()
-
         binding.search.doOnTextChanged { text, _, _, _ ->
             keySearch?.invoke(text.toString())
             if (text?.trim()!!.isNotEmpty()) enableDeleteText() else disableDeleteText()
         }
-
         binding.deleteTxt.setOnClickListener { clearText() }
     }
 
@@ -76,6 +72,6 @@ class CustomSearch : RelativeLayout {
     }
 
     fun setBgGreySearch() {
-        setBgViewTint(binding.search, context.getColor(R.color.grey_light))
+        setBgColorViewTint(binding.search, context.getColor(R.color.grey_light))
     }
 }

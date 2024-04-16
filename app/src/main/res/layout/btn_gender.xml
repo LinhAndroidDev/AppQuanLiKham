@@ -7,7 +7,7 @@
     android:background="@drawable/bg_gender_male"
     android:gravity="center"
     android:orientation="horizontal"
-    android:paddingHorizontal="@dimen/dimen_30"
+    android:paddingHorizontal="@dimen/dimen_20"
     android:paddingVertical="@dimen/dimen_8">
 
     <ImageView
@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/nameGender"
-        style="@style/text_sp16_black_bold"
+        style="@style/text_sp14_black_bold"
         android:layout_marginStart="@dimen/dimen_3"
         android:text="Nam" />
 </LinearLayout>

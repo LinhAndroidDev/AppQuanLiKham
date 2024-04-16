@@ -38,9 +38,12 @@ class HospitalActivity : BaseActivity<HospitalViewModel, ActivityHospitalBinding
             viewModel.getListHospital()
 
             viewModel.hospitalMutableLiveData.observe(this@HospitalActivity) {
-                hospitalAdapter = HospitalAdapter(it)
+                hospitalAdapter = HospitalAdapter()
+                hospitalAdapter.items = it
                 binding.rcvHospital.adapter = hospitalAdapter
-
+                binding.headerHospital.searchItem = {
+                    hospitalAdapter.filter.filter(it)
+                }
                 hospitalAdapter.onClickItem = { hospital ->
                     val intent = Intent(this@HospitalActivity, InfoHospitalActivity::class.java)
                     intent.putExtra(OBJECT_HOSPITAL, hospital)

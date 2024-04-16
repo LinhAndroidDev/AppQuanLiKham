@@ -23,6 +23,7 @@ interface SharePreferenceRepository {
         const val INDEX_ETHNICS = "INDEX_ETHNICS"
         const val INDEX_NATIONALITY = "INDEX_NATIONALITY"
         const val INDEX_JOB = "INDEX_JOB"
+        const val IDENTIFICATION = "IDENTIFICATION"
     }
 
     fun saveAuthorization(authorization: String)
@@ -108,4 +109,8 @@ interface SharePreferenceRepository {
     fun saveIndexJob(job: Int)
 
     fun getIndexJob(): Int
+
+    fun saveIdentification(identification: String)
+
+    fun getIdentification(): String
 }

@@ -89,28 +89,24 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
         }
 
         binding.login.setOnClickListener {
-//            val email = binding.edtAccount.text.toString()
-//            val password = binding.edtPassword.text.toString()
-//            if (email.isEmpty() || password.isEmpty()) {
-//                setNotification(R.color.txt_green, R.string.enter_enough_info)
-//            } else if (!validateEmail(email)) {
-//                setNotification(R.color.txt_red, R.string.fail_email)
-//            } else if (!validatePassword(password)) {
-//                setNotification(R.color.txt_red, R.string.fail_password)
-//            } else {
-//                binding.notificationLogin.visibility = View.GONE
-//
-//                lifecycleScope.launch(Dispatchers.Main) {
-//                    viewModel.requestLoginUser(
-//                        context = requireActivity(),
-//                        loginModel = LoginModel(email, password)
-//                    )
-//                }
-//            }
+            val email = binding.edtAccount.text.toString()
+            val password = binding.edtPassword.text.toString()
+            if (email.isEmpty() || password.isEmpty()) {
+                setNotification(R.color.txt_green, R.string.enter_enough_info)
+            } else if (!validateEmail(email)) {
+                setNotification(R.color.txt_red, R.string.fail_email)
+            } else if (!validatePassword(password)) {
+                setNotification(R.color.txt_red, R.string.fail_password)
+            } else {
+                binding.notificationLogin.visibility = View.GONE
 
-            val intent = Intent(requireActivity(), HomeActivity::class.java)
-            startActivity(intent)
-            activity?.finish()
+                lifecycleScope.launch(Dispatchers.Main) {
+                    viewModel.requestLoginUser(
+                        context = requireActivity(),
+                        loginModel = LoginModel(email, password)
+                    )
+                }
+            }
         }
 
         binding.register.setOnClickListener {

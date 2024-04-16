@@ -4,27 +4,32 @@ import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun checkDateAppoint(strDate: String): Boolean {
-    val dateFormat = SimpleDateFormat("HH:mm EEEE','dd MMMM yyyy", Locale.getDefault())
-    val date = dateFormat.parse(strDate)
+object DateUtils {
+    const val TIME = "HH:mm:ss dd/MM/yyyy"
+    const val DAY_OF_YEAR = "dd/MM/yyyy"
+    const val TIME_UPLOAD_AVATAR = "dd_MM_yyyy_HH_mm_ss"
 
-    val calendarCurrent = Calendar.getInstance()
-    val calendarParsed = Calendar.getInstance()
-    calendarParsed.time = date
+    @SuppressLint("SimpleDateFormat")
+    fun convertDateToLong(date: String): Long {
+        val dateTimeString = "00:00:00 $date"
+        val dateFormat = SimpleDateFormat(TIME)
+        return (dateFormat.parse(dateTimeString)!!.time / 1000)
+    }
 
-    return calendarCurrent > calendarParsed
-}
+    @SuppressLint("SimpleDateFormat")
+    fun convertLongToDate(seconds: Long): String {
+        val dateFormat = SimpleDateFormat(DAY_OF_YEAR)
+        val date = Date(seconds * 1000L)
+        return dateFormat.format(date)
+    }
 
-@SuppressLint("SimpleDateFormat")
-fun convertDateToInt(date: String): Int {
-    val dateTimeString = "00:00:00 $date"
-    val dateFormat = SimpleDateFormat("HH:mm:ss dd/MM/yyyy")
-    return (dateFormat.parse(dateTimeString)!!.time / 1000).toInt()
-}
+    fun getDateCurrentToLong(): Long {
+        val dateCurrent = SimpleDateFormat(DAY_OF_YEAR, Locale.getDefault()).format(Date())
+        return convertDateToLong(dateCurrent)
+    }
 
-@SuppressLint("SimpleDateFormat")
-fun convertIntToDate(seconds: Int): String {
-    val dateFormat = SimpleDateFormat("dd/MM/yyyy")
-    val date = Date(seconds * 1000L)
-    return dateFormat.format(date)
+    fun getTimeCurrent(): String {
+        val timeCurrent = SimpleDateFormat(TIME_UPLOAD_AVATAR, Locale.getDefault()).format(Date())
+        return timeCurrent.toString()
+    }
 }

@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,9 +20,9 @@ import com.bumptech.glide.Glide
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentHomeBinding
 import com.example.appkhambenh.ui.base.BaseFragment
+import com.example.appkhambenh.ui.data.remote.helper.Constants
 import com.example.appkhambenh.ui.model.Doctor
 import com.example.appkhambenh.ui.model.MedicalHandbook
-import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
 import com.example.appkhambenh.ui.ui.user.hospital.HospitalActivity
 import com.example.appkhambenh.ui.ui.user.hospital.InfoHospitalActivity
@@ -34,7 +33,6 @@ import com.example.appkhambenh.ui.ui.user.home.adapter.FunctionHomeAdapter
 import com.example.appkhambenh.ui.ui.user.home.adapter.ImageAdapter
 import com.example.appkhambenh.ui.ui.user.home.adapter.MedicalHandBookAdapter
 import com.example.appkhambenh.ui.ui.user.home.adapter.TopCsytAdapter
-import com.example.appkhambenh.ui.ui.user.qr.QrActivity
 import com.example.appkhambenh.ui.utils.functionHome
 import com.example.appkhambenh.ui.utils.onClickFunction
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,7 +58,18 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         super.bindData()
 
         lifecycleScope.launch(Dispatchers.Main) {
-            viewModel.getUserInfo(requireActivity())
+            viewModel.getUserInfo()
+            viewModel.isSuccessful.observe(requireActivity()) { isSuccessful ->
+                if(isSuccessful) {
+                    val strAvatar = Constants.BASE_URL + "get-avatar/${sharePrefer.getUserId()}"
+                    sharePrefer.saveUserAvatar(strAvatar)
+                    Glide.with(requireActivity()).load(strAvatar)
+                        .error(R.drawable.user_ad)
+                        .placeholder(R.drawable.user_ad)
+                        .into(binding.avatarUser)
+                }
+
+            }
         }
 
         viewModel.loading.observe(this) {
@@ -78,16 +87,6 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                         lifecycleScope.launch {
                             binding.txtUserBirth.text = sharePrefer.getUserBirth()
                             binding.txtUserName.text = sharePrefer.getUserName()
-
-                            sharePrefer.getUserAvatar().let { avt ->
-                                if (avt.isNotEmpty()) {
-                                    Glide.with(requireActivity()).load(avt)
-                                        .error(R.drawable.user_ad)
-                                        .placeholder(R.drawable.user_ad)
-                                        .into(binding.avatarUser)
-                                }
-                            }
-
                             delay(1000L)
                             withContext(Dispatchers.Main) {
                                 scrollInfinity()
@@ -98,13 +97,11 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                                 )
                                 binding.slide.startAnimation(animEnter)
                             }
-
                             delay(500L)
                             withContext(Dispatchers.Main) {
                                 binding.titleDoctorHighlight.visibility = View.VISIBLE
                                 binding.titleHandbook.visibility = View.VISIBLE
                                 binding.titleCsyt.visibility = View.VISIBLE
-
                                 doctorHighlight()
                                 medicalHandbook()
                                 topCsyt()
@@ -118,31 +115,11 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
     @SuppressLint("IntentReset")
     private fun initUi() {
-
         function()
-
         binding.avatarUser.setOnClickListener {
             val intent = Intent(requireActivity(), SeeAvatarActivity::class.java)
             startActivity(intent)
         }
-
-        binding.qrCode.setOnClickListener {
-            val intent = Intent(requireActivity(), QrActivity::class.java)
-            startActivity(intent)
-        }
-
-        /** User QR CODE */
-        val result = activity?.intent?.getStringExtra(HomeActivity.RESULT)
-
-        if (result != null) {
-            if (result.contains("https://") || result.contains("http://")) {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(result))
-                startActivity(intent)
-            } else {
-                Toast.makeText(requireActivity(), result.toString(), Toast.LENGTH_SHORT).show()
-            }
-        }
-
     }
 
     private fun medicalHandbook() {
@@ -171,7 +148,8 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                 "9 phút đọc"
             )
         )
-        val adapter = MedicalHandBookAdapter(requireActivity(), handbooks)
+        val adapter = MedicalHandBookAdapter(requireActivity())
+        adapter.items = handbooks
         adapter.url = {
             if (it.isNotEmpty()) {
                 val intent = Intent(Intent.ACTION_VIEW)
@@ -200,7 +178,8 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                 )
             )
         }
-        val adapter = DoctorHighlightAdapter(doctors)
+        val adapter = DoctorHighlightAdapter()
+        adapter.items = doctors
         adapter.onClickItem = {
             val intent = Intent(requireActivity(), InfoDoctorActivity::class.java)
             startActivity(intent)
@@ -215,23 +194,12 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             startActivity(intent)
         }
 
-        val csyts = arrayListOf<Int>()
-        val adapterTopCsyt = TopCsytAdapter(requireActivity(), csyts)
+        val adapterTopCsyt = TopCsytAdapter()
         adapterTopCsyt.onCLickItem = {
-            if (it) {
-                val intent = Intent(requireActivity(), InfoHospitalActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        for (i in 0..10) {
-            csyts.add(1)
+            val intent = Intent(requireActivity(), InfoHospitalActivity::class.java)
+            startActivity(intent)
         }
         binding.rcvTopCsyt.apply {
-            layoutManager = LinearLayoutManager(
-                requireActivity(),
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
             adapter = adapterTopCsyt
         }
     }
@@ -242,7 +210,8 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         val images = arrayListOf(R.drawable.slide1, R.drawable.slide2, R.drawable.slide3)
         images.add(R.drawable.slide1)
         images.add(0, R.drawable.slide3)
-        val slideAdapter = ImageAdapter(requireActivity(), images)
+        val slideAdapter = ImageAdapter(requireActivity())
+        slideAdapter.items = images
         binding.slide.adapter = slideAdapter
 
         //create indicator
@@ -325,7 +294,8 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     }
 
     private fun function() {
-        val adapter = FunctionHomeAdapter(functionHome(requireActivity()))
+        val adapter = FunctionHomeAdapter()
+        adapter.items = functionHome(requireActivity())
         adapter.onClickItem = {
             onClickFunction(it, requireActivity())
         }

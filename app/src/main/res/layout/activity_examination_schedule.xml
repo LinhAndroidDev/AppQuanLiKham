@@ -37,35 +37,46 @@
             />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/layoutContent"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabExamination"
+        <LinearLayout
+            android:id="@+id/layoutContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            app:tabIndicatorColor="@color/text"
-            app:tabSelectedTextColor="@color/text"
-            app:tabTextColor="@color/text_common"
-            app:tabTextAppearance="@style/TabUnSelectedExamination"
-            app:tabSelectedTextAppearance="@style/TabExamination"
-            app:tabMode="scrollable"
-            app:tabGravity="center"/>
+            android:orientation="vertical">
 
-        <View
-            android:background="@color/grey_light"
-            android:layout_width="match_parent"
-            android:layout_height="0.8dp"/>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabExamination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                app:tabIndicatorColor="@color/text"
+                app:tabSelectedTextColor="@color/text"
+                app:tabTextColor="@color/text_common"
+                app:tabTextAppearance="@style/TabUnSelectedExamination"
+                app:tabSelectedTextAppearance="@style/TabExamination"
+                app:tabMode="scrollable"
+                app:tabGravity="center"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcvExamination"
+            <View
+                android:background="@color/grey_light"
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvExamination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        </LinearLayout>
+
+        <include
+            android:id="@+id/show"
+            layout="@layout/layout_loading"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-    </LinearLayout>
+            android:layout_height="match_parent" />
+    </RelativeLayout>
 
 </LinearLayout>

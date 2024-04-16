@@ -6,12 +6,12 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.example.appkhambenh.R
@@ -29,8 +29,6 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
 
     protected lateinit var viewModel: V
     protected lateinit var binding: B
-    var screenWidth: Int = 0
-    var screenHeight: Int = 0
     val loading by lazy { ProgressDialog(requireActivity()) }
     lateinit var sharePrefer: SharePreferenceRepositoryImpl
 
@@ -63,6 +61,12 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
         viewModel.errorApiLiveData.observe(viewLifecycleOwner) {
             show(it)
         }
+    }
+
+    fun replaceFragment(fragment: Fragment, changeId: Int) {
+        val fm: FragmentTransaction =
+            requireActivity().supportFragmentManager.beginTransaction()
+        fm.replace(changeId, fragment).addToBackStack(null).commit()
     }
 
     override fun onFragmentBack(): Boolean {
@@ -108,13 +112,6 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
     fun back() {
         closeKeyboard()
         activity?.onBackPressed()
-    }
-
-    private fun getSizeWindow() {
-        val displayMetrics = DisplayMetrics()
-        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
-        screenHeight = displayMetrics.heightPixels
-        screenWidth = displayMetrics.widthPixels
     }
 
     fun isOnline(context: Context): Boolean {

@@ -27,10 +27,6 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
     private val bottomSheetBehavior by lazy { BottomSheetBehavior.from(binding.bottomSheet.layoutBook) }
     private val bottomSelectLanguage by lazy { BottomSheetBehavior.from(binding.bottomSelectLanguage.layoutSelectLanguage) }
 
-    companion object {
-        const val RESULT = "RESULT"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -41,18 +37,17 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
     private fun initUi() {
 
         binding.changeIdHome.setOnTouchListener { _, _ -> true }
-
-        replaceFragment(FragmentHome())
-
+        replaceFragment(FragmentHome(), R.id.changeIdHome)
         initBottomBook()
-
         initBottomSelectLanguage()
 
-        binding.bottomNvg.isEnabled = false
-        binding.bottomNvg.isClickable = false
-        binding.bottomNvg.isFocusable = false
-        binding.bottomNvg.isFocusableInTouchMode = false
-        binding.bottomNvg.setOnClickListener(null)
+        binding.bottomNvg.apply {
+            isEnabled = false
+            isClickable = false
+            isFocusable = false
+            isFocusableInTouchMode = false
+            setOnClickListener(null)
+        }
 
         binding.bottomNvg.setOnItemSelectedListener {
             val fmCurrent = supportFragmentManager.findFragmentById(R.id.changeIdHome)
@@ -60,18 +55,14 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
                 R.id.home -> {
                     checkExpandBook()
                     if (fmCurrent !is FragmentHome) {
-                        replaceFragment(
-                            FragmentHome()
-                        )
+                        replaceFragment(FragmentHome(), R.id.changeIdHome)
                     }
                 }
 
                 R.id.profile -> {
                     checkExpandBook()
                     if (fmCurrent !is FragmentCommunity) {
-                        replaceFragment(
-                            FragmentCommunity()
-                        )
+                        replaceFragment(FragmentCommunity(), R.id.changeIdHome)
                     }
                 }
 
@@ -80,18 +71,14 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
                 R.id.notification -> {
                     checkExpandBook()
                     if (fmCurrent !is FragmentNotification) {
-                        replaceFragment(
-                            FragmentNotification()
-                        )
+                        replaceFragment(FragmentNotification(), R.id.changeIdHome)
                     }
                 }
 
                 R.id.setting -> {
                     checkExpandBook()
                     if (fmCurrent !is FragmentSetting) {
-                        replaceFragment(
-                            FragmentSetting()
-                        )
+                        replaceFragment(FragmentSetting(), R.id.changeIdHome)
                     }
                 }
             }
@@ -124,11 +111,6 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
             expandBottomBook()
         }
         binding.bottomNvg.menu.findItem(R.id.register).isChecked = true
-    }
-
-    private fun replaceFragment(fm: Fragment) {
-        val fg = supportFragmentManager.beginTransaction()
-        fg.replace(R.id.changeIdHome, fm).commit()
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -273,11 +255,13 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
     }
 
     private fun unSelectLanguage() {
-        binding.bottomSelectLanguage.vietnamese.unSelectLanguage()
-        binding.bottomSelectLanguage.english.unSelectLanguage()
-        binding.bottomSelectLanguage.chinese.unSelectLanguage()
-        binding.bottomSelectLanguage.japanese.unSelectLanguage()
-        binding.bottomSelectLanguage.thailand.unSelectLanguage()
+        binding.bottomSelectLanguage.apply {
+            vietnamese.unSelectLanguage()
+            english.unSelectLanguage()
+            chinese.unSelectLanguage()
+            japanese.unSelectLanguage()
+            thailand.unSelectLanguage()
+        }
     }
 
     internal fun expandBottomSelectLanguage() {
@@ -302,30 +286,32 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
         if (fm is FragmentSetting) {
             fm.changeLanguageTextSetting()
         }
-
-        binding.bottomNvg.menu.findItem(R.id.home).title = getString(R.string.home)
-        binding.bottomNvg.menu.findItem(R.id.profile).title = getString(R.string.community)
-        binding.bottomNvg.menu.findItem(R.id.register).title = getString(R.string.book_examination)
-        binding.bottomNvg.menu.findItem(R.id.notification).title = getString(R.string.notification)
-        binding.bottomNvg.menu.findItem(R.id.setting).title = getString(R.string.setting)
-
-        binding.bottomSheet.titleBottomBook.text = getString(R.string.book_now)
-        binding.bottomSheet.titleDoctorBook.text = getString(R.string.go_to_doctor)
-        binding.bottomSheet.noteDoctorBook.text = getString(R.string.note_doctor)
-        binding.bottomSheet.titleServiceBook.text = getString(R.string.health_services)
-        binding.bottomSheet.noteServiceBook.text = getString(R.string.note_health_services)
-        binding.bottomSheet.titleCsytBook.text = getString(R.string.csyt)
-        binding.bottomSheet.noteCsytBook.text = getString(R.string.note_csyt)
-
+        binding.bottomNvg.menu.apply {
+            findItem(R.id.home).title = getString(R.string.home)
+            findItem(R.id.profile).title = getString(R.string.community)
+            findItem(R.id.register).title = getString(R.string.book_examination)
+            findItem(R.id.notification).title = getString(R.string.notification)
+            findItem(R.id.setting).title = getString(R.string.setting)
+        }
+        binding.bottomSheet.apply {
+            titleBottomBook.text = getString(R.string.book_now)
+            titleDoctorBook.text = getString(R.string.go_to_doctor)
+            noteDoctorBook.text = getString(R.string.note_doctor)
+            titleServiceBook.text = getString(R.string.health_services)
+            noteServiceBook.text = getString(R.string.note_health_services)
+            titleCsytBook.text = getString(R.string.csyt)
+            noteCsytBook.text = getString(R.string.note_csyt)
+        }
         binding.bottomSelectLanguage.titleChangeLanguage.text = getString(R.string.select_language)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         val fmCurrent = supportFragmentManager.findFragmentById(R.id.changeIdHome)
         if (fmCurrent is FragmentHome) {
             super.onBackPressed()
         } else {
-            replaceFragment(FragmentHome())
+            replaceFragment(FragmentHome(), R.id.changeIdHome)
             binding.bottomNvg.menu.findItem(R.id.home).isChecked = true
             if (isExpandBook) {
                 isExpandBook = false

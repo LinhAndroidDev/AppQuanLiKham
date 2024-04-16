@@ -6,6 +6,7 @@ import com.example.appkhambenh.ui.utils.SharePreferenceRepository.Companion.CHEC
 import com.example.appkhambenh.ui.utils.SharePreferenceRepository.Companion.DATE_APPOINTMENT
 import com.example.appkhambenh.ui.utils.SharePreferenceRepository.Companion.EMAIL
 import com.example.appkhambenh.ui.utils.SharePreferenceRepository.Companion.HOUR_APPOINTMENT
+import com.example.appkhambenh.ui.utils.SharePreferenceRepository.Companion.IDENTIFICATION
 import com.example.appkhambenh.ui.utils.SharePreferenceRepository.Companion.ID_DAY
 import com.example.appkhambenh.ui.utils.SharePreferenceRepository.Companion.INDEX_ETHNICS
 import com.example.appkhambenh.ui.utils.SharePreferenceRepository.Companion.INDEX_JOB
@@ -154,4 +155,10 @@ class SharePreferenceRepositoryImpl(val ctx: Context): SharePreferenceRepository
     }
 
     override fun getIndexJob(): Int = prefs[INDEX_JOB] ?: 0
+
+    override fun saveIdentification(identification: String) {
+        prefs[IDENTIFICATION] = identification
+    }
+
+    override fun getIdentification(): String = prefs[IDENTIFICATION] ?: ""
 }

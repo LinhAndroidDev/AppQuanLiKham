@@ -5,25 +5,23 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.Typeface
 import android.text.Spannable
-import android.text.SpannableString
 import android.text.TextUtils
-import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
 import android.util.Patterns
 import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.FragmentActivity
 import com.example.appkhambenh.R
+import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.model.FunctionMain
+import com.example.appkhambenh.ui.ui.user.HomeActivity
+import com.example.appkhambenh.ui.ui.user.contact.CallWithDoctorActivity
 import com.example.appkhambenh.ui.ui.user.hospital.HospitalActivity
 import com.example.appkhambenh.ui.ui.user.doctor.SearchDoctorActivity
 import com.example.appkhambenh.ui.ui.user.home.Function
 import com.example.appkhambenh.ui.ui.user.manage_appointment.ExaminationScheduleActivity
-import com.example.appkhambenh.ui.ui.user.manage_appointment.ManageAppointmentActivity
 import com.example.appkhambenh.ui.ui.user.medicine.MedicineActivity
+import com.example.appkhambenh.ui.ui.user.navigation.communication.FragmentCommunity
 import com.example.appkhambenh.ui.ui.user.service.ExaminationServiceActivity
 
 fun expandView(view: View, height: Int) {
@@ -71,28 +69,6 @@ fun validatePhone(phone: String): Boolean {
         .matches() && phone.length >= 10)
 }
 
-fun setTextNotification(reasons: String, date: String, hour: String): SpannableString {
-    val notification =
-        "Lịch hẹn $date lúc $hour lý do $reasons của bạn chưa được xác nhận. Chúng tôi đang cố gắng khắc phục sự cố"
-    val spannable = SpannableString(notification)
-
-    val dateStartIndex = notification.indexOf(date)
-    if (dateStartIndex != -1) {
-        spannable.setSpan(
-            ForegroundColorSpan(Color.RED),
-            dateStartIndex,
-            dateStartIndex + date.length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-    }
-
-    setStyleTextAtPosition(notification, hour, ForegroundColorSpan(Color.BLUE), spannable)
-
-    setStyleTextAtPosition(notification, reasons, StyleSpan(Typeface.BOLD_ITALIC), spannable)
-
-    return spannable
-}
-
 fun setStyleTextAtPosition(str: String, strChange: String, style: Any, spannable: Spannable) {
     val strRegex = Regex(strChange)
     val strMatchResult = strRegex.find(str)
@@ -112,7 +88,7 @@ fun functionHome(context: Context): ArrayList<FunctionMain> {
     function.add(FunctionMain(R.drawable.icon_doctor, context.getString(R.string.appoint_doctor)))
     function.add(FunctionMain(R.drawable.ic_action_schedule, context.getString(R.string.examination_schedule)))
     function.add(FunctionMain(R.drawable.ic_action_department, context.getString(R.string.hospital_examination)))
-    function.add(FunctionMain(R.drawable.ic_action_results, context.getString(R.string.examination_results)))
+    function.add(FunctionMain(R.drawable.ic_action_message, context.getString(R.string.community)))
     function.add(FunctionMain(R.drawable.ic_action_service, context.getString(R.string.check_service)))
     function.add(FunctionMain(R.drawable.ic_action_history, context.getString(R.string.medical_examination_history)))
     function.add(FunctionMain(R.drawable.ic_action_contact, context.getString(R.string.contact)))
@@ -134,7 +110,7 @@ fun onClickFunction(index: Int, activity: FragmentActivity) {
         }
 
         Function.SCHEDULE.id -> {
-            val intent = Intent(activity, ManageAppointmentActivity::class.java)
+            val intent = Intent(activity, ExaminationScheduleActivity::class.java)
             activity.startActivity(intent)
         }
 
@@ -143,13 +119,17 @@ fun onClickFunction(index: Int, activity: FragmentActivity) {
             activity.startActivity(intent)
         }
 
-        Function.RESULTS.id -> {
-            val intent = Intent(activity, ExaminationScheduleActivity::class.java)
-            activity.startActivity(intent)
+        Function.COMMUNITY.id -> {
+            (activity as HomeActivity).replaceFragment(FragmentCommunity(), R.id.changeIdHome)
         }
 
         Function.BOOK_SERVICE.id -> {
             val intent = Intent(activity, ExaminationServiceActivity::class.java)
+            activity.startActivity(intent)
+        }
+
+        Function.CONTACT.id -> {
+            val intent = Intent(activity, CallWithDoctorActivity::class.java)
             activity.startActivity(intent)
         }
     }
@@ -167,6 +147,6 @@ fun animRotationBack0(img: ImageView) {
     animator.start()
 }
 
-fun setBgViewTint(v: View, color: Int) {
+fun setBgColorViewTint(v: View, color: Int) {
     v.backgroundTintList = ColorStateList.valueOf(color)
 }

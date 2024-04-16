@@ -1,43 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layoutCoverInfo"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/nameInfo"
-        style="@style/text_sp16"
-        android:layout_marginVertical="@dimen/dimen_15"
-        android:layout_marginStart="@dimen/dimen_20"
-        android:text="Kinh" />
-
-    <View
+    <FrameLayout
+        android:id="@+id/layoutCoverInfo"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_1"
-        android:layout_gravity="bottom"
-        android:background="@color/grey_light"
-        android:backgroundTint="#EEF5FF" />
+        android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:id="@+id/imgCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|end"
-        android:layout_marginEnd="@dimen/dimen_15"
-        android:visibility="gone">
+        <TextView
+            android:id="@+id/nameInfo"
+            style="@style/text_sp16"
+            android:layout_marginVertical="@dimen/dimen_15"
+            android:layout_marginStart="@dimen/dimen_20"
+            android:text="Kinh" />
 
-        <LinearLayout
-            android:layout_width="@dimen/dimen_18"
-            android:layout_height="@dimen/dimen_18"
-            android:layout_centerInParent="true"
-            android:background="@drawable/bg_search_date"
-            android:backgroundTint="@color/white" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1"
+            android:layout_gravity="bottom"
+            android:background="@color/grey_light"
+            android:backgroundTint="#EEF5FF" />
 
-        <ImageView
-            android:layout_width="@dimen/dimen_22"
-            android:layout_height="@dimen/dimen_22"
-            android:src="@drawable/ic_action_select_language" />
+        <RelativeLayout
+            android:id="@+id/imgCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="@dimen/dimen_15"
+            android:visibility="gone">
 
-    </RelativeLayout>
+            <LinearLayout
+                android:layout_width="@dimen/dimen_18"
+                android:layout_height="@dimen/dimen_18"
+                android:layout_centerInParent="true"
+                android:background="@drawable/bg_search_date"
+                android:backgroundTint="@color/white" />
 
-</FrameLayout>
+            <ImageView
+                android:layout_width="@dimen/dimen_22"
+                android:layout_height="@dimen/dimen_22"
+                android:src="@drawable/ic_action_select_language" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+</layout>

@@ -1,33 +1,26 @@
 package com.example.appkhambenh.ui.ui.user.manage_appointment.adapter
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ItemExaminationBinding
+import com.example.appkhambenh.ui.base.BaseAdapter
+import com.example.appkhambenh.ui.data.remote.entity.DetailAppointment
 
-class ExaminationAdapter(private var examinations: ArrayList<Int>) :
-    Adapter<ExaminationAdapter.ViewHolder>() {
+class ExaminationAdapter : BaseAdapter<DetailAppointment, ItemExaminationBinding>() {
+    var onClickItem: (() -> Unit)? = null
 
-    inner class ViewHolder(val v: ItemExaminationBinding) : RecyclerView.ViewHolder(v.root)
+    override fun getLayout(): Int = R.layout.item_examination
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int,
-    ): ExaminationAdapter.ViewHolder {
-        val v by lazy {
-            ItemExaminationBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+    override fun onBindViewHolder(holder: BaseViewHolder<ItemExaminationBinding>, position: Int) {
+        val doctor = items[position]
+        holder.v.apply {
+            tvNameDoctor.text = doctor.doctorName
+            tvNameHospital.text = doctor.hospitalName
+            tvNamePatient.text = doctor.patientName
+            tvHour.text = doctor.time
+//            tvDay.text = DateUtils.convertLongToDate(doctor.)
         }
-        return ViewHolder(v)
+        holder.itemView.setOnClickListener {
+            onClickItem?.invoke()
+        }
     }
-
-    override fun onBindViewHolder(holder: ExaminationAdapter.ViewHolder, position: Int) {
-
-    }
-
-    override fun getItemCount(): Int = examinations.size
 }

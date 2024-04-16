@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_10"
+        app:cardCornerRadius="@dimen/dimen_15"
+        app:cardElevation="@dimen/dimen_1"
+        app:strokeColor="@color/grey"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_20"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="@dimen/dimen_70"
+                    android:layout_height="@dimen/dimen_70"
+                    android:src="@drawable/img_doctor" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_15"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/text_sp14_black_bold"
+                        android:text="Ths.Bs Trần Thị Thuý Mùi" />
+
+                    <TextView
+                        style="@style/text_sp12"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:text="Phòng khám đa khoa Mediplus" />
+
+                    <TextView
+                        style="@style/text_sp14_color_text"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:text="Nội Tổng Quát" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_corners_10"
+                    android:backgroundTint="@color/grey_light"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingVertical="@dimen/dimen_5">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="@dimen/dimen_20"
+                        android:background="@drawable/ic_action_visit"
+                        android:backgroundTint="@color/grey_dark" />
+
+                    <TextView
+                        android:id="@+id/txtNumberVisitDr"
+                        style="@style/text_sp14"
+                        android:layout_marginStart="@dimen/dimen_5"
+                        android:text="70 đặt khám" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_corners_10"
+                    android:backgroundTint="@color/grey_light"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/dimen_7"
+                    android:paddingVertical="@dimen/dimen_5">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="@dimen/dimen_20"
+                        android:background="@drawable/ic_action_star"
+                        android:backgroundTint="@color/yellow" />
+
+                    <TextView
+                        android:id="@+id/txtEvaluateDr"
+                        style="@style/text_sp14"
+                        android:layout_marginStart="@dimen/dimen_5"
+                        android:text="4.87" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginBottom="@dimen/dimen_30">
+
+                <TextView
+                    style="@style/text_sp16"
+                    android:background="@drawable/boder_grey_corner_5"
+                    android:paddingHorizontal="@dimen/dimen_15"
+                    android:paddingVertical="@dimen/dimen_8"
+                    android:text="Xem hồ sơ" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_12"
+                    android:background="@drawable/bg_corners_5"
+                    android:backgroundTint="@color/text"
+                    android:gravity="center"
+                    android:paddingVertical="@dimen/dimen_8">
+
+                    <ImageView
+                        android:id="@+id/callVideo"
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="@dimen/dimen_20"
+                        android:src="@drawable/ic_call_video"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        style="@style/text_sp16_black_bold"
+                        android:layout_marginStart="@dimen/dimen_3"
+                        android:text="Gọi bác sĩ"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

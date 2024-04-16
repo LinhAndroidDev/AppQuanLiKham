@@ -2,6 +2,8 @@ package com.example.appkhambenh.ui.ui.user.navigation.communication
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.widget.SeekBar
+import android.widget.SeekBar.OnSeekBarChangeListener
 import com.example.appkhambenh.databinding.ActivityCreateQuestionBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.ui.EmptyViewModel
@@ -33,6 +35,21 @@ class CreateQuestionActivity : BaseActivity<EmptyViewModel, ActivityCreateQuesti
                 binding.female.stsSelected()
             }
         }
+
+        binding.progressAge.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+            override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
+                binding.tvAge.text = "$progress Tuổi"
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+
+            }
+
+        })
     }
 
     override fun getActivityBinding(inflater: LayoutInflater) =

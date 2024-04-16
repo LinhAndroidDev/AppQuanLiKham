@@ -5,19 +5,25 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.WindowManager
-import android.widget.Toast
-import com.bumptech.glide.Glide
+import androidx.lifecycle.lifecycleScope
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityEditAvatarBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.ui.user.HomeActivity
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.ktx.storage
-import java.text.SimpleDateFormat
-import java.util.*
+import com.example.appkhambenh.ui.ui.user.navigation.setting.FragmentSetting
+import com.example.appkhambenh.ui.utils.UriConvertFile
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
+import java.io.FileOutputStream
 
 @Suppress("DEPRECATION")
+@AndroidEntryPoint
 class EditAvatarActivity : BaseActivity<UploadImageViewModel, ActivityEditAvatarBinding>() {
     private var imgUri: Uri? = null
 
@@ -29,16 +35,18 @@ class EditAvatarActivity : BaseActivity<UploadImageViewModel, ActivityEditAvatar
 
     override fun bindData() {
         super.bindData()
-        viewModel.loadingLiveData.observe(this) {
-            if (!it) loading.dismiss()
+        viewModel.loading.observe(this) {
+            if (it) loading.show() else loading.dismiss()
         }
 
-        viewModel.isSuccessfulLiveData.observe(this) {
-            if (it) {
-                show(getString(R.string.update_avatar_successful))
-                val intent = Intent(this@EditAvatarActivity, HomeActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
+        lifecycleScope.launch(Dispatchers.Main) {
+            viewModel.isSuccessful.collect {
+                if (it) {
+                    val intent = Intent(this@EditAvatarActivity, HomeActivity::class.java)
+                    intent.flags =
+                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                }
             }
         }
     }
@@ -47,46 +55,37 @@ class EditAvatarActivity : BaseActivity<UploadImageViewModel, ActivityEditAvatar
 
         overridePendingTransition(R.anim.enter_avt, R.anim.exit_avt)
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+//        window.setFlags(
+//            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+//            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+//        )
 
-//        val strUri: String = intent.getStringExtra(FragmentInformation.URI_AVATAR).toString()
-//        imgUri = Uri.parse(strUri)
-        Glide.with(this)
-            .load(imgUri)
-            .into(binding.imgAvatarEdit)
+        val strUri: String = intent.getStringExtra(FragmentSetting.URI_AVATAR).toString()
+        imgUri = Uri.parse(strUri)
+        binding.imgAvatar.setImageURI(imgUri)
 
         binding.txtUpdateAvatar.setOnClickListener {
-            uploadImage()
-        }
-    }
-
-    private fun uploadImage() {
-        val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
-        val now = Date()
-        val fileName = formatter.format(now)
-        val storage = FirebaseStorage.getInstance().getReference("images/$fileName")
-        loading.show()
-
-        storage.putFile(imgUri!!).addOnSuccessListener {
-            val storageRef = Firebase.storage.reference.child("images/$fileName")
-            storageRef.downloadUrl.addOnSuccessListener { uri ->
-                sendToServer(uri.toString())
-            }.addOnFailureListener {
-                Toast.makeText(this, " Fail", Toast.LENGTH_SHORT).show()
+            if (imgUri != null) {
+//                val strFile =
+//                    UriConvertFile.getRealPath(this@EditAvatarActivity, imgUri!!).toString()
+//                val file = File(strFile)
+//                val multipartBodyAvatar = MultipartBody.Part.createFormData(
+//                    "avatar",
+//                    file.name,
+//                    convertToRequestBody(file.toString())
+//                )
+                val strFile = UriConvertFile.getFileFromUri(this@EditAvatarActivity, imgUri).toString()
+                val file = File(strFile)
+                val requestBodyAvatar =RequestBody.create("multipart/form-data".toMediaTypeOrNull(),file)
+                val multipartBodyAvt = MultipartBody.Part.createFormData("avatar",file.name,requestBodyAvatar)
+                lifecycleScope.launch(Dispatchers.Main) {
+                    viewModel.updateAvatar(
+                        sharePrefer.getUserId(),
+                        multipartBodyAvt
+                    )
+                }
             }
-        }.addOnFailureListener {
-            Toast.makeText(this, "Lỗi ko tải lên được", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    private fun sendToServer(avatar: String) {
-        viewModel.uploadImage(
-            convertToRequestBody(sharePrefer.getUserId().toString()),
-            convertToRequestBody(avatar)
-        )
     }
 
     override fun getActivityBinding(inflater: LayoutInflater) =

@@ -1,36 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginVertical="@dimen/dimen_5"
-    android:layout_marginEnd="@dimen/dimen_7"
-    android:orientation="horizontal">
-
-    <View
-        android:id="@+id/viewStart"
-        android:layout_width="@dimen/dimen_15"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-        android:id="@+id/layoutHourWorking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_time_un_select">
+        android:layout_marginVertical="@dimen/dimen_5"
+        android:layout_marginEnd="@dimen/dimen_7"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/hourWorking"
-            style="@style/text_sp16_black_bold"
-            android:layout_marginHorizontal="@dimen/dimen_16"
-            android:layout_marginVertical="@dimen/dimen_8"
-            android:text="11:00" />
+        <View
+            android:id="@+id/viewStart"
+            android:layout_width="@dimen/dimen_15"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/layoutHourWorking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_time_un_select">
+
+            <TextView
+                android:id="@+id/hourWorking"
+                style="@style/text_sp16_black_bold"
+                android:layout_marginHorizontal="@dimen/dimen_16"
+                android:layout_marginVertical="@dimen/dimen_8"
+                android:text="11:00" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/viewEnd"
+            android:layout_width="@dimen/dimen_10"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
     </LinearLayout>
-
-    <View
-        android:id="@+id/viewEnd"
-        android:layout_width="@dimen/dimen_10"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-
-</LinearLayout>
+</layout>

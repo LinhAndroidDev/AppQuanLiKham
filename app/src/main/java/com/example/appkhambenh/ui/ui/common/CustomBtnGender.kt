@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.BtnGenderBinding
-import com.example.appkhambenh.ui.utils.setBgViewTint
+import com.example.appkhambenh.ui.utils.setBgColorViewTint
 
 class CustomBtnGender : LinearLayout {
     private val binding by lazy { BtnGenderBinding.inflate(LayoutInflater.from(context)) }
@@ -32,13 +32,13 @@ class CustomBtnGender : LinearLayout {
     }
 
     fun stsSelected() {
-        setBgViewTint(binding.bgGender, context.getColor(R.color.background))
+        setBgColorViewTint(binding.bgGender, context.getColor(R.color.background))
         binding.icGender.setColorFilter(context.getColor(R.color.white))
         binding.nameGender.setTextColor(context.getColor(R.color.white))
     }
 
     fun stsUnSelected() {
-        setBgViewTint(binding.bgGender, context.getColor(R.color.grey_light))
+        setBgColorViewTint(binding.bgGender, context.getColor(R.color.grey))
         binding.icGender.setColorFilter(context.getColor(R.color.grey_1))
         binding.nameGender.setTextColor(context.getColor(R.color.text_common))
     }

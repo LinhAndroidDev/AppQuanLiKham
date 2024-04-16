@@ -4,7 +4,7 @@ data class RegisterModel(
     val decentralize: List<Any>? = listOf(),
     val hopitalID: Any? = null,
     val specialist: List<Any>? = listOf(),
-    val userBirthday: Any? = null,
+    val userBirthday: Long? = null,
     val userEmail: String?,
     val userGender: Any? = null,
     val userName: String?,

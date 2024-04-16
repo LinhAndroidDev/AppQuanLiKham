@@ -1,47 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginEnd="@dimen/dimen_10"
-    android:orientation="horizontal">
-
-    <View
-        android:id="@+id/viewStartTopCsyt"
-        android:layout_width="@dimen/dimen_15"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-        android:layout_width="@dimen/dimen_140"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_item_function"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_marginEnd="@dimen/dimen_10"
+        android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="@dimen/dimen_80"
-            android:layout_height="@dimen/dimen_80"
-            android:layout_marginVertical="@dimen/dimen_30"
-            android:src="@drawable/img_service" />
+        <View
+            android:id="@+id/viewStartTopCsyt"
+            android:layout_width="@dimen/dimen_15"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
-        <TextView
-            android:layout_marginHorizontal="@dimen/dimen_15"
-            style="@style/text_sp16_black_bold"
-            android:ellipsize="end"
+        <LinearLayout
+            android:layout_width="@dimen/dimen_140"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_item_function"
             android:gravity="center"
-            android:maxLines="2"
-            android:text="Trung Tâm Y Khoa Hà Nội 4.0+" />
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_marginHorizontal="@dimen/dimen_15"
-            style="@style/text_sp14_no_color"
-            android:layout_marginTop="@dimen/dimen_5"
-            android:layout_marginBottom="@dimen/dimen_15"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxLines="3"
-            android:text="Lô số 207 và 208, Khu dân tư Tây Nam chợ Quảng Thắng, Quảng Thắng, Thanh Hoá, Tỉnh..." />
+            <ImageView
+                android:layout_width="@dimen/dimen_80"
+                android:layout_height="@dimen/dimen_80"
+                android:layout_marginVertical="@dimen/dimen_30"
+                android:src="@drawable/img_service" />
+
+            <TextView
+                style="@style/text_sp16_black_bold"
+                android:layout_marginHorizontal="@dimen/dimen_15"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="Trung Tâm Y Khoa Hà Nội 4.0+" />
+
+            <TextView
+                style="@style/text_sp14_no_color"
+                android:layout_marginHorizontal="@dimen/dimen_15"
+                android:layout_marginTop="@dimen/dimen_5"
+                android:layout_marginBottom="@dimen/dimen_15"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="3"
+                android:text="Lô số 207 và 208, Khu dân tư Tây Nam chợ Quảng Thắng, Quảng Thắng, Thanh Hoá, Tỉnh..." />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</layout>
