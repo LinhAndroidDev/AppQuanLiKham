@@ -16,25 +16,25 @@ class UpdateInformationViewModel @Inject constructor(private val repository: Pro
     val infoUser = MutableStateFlow<UserModel?>(null)
     val successful = MutableStateFlow(false)
 
-    suspend fun getUserInfo() {
+    suspend fun getUserInfo() = viewModelScope.launch{
         loading.postValue(true)
-        repository.getUserInfo().let {
-            try {
+        try {
+            repository.getUserInfo().let {
                 loading.postValue(false)
                 if (it.isSuccessful) {
                     infoUser.value = it.body()?.data
                 }
-            } catch (e: Exception) {
-                loading.postValue(false)
-                errorApiLiveData.postValue(e.message)
             }
+        } catch (e: Exception) {
+            loading.postValue(false)
+            errorApiLiveData.postValue(e.message)
         }
     }
 
     fun updateProfile(profileModel: ProfileModel, userId: Int) = viewModelScope.launch {
         loading.postValue(true)
-        repository.updateProfile(profileModel, userId).let {
-            try {
+        try {
+            repository.updateProfile(profileModel, userId).let {
                 loading.postValue(false)
                 if (it.isSuccessful) {
                     successful.value = true
@@ -42,10 +42,10 @@ class UpdateInformationViewModel @Inject constructor(private val repository: Pro
                 } else {
                     errorApiLiveData.postValue(it.body()?.message)
                 }
-            } catch (e: Exception) {
-                loading.postValue(false)
-                errorApiLiveData.postValue(e.message)
             }
+        } catch (e: Exception) {
+            loading.postValue(false)
+            errorApiLiveData.postValue(e.message)
         }
     }
 }
