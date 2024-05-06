@@ -74,16 +74,27 @@ class EditAvatarActivity : BaseActivity<UploadImageViewModel, ActivityEditAvatar
 //                    file.name,
 //                    convertToRequestBody(file.toString())
 //                )
-                val strFile = UriConvertFile.getFileFromUri(this@EditAvatarActivity, imgUri).toString()
-                val file = File(strFile)
-                val requestBodyAvatar =RequestBody.create("multipart/form-data".toMediaTypeOrNull(),file)
-                val multipartBodyAvt = MultipartBody.Part.createFormData("avatar",file.name,requestBodyAvatar)
+                // Tạo RequestBody từ File
+                val file = UriConvertFile.convertUriToFile(this, imgUri)
+                val requestBody = file.asRequestBody("image/png".toMediaTypeOrNull()) // Thay đổi loại media tại đây
+
+                // Tạo MultipartBody.Part từ RequestBody
+                val multipartBody = MultipartBody.Part.createFormData("avatar", file.name, requestBody)
+
+                // Gửi MultipartBody.Part lên server thông qua API
                 lifecycleScope.launch(Dispatchers.Main) {
-                    viewModel.updateAvatar(
-                        sharePrefer.getUserId(),
-                        multipartBodyAvt
-                    )
+                    viewModel.updateAvatar(sharePrefer.getUserId(), multipartBody)
                 }
+//                val strFile = UriConvertFile.getFileFromUri(this@EditAvatarActivity, imgUri).toString()
+//                val file = File(strFile)
+//                val requestBodyAvatar =RequestBody.create("multipart/form-data".toMediaTypeOrNull(),file)
+//                val multipartBodyAvt = MultipartBody.Part.createFormData("avatar",file.name,requestBodyAvatar)
+//                lifecycleScope.launch(Dispatchers.Main) {
+//                    viewModel.updateAvatar(
+//                        sharePrefer.getUserId(),
+//                        multipartBodyAvt
+//                    )
+//                }
             }
         }
     }

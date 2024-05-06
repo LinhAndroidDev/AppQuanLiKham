@@ -108,7 +108,8 @@
                 <com.example.appkhambenh.ui.ui.common.CustomBtnNumber
                     android:id="@+id/btnMinus"
                     android:layout_width="@dimen/dimen_45"
-                    android:layout_height="@dimen/dimen_45"/>
+                    android:layout_height="@dimen/dimen_45"
+                    app:icon_enable="false"/>
 
                 <EditText
                     android:id="@+id/edtNumberProduct"
@@ -125,7 +126,8 @@
                     android:id="@+id/btnPlus"
                     android:layout_marginStart="@dimen/dimen_10"
                     android:layout_width="@dimen/dimen_45"
-                    android:layout_height="@dimen/dimen_45"/>
+                    android:layout_height="@dimen/dimen_45"
+                    app:icon_btn="plus"/>
             </LinearLayout>
 
             <TextView

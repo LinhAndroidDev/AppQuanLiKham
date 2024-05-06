@@ -13,6 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import java.io.InputStream
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,7 +23,7 @@ class HomeViewModel @Inject constructor(
 ) :
     BaseViewModel() {
     var isSuccessful = MutableLiveData<Boolean>()
-    var avatar = MutableStateFlow<String?>(null)
+    var avatar = MutableStateFlow<InputStream?>(null)
 
     private fun saveInfo(
         user: UserModel,
@@ -63,6 +64,8 @@ class HomeViewModel @Inject constructor(
                                 }
                             }
                         }
+                    } else {
+//                        errorApiLiveData.postValue(response.body()?.message)
                     }
                 }
         } catch (e: Exception) {
@@ -72,16 +75,16 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getAvatarUser(userId: Int) = viewModelScope.launch {
-        repository.getAvatar(userId).let {
-            try {
-                if(it.isSuccessful) {
-                    avatar.value = it.body()?.data
+        try {
+            repository.getAvatar(userId).let {
+                if (it.isSuccessful) {
+                    avatar.value = it.body()?.byteStream()
                 } else {
-                    errorApiLiveData.postValue(it.body()?.message)
+                    errorApiLiveData.postValue("${it.body()}")
                 }
-            } catch (e: Exception) {
-                errorApiLiveData.postValue(e.message)
             }
+        } catch (e: Exception) {
+            errorApiLiveData.postValue(e.message)
         }
     }
 }

@@ -30,6 +30,8 @@ class MakeAppointViewModel @Inject constructor(private val repository: Appointme
                             errorApiLiveData.postValue(it.body()?.message)
                         }
                     }
+                } else {
+                    errorApiLiveData.postValue(it.body()?.message)
                 }
             }
         } catch (e: Exception) {

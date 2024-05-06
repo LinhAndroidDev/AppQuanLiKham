@@ -23,7 +23,6 @@ import com.example.appkhambenh.ui.ui.user.manage_appointment.ExaminationSchedule
 import com.example.appkhambenh.ui.ui.user.navigation.setting.UpdateInformationActivity
 import com.example.appkhambenh.ui.utils.DateUtils
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @Suppress("DEPRECATION")
@@ -77,11 +76,11 @@ class MakeAppointActivity : BaseActivity<MakeAppointViewModel, ActivityMakeAppoi
         with(intent) {
             getParcelableExtra<HourModel>(InfoDoctorActivity.HOUR_WORKING_DOCTOR)?.let {
                 hourModel = it
-                binding.tvHour.text = it.hour
+                binding.editTime.tvHour.text = it.hour
             }
 
             getStringExtra(InfoDoctorActivity.TIME_WORKING_DOCTOR)?.let {
-                binding.tvDate.text = it
+                binding.editTime.tvDate.text = it
             }
 
             getParcelableExtra<DoctorModel>(InfoDoctorActivity.INFORMATION_DOCTOR)?.let {
@@ -99,7 +98,7 @@ class MakeAppointActivity : BaseActivity<MakeAppointViewModel, ActivityMakeAppoi
             false
         }
 
-        binding.editTime.setOnClickListener {
+        binding.editTime.time.setOnClickListener {
             val intent = Intent(this@MakeAppointActivity, OnlineConsultationActivity::class.java)
             intent.putExtra(EDIT_TIME, 1)
             startActivityForResult(intent, REQUEST_CODE_EDIT_TIME)
@@ -131,7 +130,7 @@ class MakeAppointActivity : BaseActivity<MakeAppointViewModel, ActivityMakeAppoi
                     val bookAppointmentModel = BookAppointmentModel(
                         address = sharePrefer.getUserAddress(),
                         birthday = DateUtils.convertDateToLong(sharePrefer.getUserBirth()),
-                        day = DateUtils.convertDateToLong(binding.tvDate.text.toString()),
+                        day = DateUtils.convertDateToLong(binding.editTime.tvDate.text.toString()),
                         doctorId = doctorModel?.id,
                         email = sharePrefer.getUserEmail(),
                         hospitalId = doctorModel?.hospitalId,
@@ -205,7 +204,7 @@ class MakeAppointActivity : BaseActivity<MakeAppointViewModel, ActivityMakeAppoi
                 }
 
                 REQUEST_CODE_EDIT_TIME -> {
-                    binding.tvHour.text = data.getStringExtra(OnlineConsultationActivity.TIME_EDIT)
+                    binding.editTime.tvHour.text = data.getStringExtra(OnlineConsultationActivity.TIME_EDIT)
                 }
             }
         }

@@ -20,6 +20,7 @@ import com.example.appkhambenh.ui.data.remote.model.RegisterModel
 import com.example.appkhambenh.ui.model.Medicine
 import io.reactivex.rxjava3.core.Observable
 import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -51,7 +52,7 @@ interface ApiService {
     ): Response<UploadAvatarResponse>
 
     @GET("get-avatar/{id}")
-    suspend fun getAvatar(@Path("id") id: Int): Response<GetAvatarResponse>
+    suspend fun getAvatar(@Path("id") id: Int): Response<ResponseBody>
 
     @GET("profile")
     suspend fun getUserInfo(): Response<UserInfoResponse>

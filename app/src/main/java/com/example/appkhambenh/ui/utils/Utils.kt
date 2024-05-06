@@ -12,7 +12,6 @@ import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.FragmentActivity
 import com.example.appkhambenh.R
-import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.model.FunctionMain
 import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.ui.user.contact.CallWithDoctorActivity
@@ -149,4 +148,8 @@ fun animRotationBack0(img: ImageView) {
 
 fun setBgColorViewTint(v: View, color: Int) {
     v.backgroundTintList = ColorStateList.valueOf(color)
+}
+
+fun showAvatar() {
+
 }

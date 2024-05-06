@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.ui.user.manage_appointment.DetailAppointmentActivity">
+
+    <com.example.appkhambenh.ui.ui.common.CustomHeader
+        android:id="@+id/headerDetailAppoint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/text_sp16"
+                android:text="Lý do từ chối/huỷ Quá hạn thanh toán"
+                android:paddingVertical="@dimen/dimen_10"
+                android:paddingStart="@dimen/dimen_15"
+                android:background="@color/orange_light"
+                android:layout_width="match_parent" />
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/dimen_30"
+                android:layout_marginHorizontal="@dimen/dimen_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.example.appkhambenh.ui.ui.common.CustomIconAndText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:title_view="28B74FF"
+                    app:title_text_color="@color/text_common"
+                    app:icon_view="@drawable/ic_folder"
+                    app:icon_view_color="@color/black"/>
+
+                <LinearLayout
+                    android:layout_marginStart="@dimen/dimen_5"
+                    android:background="@drawable/bg_corners_5"
+                    android:backgroundTint="@color/grey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_margin="@dimen/dimen_2"
+                        android:background="@drawable/ic_copy"
+                        android:layout_width="@dimen/dimen_23"
+                        android:layout_height="@dimen/dimen_22" />
+                </LinearLayout>
+
+                <View
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp" />
+
+                <LinearLayout
+                    android:background="@drawable/bg_corners_25"
+                    android:backgroundTint="@color/bg_pink_light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginVertical="@dimen/dimen_5"
+                        android:layout_marginHorizontal="@dimen/dimen_10"
+                        android:text="Đã huỷ"
+                        style="@style/text_sp14_black_bold"
+                        android:textColor="@color/txt_red"
+                        android:alpha="1"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:src="@drawable/ic_person_small"
+                    android:layout_width="@dimen/dimen_20"
+                    android:layout_height="@dimen/dimen_20" />
+
+                <TextView
+                    android:layout_marginStart="@dimen/dimen_5"
+                    android:text="nguyễn hữu linh"
+                    style="@style/text_sp16_black_bold"
+                    android:textAllCaps="true"/>
+            </LinearLayout>
+
+            <include
+                android:layout_marginTop="@dimen/dimen_15"
+                layout="@layout/divider_gray_10"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_10" />
+
+            <include
+                android:layout_marginVertical="@dimen/dimen_10"
+                android:layout_marginStart="@dimen/dimen_15"
+                layout="@layout/layout_time_appoint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
+                layout="@layout/divider_gray_10"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_10" />
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/dimen_15"
+                android:layout_marginHorizontal="@dimen/dimen_15"
+                android:layout_marginBottom="@dimen/dimen_10"
+                android:padding="@dimen/dimen_15"
+                android:background="@drawable/bg_corners_15"
+                android:backgroundTint="@color/bg_blue_white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="@dimen/dimen_15"
+                    app:cardElevation="0dp">
+
+                    <ImageView
+                        android:src="@drawable/img_doctor_checking"
+                        android:scaleType="centerCrop"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_250" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_marginTop="@dimen/dimen_15"
+                    android:text="Tư vấn trực tuyến với BS Nguyễn Thị Thanh"
+                    style="@style/text_sp16_black_bold" />
+
+                <TextView
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:text="150.000đ"
+                    style="@style/text_sp14"
+                    android:textColor="@color/txt_hint" />
+
+                <View
+                    android:layout_marginVertical="@dimen/dimen_20"
+                    android:background="@color/bg_blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_1" />
+
+                <com.example.appkhambenh.ui.ui.common.CustomIconAndText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:title_view="Bác sĩ"
+                    app:icon_view="@drawable/icon_doctor" />
+
+                <TextView
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:text="ThS Nguyễn Thị Thanh"
+                    style="@style/text_sp16" />
+
+                <com.example.appkhambenh.ui.ui.common.CustomIconAndText
+                    android:layout_marginTop="@dimen/dimen_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:title_view="Cơ sở y tế"
+                    app:icon_view="@drawable/stethoscope_1" />
+
+                <TextView
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:text="Bác Sĩ Ơi - Phòng Khám O2O"
+                    style="@style/text_sp16" />
+
+                <TextView
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:layout_marginEnd="@dimen/dimen_15"
+                    android:text="Nơi tư vấn online: Bác Sĩ Ơi - Phòng Khám O2O"
+                    style="@style/text_sp16" />
+
+                <TextView
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="Tim mạch - Chuyên khoa Nội khoa"
+                    style="@style/text_sp14"
+                    android:textColor="@color/txt_hint" />
+
+                <TextView
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:layout_marginEnd="@dimen/dimen_15"
+                    android:text="Tư vấn Tim mạch"
+                    style="@style/text_sp16" />
+
+                <com.example.appkhambenh.ui.ui.common.CustomIconAndText
+                    android:layout_marginTop="@dimen/dimen_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:title_view="Triệu chứng"
+                    app:icon_view="@drawable/ic_medicine_not_fill" />
+
+                <TextView
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:layout_marginEnd="@dimen/dimen_15"
+                    android:text="Tư vấn Tim mạch"
+                    style="@style/text_sp16" />
+            </LinearLayout>
+
+            <include
+                layout="@layout/divider_gray_10"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_10" />
+
+            <LinearLayout
+                android:paddingVertical="@dimen/dimen_20"
+                android:paddingHorizontal="@dimen/dimen_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.example.appkhambenh.ui.ui.common.CustomIconAndText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:title_view="Thanh toán"
+                        app:icon_view="@drawable/ic_credit_card" />
+
+                    <View
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="10dp" />
+
+                    <TextView
+                        android:text="Thanh toán thất bại"
+                        style="@style/text_sp16"
+                        android:textColor="@color/txt_red" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/dimen_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Phương thức thanh toán"
+                        style="@style/text_sp16" />
+
+                    <View
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp" />
+
+                    <TextView
+                        android:text="Thanh toán qua ví MoMo"
+                        style="@style/text_sp16_black_bold" />
+                </LinearLayout>
+
+                <View
+                    android:layout_marginVertical="@dimen/dimen_15"
+                    android:background="@color/grey_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Giá dịch vụ"
+                        style="@style/text_sp16" />
+
+                    <View
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp" />
+
+                    <TextView
+                        android:text="150.000đ"
+                        style="@style/text_sp16" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Tổng thanh toán"
+                        style="@style/text_sp16_black_bold" />
+
+                    <View
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp" />
+
+                    <TextView
+                        android:text="150.000đ"
+                        style="@style/text_sp16_black_bold"
+                        android:textColor="@color/txt_red"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <include
+                layout="@layout/divider_gray_10"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_10" />
+
+            <LinearLayout
+                android:layout_marginBottom="@dimen/dimen_100"
+                android:padding="@dimen/dimen_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Mã QR code"
+                    style="@style/text_sp14"
+                    android:textColor="@color/txt_hint" />
+
+                <View
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="@dimen/dimen_8"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="@dimen/dimen_0.8">
+
+                    <ImageView
+                        android:src="@drawable/img_qr_code"
+                        android:layout_width="@dimen/dimen_120"
+                        android:layout_height="@dimen/dimen_120" />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

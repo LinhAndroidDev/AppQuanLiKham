@@ -128,8 +128,7 @@ class InfoDoctorActivity : BaseActivity<InfoDoctorViewModel, ActivityInfoDoctorB
                 binding.tvHospital.text = it.hospitalName
 
                 lifecycleScope.launch(Dispatchers.Main) {
-                    //DateUtils.getDateCurrentToLong()
-                    viewModel.getTimeWorking(it.id, 1712854800)
+                    viewModel.getTimeWorking(it.id, DateUtils.getDateCurrentToLong())
                     viewModel.timeWorking.collect { time ->
                         time?.forEach { timeModel ->
                             timeModel.timeWorking?.let { tml ->

@@ -75,7 +75,7 @@ class ExaminationScheduleActivity :
                         items = it
                         binding.rcvExamination.adapter = this
                         onClickItem = {
-                            val intent = Intent(this@ExaminationScheduleActivity, MakeAppointActivity::class.java)
+                            val intent = Intent(this@ExaminationScheduleActivity, DetailAppointmentActivity::class.java)
                             startActivity(intent)
                         }
                     }

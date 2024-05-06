@@ -30,5 +30,6 @@ data class DetailAppointment(
     val serviceId: Int?,
     val serviceName: String?,
     val status: Int?,
-    val time: String?
+    val time: String?,
+    val day: Long?
 )

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="IconAndText">
+        <attr name="title_view" format="string"/>
+        <attr name="icon_view" format="reference"/>
+        <attr name="icon_view_color" format="color"/>
+        <attr name="title_text_color" format="color"/>
+        <attr name="title_text_bold" format="boolean"/>
+<!--        <attr name="title_text_all_caps" format="boolean"/>-->
+    </declare-styleable>
+
+    <declare-styleable name="CustomBtnNumber">
+        <attr name="icon_btn" format="enum">
+            <enum name="minus" value="0"/>
+            <enum name="plus" value="1"/>
+        </attr>
+        <attr name="icon_enable" format="boolean"/>
+    </declare-styleable>
+</resources>

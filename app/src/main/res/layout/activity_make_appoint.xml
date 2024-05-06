@@ -153,88 +153,14 @@
                     android:textColor="@color/grey"
                     android:textSize="@dimen/dimen_sp12" />
 
-                <LinearLayout
+                <include
                     android:id="@+id/editTime"
+                    layout="@layout/layout_time_appoint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_15"
                     android:layout_marginTop="@dimen/dimen_10"
-                    android:layout_marginBottom="@dimen/dimen_15"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="@dimen/dimen_20"
-                        android:layout_height="@dimen/dimen_20"
-                        android:src="@drawable/icon_schedule_appoint" />
-
-                    <TextView
-                        style="@style/text_sp14_no_color"
-                        android:layout_marginStart="@dimen/dimen_10"
-                        android:text="@string/hour_appoint" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_4"
-                        android:background="@drawable/bg_corners_5"
-                        android:backgroundTint="@color/grey_light"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:paddingHorizontal="@dimen/dimen_10"
-                        android:paddingVertical="@dimen/dimen_5">
-
-                        <ImageView
-                            android:layout_width="@dimen/dimen_18"
-                            android:layout_height="@dimen/dimen_18"
-                            android:src="@drawable/ic_action_time"
-                            app:tint="@color/text" />
-
-                        <TextView
-                            android:id="@+id/tvHour"
-                            style="@style/text_sp14_color_text_bold"
-                            android:layout_marginStart="@dimen/dimen_5"
-                            android:text="09:00" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_4"
-                        android:background="@drawable/bg_corners_5"
-                        android:backgroundTint="@color/grey_light"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:paddingHorizontal="@dimen/dimen_10"
-                        android:paddingVertical="@dimen/dimen_5">
-
-                        <ImageView
-                            android:layout_width="@dimen/dimen_18"
-                            android:layout_height="@dimen/dimen_18"
-                            android:src="@drawable/icon_date"
-                            app:tint="@color/text" />
-
-                        <TextView
-                            android:id="@+id/tvDate"
-                            style="@style/text_sp14_color_text_bold"
-                            android:layout_marginStart="@dimen/dimen_5"
-                            android:text="01/01/2024" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="@dimen/dimen_15"
-                            android:layout_height="@dimen/dimen_15"
-                            android:src="@drawable/icon_next"
-                            app:tint="@color/grey_dark" />
-                    </LinearLayout>
-                </LinearLayout>
+                    android:layout_marginBottom="@dimen/dimen_15"/>
 
                 <include
                     layout="@layout/divider_gray_10"

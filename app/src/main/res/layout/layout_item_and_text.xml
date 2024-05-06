@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    tools:ignore="UseCompoundDrawables">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="@dimen/dimen_20"
+        android:layout_height="@dimen/dimen_20"
+        android:src="@drawable/ic_credit_card"
+        app:tint="@color/background" />
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/text_sp14"
+        android:layout_marginStart="@dimen/dimen_5"
+        android:text="Thanh toán"
+        android:textColor="@color/txt_hint" />
+</LinearLayout>

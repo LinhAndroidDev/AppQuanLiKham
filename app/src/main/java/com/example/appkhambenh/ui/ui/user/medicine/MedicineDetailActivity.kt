@@ -44,11 +44,6 @@ class MedicineDetailActivity : BaseActivity<EmptyViewModel, ActivityMedicineDeta
     @SuppressLint("SetTextI18n")
     private fun initUi() {
         binding.header.setTitle("Chi tiết sản phẩm")
-        binding.btnPlus.apply {
-            enableBtn()
-            setIconPlus()
-        }
-        binding.btnMinus.disableBtn()
         val adapter = ImageDetailMedicineAdapter(this)
         val medicines = arrayListOf(
             "https://iris-buck.s3.ap-southeast-1.amazonaws.com/production/17ebafc6-2a6c-4f15-bb55-20429cb8cb46.png",

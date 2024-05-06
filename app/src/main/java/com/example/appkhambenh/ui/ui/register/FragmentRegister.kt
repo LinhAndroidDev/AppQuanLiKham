@@ -167,9 +167,11 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
         DatePickerDialog(
             requireActivity(),
             { _, year, month, dayOfMonth ->
-                calendar.set(Calendar.YEAR, year)
-                calendar.set(Calendar.MONTH, month)
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                calendar.apply {
+                    set(Calendar.YEAR, year)
+                    set(Calendar.MONTH, month)
+                    set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                }
                 setDateWithText()
             },
             calendar.get(Calendar.YEAR),
@@ -185,10 +187,12 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
 
     private fun setNotification(color: Int, string: Int) {
         val shake: Animation = AnimationUtils.loadAnimation(requireActivity(), R.anim.anim_shake)
-        binding.notificationRegister.text = resources.getString(string)
-        binding.notificationRegister.setTextColor(resources.getColor(color))
-        binding.notificationRegister.visibility = View.VISIBLE
-        binding.notificationRegister.startAnimation(shake)
+        binding.notificationRegister.apply {
+            text = resources.getString(string)
+            setTextColor(resources.getColor(color))
+            visibility = View.VISIBLE
+            startAnimation(shake)
+        }
     }
 
     override fun onFragmentBack(): Boolean {

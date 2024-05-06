@@ -1,6 +1,7 @@
 package com.example.appkhambenh.ui.ui.user.avatar
 
 import android.os.Bundle
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.WindowManager
 import com.bumptech.glide.Glide
@@ -13,19 +14,19 @@ class SeeAvatarActivity : BaseActivity<EmptyViewModel, ActivitySeeAvatarBinding>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        overridePendingTransition(R.anim.un_blur_view,R.anim.blur_view)
-
         initUi()
     }
 
     private fun initUi() {
+        overridePendingTransition(R.anim.un_blur_view,R.anim.blur_view)
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
         sharePrefer.getUserAvatar().let {
-            if(it.isNotEmpty()) {
+            if (it.isNotEmpty()) {
+                val imageBytes = Base64.decode(it, Base64.DEFAULT)
                 Glide.with(this)
-                    .load(it)
+                    .load(imageBytes)
                     .error(R.drawable.user_ad)
                     .into(binding.imgSeeAvatar)
             }

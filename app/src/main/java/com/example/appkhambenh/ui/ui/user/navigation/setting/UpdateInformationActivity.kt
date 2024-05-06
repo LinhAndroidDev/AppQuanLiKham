@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.app.ActivityCompat
@@ -271,8 +272,10 @@ class UpdateInformationActivity :
                 headerUpdateInfo.setTitle(getString(R.string.update_info))
                 sharePrefer.getUserAvatar().let {
                     if (it.isNotEmpty()) {
+                        val imageBytes = Base64.decode(it, Base64.DEFAULT)
                         Glide.with(this@UpdateInformationActivity)
-                            .load(it)
+                            .load(imageBytes)
+                            .error(R.drawable.user_ad)
                             .into(avatar)
                     }
                 }

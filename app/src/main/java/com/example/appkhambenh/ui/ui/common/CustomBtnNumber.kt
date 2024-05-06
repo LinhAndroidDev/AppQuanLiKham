@@ -7,34 +7,28 @@ import android.widget.LinearLayout
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.LayoutBtnNumberBinding
 
-class CustomBtnNumber : LinearLayout {
+class CustomBtnNumber @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0,
+) : LinearLayout(context, attrs, defStyleAttr) {
     private val binding by lazy { LayoutBtnNumberBinding.inflate(LayoutInflater.from(context)) }
 
-    constructor(context: Context?) : super(context) {
-        initView()
-    }
-
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-        initView()
-    }
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    ) {
-        initView()
-    }
-
-    private fun initView() {
+    init {
         binding.root.layoutParams = LayoutParams(
             context.resources.getDimensionPixelSize(R.dimen.dimen_45),
             context.resources.getDimensionPixelSize(R.dimen.dimen_45)
         )
         addView(binding.root)
+        context.theme.obtainStyledAttributes(attrs, R.styleable.CustomBtnNumber, 0, 0).apply {
+            getInt(R.styleable.CustomBtnNumber_icon_btn, 0).let {
+                if (it == 1) setIconPlus()
+            }
+            getBoolean(R.styleable.CustomBtnNumber_icon_enable, true).let { enable ->
+                if (enable) enableBtn() else disableBtn()
+            }
+        }.recycle()
     }
 
-    fun setIconPlus() {
+    private fun setIconPlus() {
         binding.iconBtn.setImageResource(R.drawable.ic_plus)
     }
 

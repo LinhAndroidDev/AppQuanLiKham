@@ -2,6 +2,7 @@ package com.example.appkhambenh.ui.ui.user.home
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,11 +17,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
-import com.bumptech.glide.Glide
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentHomeBinding
 import com.example.appkhambenh.ui.base.BaseFragment
-import com.example.appkhambenh.ui.data.remote.helper.Constants
 import com.example.appkhambenh.ui.model.Doctor
 import com.example.appkhambenh.ui.model.MedicalHandbook
 import com.example.appkhambenh.ui.ui.user.avatar.SeeAvatarActivity
@@ -33,6 +32,7 @@ import com.example.appkhambenh.ui.ui.user.home.adapter.FunctionHomeAdapter
 import com.example.appkhambenh.ui.ui.user.home.adapter.ImageAdapter
 import com.example.appkhambenh.ui.ui.user.home.adapter.MedicalHandBookAdapter
 import com.example.appkhambenh.ui.ui.user.home.adapter.TopCsytAdapter
+import com.example.appkhambenh.ui.utils.ConvertUtils
 import com.example.appkhambenh.ui.utils.functionHome
 import com.example.appkhambenh.ui.utils.onClickFunction
 import dagger.hilt.android.AndroidEntryPoint
@@ -61,12 +61,16 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             viewModel.getUserInfo()
             viewModel.isSuccessful.observe(requireActivity()) { isSuccessful ->
                 if(isSuccessful) {
-                    val strAvatar = Constants.BASE_URL + "get-avatar/${sharePrefer.getUserId()}"
-                    sharePrefer.saveUserAvatar(strAvatar)
-                    Glide.with(requireActivity()).load(strAvatar)
-                        .error(R.drawable.user_ad)
-                        .placeholder(R.drawable.user_ad)
-                        .into(binding.avatarUser)
+                    viewModel.getAvatarUser(sharePrefer.getUserId())
+                    lifecycleScope.launch {
+                        viewModel.avatar.collect {
+                            it?.let {
+                                val bitmap = BitmapFactory.decodeStream(it)
+                                binding.avatarUser.setImageBitmap(bitmap)
+                                sharePrefer.saveUserAvatar(ConvertUtils.bitmapToBase64(bitmap))
+                            }
+                        }
+                    }
                 }
 
             }
