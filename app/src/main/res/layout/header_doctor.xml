@@ -50,6 +50,7 @@
         </LinearLayout>
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar"
             android:src="@drawable/img_doctor_vn"
             android:layout_width="@dimen/dimen_40"
             android:layout_height="@dimen/dimen_40" />

@@ -1,10 +1,13 @@
 package com.example.appkhambenh.ui.ui.doctor.adapter
 
+import android.os.Parcelable
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ItemInfoMainPatientBinding
 import com.example.appkhambenh.databinding.ItemInformationPatientBinding
 import com.example.appkhambenh.ui.base.BaseAdapter
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 class Patient(
     val id: Int,
     val name: String,
@@ -14,11 +17,11 @@ class Patient(
     val email: String,
     val phone: String,
     val sex: String,
-)
+) : Parcelable
 
 class LineInformationPatientAdapter : BaseAdapter<Patient, ItemInformationPatientBinding>() {
 
-    var onClickItem: (() -> Unit)? = null
+    var onClickItem: ((Patient) -> Unit)? = null
 
     override fun getLayout(): Int = R.layout.item_information_patient
 
@@ -37,13 +40,13 @@ class LineInformationPatientAdapter : BaseAdapter<Patient, ItemInformationPatien
         }
 
         holder.itemView.setOnClickListener {
-            onClickItem?.invoke()
+            onClickItem?.invoke(patient)
         }
     }
 }
 
 class InfoMainPatientAdapter : BaseAdapter<Patient, ItemInfoMainPatientBinding>() {
-    var onClickItem: (() -> Unit)? = null
+    var onClickItem: ((Patient) -> Unit)? = null
 
     override fun getLayout(): Int = R.layout.item_info_main_patient
 
@@ -58,7 +61,7 @@ class InfoMainPatientAdapter : BaseAdapter<Patient, ItemInfoMainPatientBinding>(
         }
 
         holder.itemView.setOnClickListener {
-            onClickItem?.invoke()
+            onClickItem?.invoke(patient)
         }
     }
 

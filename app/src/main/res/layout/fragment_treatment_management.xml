@@ -65,7 +65,8 @@
 
             <LinearLayout
                 android:id="@+id/contentInfomation"
-                android:padding="@dimen/dimen_10"
+                android:paddingVertical="@dimen/dimen_10"
+                android:paddingHorizontal="@dimen/dimen_15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -73,7 +74,6 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -84,6 +84,7 @@
                         android:layout_height="@dimen/dimen_80"/>
 
                     <TextView
+                        android:id="@+id/tvName"
                         android:layout_marginTop="@dimen/dimen_15"
                         android:text="Đặng Văn Tới"
                         style="@style/text_sp14_black_bold"
@@ -112,6 +113,7 @@
                                 style="@style/text_sp14_black_bold"/>
 
                             <TextView
+                                android:id="@+id/tvSex"
                                 android:text="Nam"
                                 style="@style/text_sp14"/>
                         </LinearLayout>
@@ -127,6 +129,7 @@
                                 android:text="Địa chỉ: " />
 
                             <TextView
+                                android:id="@+id/tvAddress"
                                 style="@style/text_sp14"
                                 android:text="Xã Ninh Hoà - Huyện Hoa Lư - Tỉnh Ninh Bình" />
                         </LinearLayout>
@@ -150,6 +153,7 @@
                                 style="@style/text_sp14_black_bold"/>
 
                             <TextView
+                                android:id="@+id/tvBirthday"
                                 android:text="14-08-2023"
                                 style="@style/text_sp14"/>
                         </LinearLayout>
@@ -165,6 +169,7 @@
                                 android:text="Số điện thoại: " />
 
                             <TextView
+                                android:id="@+id/tvPhone"
                                 style="@style/text_sp14"
                                 android:text="969601767" />
                         </LinearLayout>
@@ -203,6 +208,7 @@
                                 android:text="Căn cước công dân: " />
 
                             <TextView
+                                android:id="@+id/tvCccd"
                                 style="@style/text_sp14"
                                 android:text="125922204" />
                         </LinearLayout>

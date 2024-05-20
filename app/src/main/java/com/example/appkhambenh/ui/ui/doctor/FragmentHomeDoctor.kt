@@ -21,9 +21,7 @@ class FragmentHomeDoctor : BaseFragment<EmptyViewModel, FragmentHomeDoctorBindin
     }
 
     private fun onClickView() {
-        binding.header.onClickMenu = {
-            (activity as DoctorActivity).openNavigationDrawer()
-        }
+
     }
 
     private fun initListFunction() {

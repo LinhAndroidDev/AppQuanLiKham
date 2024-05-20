@@ -18,9 +18,11 @@
                 <TextView
                     android:id="@+id/address"
                     style="@style/text_sp14"
-                    android:layout_width="@dimen/dimen_100"
+                    android:layout_width="@dimen/dimen_160"
                     android:paddingStart="@dimen/dimen_10"
-                    android:text="Quê quán" />
+                    android:text="Quê quán"
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
 
                 <TextView
                     android:id="@+id/numberBhxh"
@@ -41,7 +43,9 @@
                     style="@style/text_sp14"
                     android:layout_width="@dimen/dimen_160"
                     android:paddingStart="@dimen/dimen_10"
-                    android:text="Email" />
+                    android:text="Email"
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
 
                 <TextView
                     android:id="@+id/phone"

@@ -225,7 +225,7 @@
                             android:layout_height="wrap_content"
                             app:title="Quê quán"
                             app:showViewEnd="true"
-                            app:sizeView="medium"/>
+                            app:sizeView="big_large"/>
 
                         <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
                             android:layout_width="wrap_content"

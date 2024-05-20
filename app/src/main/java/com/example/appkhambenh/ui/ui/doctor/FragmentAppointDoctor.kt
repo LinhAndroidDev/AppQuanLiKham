@@ -23,10 +23,6 @@ class FragmentAppointDoctor : BaseFragment<EmptyViewModel, FragmentAppointDoctor
     }
 
     private fun onClickView() {
-        binding.header.onClickMenu = {
-            (activity as DoctorActivity).openNavigationDrawer()
-        }
-
         binding.edtSelectDate.setOnClickListener {
             showDialogSelectDate()
         }

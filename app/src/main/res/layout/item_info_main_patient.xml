@@ -24,7 +24,9 @@
                 style="@style/text_sp14_black_bold"
                 android:layout_width="@dimen/dimen_160"
                 android:paddingStart="@dimen/dimen_10"
-                android:text="Tên bệnh nhân" />
+                android:text="Tên bệnh nhân"
+                android:maxLines="1"
+                android:ellipsize="end"/>
         </LinearLayout>
 
         <View

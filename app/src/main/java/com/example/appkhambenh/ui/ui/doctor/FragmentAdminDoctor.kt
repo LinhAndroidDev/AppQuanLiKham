@@ -14,22 +14,27 @@ import com.example.appkhambenh.ui.ui.doctor.adapter.Patient
 import com.example.appkhambenh.ui.utils.addFragmentByTag
 
 class FragmentAdminDoctor : BaseFragment<EmptyViewModel, FragmentAdminDoctorBinding>() {
+
+    companion object {
+        const val OBJECT_PATIENT = "OBJECT_PATIENT"
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         onClickView()
-        initListPatient()
+        binding.root.post {
+            initListPatient()
+        }
     }
 
     private fun onClickView() {
-        binding.header.onClickMenu = {
-            (activity as DoctorActivity).openNavigationDrawer()
-        }
+
     }
 
     private fun initListPatient() {
         val patients = arrayListOf<Patient>()
-        patients.add(Patient(23, "Nguyễn Hữu Linh", "Bắc Ninh", "1259256488", "125922204", "linhnh@gmail.com", "0969601767", "nam"))
+        patients.add(Patient(23, "Nguyễn Hữu Linh", "My Xuyên, Mỹ Hương, Lương Tài, Bắc Ninh", "1259256488", "125922204", "linhnh@gmail.com", "0969601767", "nam"))
         patients.add(Patient(24, "Phan Văn Hùng", "Đông Anh", "1359458959", "134898035", "hungpv@gmail.com", "0379265729", "nam"))
         patients.add(Patient(27, "Nguyễn Thị Vân", "Bắc Ninh", "129462802", "124519462", "vannt@gmail.com", "0969601767", "nữ"))
         patients.add(Patient(30, "Nguyễn Thế Dương", "Hà Nam", "12592564883", "125922204", "duongnt@gmail.com", "0969601767", "nam"))
@@ -37,16 +42,24 @@ class FragmentAdminDoctor : BaseFragment<EmptyViewModel, FragmentAdminDoctorBind
         val adapter = LineInformationPatientAdapter()
         adapter.items = patients
         adapter.onClickItem = {
-            addFragmentByTag(FragmentTreatmentManagement(), R.id.changeIdDoctorVn, "FragmentAdminDoctor")
+            goToFragmentTreatment(it)
         }
         binding.rcvInfoPatient.adapter = adapter
 
         val adapterInfo = InfoMainPatientAdapter()
         adapterInfo.items = patients
         adapterInfo.onClickItem = {
-            addFragmentByTag(FragmentTreatmentManagement(), R.id.changeIdDoctorVn, "FragmentAdminDoctor")
+            goToFragmentTreatment(it)
         }
         binding.rcvMainInfo.adapter = adapterInfo
+    }
+
+    private fun goToFragmentTreatment(patient: Patient) {
+        val fragmentTreatmentManagement = FragmentTreatmentManagement()
+        val bundle = Bundle()
+        bundle.putParcelable(OBJECT_PATIENT, patient)
+        fragmentTreatmentManagement.arguments = bundle
+        addFragmentByTag(fragmentTreatmentManagement, R.id.changeIdDoctorVn, "FragmentAdminDoctor")
     }
 
     override fun getFragmentBinding(

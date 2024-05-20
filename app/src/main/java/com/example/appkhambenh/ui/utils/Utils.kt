@@ -157,6 +157,12 @@ fun animRotationBack0(img: ImageView) {
     animator.start()
 }
 
+fun View.rotationView(startCorner: Float, endCorner: Float) {
+    val animator = ObjectAnimator.ofFloat(this, View.ROTATION, startCorner, endCorner)
+    animator.duration = 300
+    animator.start()
+}
+
 fun setBgColorViewTint(v: View, color: Int) {
     v.backgroundTintList = ColorStateList.valueOf(color)
 }
