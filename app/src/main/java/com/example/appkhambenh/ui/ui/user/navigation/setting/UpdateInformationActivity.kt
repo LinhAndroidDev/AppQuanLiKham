@@ -24,7 +24,7 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityUpdateInformationBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.data.remote.model.ProfileModel
-import com.example.appkhambenh.ui.ui.common.DialogRequestPermission
+import com.example.appkhambenh.ui.ui.common.dialog.DialogRequestPermission
 import com.example.appkhambenh.ui.ui.user.appointment.MakeAppointActivity
 import com.example.appkhambenh.ui.ui.user.navigation.setting.adapter.InformationAdapter
 import com.example.appkhambenh.ui.ui.user.navigation.setting.address.AddressActivity

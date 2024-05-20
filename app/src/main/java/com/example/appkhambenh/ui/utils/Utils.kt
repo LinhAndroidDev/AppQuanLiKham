@@ -2,6 +2,7 @@ package com.example.appkhambenh.ui.utils
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -9,10 +10,15 @@ import android.text.Spannable
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
+import android.view.animation.LinearInterpolator
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentTransaction
 import com.example.appkhambenh.R
 import com.example.appkhambenh.ui.model.FunctionMain
+import com.example.appkhambenh.ui.ui.doctor.DoctorActivity
 import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.ui.user.contact.CallWithDoctorActivity
 import com.example.appkhambenh.ui.ui.user.hospital.HospitalActivity
@@ -131,6 +137,11 @@ fun onClickFunction(index: Int, activity: FragmentActivity) {
             val intent = Intent(activity, CallWithDoctorActivity::class.java)
             activity.startActivity(intent)
         }
+
+        Function.HISTORY.id -> {
+            val intent = Intent(activity, DoctorActivity::class.java)
+            activity.startActivity(intent)
+        }
     }
 }
 
@@ -150,6 +161,20 @@ fun setBgColorViewTint(v: View, color: Int) {
     v.backgroundTintList = ColorStateList.valueOf(color)
 }
 
-fun showAvatar() {
+fun View.rotationViewInfinite() {
+    val rotationAnimator = ObjectAnimator.ofFloat(this, "rotation", 0f, 360f)
+    rotationAnimator.apply {
+        duration = 2000
+        repeatCount = ValueAnimator.INFINITE
+        repeatMode = ValueAnimator.RESTART
+        interpolator = LinearInterpolator()
+        start()
+    }
+}
 
+fun Fragment.addFragmentByTag(fragment: Fragment, changeId: Int, tag: String) {
+    val fm = requireActivity().supportFragmentManager.beginTransaction()
+    fm.hide(requireActivity().supportFragmentManager.findFragmentByTag(tag)!!)
+        .add(changeId, fragment)
+        .addToBackStack(null).commit()
 }

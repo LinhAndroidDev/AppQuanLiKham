@@ -39,7 +39,7 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
         super.bindData()
 
         viewModel.loading.observe(viewLifecycleOwner) {
-            if (it) loading.show() else loading.dismiss()
+            if (it) showLoading() else dismissLoading()
         }
     }
 

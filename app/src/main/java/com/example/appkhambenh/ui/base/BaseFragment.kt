@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.example.appkhambenh.R
+import com.example.appkhambenh.ui.ui.common.dialog.DialogLoading
 import com.example.appkhambenh.ui.utils.ConvertUtils.dpToPx
 import com.example.appkhambenh.ui.utils.SharePreferenceRepositoryImpl
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -29,7 +30,7 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
 
     protected lateinit var viewModel: V
     protected lateinit var binding: B
-    val loading by lazy { ProgressDialog(requireActivity()) }
+    var loading = DialogLoading()
     lateinit var sharePrefer: SharePreferenceRepositoryImpl
 
     @SuppressLint("SuspiciousIndentation")
@@ -44,15 +45,19 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
             ViewModelProvider(this)[(this::class.java.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<V>]
         sharePrefer = SharePreferenceRepositoryImpl(requireActivity())
 
-        loading.setMessage("Please wait...")
-        loading.setTitle(getString(R.string.notification))
-        loading.setCancelable(false)
-
         bindData()
 
         setLanguage(requireActivity(), sharePrefer.getLanguage())
 
         return binding.root
+    }
+
+    fun showLoading() {
+        loading.show(requireActivity().supportFragmentManager, "")
+    }
+
+    fun dismissLoading() {
+        loading.dismiss()
     }
 
     abstract fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): B

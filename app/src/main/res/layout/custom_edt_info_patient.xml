@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/text_sp14"
+        android:text="Tên bệnh nhân" />
+    
+    <EditText
+        android:id="@+id/edtInfo"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:hint="Tìm theo tên bệnh nhân"
+        android:textColorHint="@color/txt_hint"
+        android:textSize="@dimen/dimen_sp14"
+        android:paddingVertical="@dimen/dimen_12"
+        android:paddingStart="@dimen/dimen_15"
+        android:background="@drawable/bg_edit_search_info_patient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

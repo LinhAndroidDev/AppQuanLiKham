@@ -29,15 +29,15 @@ object ConvertUtils {
             .toInt()
     }
 
-    fun widthDevice(activity: Activity): Int {
-        val display: Display = activity.windowManager.defaultDisplay
+    fun Activity.widthDevice(): Int {
+        val display: Display = windowManager.defaultDisplay
         val size = Point()
         display.getSize(size)
         return size.x
     }
 
-    fun heightDevice(activity: Activity): Int {
-        val display: Display = activity.windowManager.defaultDisplay
+    fun Activity.heightDevice(): Int {
+        val display: Display = windowManager.defaultDisplay
         val size = Point()
         display.getSize(size)
         return size.x

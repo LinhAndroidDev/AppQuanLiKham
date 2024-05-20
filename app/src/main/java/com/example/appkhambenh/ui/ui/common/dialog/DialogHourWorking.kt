@@ -1,4 +1,4 @@
-package com.example.appkhambenh.ui.ui.common
+package com.example.appkhambenh.ui.ui.common.dialog
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable

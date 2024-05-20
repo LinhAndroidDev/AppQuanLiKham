@@ -16,4 +16,30 @@
         </attr>
         <attr name="icon_enable" format="boolean"/>
     </declare-styleable>
+
+    <declare-styleable name="CustomNavigationDoctor">
+        <attr name="title_nav_doctor" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="CustomEdtSearchInfoPatient">
+        <attr name="title_info" format="string"/>
+        <attr name="hint_info" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="CustomTitleInfoPatient">
+        <attr name="title" format="string"/>
+        <attr name="showViewLoad" format="boolean"/>
+        <attr name="showViewEnd" format="boolean"/>
+        <attr name="sizeView" format="enum">
+            <enum name="big_large" value="160"/>
+            <enum name="large" value="140"/>
+            <enum name="medium" value="100"/>
+            <enum name="small" value="50"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CustomHeaderDoctor">
+        <attr name="title_view_doctor" format="string"/>
+        <attr name="title_next" format="string"/>
+    </declare-styleable>
 </resources>

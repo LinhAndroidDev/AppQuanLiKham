@@ -11,7 +11,7 @@ import com.example.appkhambenh.databinding.ActivityInfoHospitalBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.data.remote.model.Hospital
 import com.example.appkhambenh.ui.ui.EmptyViewModel
-import com.example.appkhambenh.ui.ui.common.DialogHourWorking
+import com.example.appkhambenh.ui.ui.common.dialog.DialogHourWorking
 import com.example.appkhambenh.ui.ui.user.hospital.adapter.ServiceHospitalAdapter
 import com.example.appkhambenh.ui.ui.user.doctor.InfoDoctorActivity
 import com.example.appkhambenh.ui.ui.user.hospital.adapter.DoctorHospitalAdapter

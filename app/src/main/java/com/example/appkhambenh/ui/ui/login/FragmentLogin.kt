@@ -16,6 +16,7 @@ import com.example.appkhambenh.databinding.FragmentLoginBinding
 import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.data.remote.model.LoginModel
+import com.example.appkhambenh.ui.ui.doctor.DoctorActivity
 import com.example.appkhambenh.ui.ui.register.FragmentRegister
 import com.example.appkhambenh.ui.utils.validateEmail
 import com.example.appkhambenh.ui.utils.validatePassword
@@ -42,7 +43,7 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
         super.bindData()
 
         viewModel.loading.observe(viewLifecycleOwner) {
-            if (it) loading.show() else loading.dismiss()
+            if (it) showLoading() else dismissLoading()
         }
 
         viewModel.loginSuccessLiveData.observe(viewLifecycleOwner) { isSuccessful ->
@@ -89,24 +90,26 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
         }
 
         binding.login.setOnClickListener {
-            val email = binding.edtAccount.text.toString()
-            val password = binding.edtPassword.text.toString()
-            if (email.isEmpty() || password.isEmpty()) {
-                setNotification(R.color.txt_green, R.string.enter_enough_info)
-            } else if (!validateEmail(email)) {
-                setNotification(R.color.txt_red, R.string.fail_email)
-            } else if (!validatePassword(password)) {
-                setNotification(R.color.txt_red, R.string.fail_password)
-            } else {
-                binding.notificationLogin.visibility = View.GONE
-
-                lifecycleScope.launch(Dispatchers.Main) {
-                    viewModel.requestLoginUser(
-                        context = requireActivity(),
-                        loginModel = LoginModel(email, password)
-                    )
-                }
-            }
+            val intent = Intent(requireActivity(), DoctorActivity::class.java)
+            startActivity(intent)
+//            val email = binding.edtAccount.text.toString()
+//            val password = binding.edtPassword.text.toString()
+//            if (email.isEmpty() || password.isEmpty()) {
+//                setNotification(R.color.txt_green, R.string.enter_enough_info)
+//            } else if (!validateEmail(email)) {
+//                setNotification(R.color.txt_red, R.string.fail_email)
+//            } else if (!validatePassword(password)) {
+//                setNotification(R.color.txt_red, R.string.fail_password)
+//            } else {
+//                binding.notificationLogin.visibility = View.GONE
+//
+//                lifecycleScope.launch(Dispatchers.Main) {
+//                    viewModel.requestLoginUser(
+//                        context = requireActivity(),
+//                        loginModel = LoginModel(email, password)
+//                    )
+//                }
+//            }
         }
 
         binding.register.setOnClickListener {

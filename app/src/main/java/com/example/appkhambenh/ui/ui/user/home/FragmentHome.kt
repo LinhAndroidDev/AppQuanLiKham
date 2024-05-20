@@ -78,12 +78,12 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
         viewModel.loading.observe(this) {
             if (it) {
-                loading.show()
+                showLoading()
             } else {
                 lifecycleScope.launch {
                     delay(500L)
                     withContext(Dispatchers.Main) {
-                        loading.dismiss()
+                        dismissLoading()
                     }
                     if (!isOnline(requireActivity())) {
                         show(getString(R.string.check_internet))
@@ -317,7 +317,7 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
     override fun onDestroy() {
         super.onDestroy()
-        loading.dismiss()
+        dismissLoading()
     }
 
 }
