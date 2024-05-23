@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginHorizontal="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:background="@drawable/boder_left_5_gradient_blue"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_80">
+
+            <LinearLayout
+                android:layout_marginStart="@dimen/dimen_15"
+                android:layout_marginVertical="@dimen/dimen_15"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_sp14_black_bold"
+                    android:text="Nhiệt độ"
+                    android:textColor="@color/white"/>
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginTop="@dimen/dimen_5"
+                        style="@style/text_sp14_black_bold"
+                        android:text="0"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:layout_marginStart="@dimen/dimen_2"
+                        style="@style/text_sp12"
+                        android:layout_width="17dp"
+                        android:layout_height="19dp"
+                        android:text="℃"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@drawable/boder_left_25_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_80"
+                android:gravity="center_vertical"
+                android:layout_gravity="end">
+
+                <ImageView
+                    android:layout_marginStart="@dimen/dimen_20"
+                    android:layout_marginEnd="@dimen/dimen_15"
+                    android:src="@drawable/ic_template"
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/dimen_60"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginStart="@dimen/dimen_10"
+            android:background="@drawable/boder_left_5_gradient_blue"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_80">
+
+            <LinearLayout
+                android:layout_marginStart="@dimen/dimen_15"
+                android:layout_marginVertical="@dimen/dimen_15"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_sp14_black_bold"
+                    android:text="Nhịp tim"
+                    android:textColor="@color/white"/>
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginTop="@dimen/dimen_5"
+                        style="@style/text_sp14_black_bold"
+                        android:text="0"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:layout_marginStart="@dimen/dimen_2"
+                        style="@style/text_sp12"
+                        android:text="bpm"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@drawable/boder_left_25_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_80"
+                android:gravity="center_vertical"
+                android:layout_gravity="end">
+
+                <ImageView
+                    android:layout_marginStart="@dimen/dimen_20"
+                    android:layout_marginEnd="@dimen/dimen_15"
+                    android:src="@drawable/ic_rate_heart"
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/dimen_60"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginHorizontal="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:background="@drawable/boder_left_5_gradient_blue"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_80">
+
+            <LinearLayout
+                android:layout_marginStart="@dimen/dimen_15"
+                android:layout_marginVertical="@dimen/dimen_15"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_sp14_black_bold"
+                    android:text="Huyết áp"
+                    android:textColor="@color/white"/>
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginTop="@dimen/dimen_5"
+                        style="@style/text_sp14_black_bold"
+                        android:text="0"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:layout_marginStart="@dimen/dimen_2"
+                        style="@style/text_sp12"
+                        android:text="mmHg"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@drawable/boder_left_25_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_80"
+                android:gravity="center_vertical"
+                android:layout_gravity="end">
+
+                <ImageView
+                    android:layout_marginStart="@dimen/dimen_20"
+                    android:layout_marginEnd="@dimen/dimen_15"
+                    android:src="@drawable/ic_blood_pressure"
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/dimen_60"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginStart="@dimen/dimen_10"
+            android:background="@drawable/boder_left_5_gradient_blue"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_80">
+
+            <LinearLayout
+                android:layout_marginStart="@dimen/dimen_15"
+                android:layout_marginVertical="@dimen/dimen_15"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_sp14_black_bold"
+                    android:text="Đường huyết"
+                    android:textColor="@color/white"/>
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginTop="@dimen/dimen_5"
+                        style="@style/text_sp14_black_bold"
+                        android:text="0"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:layout_marginStart="@dimen/dimen_2"
+                        style="@style/text_sp12"
+                        android:text="mg/dL"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@drawable/boder_left_25_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_80"
+                android:gravity="center_vertical"
+                android:layout_gravity="end">
+
+                <ImageView
+                    android:layout_marginStart="@dimen/dimen_20"
+                    android:layout_marginEnd="@dimen/dimen_15"
+                    android:src="@drawable/ic_blood_sugar"
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/dimen_60"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChart"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_400" />
+</LinearLayout>

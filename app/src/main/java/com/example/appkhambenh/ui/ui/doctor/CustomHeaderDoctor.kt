@@ -42,7 +42,7 @@ class CustomHeaderDoctor @JvmOverloads constructor(
         }
     }
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "InflateParams")
     private fun createPopupWindow() {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val popupView = inflater.inflate(R.layout.popup_setting_doctor, null)

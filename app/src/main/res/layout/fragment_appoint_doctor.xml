@@ -66,10 +66,18 @@
         <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:title="ID"
+            app:showViewEnd="true"
+            app:showViewLoad="true"
+            app:sizeView="small"/>
+
+        <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:title="Tên bệnh nhân"
             app:showViewLoad="true"
             app:showViewEnd="true"
-            app:sizeView="medium"/>
+            app:sizeView="big_large"/>
 
         <HorizontalScrollView
             android:layout_weight="1"
@@ -84,7 +92,7 @@
                     android:layout_height="wrap_content"
                     app:title="Lí do thăm khám"
                     app:showViewEnd="true"
-                    app:sizeView="medium"/>
+                    app:sizeView="large"/>
 
                 <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
                     android:layout_width="wrap_content"
@@ -98,13 +106,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:title="Số điện thoại"
-                    app:showViewEnd="true"/>
+                    app:showViewEnd="true"
+                    app:sizeView="large"/>
 
                 <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:title="Thời gian khám"
-                    app:showViewEnd="true"/>
+                    app:showViewEnd="true"
+                    app:sizeView="big_large"/>
 
                 <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
                     android:layout_width="wrap_content"
@@ -116,7 +126,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:title="Nơi giới thiệu"
-                    app:showViewEnd="true"/>
+                    app:showViewEnd="true"
+                    app:sizeView="big_large"/>
 
                 <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
                     android:layout_width="wrap_content"
