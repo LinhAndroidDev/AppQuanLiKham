@@ -48,6 +48,9 @@
     <color name="bg_search">#E8E8E8</color>
     <color name="bg_loading">#FFFFFF</color>
     <color name="bg_number_notification">#EF4C41</color>
+    <color name="green_chart_template">#50AF95</color>
+    <color name="red_chart_blood_pressure">#E62D4B</color>
+    <color name="blue_chart_heart_and_blood_sugar">#2A71D0</color>
     <color name="bg_uncheck_bottom_nvg">#9C9C9C</color>
     <color name="bg_common">#F8F7F7</color>
     <color name="bg_divider">#23111111</color>

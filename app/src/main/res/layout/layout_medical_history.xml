@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/layout">
 
     <LinearLayout
         android:layout_marginTop="@dimen/dimen_10"
@@ -238,9 +240,63 @@
         </LinearLayout>
     </LinearLayout>
 
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="@dimen/dimen_15"
+        android:layout_marginStart="@dimen/dimen_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/blue2"
+        app:cardCornerRadius="@dimen/dimen_5">
+
+        <TextView
+            android:layout_margin="@dimen/dimen_10"
+            style="@style/text_sp16_black_bold"
+            android:text="Nhiệt độ"
+            android:textColor="@color/white" />
+    </androidx.cardview.widget.CardView>
 
     <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/lineChart"
+        android:id="@+id/lineChartTemplate"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_400" />
+        android:layout_height="@dimen/dimen_250" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="@dimen/dimen_15"
+        android:layout_marginStart="@dimen/dimen_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/blue2"
+        app:cardCornerRadius="@dimen/dimen_5">
+
+        <TextView
+            android:layout_margin="@dimen/dimen_10"
+            style="@style/text_sp16_black_bold"
+            android:text="Huyết áp"
+            android:textColor="@color/white" />
+    </androidx.cardview.widget.CardView>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChartBloodPressure"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_250" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="@dimen/dimen_15"
+        android:layout_marginStart="@dimen/dimen_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/blue2"
+        app:cardCornerRadius="@dimen/dimen_5">
+
+        <TextView
+            android:layout_margin="@dimen/dimen_10"
+            style="@style/text_sp16_black_bold"
+            android:text="Nhịp tim - Đường huyết"
+            android:textColor="@color/white" />
+    </androidx.cardview.widget.CardView>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChartBloodSugarAndHeart"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_250" />
 </LinearLayout>

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentTreatmentManagementBinding
 import com.example.appkhambenh.ui.base.BaseFragment
@@ -17,12 +18,26 @@ import com.example.appkhambenh.ui.ui.doctor.adapter.Patient
 import com.example.appkhambenh.ui.utils.collapseView
 import com.example.appkhambenh.ui.utils.expandView
 import com.example.appkhambenh.ui.utils.rotationView
+import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.google.android.material.tabs.TabLayout
+
+enum class ServiceTreatmentManagement {
+    LIST_OF_SERVICE,
+    MEDICAL_HISTORY,
+    CLINICAL_AND_GENERAL_EXAMINATION,
+    BLOOD_TESTS,
+    SUPERSONIC,
+    X_RAY,
+    MRI,
+    CT,
+    DIAGNOSE
+}
 
 class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatmentManagementBinding>() {
     private var isExpand = true
@@ -63,29 +78,34 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
             addTab(this.newTab().setText("Chẩn đoán"))
         }
 
-        initInfoIntoHospital()
-        initListOfService()
-        drawLineChart()
+        binding.root.post {
+            initInfoIntoHospital()
+            initListOfService()
+            drawLineChart(binding.chart.lineChartTemplate, R.color.green_chart_template)
+            drawLineChart(binding.chart.lineChartBloodPressure, R.color.red_chart_blood_pressure)
+            drawLineChart(binding.chart.lineChartBloodSugarAndHeart, R.color.blue_chart_heart_and_blood_sugar)
+        }
     }
 
-    private fun drawLineChart() {
+    private fun drawLineChart(chart: LineChart, color: Int) {
         val lineEntries: List<Entry> = getDataSet()
 
         val lineDataSet = LineDataSet(lineEntries, "Work")
         lineDataSet.axisDependency = YAxis.AxisDependency.LEFT
         lineDataSet.lineWidth = 2f
-        lineDataSet.color = ContextCompat.getColor(requireActivity(), R.color.green_dark)
-        lineDataSet.setCircleColor(ContextCompat.getColor(requireActivity(), R.color.green_dark))
+        lineDataSet.color = ContextCompat.getColor(requireActivity(), color)
+        lineDataSet.setCircleColor(ContextCompat.getColor(requireActivity(), color))
         lineDataSet.circleHoleRadius = 10f
         lineDataSet.setDrawCircleHole(true)
         lineDataSet.setDrawCircles(true)
+        lineDataSet.setDrawValues(false)
         lineDataSet.isHighlightEnabled = false
         lineDataSet.valueTextSize = 12f
         lineDataSet.valueTextColor = Color.DKGRAY
-        lineDataSet.mode = LineDataSet.Mode.STEPPED
+        lineDataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
 
         val lineData = LineData(lineDataSet)
-        binding.chart.lineChart.apply {
+        chart.apply {
             description.textSize = 12f
             description.isEnabled = false
             setDrawMarkers(false)
@@ -93,39 +113,37 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
             animateXY(1400, 1400)
             xAxis.isGranularityEnabled = true
             xAxis.granularity = 0.1f
+            axisRight.setDrawLabels(false)
             data = lineData
             setTouchEnabled(true)
             setPinchZoom(true)
         }
 
         val xAxisLabel = ArrayList<String>()
-        xAxisLabel.add("Rest")
-        xAxisLabel.add("Work")
-        xAxisLabel.add("2-up")
+        for(i in lineEntries.indices) {
+            xAxisLabel.add("Lần ${i+1}")
+        }
 
-        val xAxis = binding.chart.lineChart.xAxis
+        val xAxis = chart.xAxis
         xAxis.axisMaximum = 10f
         xAxis.granularity = 0.1f
-        xAxis.valueFormatter = object : IndexAxisValueFormatter(xAxisLabel) {
-            override fun getValues(): Array<String> {
-                return super.getValues()
-            }
-        }
+        xAxis.valueFormatter =  IndexAxisValueFormatter(xAxisLabel)
     }
 
     private fun getDataSet(): List<Entry> {
         // Replace with your data points
         val entries = ArrayList<Entry>()
-        entries.add(Entry(0f, 0f))
-        entries.add(Entry(1f, 0f))
-        entries.add(Entry(2f, 0f))
-        entries.add(Entry(3f, 0f))
-        entries.add(Entry(4f, 0f))
-        entries.add(Entry(5f, 0f))
-        entries.add(Entry(6f, 0f))
-        entries.add(Entry(7f, 0f))
-        entries.add(Entry(8f, 0f))
-        entries.add(Entry(9f, 0f))
+        entries.add(Entry(0f, 20f))
+        entries.add(Entry(1f, 15f))
+        entries.add(Entry(2f, 9f))
+        entries.add(Entry(3f, 40f))
+        entries.add(Entry(4f, 20f))
+        entries.add(Entry(5f, 8f))
+        entries.add(Entry(6f, 30f))
+        entries.add(Entry(7f, 6f))
+        entries.add(Entry(8f, 10f))
+        entries.add(Entry(9f, 20f))
+        entries.add(Entry(10f, 10f))
         return entries
     }
 
@@ -148,7 +166,7 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
         listOfService.add(ListOfService(10, "Chụp CT", true))
         val adapter = ListOfServiceAdapter()
         adapter.items = listOfService
-        binding.rcvTreatmentManagement.adapter = adapter
+        binding.listOfService.rcvTreatmentManagement.adapter = adapter
     }
 
     private fun onClickView() {
@@ -181,6 +199,58 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
                 }
             }
         }
+
+        binding.tabExamination.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                when(ServiceTreatmentManagement.values()[tab.position]) {
+                    ServiceTreatmentManagement.LIST_OF_SERVICE -> {
+                        binding.listOfService.layout.isVisible = true
+                        binding.chart.layout.isVisible = false
+                    }
+
+                    ServiceTreatmentManagement.MEDICAL_HISTORY -> {
+                        binding.listOfService.layout.isVisible = false
+                        binding.chart.layout.isVisible = true
+                    }
+
+                    ServiceTreatmentManagement.CLINICAL_AND_GENERAL_EXAMINATION -> {
+
+                    }
+
+                    ServiceTreatmentManagement.BLOOD_TESTS -> {
+
+                    }
+
+                    ServiceTreatmentManagement.SUPERSONIC -> {
+
+                    }
+
+                    ServiceTreatmentManagement.X_RAY -> {
+
+                    }
+
+                    ServiceTreatmentManagement.MRI -> {
+
+                    }
+
+                    ServiceTreatmentManagement.CT -> {
+
+                    }
+
+                    ServiceTreatmentManagement.DIAGNOSE -> {
+
+                    }
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                // Xử lý khi tab không được chọn nữa (đã chọn tab khác)
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                // Xử lý khi tab đã được chọn và người dùng chọn lại tab đó
+            }
+        })
     }
 
     override fun getFragmentBinding(
