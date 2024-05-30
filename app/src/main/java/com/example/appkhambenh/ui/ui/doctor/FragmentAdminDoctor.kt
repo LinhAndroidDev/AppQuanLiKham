@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.postDelayed
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentAdminDoctorBinding
 import com.example.appkhambenh.ui.base.BaseFragment
@@ -22,8 +23,10 @@ class FragmentAdminDoctor : BaseFragment<EmptyViewModel, FragmentAdminDoctorBind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        showLoading()
         onClickView()
-        binding.root.post {
+        binding.root.postDelayed(1000) {
+            dismissLoading()
             initListPatient()
         }
     }

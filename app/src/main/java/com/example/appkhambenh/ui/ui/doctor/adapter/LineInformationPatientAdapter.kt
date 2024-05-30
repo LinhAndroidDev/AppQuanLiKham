@@ -39,7 +39,7 @@ class LineInformationPatientAdapter : BaseAdapter<Patient, ItemInformationPatien
             sex.text = patient.sex
         }
 
-        holder.itemView.setOnClickListener {
+        holder.v.itemView.setOnClickListener {
             onClickItem?.invoke(patient)
         }
     }

@@ -58,7 +58,7 @@
                         android:src="@drawable/ic_action_next_time"
                         android:layout_width="@dimen/dimen_20"
                         android:layout_height="@dimen/dimen_20"
-                        android:rotation="90"
+                        android:rotation="270"
                         app:tint="@color/black"/>
                 </RelativeLayout>
 
@@ -73,7 +73,8 @@
                     android:paddingHorizontal="@dimen/dimen_15"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -249,7 +250,7 @@
                         android:src="@drawable/ic_action_next_time"
                         android:layout_width="@dimen/dimen_20"
                         android:layout_height="@dimen/dimen_20"
-                        android:rotation="90"
+                        android:rotation="270"
                         app:tint="@color/black"/>
                 </RelativeLayout>
 
@@ -265,7 +266,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <include
                         android:id="@+id/titleReason"
@@ -369,8 +370,41 @@
                 android:id="@+id/chart"
                 layout="@layout/layout_medical_history"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"/>
+                android:layout_height="wrap_content" />
+
+            <include android:id="@+id/clinical"
+                layout="@layout/layout_clinical_examination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <include android:id="@+id/bloodTest"
+                layout="@layout/layout_blood_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <include android:id="@+id/supersonic"
+                layout="@layout/layout_supersonic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <include android:id="@+id/xray"
+                layout="@layout/layout_x_ray"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <include android:id="@+id/mri"
+                layout="@layout/layout_mri"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <include android:id="@+id/ct"
+                layout="@layout/layout_ct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_100" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

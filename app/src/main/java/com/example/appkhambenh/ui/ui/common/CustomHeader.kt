@@ -75,11 +75,11 @@ class CustomHeader : LinearLayout {
 
     fun visibleSearch() {
         binding.searchHeader.visibility = View.VISIBLE
-        expandView(binding.searchHeader, 34.dpToPx(context))
+        binding.searchHeader.expandView()
     }
 
     private fun goneSearch() {
-        collapseView(binding.searchHeader)
+        binding.searchHeader.collapseView()
     }
 
     fun visibleIconSearch() {

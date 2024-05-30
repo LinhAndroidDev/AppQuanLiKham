@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.core.view.postDelayed
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentTreatmentManagementBinding
 import com.example.appkhambenh.ui.base.BaseFragment
@@ -40,8 +41,8 @@ enum class ServiceTreatmentManagement {
 }
 
 class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatmentManagementBinding>() {
-    private var isExpand = true
-    private var isExpandInfoIntoHospital = true
+    private var isExpand = false
+    private var isExpandInfoIntoHospital = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -52,11 +53,18 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
         )
         binding.root.layoutParams = layoutParams
 
-        initView()
-        onClickView()
+        hideAllViewService()
+
+        showLoading()
+        binding.root.postDelayed(1000L) {
+            dismissLoading()
+            initView()
+            onClickView()
+        }
     }
 
     private fun initView() {
+
         val patient = arguments?.getParcelable<Patient>(FragmentAdminDoctor.OBJECT_PATIENT)
         patient?.let {
             binding.tvName.text = patient.name
@@ -66,6 +74,8 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
             binding.tvSex.text = patient.sex
         }
 
+        hideAllViewService()
+        binding.listOfService.layout.isVisible = true
         binding.tabExamination.apply {
             addTab(this.newTab().setText("Kê dịch vụ"))
             addTab(this.newTab().setText("Bệnh sử tiền sử"))
@@ -78,12 +88,27 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
             addTab(this.newTab().setText("Chẩn đoán"))
         }
 
-        binding.root.post {
-            initInfoIntoHospital()
-            initListOfService()
-            drawLineChart(binding.chart.lineChartTemplate, R.color.green_chart_template)
-            drawLineChart(binding.chart.lineChartBloodPressure, R.color.red_chart_blood_pressure)
-            drawLineChart(binding.chart.lineChartBloodSugarAndHeart, R.color.blue_chart_heart_and_blood_sugar)
+        initInfoIntoHospital()
+        initListOfService()
+        initClinical()
+        drawLineChart(binding.chart.lineChartTemplate, R.color.green_chart_template)
+        drawLineChart(binding.chart.lineChartBloodPressure, R.color.red_chart_blood_pressure)
+        drawLineChart(binding.chart.lineChartBloodSugarAndHeart, R.color.blue_chart_heart_and_blood_sugar)
+    }
+
+    private fun initClinical() {
+        binding.clinical.apply {
+            titleDiagnosisOfCirculatorySystem.title.text = "Chẩn đoán hệ tuần hoàn"
+            titleDiagnosisOfDigestiveSystem.title.text = "Chẩn đoán hệ tiêu hoá"
+            titleNervousSystemDiagnosis.title.text = "Chẩn đoán hệ thần kinh"
+            titleENTDiagnosis.title.text = "Chẩn đoán tai mũi họng"
+            titleDiagnosisOfRespiratorySystem.title.text = "Chẩn đoán hệ hô hấp"
+            titlEurogenitalDiagnosis.title.text = "Chẩn đoán niệu sinh dục"
+            titleDiagnosisOfMusculoskeletalSystem.title.text = "Chẩn đoán hệ xương khớp"
+            titleDiagnosisOfMaxillofacialSystem.title.text = "Chẩn đoán hệ răng hàm mặt"
+            titleHumanDiagnosis.title.text = "Chẩn đoán nhân khoa"
+            titleSyndrome.title.text = "Hội chứng"
+            titleOtherDiagnosis.title.text = "Chẩn đoán khác"
         }
     }
 
@@ -171,70 +196,65 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
 
     private fun onClickView() {
         binding.contentInfomation.post {
-            val height = binding.contentInfomation.height
-
             binding.titleInfoPatient.setOnClickListener {
                 isExpand = !isExpand
                 if (isExpand) {
                     binding.iconDown.rotationView(270f, 90f)
-                    expandView(binding.contentInfomation, height)
+                    binding.contentInfomation.expandView()
                 } else {
                     binding.iconDown.rotationView(90f, 270f)
-                    collapseView(binding.contentInfomation)
+                    binding.contentInfomation.collapseView()
                 }
             }
         }
 
         binding.contentInfoIntoHospital.post {
-            val height = binding.contentInfoIntoHospital.height
-
             binding.titleInfoIntoHospital.setOnClickListener {
                 isExpandInfoIntoHospital = !isExpandInfoIntoHospital
                 if (isExpandInfoIntoHospital) {
                     binding.iconInfoIntoHospital.rotationView(270f, 90f)
-                    expandView(binding.contentInfoIntoHospital, height)
+                    binding.contentInfoIntoHospital.expandView()
                 } else {
                     binding.iconInfoIntoHospital.rotationView(90f, 270f)
-                    collapseView(binding.contentInfoIntoHospital)
+                    binding.contentInfoIntoHospital.collapseView()
                 }
             }
         }
 
         binding.tabExamination.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
+                hideAllViewService()
                 when(ServiceTreatmentManagement.values()[tab.position]) {
                     ServiceTreatmentManagement.LIST_OF_SERVICE -> {
                         binding.listOfService.layout.isVisible = true
-                        binding.chart.layout.isVisible = false
                     }
 
                     ServiceTreatmentManagement.MEDICAL_HISTORY -> {
-                        binding.listOfService.layout.isVisible = false
                         binding.chart.layout.isVisible = true
                     }
 
                     ServiceTreatmentManagement.CLINICAL_AND_GENERAL_EXAMINATION -> {
-
+                        binding.clinical.layout.isVisible = true
                     }
 
                     ServiceTreatmentManagement.BLOOD_TESTS -> {
-
+                        binding.bloodTest.layout.isVisible = true
                     }
 
                     ServiceTreatmentManagement.SUPERSONIC -> {
-
+                        binding.supersonic.layout.isVisible = true
                     }
 
                     ServiceTreatmentManagement.X_RAY -> {
-
+                        binding.xray.layout.isVisible = true
                     }
 
                     ServiceTreatmentManagement.MRI -> {
-
+                        binding.mri.layout.isVisible = true
                     }
 
                     ServiceTreatmentManagement.CT -> {
-
+                        binding.ct.layout.isVisible = true
                     }
 
                     ServiceTreatmentManagement.DIAGNOSE -> {
@@ -251,6 +271,17 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
                 // Xử lý khi tab đã được chọn và người dùng chọn lại tab đó
             }
         })
+    }
+
+    private fun hideAllViewService() {
+        binding.listOfService.layout.isVisible = false
+        binding.chart.layout.isVisible = false
+        binding.clinical.layout.isVisible = false
+        binding.bloodTest.layout.isVisible = false
+        binding.supersonic.layout.isVisible = false
+        binding.xray.layout.isVisible = false
+        binding.mri.layout.isVisible = false
+        binding.ct.layout.isVisible = false
     }
 
     override fun getFragmentBinding(

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/layout">
+
+    <RelativeLayout
+        android:background="@color/blue_dark_light"
+        android:paddingVertical="@dimen/dimen_15"
+        android:paddingHorizontal="@dimen/dimen_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/text_sp16_black_bold"
+            android:text="Nhập thông tin khám lâm sàng"
+            android:textSize="@dimen/dimen_sp18"
+            android:textColor="@color/white"
+            android:layout_width="match_parent" />
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/titleDiagnosisOfCirculatorySystem"
+        android:layout_marginStart="@dimen/dimen_15"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        style="@style/edit_clinical_examination"
+        android:hint="Nhập nội dung chẩn đoán hệ tuần hoàn" />
+
+    <include
+        android:id="@+id/titleDiagnosisOfDigestiveSystem"
+        android:layout_marginStart="@dimen/dimen_15"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        style="@style/edit_clinical_examination"
+        android:hint="Nhập chẩn đoán hệ tiêu hoá" />
+
+    <include
+        android:id="@+id/titleNervousSystemDiagnosis"
+        android:layout_marginStart="@dimen/dimen_15"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        style="@style/edit_clinical_examination"
+        android:hint="Nhập nội dung chẩn đoán hệ thần kinh" />
+
+    <include
+        android:id="@+id/titleENTDiagnosis"
+        android:layout_marginStart="@dimen/dimen_15"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        style="@style/edit_clinical_examination"
+        android:hint="Nhập nội dung chẩn đoán tai mũi họng" />
+
+    <include
+        android:id="@+id/titleDiagnosisOfRespiratorySystem"
+        android:layout_marginStart="@dimen/dimen_15"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        style="@style/edit_clinical_examination"
+        android:hint="Nhập nội dung chẩn đoán hệ hô hấp" />
+
+    <include
+        android:id="@+id/titlEurogenitalDiagnosis"
+        android:layout_marginStart="@dimen/dimen_15"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        style="@style/edit_clinical_examination"
+        android:hint="Nhập nội dung chẩn đoán niệu sinh dục" />
+
+    <include
+        android:id="@+id/titleDiagnosisOfMusculoskeletalSystem"
+        android:layout_marginStart="@dimen/dimen_15"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        style="@style/edit_clinical_examination"
+        android:hint="Nhập nội dung chẩn đoán hệ xương khớp" />
+
+    <include
+        android:id="@+id/titleDiagnosisOfMaxillofacialSystem"
+        android:layout_marginStart="@dimen/dimen_15"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        style="@style/edit_clinical_examination"
+        android:hint="Nhập nội dung chẩn đoán hệ răng hàm mặt" />
+
+    <include
+        android:id="@+id/titleHumanDiagnosis"
+        android:layout_marginStart="@dimen/dimen_15"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        style="@style/edit_clinical_examination"
+        android:hint="Nhập nội dung chẩn đoán nhân khoa" />
+
+    <include
+        android:id="@+id/titleSyndrome"
+        android:layout_marginStart="@dimen/dimen_15"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        style="@style/edit_clinical_examination"
+        android:hint="Nhập nội dung hội chứng" />
+
+    <include
+        android:id="@+id/titleOtherDiagnosis"
+        android:layout_marginStart="@dimen/dimen_15"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        style="@style/edit_clinical_examination"
+        android:hint="Nhập các chẩn đoán khác" />
+
+    <include
+        android:id="@+id/complete"
+        layout="@layout/layout_foot_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical" />
+
+</LinearLayout>

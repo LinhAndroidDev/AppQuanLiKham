@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:background="@color/blue_dark_light"
+        android:paddingVertical="@dimen/dimen_15"
+        android:paddingHorizontal="@dimen/dimen_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/text_sp16_black_bold"
+            android:text="Nhập thông tin khám lâm sàng"
+            android:textSize="@dimen/dimen_sp18"
+            android:textColor="@color/white"
+            android:layout_width="match_parent" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginHorizontal="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:paddingEnd="@dimen/dimen_15"
+            android:layout_marginTop="@dimen/dimen_20"
+            style="@style/text_sp14"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="Đường trong máu (Glu)" />
+
+        <TextView
+            android:layout_marginTop="@dimen/dimen_20"
+            style="@style/text_sp14"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="Ure máu (Ure)" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginHorizontal="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:unit="mmol/L"/>
+
+        <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:unit="mmol/L"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginHorizontal="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:paddingEnd="@dimen/dimen_15"
+            android:layout_marginTop="@dimen/dimen_20"
+            style="@style/text_sp14"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="Số lượng hồng cầu" />
+
+        <TextView
+            android:layout_marginTop="@dimen/dimen_20"
+            style="@style/text_sp14"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="Lượng huyết sắc tố (Hb)" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginHorizontal="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:unit="Tera/L"/>
+
+        <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginHorizontal="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:paddingEnd="@dimen/dimen_15"
+            android:layout_marginTop="@dimen/dimen_20"
+            style="@style/text_sp14"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="Khối hồng cầu (HCT)" />
+
+        <TextView
+            android:layout_marginTop="@dimen/dimen_20"
+            style="@style/text_sp14"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="Thể tích trung bình của hồng cầu (MCV)" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginHorizontal="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:unit="%"/>
+
+        <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:unit="tL"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginHorizontal="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:paddingEnd="@dimen/dimen_15"
+            android:layout_marginTop="@dimen/dimen_20"
+            style="@style/text_sp14"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="Lượng Hb trung bình hồng cẩu (MCH)" />
+
+        <TextView
+            android:layout_marginTop="@dimen/dimen_20"
+            style="@style/text_sp14"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="Số lượng bạch cầu trong một thể tích máu (WBC)" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginHorizontal="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:unit="pg"/>
+
+        <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginHorizontal="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:paddingEnd="@dimen/dimen_15"
+            android:layout_marginTop="@dimen/dimen_20"
+            style="@style/text_sp14"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="Bạch cầu trung tính (NEUT)" />
+
+        <TextView
+            android:layout_marginTop="@dimen/dimen_20"
+            style="@style/text_sp14"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="Bạch cầu Lympho (LYM)" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginHorizontal="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginHorizontal="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:paddingEnd="@dimen/dimen_15"
+            android:layout_marginTop="@dimen/dimen_20"
+            style="@style/text_sp14"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="Bạch cầu Mono" />
+
+        <TextView
+            android:layout_marginTop="@dimen/dimen_20"
+            style="@style/text_sp14"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="Số lượng tiểu cầu trong một thể tích máu (PLT)" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginHorizontal="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:unit="%"/>
+
+        <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:unit="tL"/>
+    </LinearLayout>
+</LinearLayout>

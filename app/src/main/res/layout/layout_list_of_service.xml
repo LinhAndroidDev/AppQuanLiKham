@@ -7,7 +7,6 @@
     android:id="@+id/layout">
 
     <RelativeLayout
-        android:layout_marginTop="@dimen/dimen_20"
         android:background="@color/blue_dark_light"
         android:paddingVertical="@dimen/dimen_15"
         android:paddingHorizontal="@dimen/dimen_20"
@@ -17,7 +16,7 @@
         <TextView
             style="@style/text_sp16_black_bold"
             android:text="Kê dịch vụ"
-            android:textSize="@dimen/dimen_sp20"
+            android:textSize="@dimen/dimen_sp18"
             android:textColor="@color/white"
             android:layout_width="match_parent" />
 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_edit_search_info_patient_unselected">
+
+    <EditText
+        android:id="@+id/edtBlood"
+        android:background="@drawable/bg_edit_search_info_patient_unselected"
+        android:paddingVertical="@dimen/dimen_10"
+        android:paddingHorizontal="@dimen/dimen_15"
+        android:textColor="@color/text_common"
+        android:textSize="@dimen/dimen_sp14"
+        android:textColorHint="@color/txt_hint"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:imeOptions="actionDone"
+        android:inputType="numberDecimal"/>
+
+    <TextView
+        android:id="@+id/unit"
+        android:background="#56F6F5F5"
+        android:paddingVertical="@dimen/dimen_10"
+        android:paddingHorizontal="@dimen/dimen_15"
+        style="@style/text_sp14"
+        android:text="g/L" />
+</LinearLayout>

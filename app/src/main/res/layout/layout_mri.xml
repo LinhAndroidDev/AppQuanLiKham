@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/layout">
+
+    <RelativeLayout
+        android:background="@color/blue_dark_light"
+        android:paddingVertical="@dimen/dimen_15"
+        android:paddingHorizontal="@dimen/dimen_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/text_sp16_black_bold"
+            android:text="Nhập kết quả chụp MRI"
+            android:textSize="@dimen/dimen_sp18"
+            android:textColor="@color/white"
+            android:layout_width="match_parent" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_marginTop="@dimen/dimen_15"
+        android:layout_marginStart="@dimen/dimen_15"
+        style="@style/text_sp14"
+        android:text="Cập nhật hình ảnh đã chụp" />
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_5"
+        android:layout_marginStart="@dimen/dimen_15"
+        android:background="@drawable/bg_image_examination"
+        android:layout_width="@dimen/dimen_100"
+        android:layout_height="@dimen/dimen_100"
+        android:gravity="center">
+
+        <ImageView
+            android:src="@drawable/ic_action_add"
+            android:layout_width="@dimen/dimen_20"
+            android:layout_height="@dimen/dimen_20"
+            app:tint="@color/black"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginStart="@dimen/dimen_15"
+        style="@style/text_sp14"
+        android:text="Nhận xét từ bác sĩ chẩn đoán hình ảnh"/>
+
+    <EditText
+        style="@style/edit_clinical_examination"
+        android:hint="Nhập kết quả" />
+
+    <include
+        android:id="@+id/complete"
+        layout="@layout/layout_foot_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical" />
+</LinearLayout>

@@ -42,4 +42,8 @@
         <attr name="title_view_doctor" format="string"/>
         <attr name="title_next" format="string"/>
     </declare-styleable>
+
+    <declare-styleable name="CustomEdtBloodTest">
+        <attr name="unit" format="string"/>
+    </declare-styleable>
 </resources>

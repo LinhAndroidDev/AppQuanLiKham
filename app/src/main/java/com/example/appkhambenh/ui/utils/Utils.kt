@@ -2,6 +2,7 @@ package com.example.appkhambenh.ui.utils
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -10,6 +11,8 @@ import android.text.Spannable
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
+import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -29,34 +32,36 @@ import com.example.appkhambenh.ui.ui.user.medicine.MedicineActivity
 import com.example.appkhambenh.ui.ui.user.navigation.communication.FragmentCommunity
 import com.example.appkhambenh.ui.ui.user.service.ExaminationServiceActivity
 
-fun expandView(view: View, height: Int) {
-    view.measure(
-        View.MeasureSpec.makeMeasureSpec(
-            (view.parent as View).width,
-            View.MeasureSpec.EXACTLY
-        ),
-        View.MeasureSpec.makeMeasureSpec(1024, View.MeasureSpec.AT_MOST)
-    )
-    val anim = ValueAnimator.ofInt(view.height, height)
+fun View.expandView() {
+    //Measure the view to get its target height
+    measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+    val targetHeight = measuredHeight
+
+    //Set initial height to 0 and make the view visible
+    layoutParams .height = 0
+    visibility = View.VISIBLE
+
+    val anim = ValueAnimator.ofInt(0, targetHeight)
     anim.addUpdateListener { valueAnimator ->
         val value: Int = valueAnimator.animatedValue as Int
-        view.layoutParams.height = value
-        view.requestLayout()
+        layoutParams.height = value
+        requestLayout()
     }
     anim.duration = 300L
     anim.start()
 }
 
-fun collapseView(view: View) {
+fun View.collapseView() {
     val targetHeight = 0
 
-    val anim = ValueAnimator.ofInt(view.height, targetHeight)
+    val anim = ValueAnimator.ofInt(measuredHeight, targetHeight)
     anim.addUpdateListener { valueAnimator ->
         val value: Int = valueAnimator.animatedValue as Int
-        view.layoutParams.height = value
-        view.requestLayout()
+        layoutParams.height = value
+        requestLayout()
     }
     anim.duration = 300L
+    anim.interpolator = AccelerateDecelerateInterpolator()
     anim.start()
 }
 

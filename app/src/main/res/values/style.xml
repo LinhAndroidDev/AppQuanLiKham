@@ -133,4 +133,21 @@
         <item name="android:imeOptions">actionDone</item>
     </style>
 
+    //Edit Clinical Examination
+    <style name="edit_clinical_examination">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/dimen_10</item>
+        <item name="android:layout_marginHorizontal" tools:ignore="NewApi">@dimen/dimen_15</item>
+        <item name="android:paddingHorizontal" tools:ignore="NewApi">@dimen/dimen_15</item>
+        <item name="android:paddingVertical" tools:ignore="NewApi">@dimen/dimen_10</item>
+        <item name="android:textColor">@color/text_common</item>
+        <item name="android:textSize">@dimen/dimen_sp14</item>
+        <item name="android:background">@drawable/bg_edit_search_info_patient_unselected</item>
+        <item name="android:textColorHint">@color/txt_hint</item>
+        <item name="android:gravity">start</item>
+        <item name="android:lines">4</item>
+        <item name="android:imeOptions">actionDone</item>
+    </style>
+
 </resources>
