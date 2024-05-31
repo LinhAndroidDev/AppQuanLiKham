@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:paddingVertical="@dimen/dimen_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/idUser"
+                style="@style/text_sp14"
+                android:layout_width="@dimen/dimen_50"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dimen_10"
+                android:text="26" />
+
+            <TextView
+                android:id="@+id/nameUser"
+                style="@style/text_sp14_black_bold"
+                android:layout_width="@dimen/dimen_160"
+                android:paddingStart="@dimen/dimen_10"
+                android:text="Tên bệnh nhân"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+        </LinearLayout>
+
+        <View
+            android:background="@color/grey"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1"/>
+    </LinearLayout>
+</layout>

@@ -153,12 +153,11 @@
         style="@style/edit_clinical_examination"
         android:hint="Nhập các chẩn đoán khác" />
 
-    <include
-        android:id="@+id/complete"
-        layout="@layout/layout_foot_view"
+    <com.example.appkhambenh.ui.ui.common.CustomBtnFootView
+        android:id="@+id/update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical" />
+        app:title_foot_view="Cập nhật"
+        app:eleven_foot_view="0"/>
 
 </LinearLayout>

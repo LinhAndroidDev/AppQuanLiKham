@@ -46,4 +46,11 @@
     <declare-styleable name="CustomEdtBloodTest">
         <attr name="unit" format="string"/>
     </declare-styleable>
+
+    <declare-styleable name="CustomBtnFootView">
+        <attr name="title_foot_view" format="string"/>
+        <attr name="color_foot_view" format="color"/>
+        <attr name="eleven_foot_view" format="float"/>
+        <attr name="enable_foot_view" format="boolean"/>
+    </declare-styleable>
 </resources>

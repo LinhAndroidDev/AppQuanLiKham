@@ -134,7 +134,7 @@ class OnlineConsultationActivity :
 
     private fun enableFootView() {
         binding.footView.tvComplete.apply {
-            setBgColorViewTint(binding.footView.tvComplete, getColor(R.color.orange))
+            binding.footView.tvComplete.setBgColorViewTint(getColor(R.color.orange))
             setTextColor(getColor(R.color.white))
             alpha = 1f
             isEnabled = true

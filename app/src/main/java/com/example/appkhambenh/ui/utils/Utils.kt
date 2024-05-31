@@ -168,8 +168,8 @@ fun View.rotationView(startCorner: Float, endCorner: Float) {
     animator.start()
 }
 
-fun setBgColorViewTint(v: View, color: Int) {
-    v.backgroundTintList = ColorStateList.valueOf(color)
+fun View.setBgColorViewTint(color: Int) {
+    backgroundTintList = ColorStateList.valueOf(color)
 }
 
 fun View.rotationViewInfinite() {
