@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.PopupEditDepartmentBinding
 
 class DialogHourWorking : DialogFragment() {

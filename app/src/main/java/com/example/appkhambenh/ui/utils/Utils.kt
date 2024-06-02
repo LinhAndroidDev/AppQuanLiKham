@@ -2,8 +2,7 @@ package com.example.appkhambenh.ui.utils
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.annotation.SuppressLint
-import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -14,11 +13,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.LinearInterpolator
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentTransaction
 import com.example.appkhambenh.R
 import com.example.appkhambenh.ui.model.FunctionMain
 import com.example.appkhambenh.ui.ui.doctor.DoctorActivity
@@ -31,6 +31,9 @@ import com.example.appkhambenh.ui.ui.user.manage_appointment.ExaminationSchedule
 import com.example.appkhambenh.ui.ui.user.medicine.MedicineActivity
 import com.example.appkhambenh.ui.ui.user.navigation.communication.FragmentCommunity
 import com.example.appkhambenh.ui.ui.user.service.ExaminationServiceActivity
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 fun View.expandView() {
     //Measure the view to get its target height
@@ -188,4 +191,37 @@ fun Fragment.addFragmentByTag(fragment: Fragment, changeId: Int, tag: String) {
     fm.hide(requireActivity().supportFragmentManager.findFragmentByTag(tag)!!)
         .add(changeId, fragment)
         .addToBackStack(null).commit()
+}
+
+fun Context.getDateFromCalendar(timeSelected: (String) -> Unit) {
+    val calendar = Calendar.getInstance()
+    DatePickerDialog(
+        this,
+        { _, year, month, dayOfMonth ->
+            calendar.apply {
+                set(Calendar.YEAR, year)
+                set(Calendar.MONTH, month)
+                set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            }
+            val dateFormat = SimpleDateFormat(DateUtils.DAY_OF_YEAR, Locale.getDefault())
+            timeSelected.invoke(dateFormat.format(calendar.time))
+        },
+        calendar.get(Calendar.YEAR),
+        calendar.get(Calendar.MONTH),
+        calendar.get(Calendar.DAY_OF_MONTH)
+    ).show()
+}
+
+fun Spinner.createSpinner(context: Context, list: ArrayList<String>, selectItem: (Int) -> Unit) {
+    val adapterSp = ArrayAdapter(context, R.layout.item_spinner, list)
+    adapterSp.setDropDownViewResource(R.layout.spinner_dropdown_item)
+    adapter = adapterSp
+
+    onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            selectItem.invoke(position)
+        }
+
+        override fun onNothingSelected(parent: AdapterView<*>) {}
+    }
 }

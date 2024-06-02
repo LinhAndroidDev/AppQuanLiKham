@@ -9,6 +9,7 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentAdminDoctorBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.ui.EmptyViewModel
+import com.example.appkhambenh.ui.ui.common.dialog.DialogAddManagePatient
 import com.example.appkhambenh.ui.ui.doctor.adapter.InfoMainPatientAdapter
 import com.example.appkhambenh.ui.ui.doctor.adapter.LineInformationPatientAdapter
 import com.example.appkhambenh.ui.ui.doctor.adapter.Patient
@@ -18,6 +19,7 @@ class FragmentAdminDoctor : BaseFragment<EmptyViewModel, FragmentAdminDoctorBind
 
     companion object {
         const val OBJECT_PATIENT = "OBJECT_PATIENT"
+        const val NAME_PATIENT = "NAME_PATIENT"
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,14 +47,28 @@ class FragmentAdminDoctor : BaseFragment<EmptyViewModel, FragmentAdminDoctorBind
         val adapter = LineInformationPatientAdapter()
         adapter.items = patients
         adapter.onClickItem = {
-            goToFragmentTreatment(it)
+            goToFragmentEditInfoPatient(it)
         }
         binding.rcvInfoPatient.adapter = adapter
 
         val adapterInfo = InfoMainPatientAdapter()
         adapterInfo.items = patients
         adapterInfo.onClickItem = {
-            goToFragmentTreatment(it)
+            goToFragmentEditInfoPatient(it)
+        }
+        adapterInfo.addManager = { patient ->
+            val dialog = DialogAddManagePatient()
+            val bundle = Bundle()
+            bundle.putString(NAME_PATIENT, patient.name)
+            dialog.arguments = bundle
+            dialog.show(requireActivity().supportFragmentManager, "")
+            dialog.onClickHistoryTest = {
+
+            }
+
+            dialog.onClickManageTreatment = {
+                goToFragmentTreatment(patient)
+            }
         }
         binding.rcvMainInfo.adapter = adapterInfo
     }
@@ -63,6 +79,14 @@ class FragmentAdminDoctor : BaseFragment<EmptyViewModel, FragmentAdminDoctorBind
         bundle.putParcelable(OBJECT_PATIENT, patient)
         fragmentTreatmentManagement.arguments = bundle
         addFragmentByTag(fragmentTreatmentManagement, R.id.changeIdDoctorVn, "FragmentAdminDoctor")
+    }
+
+    private fun goToFragmentEditInfoPatient(patient: Patient) {
+        val fragmentEditInfoPatient = FragmentEditInfoPatient()
+        val bundle = Bundle()
+        bundle.putParcelable(OBJECT_PATIENT, patient)
+        fragmentEditInfoPatient.arguments = bundle
+        addFragmentByTag(fragmentEditInfoPatient, R.id.changeIdDoctorVn, "FragmentAdminDoctor")
     }
 
     override fun getFragmentBinding(

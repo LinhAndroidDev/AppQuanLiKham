@@ -61,6 +61,7 @@ class LineInformationPatientAdapter : BaseAdapter<Patient, ItemInformationPatien
 
 class InfoMainPatientAdapter : BaseAdapter<Patient, ItemInfoMainPatientBinding>() {
     var onClickItem: ((Patient) -> Unit)? = null
+    var addManager: ((Patient) -> Unit)? = null
 
     override fun getLayout(): Int = R.layout.item_info_main_patient
 
@@ -72,6 +73,9 @@ class InfoMainPatientAdapter : BaseAdapter<Patient, ItemInfoMainPatientBinding>(
         holder.v.apply {
             idUser.text = patient.id.toString()
             nameUser.text = patient.name
+            addManage.setOnClickListener {
+                addManager?.invoke(patient)
+            }
         }
 
         holder.itemView.setOnClickListener {

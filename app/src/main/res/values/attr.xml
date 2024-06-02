@@ -24,6 +24,9 @@
     <declare-styleable name="CustomEdtSearchInfoPatient">
         <attr name="title_info" format="string"/>
         <attr name="hint_info" format="string"/>
+        <attr name="important" format="boolean"/>
+        <attr name="is_calendar" format="boolean"/>
+        <attr name="has_pull_down" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="CustomTitleInfoPatient">

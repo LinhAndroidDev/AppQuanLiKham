@@ -85,7 +85,7 @@ class DoctorActivity : AppCompatActivity() {
                 checkItemNavigation(binding.navHome)
             }
 
-            is FragmentTreatmentManagement -> {
+            is FragmentTreatmentManagement, is FragmentEditInfoPatient -> {
                 super.onBackPressed()
             }
         }
