@@ -27,20 +27,26 @@
         style="@style/text_sp14"
         android:text="Cập nhật hình ảnh đã chụp" />
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/viewImage"
         android:layout_marginTop="@dimen/dimen_5"
         android:layout_marginStart="@dimen/dimen_15"
         android:background="@drawable/bg_image_examination"
         android:layout_width="@dimen/dimen_100"
-        android:layout_height="@dimen/dimen_100"
-        android:gravity="center">
+        android:layout_height="@dimen/dimen_100">
 
         <ImageView
             android:src="@drawable/ic_action_add"
             android:layout_width="@dimen/dimen_20"
             android:layout_height="@dimen/dimen_20"
-            app:tint="@color/black"/>
-    </LinearLayout>
+            app:tint="@color/black"
+            android:layout_centerInParent="true"/>
+
+        <ImageView
+            android:id="@+id/imgSuperSonic"
+            android:layout_width="@dimen/dimen_100"
+            android:layout_height="@dimen/dimen_100"/>
+    </RelativeLayout>
 
     <TextView
         android:layout_marginTop="@dimen/dimen_20"

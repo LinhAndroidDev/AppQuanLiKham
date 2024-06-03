@@ -2,7 +2,6 @@ package com.example.appkhambenh.ui.base
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.ProgressDialog
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle

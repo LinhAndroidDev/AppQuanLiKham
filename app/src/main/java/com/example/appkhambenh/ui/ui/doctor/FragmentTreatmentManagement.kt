@@ -221,6 +221,10 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
             }
         }
 
+        binding.supersonic.viewImage.setOnClickListener {
+
+        }
+
         binding.tabExamination.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 hideAllViewService()
@@ -258,7 +262,7 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
                     }
 
                     ServiceTreatmentManagement.DIAGNOSE -> {
-
+                        binding.diagnose.layout.isVisible = true
                     }
                 }
             }
@@ -282,6 +286,7 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
         binding.xray.layout.isVisible = false
         binding.mri.layout.isVisible = false
         binding.ct.layout.isVisible = false
+        binding.diagnose.layout.isVisible = false
     }
 
     override fun getFragmentBinding(

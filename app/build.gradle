@@ -96,4 +96,7 @@ dependencies {
 
     //ucop
     implementation ("com.github.yalantis:ucrop:2.2.8-native")
+
+    //cropper image
+    implementation("com.theartofdev.edmodo:android-image-cropper:2.8.0")
 }

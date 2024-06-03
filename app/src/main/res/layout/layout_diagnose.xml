@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/layout">
+
+    <RelativeLayout
+        android:background="@color/blue_dark_light"
+        android:paddingVertical="@dimen/dimen_15"
+        android:paddingHorizontal="@dimen/dimen_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/text_sp16_black_bold"
+            android:text="Nhập kết quả xét nghiệm máu"
+            android:textSize="@dimen/dimen_sp18"
+            android:textColor="@color/white"
+            android:layout_width="match_parent" />
+    </RelativeLayout>
+
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title_info="Bệnh chính"
+        app:hint_info="Nhập kết quả"
+        app:important="true"/>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginStart="@dimen/dimen_15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/important"
+            style="@style/text_sp14"
+            android:text="*"
+            android:textColor="@color/txt_red"
+            android:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_marginStart="@dimen/dimen_5"
+            style="@style/text_sp14"
+            android:text="Tên bệnh nhân" />
+    </LinearLayout>
+
+    <EditText
+        style="@style/edit_clinical_examination"
+        android:hint="Nhập kết quả" />
+
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title_info="Bệnh kèm theo"
+        app:hint_info="Nhập kết quả"
+        app:important="true"/>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginStart="@dimen/dimen_15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/text_sp14"
+            android:text="*"
+            android:textColor="@color/txt_red"
+            android:visibility="visible"/>
+
+        <TextView
+            android:layout_marginStart="@dimen/dimen_5"
+            style="@style/text_sp14"
+            android:text="Tiền lượng" />
+    </LinearLayout>
+
+    <EditText
+        style="@style/edit_clinical_examination"
+        android:hint="Nhập kết quả" />
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginStart="@dimen/dimen_15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/text_sp14"
+            android:text="*"
+            android:textColor="@color/txt_red"
+            android:visibility="visible"/>
+
+        <TextView
+            android:layout_marginStart="@dimen/dimen_5"
+            style="@style/text_sp14"
+            android:text="Kế hoạch điều trị" />
+    </LinearLayout>
+
+    <EditText
+        style="@style/edit_clinical_examination"
+        android:hint="Nhập kết quả" />
+
+    <com.example.appkhambenh.ui.ui.common.CustomBtnFootView
+        android:id="@+id/update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title_foot_view="Cập nhật"
+        app:eleven_foot_view="0"/>
+
+</LinearLayout>

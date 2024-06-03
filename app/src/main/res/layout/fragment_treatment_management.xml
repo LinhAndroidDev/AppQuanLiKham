@@ -403,6 +403,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
+            <include android:id="@+id/diagnose"
+                layout="@layout/layout_diagnose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_100" />
