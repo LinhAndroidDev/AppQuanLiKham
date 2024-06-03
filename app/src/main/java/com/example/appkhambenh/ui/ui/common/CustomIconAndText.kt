@@ -16,16 +16,16 @@ class CustomIconAndText @JvmOverloads constructor(
     init {
         addView(binding.root)
         val array = context.theme.obtainStyledAttributes(attrs, R.styleable.IconAndText, 0, 0)
-        array.apply {
-            getString(R.styleable.IconAndText_title_view)?.let { binding.title.text = it }
-            getDrawable(R.styleable.IconAndText_icon_view)?.let { binding.icon.setImageDrawable(it) }
-            getColor(R.styleable.IconAndText_icon_view_color, context.getColor(R.color.background)).let {
+        array.use {
+            array.getString(R.styleable.IconAndText_title_view)?.let { binding.title.text = it }
+            array.getDrawable(R.styleable.IconAndText_icon_view)?.let { binding.icon.setImageDrawable(it) }
+            array.getColor(R.styleable.IconAndText_icon_view_color, context.getColor(R.color.background)).let {
                 binding.icon.setColorFilter(it)
             }
-            getBoolean(R.styleable.IconAndText_title_text_bold, false).let {  bold ->
+            array.getBoolean(R.styleable.IconAndText_title_text_bold, false).let {  bold ->
                 binding.title.typeface = if(bold) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
             }
-            getColor(R.styleable.IconAndText_title_text_color, context.getColor(R.color.txt_hint)).let {
+            array.getColor(R.styleable.IconAndText_title_text_color, context.getColor(R.color.txt_hint)).let {
                 binding.title.setTextColor(it)
             }
 //            getBoolean(R.styleable.IconAndText_title_text_all_caps, false).let {

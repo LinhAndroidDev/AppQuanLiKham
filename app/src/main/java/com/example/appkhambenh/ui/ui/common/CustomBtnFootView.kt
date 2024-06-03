@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.view.isVisible
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.LayoutFootViewBinding
 import com.example.appkhambenh.ui.utils.setBgColorViewTint
@@ -20,13 +21,14 @@ class CustomBtnFootView @JvmOverloads constructor(
         addView(binding.root)
 
         val array = context.theme.obtainStyledAttributes(attrs, R.styleable.CustomBtnFootView, 0, 0)
-        array.apply {
-            binding.tvComplete.text = getString(R.styleable.CustomBtnFootView_title_foot_view)
-            binding.tvComplete.elevation = getFloat(R.styleable.CustomBtnFootView_eleven_foot_view, 10f)
-            binding.tvComplete.setBgColorViewTint(getColor(R.styleable.CustomBtnFootView_color_foot_view, context.getColor(R.color.background)))
-            getBoolean(R.styleable.CustomBtnFootView_enable_foot_view, true).let {
+        array.use {
+            binding.tvComplete.text = array.getString(R.styleable.CustomBtnFootView_title_foot_view)
+            binding.tvComplete.elevation = array.getFloat(R.styleable.CustomBtnFootView_eleven_foot_view, 10f)
+            binding.tvComplete.setBgColorViewTint(array.getColor(R.styleable.CustomBtnFootView_color_foot_view, context.getColor(R.color.background)))
+            array.getBoolean(R.styleable.CustomBtnFootView_enable_foot_view, true).let {
                 if(it) enableView() else disableView()
             }
+            binding.dividerFootView.isVisible = array.getBoolean(R.styleable.CustomBtnFootView_show_divider, false)
         }
     }
 

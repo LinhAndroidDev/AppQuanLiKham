@@ -55,5 +55,6 @@
         <attr name="color_foot_view" format="color"/>
         <attr name="eleven_foot_view" format="float"/>
         <attr name="enable_foot_view" format="boolean"/>
+        <attr name="show_divider" format="boolean"/>
     </declare-styleable>
 </resources>
