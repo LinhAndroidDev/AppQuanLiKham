@@ -1,21 +1,40 @@
 package com.example.appkhambenh.ui.ui.doctor
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AutoCompleteTextView
+import android.widget.ImageView
 import android.widget.RelativeLayout
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.ListPopupWindow
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.core.view.postDelayed
+import com.bumptech.glide.Glide
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentTreatmentManagementBinding
 import com.example.appkhambenh.ui.base.BaseFragment
+import com.example.appkhambenh.ui.data.remote.entity.PatientModel
 import com.example.appkhambenh.ui.ui.EmptyViewModel
+import com.example.appkhambenh.ui.ui.common.dialog.DialogTakeImage
+import com.example.appkhambenh.ui.ui.doctor.adapter.CustomArrayAdapter
 import com.example.appkhambenh.ui.ui.doctor.adapter.ListOfService
 import com.example.appkhambenh.ui.ui.doctor.adapter.ListOfServiceAdapter
-import com.example.appkhambenh.ui.ui.doctor.adapter.Patient
+import com.example.appkhambenh.ui.utils.PersonalInformation
 import com.example.appkhambenh.ui.utils.collapseView
 import com.example.appkhambenh.ui.utils.expandView
 import com.example.appkhambenh.ui.utils.rotationView
@@ -27,6 +46,12 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.google.android.material.tabs.TabLayout
+import com.yalantis.ucrop.UCrop
+import java.io.File
+import java.lang.reflect.Field
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 enum class ServiceTreatmentManagement {
     LIST_OF_SERVICE,
@@ -43,6 +68,61 @@ enum class ServiceTreatmentManagement {
 class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatmentManagementBinding>() {
     private var isExpand = false
     private var isExpandInfoIntoHospital = false
+    private var currentImage: ImageView? = null
+    private var imageUri: Uri? = null
+
+    private val uCropContract = object : ActivityResultContract<List<Uri?>, Uri?>(){
+        override fun createIntent(context: Context, input: List<Uri?>): Intent {
+            val inputUri = input[0]
+            val outputUri = input[1]
+
+            val uCop = UCrop.of(inputUri!!, outputUri!!)
+                .withAspectRatio(5f, 5f)
+                .withMaxResultSize(800, 800)
+
+            return uCop.getIntent(context)
+        }
+
+        override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
+            return if(intent != null) UCrop.getOutput(intent) else null
+        }
+
+    }
+
+    private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){ uri->
+        if(uri != null){
+            val date = SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.getDefault())
+            val outputUri = File(requireActivity().filesDir, "${date.format(Date())}croppedImage.jpg").toUri()
+            cropImage.launch(listOf(uri, outputUri))
+        }
+    }
+
+    private val takePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+        if (success) {
+            val date = SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.getDefault())
+            val outputUri = File(requireActivity().filesDir, "${date.format(Date())}croppedImage.jpg").toUri()
+            cropImage.launch(listOf(imageUri, outputUri))
+        }
+    }
+
+    private val cropImage = registerForActivityResult(uCropContract) {
+        if (it != null && currentImage != null) {
+            Log.e("Uri Crop: ", "$it")
+            Glide.with(requireActivity())
+                .load(it)
+                .into(currentImage!!)
+        }
+    }
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            captureImage()
+        } else {
+            Toast.makeText(requireActivity(), "Chưa cấp quyền truy cập Camera", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -65,13 +145,13 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
 
     private fun initView() {
 
-        val patient = arguments?.getParcelable<Patient>(FragmentAdminDoctor.OBJECT_PATIENT)
+        val patient = arguments?.getParcelable<PatientModel>(FragmentAdminDoctor.OBJECT_PATIENT)
         patient?.let {
-            binding.tvName.text = patient.name
+            binding.tvName.text = patient.fullname
             binding.tvAddress.text = patient.address
-            binding.tvCccd.text = patient.cccd
-            binding.tvPhone.text = patient.phone
-            binding.tvSex.text = patient.sex
+            binding.tvCccd.text = patient.citizenId
+            binding.tvPhone.text = patient.phoneNumber
+            binding.tvSex.text = if(patient.sex == "0") "Nam" else "Nữ"
         }
 
         hideAllViewService()
@@ -173,13 +253,19 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
     }
 
     private fun initInfoIntoHospital() {
-        binding.apply {
+        binding.contentInfoIntoHospital.apply {
             titleReason.title.text = "Lý do vào viện"
-            titleIntoHospitalNumber.title.text = "Vào viện lần thứ"
-            titleDiagnosisOfDestination.title.text = "Chẩn đoán nơi chuyển đến"
             titleIntroductionPlace.title.text = "Nơi giới thiệu"
+            titleTime.title.text = "Nhập viện lúc"
+            titleDepartment.title.text = "Khoa điều trị"
+            titleIntoHospitalNumber.title.text = "Vào viện lần thứ"
             titleRoom.title.text = "Phòng"
+            titleBed.title.text = "Giường"
+            titleDoctor.title.text = "Bác sĩ điều trị"
+            titleDiagnosisOfDestination.title.text = "Chẩn đoán nơi chuyển đến"
             titleDiagnosisOfKKBEmergency.title.text = "Chẩn đoán KKB, Cấp cứu"
+            titleDiagnosisCurrent.title.text = "Chẩn đoán hiện tại"
+            titleDiagnosisOut.title.text = "Chẩn đoán ra viện"
         }
     }
 
@@ -194,6 +280,7 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
         binding.listOfService.rcvTreatmentManagement.adapter = adapter
     }
 
+    @SuppressLint("DiscouragedPrivateApi")
     private fun onClickView() {
         binding.contentInfomation.post {
             binding.titleInfoPatient.setOnClickListener {
@@ -208,21 +295,33 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
             }
         }
 
-        binding.contentInfoIntoHospital.post {
+        binding.contentInfoIntoHospital.layout.post {
             binding.titleInfoIntoHospital.setOnClickListener {
                 isExpandInfoIntoHospital = !isExpandInfoIntoHospital
                 if (isExpandInfoIntoHospital) {
                     binding.iconInfoIntoHospital.rotationView(270f, 90f)
-                    binding.contentInfoIntoHospital.expandView()
+                    binding.contentInfoIntoHospital.layout.expandView()
                 } else {
                     binding.iconInfoIntoHospital.rotationView(90f, 270f)
-                    binding.contentInfoIntoHospital.collapseView()
+                    binding.contentInfoIntoHospital.layout.collapseView()
                 }
             }
         }
 
         binding.supersonic.viewImage.setOnClickListener {
+            takeImageFromUcop(binding.supersonic.imgSuperSonic)
+        }
 
+        binding.xray.viewImage.setOnClickListener {
+            takeImageFromUcop(binding.xray.imgXray)
+        }
+
+        binding.mri.viewImage.setOnClickListener {
+            takeImageFromUcop(binding.mri.imgMri)
+        }
+
+        binding.ct.viewImage.setOnClickListener {
+            takeImageFromUcop(binding.ct.imgCt)
         }
 
         binding.tabExamination.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -275,6 +374,88 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
                 // Xử lý khi tab đã được chọn và người dùng chọn lại tab đó
             }
         })
+
+//        binding.diagnose.sickMain.apply {
+//            val items = DataUtils.sick()
+//            val adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_dropdown_item_1line, items)
+//            setAdapter(adapter)
+//            setOnFocusChangeListener { _, hasFocus ->
+//                if (hasFocus) {
+//                    showDropDown()
+//                }
+//            }
+//
+//            setOnClickListener {
+//                showDropDown()
+//            }
+//        }
+
+        binding.diagnose.sickMain.apply {
+            val data: List<String?> = PersonalInformation.sick()
+            val adapter = CustomArrayAdapter(requireActivity(), android.R.layout.simple_dropdown_item_1line, data)
+            setAdapter(adapter)
+
+            post {
+                try {
+                    val popupField: Field = AutoCompleteTextView::class.java.getDeclaredField("mPopup")
+                    popupField.isAccessible = true
+                    val popup: ListPopupWindow = popupField.get(this) as ListPopupWindow
+                    popup.width = this.width
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            // Hiển thị danh sách khi AutoCompleteTextView nhận được focus
+            setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    showDropDown()
+                }
+            }
+
+            // Hiển thị danh sách khi AutoCompleteTextView được click
+            setOnClickListener {
+                showDropDown()
+            }
+        }
+    }
+
+    private fun takeImageFromUcop(image: ImageView) {
+        val dialog = DialogTakeImage()
+        dialog.show(requireActivity().supportFragmentManager, "")
+        dialog.onClickCamera = {
+            currentImage = image
+            checkCameraPermissionAndCaptureImage()
+        }
+        dialog.onClickGallery = {
+            currentImage = image
+            getContent.launch("image/*")
+        }
+    }
+
+    private fun captureImage() {
+        val photoFile = File.createTempFile(
+            "JPEG_${System.currentTimeMillis()}_",
+            ".jpg",
+            requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        )
+        imageUri = FileProvider.getUriForFile(
+            requireActivity(),
+            "com.example.appkhambenh.provider",
+            photoFile
+        )
+        takePicture.launch(imageUri)
+    }
+
+    private fun checkCameraPermissionAndCaptureImage() {
+        when (PackageManager.PERMISSION_GRANTED) {
+            ContextCompat.checkSelfPermission(requireActivity(), android.Manifest.permission.CAMERA) -> {
+                captureImage()
+            }
+            else -> {
+                requestPermissionLauncher.launch(android.Manifest.permission.CAMERA)
+            }
+        }
     }
 
     private fun hideAllViewService() {

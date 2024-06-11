@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import com.example.appkhambenh.databinding.FragmentEditInfoPatientBinding
 import com.example.appkhambenh.ui.base.BaseFragment
+import com.example.appkhambenh.ui.data.remote.entity.PatientModel
 import com.example.appkhambenh.ui.ui.EmptyViewModel
 
 class FragmentEditInfoPatient : BaseFragment<EmptyViewModel, FragmentEditInfoPatientBinding>() {
@@ -17,6 +18,16 @@ class FragmentEditInfoPatient : BaseFragment<EmptyViewModel, FragmentEditInfoPat
             RelativeLayout.LayoutParams.MATCH_PARENT
         )
         binding.root.layoutParams = layoutParams
+
+        val patient = arguments?.getParcelable<PatientModel?>(FragmentAdminDoctor.OBJECT_PATIENT)
+        patient?.let {
+            binding.edtName.setText(patient.fullname.toString())
+            binding.edtEmail.setText(patient.email.toString())
+            binding.edtPhone.setText(patient.phoneNumber.toString())
+            binding.edtBirth.setText(patient.DoB.toString())
+            binding.edtCccd.setText(patient.citizenId.toString())
+            binding.edtSex.setUpIndexSpinner(if(patient.sex == "0") 0 else 1)
+        }
 
         binding.edtSex.setUpListSpinner(arrayListOf("Nam", "Nữ", "Khác"))
         binding.edtSex.indexSelected = {

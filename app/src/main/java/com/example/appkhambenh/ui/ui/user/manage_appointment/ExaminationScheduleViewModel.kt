@@ -3,7 +3,7 @@ package com.example.appkhambenh.ui.ui.user.manage_appointment
 import androidx.lifecycle.viewModelScope
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.entity.DetailAppointment
-import com.example.appkhambenh.ui.data.remote.repository.AppointmentRepository
+import com.example.appkhambenh.ui.data.remote.repository.user.AppointmentRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

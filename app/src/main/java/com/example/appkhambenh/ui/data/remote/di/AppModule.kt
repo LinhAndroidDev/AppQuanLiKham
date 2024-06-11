@@ -3,6 +3,7 @@ package com.example.appkhambenh.ui.data.remote.di
 import android.content.Context
 import com.budiyev.android.codescanner.BuildConfig
 import com.example.appkhambenh.ui.data.remote.ApiService
+import com.example.appkhambenh.ui.data.remote.DoctorService
 import com.example.appkhambenh.ui.data.remote.helper.Constants
 import com.example.appkhambenh.ui.utils.SharePreferenceRepositoryImpl
 import com.google.android.gms.common.util.SharedPreferencesUtils
@@ -23,9 +24,6 @@ import java.util.concurrent.TimeUnit
 @Module
 @InstallIn(ViewModelComponent::class)
 object AppModule {
-
-    @Provides
-    fun provideBaseUrl() = Constants.BASE_URL
 
     @Provides
     fun provideContext(@ApplicationContext context: Context): Context = context.applicationContext
@@ -64,9 +62,9 @@ object AppModule {
     @Provides
     @ViewModelScoped
     @ApiWebService
-    fun provideApiClient(BASE_URL: String, okHttpClient: OkHttpClient): Retrofit =
+    fun provideApiClient(okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(Constants.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .addConverterFactory(ScalarsConverterFactory.create())
@@ -76,5 +74,22 @@ object AppModule {
     @ViewModelScoped
     fun provideNewsApi(@ApiWebService retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
+    }
+
+    @Provides
+    @ViewModelScoped
+    @DoctorWebService
+    fun provideDoctorClient(okHttpClient: OkHttpClient): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(Constants.DOCTOR_URL)
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .build()
+
+    @Provides
+    @ViewModelScoped
+    fun provideDoctorApi(@DoctorWebService retrofit: Retrofit): DoctorService {
+        return retrofit.create(DoctorService::class.java)
     }
 }

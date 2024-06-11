@@ -20,7 +20,6 @@ import com.example.appkhambenh.ui.utils.ConvertUtils.dpToPx
 import com.example.appkhambenh.ui.utils.setBgColorViewTint
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Locale
 
 @AndroidEntryPoint
@@ -134,7 +133,7 @@ class OnlineConsultationActivity :
 
     private fun enableFootView() {
         binding.footView.tvComplete.apply {
-            binding.footView.tvComplete.setBgColorViewTint(getColor(R.color.orange))
+            binding.footView.tvComplete.setBgColorViewTint(R.color.orange)
             setTextColor(getColor(R.color.white))
             alpha = 1f
             isEnabled = true

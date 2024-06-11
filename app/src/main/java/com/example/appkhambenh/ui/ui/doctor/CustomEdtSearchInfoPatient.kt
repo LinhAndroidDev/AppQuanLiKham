@@ -67,4 +67,12 @@ class CustomEdtSearchInfoPatient @JvmOverloads constructor(
             indexSelected?.invoke(it)
         }
     }
+
+    fun setUpIndexSpinner(index: Int) {
+        binding.pulldown.setSelection(index, false)
+    }
+
+    fun setText(str: String) {
+        binding.edtInfo.setText(str)
+    }
 }

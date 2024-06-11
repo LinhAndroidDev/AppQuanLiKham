@@ -72,6 +72,6 @@ class CustomSearch : RelativeLayout {
     }
 
     fun setBgGreySearch() {
-        binding.search.setBgColorViewTint(context.getColor(R.color.grey_light))
+        binding.search.setBgColorViewTint(R.color.grey_light)
     }
 }

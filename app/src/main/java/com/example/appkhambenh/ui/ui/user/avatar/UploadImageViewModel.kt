@@ -2,7 +2,7 @@ package com.example.appkhambenh.ui.ui.user.avatar
 
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.ApiClient
-import com.example.appkhambenh.ui.data.remote.repository.UpdateAvatarRepository
+import com.example.appkhambenh.ui.data.remote.repository.user.UpdateAvatarRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import okhttp3.MultipartBody

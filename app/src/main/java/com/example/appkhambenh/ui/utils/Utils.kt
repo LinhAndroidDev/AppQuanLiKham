@@ -2,8 +2,10 @@ package com.example.appkhambenh.ui.utils
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.text.Spannable
@@ -172,7 +174,7 @@ fun View.rotationView(startCorner: Float, endCorner: Float) {
 }
 
 fun View.setBgColorViewTint(color: Int) {
-    backgroundTintList = ColorStateList.valueOf(color)
+    backgroundTintList = ColorStateList.valueOf(context.getColor(color))
 }
 
 fun View.rotationViewInfinite() {
@@ -224,4 +226,15 @@ fun Spinner.createSpinner(context: Context, list: ArrayList<String>, selectItem:
 
         override fun onNothingSelected(parent: AdapterView<*>) {}
     }
+}
+
+inline fun <reified T : Activity> Context.getActivity(): T? {
+    var context = this
+    while (context is ContextWrapper) {
+        if (context is T) {
+            return context
+        }
+        context = context.baseContext
+    }
+    return null
 }

@@ -2,7 +2,7 @@ package com.example.appkhambenh.ui.ui.user.doctor
 
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.model.DoctorModel
-import com.example.appkhambenh.ui.data.remote.repository.DoctorRepository
+import com.example.appkhambenh.ui.data.remote.repository.user.DoctorRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow

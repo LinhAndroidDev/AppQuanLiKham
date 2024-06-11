@@ -32,13 +32,13 @@ class CustomBtnGender : LinearLayout {
     }
 
     fun stsSelected() {
-        binding.bgGender.setBgColorViewTint(context.getColor(R.color.background))
+        binding.bgGender.setBgColorViewTint(R.color.background)
         binding.icGender.setColorFilter(context.getColor(R.color.white))
         binding.nameGender.setTextColor(context.getColor(R.color.white))
     }
 
     fun stsUnSelected() {
-        binding.bgGender.setBgColorViewTint(context.getColor(R.color.grey))
+        binding.bgGender.setBgColorViewTint(R.color.grey)
         binding.icGender.setColorFilter(context.getColor(R.color.grey_1))
         binding.nameGender.setTextColor(context.getColor(R.color.text_common))
     }

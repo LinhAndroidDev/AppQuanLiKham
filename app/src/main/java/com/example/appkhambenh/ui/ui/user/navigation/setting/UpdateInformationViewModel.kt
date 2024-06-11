@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.model.ProfileModel
 import com.example.appkhambenh.ui.data.remote.model.UserModel
-import com.example.appkhambenh.ui.data.remote.repository.ProfileRepository
+import com.example.appkhambenh.ui.data.remote.repository.user.ProfileRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

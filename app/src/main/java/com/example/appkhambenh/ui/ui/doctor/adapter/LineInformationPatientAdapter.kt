@@ -7,19 +7,8 @@ import com.example.appkhambenh.databinding.ItemInfoAppointPatientBinding
 import com.example.appkhambenh.databinding.ItemInfoMainPatientBinding
 import com.example.appkhambenh.databinding.ItemInformationPatientBinding
 import com.example.appkhambenh.ui.base.BaseAdapter
+import com.example.appkhambenh.ui.data.remote.entity.PatientModel
 import kotlinx.parcelize.Parcelize
-
-@Parcelize
-class Patient(
-    val id: Int,
-    val name: String,
-    val address: String,
-    val numberBhxh: String?,
-    val cccd: String?,
-    val email: String,
-    val phone: String,
-    val sex: String,
-) : Parcelable
 
 @Parcelize
 class AppointmentDoctor(
@@ -33,9 +22,9 @@ class AppointmentDoctor(
     val introducePlace: String
 ) : Parcelable
 
-class LineInformationPatientAdapter : BaseAdapter<Patient, ItemInformationPatientBinding>() {
+class LineInformationPatientAdapter : BaseAdapter<PatientModel, ItemInformationPatientBinding>() {
 
-    var onClickItem: ((Patient) -> Unit)? = null
+    var onClickItem: ((PatientModel) -> Unit)? = null
 
     override fun getLayout(): Int = R.layout.item_information_patient
 
@@ -46,11 +35,11 @@ class LineInformationPatientAdapter : BaseAdapter<Patient, ItemInformationPatien
         val patient = items[position]
         holder.v.apply {
             address.text = patient.address
-            numberBhxh.text = patient.numberBhxh
-            cccd.text = patient.cccd
+            numberBhxh.text = patient.healthInsurance
+            cccd.text = patient.citizenId
             email.text = patient.email
-            phone.text = patient.phone
-            sex.text = patient.sex
+            phone.text = patient.phoneNumber
+            sex.text = if(patient.sex == "0") "Nam" else "Nữ"
         }
 
         holder.v.itemView.setOnClickListener {
@@ -59,9 +48,9 @@ class LineInformationPatientAdapter : BaseAdapter<Patient, ItemInformationPatien
     }
 }
 
-class InfoMainPatientAdapter : BaseAdapter<Patient, ItemInfoMainPatientBinding>() {
-    var onClickItem: ((Patient) -> Unit)? = null
-    var addManager: ((Patient) -> Unit)? = null
+class InfoMainPatientAdapter : BaseAdapter<PatientModel, ItemInfoMainPatientBinding>() {
+    var onClickItem: ((PatientModel) -> Unit)? = null
+    var addManager: ((PatientModel) -> Unit)? = null
 
     override fun getLayout(): Int = R.layout.item_info_main_patient
 
@@ -72,7 +61,7 @@ class InfoMainPatientAdapter : BaseAdapter<Patient, ItemInfoMainPatientBinding>(
         val patient = items[position]
         holder.v.apply {
             idUser.text = patient.id.toString()
-            nameUser.text = patient.name
+            nameUser.text = patient.fullname
             addManage.setOnClickListener {
                 addManager?.invoke(patient)
             }

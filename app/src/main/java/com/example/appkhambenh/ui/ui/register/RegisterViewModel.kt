@@ -3,7 +3,7 @@ package com.example.appkhambenh.ui.ui.register
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.ApiClient
 import com.example.appkhambenh.ui.data.remote.model.RegisterModel
-import com.example.appkhambenh.ui.data.remote.repository.RegisterRepository
+import com.example.appkhambenh.ui.data.remote.repository.user.RegisterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject

@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.ApiClient
 import com.example.appkhambenh.ui.data.remote.model.Hospital
-import com.example.appkhambenh.ui.data.remote.repository.HospitalRepository
+import com.example.appkhambenh.ui.data.remote.repository.user.HospitalRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

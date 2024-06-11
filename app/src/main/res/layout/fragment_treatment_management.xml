@@ -23,14 +23,14 @@
                 app:title_next=" / Quản lí điều trị"/>
 
             <TextView
-                android:layout_marginEnd="@dimen/dimen_10"
-                android:layout_gravity="end"
                 style="@style/text_sp14_black_bold"
-                android:text="Xuất bệnh án"
-                android:textColor="@color/white"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/dimen_10"
                 android:background="@color/blue_dark_light"
+                android:paddingHorizontal="@dimen/dimen_15"
                 android:paddingVertical="@dimen/dimen_7"
-                android:paddingHorizontal="@dimen/dimen_15"/>
+                android:text="Xuất bệnh án"
+                android:textColor="@color/white" />
 
             <LinearLayout
                 android:layout_marginTop="@dimen/dimen_10"
@@ -259,92 +259,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_1"/>
 
-                <LinearLayout
+                <include
                     android:id="@+id/contentInfoIntoHospital"
-                    android:paddingHorizontal="@dimen/dimen_15"
-                    android:paddingBottom="@dimen/dimen_15"
+                    layout="@layout/layout_info_into_hospital"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <include
-                        android:id="@+id/titleReason"
-                        layout="@layout/layout_title_update_infor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_15" />
-
-                    <EditText
-                        android:id="@+id/edtReason"
-                        style="@style/edt_update_information"
-                        android:layout_marginTop="@dimen/dimen_10" />
-
-                    <include
-                        android:id="@+id/titleIntoHospitalNumber"
-                        layout="@layout/layout_title_update_infor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_15" />
-
-                    <EditText
-                        android:id="@+id/edtIntoHospitalNumber"
-                        style="@style/edt_update_information"
-                        android:layout_marginTop="@dimen/dimen_10"
-                        android:inputType="textEmailAddress"/>
-
-                    <include
-                        android:id="@+id/titleDiagnosisOfDestination"
-                        layout="@layout/layout_title_update_infor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_15" />
-
-                    <EditText
-                        android:id="@+id/edtDiagnosisOfDestination"
-                        style="@style/edt_update_information"
-                        android:layout_marginTop="@dimen/dimen_10"
-                        android:inputType="textEmailAddress"/>
-
-                    <include
-                        android:id="@+id/titleIntroductionPlace"
-                        layout="@layout/layout_title_update_infor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_15" />
-
-                    <EditText
-                        android:id="@+id/edtIntroductionPlace"
-                        style="@style/edt_update_information"
-                        android:layout_marginTop="@dimen/dimen_10"
-                        android:inputType="textEmailAddress"/>
-
-                    <include
-                        android:id="@+id/titleRoom"
-                        layout="@layout/layout_title_update_infor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_15" />
-
-                    <EditText
-                        android:id="@+id/edtRoom"
-                        style="@style/edt_update_information"
-                        android:layout_marginTop="@dimen/dimen_10"
-                        android:inputType="textEmailAddress"/>
-
-                    <include
-                        android:id="@+id/titleDiagnosisOfKKBEmergency"
-                        layout="@layout/layout_title_update_infor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_15" />
-
-                    <EditText
-                        android:id="@+id/edtDiagnosisOfKKBEmergency"
-                        style="@style/edt_update_information"
-                        android:layout_marginTop="@dimen/dimen_10"
-                        android:inputType="textEmailAddress"/>
-                </LinearLayout>
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <com.google.android.material.tabs.TabLayout

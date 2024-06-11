@@ -15,13 +15,11 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentLoginBinding
 import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.base.BaseFragment
-import com.example.appkhambenh.ui.data.remote.model.LoginModel
 import com.example.appkhambenh.ui.ui.doctor.DoctorActivity
 import com.example.appkhambenh.ui.ui.register.FragmentRegister
-import com.example.appkhambenh.ui.utils.validateEmail
-import com.example.appkhambenh.ui.utils.validatePassword
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @Suppress("DEPRECATION")
@@ -65,6 +63,27 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
                 activity?.finish()
             }
         }
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            viewModel.doctorLoginSuccess.collect { isSuccess->
+                 if(isSuccess) {
+                    if (binding.checkForgetPassword.isChecked) {
+                        saveAccount(
+                            email = binding.edtAccount.text.toString(),
+                            password = binding.edtPassword.text.toString(),
+                            isForget = true
+                        )
+                    } else if (!binding.checkForgetPassword.isChecked) {
+                        saveAccount("", "", false)
+                    }
+
+                    sharePrefer.saveCheckLogin(true)
+
+                    val intent = Intent(requireActivity(), DoctorActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        }
     }
 
     private fun saveAccount(email: String, password: String, isForget: Boolean) {
@@ -90,10 +109,11 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
         }
 
         binding.login.setOnClickListener {
-            val intent = Intent(requireActivity(), DoctorActivity::class.java)
-            startActivity(intent)
-//            val email = binding.edtAccount.text.toString()
-//            val password = binding.edtPassword.text.toString()
+            val email = binding.edtAccount.text.toString()
+            val password = binding.edtPassword.text.toString()
+            lifecycleScope.launch(Dispatchers.IO) {
+                viewModel.loginDoctor(email, password)
+            }
 //            if (email.isEmpty() || password.isEmpty()) {
 //                setNotification(R.color.txt_green, R.string.enter_enough_info)
 //            } else if (!validateEmail(email)) {

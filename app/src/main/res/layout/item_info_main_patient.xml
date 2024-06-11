@@ -14,27 +14,33 @@
 
             <LinearLayout
                 android:id="@+id/addManage"
-                android:background="@drawable/boder_grey_corner_5"
-                android:layout_marginStart="@dimen/dimen_10"
-                android:layout_width="@dimen/dimen_20"
-                android:layout_height="@dimen/dimen_20"
-                android:gravity="center">
-
-                <ImageView
-                    android:src="@drawable/ic_action_add"
-                    android:layout_width="@dimen/dimen_15"
-                    android:layout_height="@dimen/dimen_15"
-                    app:tint="@color/black"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/idUser"
-                android:layout_marginVertical="@dimen/dimen_15"
-                style="@style/text_sp14"
-                android:layout_width="@dimen/dimen_70"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/dimen_20"
-                android:text="26" />
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:background="@drawable/boder_grey_corner_5"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_width="@dimen/dimen_20"
+                    android:layout_height="@dimen/dimen_20"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:src="@drawable/ic_action_add"
+                        android:layout_width="@dimen/dimen_15"
+                        android:layout_height="@dimen/dimen_15"
+                        app:tint="@color/black"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/idUser"
+                    android:layout_marginVertical="@dimen/dimen_15"
+                    style="@style/text_sp14"
+                    android:layout_width="@dimen/dimen_70"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/dimen_20"
+                    android:text="26" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/nameUser"

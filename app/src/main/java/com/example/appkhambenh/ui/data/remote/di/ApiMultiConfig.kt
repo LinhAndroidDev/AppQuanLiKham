@@ -5,3 +5,7 @@ import javax.inject.Qualifier
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
 annotation class ApiWebService
+
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class DoctorWebService

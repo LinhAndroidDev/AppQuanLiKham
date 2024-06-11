@@ -309,7 +309,7 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
     override fun onBackPressed() {
         val fmCurrent = supportFragmentManager.findFragmentById(R.id.changeIdHome)
         if (fmCurrent is FragmentHome) {
-            super.onBackPressed()
+            this.finish()
         } else {
             replaceFragment(FragmentHome(), R.id.changeIdHome)
             binding.bottomNvg.menu.findItem(R.id.home).isChecked = true

@@ -1,13 +1,14 @@
 package com.example.appkhambenh.ui.ui.doctor
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.postDelayed
 import androidx.fragment.app.Fragment
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityDoctorBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 @Suppress("DEPRECATION")
 class DoctorActivity : AppCompatActivity() {
     private val binding by lazy { ActivityDoctorBinding.inflate(layoutInflater) }

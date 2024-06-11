@@ -52,11 +52,16 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
     }
 
     fun showLoading() {
-        loading.show(requireActivity().supportFragmentManager, "")
+        loading.show(requireActivity().supportFragmentManager, "DialogLoading")
     }
 
     fun dismissLoading() {
-        loading.dismiss()
+        val dialogFragment = parentFragmentManager.findFragmentByTag("DialogLoading") as? DialogLoading
+        dialogFragment?.let {
+            if (it.isAdded) {
+                it.dismiss()
+            }
+        }
     }
 
     abstract fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): B

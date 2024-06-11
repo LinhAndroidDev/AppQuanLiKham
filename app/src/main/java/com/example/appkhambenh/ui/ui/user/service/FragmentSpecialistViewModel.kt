@@ -2,7 +2,7 @@ package com.example.appkhambenh.ui.ui.user.service
 
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.model.Specialist
-import com.example.appkhambenh.ui.data.remote.repository.SpecialistRepository
+import com.example.appkhambenh.ui.data.remote.repository.user.SpecialistRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow

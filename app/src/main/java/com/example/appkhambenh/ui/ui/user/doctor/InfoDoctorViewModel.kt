@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.model.TimeWorkingModel
-import com.example.appkhambenh.ui.data.remote.repository.TimeWorkingRepository
+import com.example.appkhambenh.ui.data.remote.repository.user.TimeWorkingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

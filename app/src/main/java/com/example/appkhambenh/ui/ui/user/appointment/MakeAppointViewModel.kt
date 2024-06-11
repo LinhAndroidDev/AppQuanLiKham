@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.ApiClient
 import com.example.appkhambenh.ui.data.remote.model.BookAppointmentModel
-import com.example.appkhambenh.ui.data.remote.repository.AppointmentRepository
+import com.example.appkhambenh.ui.data.remote.repository.user.AppointmentRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

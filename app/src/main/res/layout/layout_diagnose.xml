@@ -21,14 +21,46 @@
             android:layout_width="match_parent" />
     </RelativeLayout>
 
-    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+    <LinearLayout
         android:layout_marginTop="@dimen/dimen_10"
-        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_marginStart="@dimen/dimen_15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/text_sp14"
+            android:text="*"
+            android:textColor="@color/txt_red"
+            android:visibility="visible"/>
+
+        <TextView
+            android:layout_marginStart="@dimen/dimen_5"
+            style="@style/text_sp14"
+            android:text="Bệnh chính" />
+    </LinearLayout>
+
+    <AutoCompleteTextView
+        android:id="@+id/sickMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_info="Bệnh chính"
-        app:hint_info="Nhập kết quả"
-        app:important="true"/>
+        android:hint="Nhập kết quả"
+        android:completionThreshold="0"
+        android:textSize="@dimen/dimen_sp14"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:paddingVertical="@dimen/dimen_12"
+        android:paddingStart="@dimen/dimen_15"
+        android:background="@drawable/bg_edit_search_info_patient"/>
+
+<!--    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginHorizontal="@dimen/dimen_15"-->
+<!--        android:layout_marginTop="@dimen/dimen_10"-->
+<!--        app:hint_info="Nhập kết quả"-->
+<!--        app:important="true"-->
+<!--        app:title_info="Bệnh chính" />-->
 
     <LinearLayout
         android:layout_marginTop="@dimen/dimen_20"

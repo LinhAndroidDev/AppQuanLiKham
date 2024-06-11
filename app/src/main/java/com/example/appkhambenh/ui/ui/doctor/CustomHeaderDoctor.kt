@@ -2,14 +2,18 @@ package com.example.appkhambenh.ui.ui.doctor
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.PopupWindow
+import androidx.core.content.ContextCompat.startActivity
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.HeaderDoctorBinding
+import com.example.appkhambenh.ui.ui.MainActivity
+import com.example.appkhambenh.ui.utils.getActivity
 
 class CustomHeaderDoctor @JvmOverloads constructor(
     context: Context,
@@ -34,7 +38,8 @@ class CustomHeaderDoctor @JvmOverloads constructor(
 
     private fun onClickView() {
         binding.menu.setOnClickListener {
-            (context as DoctorActivity).openNavigationDrawer()
+            val doctorActivity: DoctorActivity? = context.getActivity()
+            doctorActivity?.openNavigationDrawer()
         }
 
         binding.avatar.setOnClickListener {
@@ -52,7 +57,10 @@ class CustomHeaderDoctor @JvmOverloads constructor(
         popupWindow.showAsDropDown(binding.avatar, 50, 0, Gravity.BOTTOM)
 
         popupView.findViewById<LinearLayout>(R.id.logoutDoctor).setOnClickListener {
-            (context as DoctorActivity).finish()
+            val activity = context as DoctorActivity
+            val intent = Intent(activity, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            activity.startActivity(intent)
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.appkhambenh.ui.data.remote.repository
+package com.example.appkhambenh.ui.data.remote.repository.user
 
 import com.example.appkhambenh.ui.data.remote.ApiService
 import dagger.hilt.android.scopes.ViewModelScoped

@@ -3,7 +3,7 @@ package com.example.appkhambenh.ui.ui.user.navigation.password
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.ApiClient
 import com.example.appkhambenh.ui.data.remote.model.ChangePasswordModel
-import com.example.appkhambenh.ui.data.remote.repository.ChangePasswordRepository
+import com.example.appkhambenh.ui.data.remote.repository.user.ChangePasswordRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject

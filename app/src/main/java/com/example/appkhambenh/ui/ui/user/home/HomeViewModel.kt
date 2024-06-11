@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.ApiClient
 import com.example.appkhambenh.ui.data.remote.model.UserModel
-import com.example.appkhambenh.ui.data.remote.repository.HomeRepository
+import com.example.appkhambenh.ui.data.remote.repository.user.HomeRepository
 import com.example.appkhambenh.ui.utils.DateUtils
 import com.example.appkhambenh.ui.utils.SharePreferenceRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -46,8 +46,7 @@ class HomeViewModel @Inject constructor(
     fun getUserInfo() = viewModelScope.launch {
         loading.postValue(true)
         try {
-            repository.getUserInfo()
-                .let { response ->
+            repository.getUserInfo().let { response ->
                     loading.postValue(false)
                     if (response.isSuccessful) {
                         response.body().let {
@@ -64,8 +63,6 @@ class HomeViewModel @Inject constructor(
                                 }
                             }
                         }
-                    } else {
-//                        errorApiLiveData.postValue(response.body()?.message)
                     }
                 }
         } catch (e: Exception) {

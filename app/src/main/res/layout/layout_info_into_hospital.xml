@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/layout"
+    android:paddingHorizontal="@dimen/dimen_15"
+    android:paddingBottom="@dimen/dimen_15"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="gone"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <include
+        android:id="@+id/titleReason"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        android:id="@+id/edtReason"
+        style="@style/edt_update_information"
+        android:layout_marginTop="@dimen/dimen_10" />
+
+    <include
+        android:id="@+id/titleIntroductionPlace"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        android:id="@+id/edtIntroductionPlace"
+        style="@style/edt_update_information"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:inputType="textEmailAddress"/>
+
+    <include
+        android:id="@+id/titleTime"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        android:id="@+id/edtTime"
+        style="@style/edt_update_information"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:inputType="textEmailAddress"/>
+
+    <include
+        android:id="@+id/titleDepartment"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        android:id="@+id/edtDepartment"
+        style="@style/edt_update_information"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:inputType="textEmailAddress"/>
+
+    <include
+        android:id="@+id/titleIntoHospitalNumber"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        android:id="@+id/edtIntoHospitalNumber"
+        style="@style/edt_update_information"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:inputType="textEmailAddress"/>
+
+    <include
+        android:id="@+id/titleRoom"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        android:id="@+id/edtRoom"
+        style="@style/edt_update_information"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:inputType="textEmailAddress"/>
+
+    <include
+        android:id="@+id/titleBed"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        android:id="@+id/edtBed"
+        style="@style/edt_update_information"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:inputType="textEmailAddress"/>
+
+    <include
+        android:id="@+id/titleDoctor"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        android:id="@+id/edtDoctor"
+        style="@style/edt_update_information"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:inputType="textEmailAddress"/>
+
+    <include
+        android:id="@+id/titleDiagnosisOfDestination"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        android:id="@+id/edtDiagnosisOfDestination"
+        style="@style/edt_update_information"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:inputType="textEmailAddress"/>
+
+    <include
+        android:id="@+id/titleDiagnosisOfKKBEmergency"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        android:id="@+id/edtDiagnosisOfKKBEmergency"
+        style="@style/edt_update_information"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:inputType="textEmailAddress"/>
+
+    <include
+        android:id="@+id/titleDiagnosisCurrent"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        android:id="@+id/edtDiagnosisCurrent"
+        style="@style/edt_update_information"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:inputType="textEmailAddress"/>
+
+    <include
+        android:id="@+id/titleDiagnosisOut"
+        layout="@layout/layout_title_update_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15" />
+
+    <EditText
+        android:id="@+id/edtDiagnosisOut"
+        style="@style/edt_update_information"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:inputType="textEmailAddress"/>
+</LinearLayout>

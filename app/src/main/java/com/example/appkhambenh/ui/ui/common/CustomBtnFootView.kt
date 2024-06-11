@@ -24,7 +24,7 @@ class CustomBtnFootView @JvmOverloads constructor(
         array.use {
             binding.tvComplete.text = array.getString(R.styleable.CustomBtnFootView_title_foot_view)
             binding.tvComplete.elevation = array.getFloat(R.styleable.CustomBtnFootView_eleven_foot_view, 10f)
-            binding.tvComplete.setBgColorViewTint(array.getColor(R.styleable.CustomBtnFootView_color_foot_view, context.getColor(R.color.background)))
+//            binding.tvComplete.setBgColorViewTint(array.getColor(R.styleable.CustomBtnFootView_color_foot_view, context.getColor(R.color.background)))
             array.getBoolean(R.styleable.CustomBtnFootView_enable_foot_view, true).let {
                 if(it) enableView() else disableView()
             }
