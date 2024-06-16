@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginBottom="@dimen/dimen_2"
+        app:cardCornerRadius="@dimen/dimen_10">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/dimen_10"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:background="@drawable/bg_corners_10"
+                android:backgroundTint="#D2CBDF">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_25"
+                    android:layout_margin="@dimen/dimen_5"
+                    android:src="@drawable/ic_medical_record"
+                    app:tint="#8961CF" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_sp16_black_bold"
+                    android:text="Bệnh án số 1" />
+
+                <TextView
+                    style="@style/text_sp12"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:text="07-08-2001 | 09:00"
+                    android:textColor="@color/txt_hint" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="@dimen/dimen_18"
+                android:layout_height="@dimen/dimen_18"
+                android:layout_marginEnd="@dimen/dimen_15"
+                android:rotation="180"
+                android:src="@drawable/ic_action_back" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

@@ -5,9 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.media.MediaPlayer
+import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +23,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.ListPopupWindow
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
@@ -34,7 +39,10 @@ import com.example.appkhambenh.ui.ui.common.dialog.DialogTakeImage
 import com.example.appkhambenh.ui.ui.doctor.adapter.CustomArrayAdapter
 import com.example.appkhambenh.ui.ui.doctor.adapter.ListOfService
 import com.example.appkhambenh.ui.ui.doctor.adapter.ListOfServiceAdapter
+import com.example.appkhambenh.ui.ui.doctor.controller.ActionRecord
+import com.example.appkhambenh.ui.utils.DateUtils
 import com.example.appkhambenh.ui.utils.PersonalInformation
+import com.example.appkhambenh.ui.utils.addFragmentByTag
 import com.example.appkhambenh.ui.utils.collapseView
 import com.example.appkhambenh.ui.utils.expandView
 import com.example.appkhambenh.ui.utils.rotationView
@@ -48,10 +56,15 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.google.android.material.tabs.TabLayout
 import com.yalantis.ucrop.UCrop
 import java.io.File
+import java.io.IOException
 import java.lang.reflect.Field
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+
+/**
+ * Create By LinhNH 2024
+ */
 
 enum class ServiceTreatmentManagement {
     LIST_OF_SERVICE,
@@ -70,6 +83,25 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
     private var isExpandInfoIntoHospital = false
     private var currentImage: ImageView? = null
     private var imageUri: Uri? = null
+    private var recorder: MediaRecorder? = null
+    private var player: MediaPlayer? = null
+    private var fileName: String = "" // Init file record
+    private var isRecording = false
+    private var isListeningAgain = false
+    private var isResumingListen = false
+    private val handler by lazy { Handler(Looper.getMainLooper()) } // Set up time listen again record
+    private var currentListen = 0
+    private var permissionToRecordAccepted = false
+    private val permissions by lazy {
+        arrayOf(
+            android.Manifest.permission.RECORD_AUDIO,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+    }
+
+    companion object {
+        private const val REQUEST_RECORD_AUDIO_PERMISSION = 200
+    }
 
     private val uCropContract = object : ActivityResultContract<List<Uri?>, Uri?>(){
         override fun createIntent(context: Context, input: List<Uri?>): Intent {
@@ -133,6 +165,8 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
         )
         binding.root.layoutParams = layoutParams
 
+        ActivityCompat.requestPermissions(requireActivity(), permissions, REQUEST_RECORD_AUDIO_PERMISSION)
+
         hideAllViewService()
 
         showLoading()
@@ -143,8 +177,157 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
         }
     }
 
-    private fun initView() {
+    private fun startRecording() {
+        binding.diagnose.viewCoverRecord.isVisible = false
+        binding.diagnose.viewListenAgain.isVisible = false
+        binding.diagnose.tvRecord.isVisible = true
+        fileName = "${activity?.externalCacheDir?.absolutePath}/audiorecordtest.3gp"
 
+        recorder = MediaRecorder().apply {
+            setAudioSource(MediaRecorder.AudioSource.MIC)
+            setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
+            setOutputFile(fileName)
+            setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+
+            try {
+                prepare()
+            } catch (e: IOException) {
+                Log.e("AUDIO_RECORDING", "prepare() failed")
+            }
+
+            start()
+        }
+    }
+
+    private fun stopRecording() {
+        recorder?.apply {
+            stop()
+            release()
+        }
+        recorder = null
+
+        setMinutesListen()
+        binding.diagnose.viewCoverRecord.isVisible = true
+        binding.diagnose.viewListenAgain.isVisible = true
+        binding.diagnose.tvRecord.isVisible = false
+    }
+
+    private fun getRecordingDuration(): Int {
+        val mediaPlayer = MediaPlayer()
+        mediaPlayer.setDataSource(fileName)
+        mediaPlayer.prepare()
+        val duration = mediaPlayer.duration // Độ dài của bản ghi tính bằng milliseconds
+        mediaPlayer.release()
+        return duration
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun setMinutesListen(isTotal: Boolean = true) {
+        binding.diagnose.minutes.text = SimpleDateFormat(DateUtils.MINUTES).format(
+            if(isTotal) getRecordingDuration() else (getRecordingDuration() - player?.currentPosition!!)
+        )
+    }
+
+    private fun handleActionRecord(action: ActionRecord) {
+        when(action) {
+            ActionRecord.START -> {
+                isListeningAgain = true
+                isResumingListen = true
+                startListen()
+            }
+
+            ActionRecord.RESUME -> {
+                isListeningAgain = true
+                resumeListen()
+            }
+
+            ActionRecord.PAUSE -> {
+                isListeningAgain = false
+                pauseListen()
+            }
+
+            ActionRecord.FINISH -> {
+                isListeningAgain = false
+                isResumingListen = false
+                finishListen()
+            }
+
+            ActionRecord.STOP -> {
+                stopListen()
+            }
+        }
+    }
+
+    private fun startListen() {
+        binding.diagnose.listenAgain.setImageResource(R.drawable.ic_pause)
+        player = MediaPlayer().apply {
+            try {
+                setDataSource(fileName)
+                setOnPreparedListener {
+                    it.start()
+                    setMinutesListen()
+                }
+                prepareAsync()
+            } catch (e: IOException) {
+                Log.e("AUDIO_PLAYBACK", "prepare() failed")
+            }
+        }
+
+        handler.postDelayed(object : Runnable {
+            override fun run() {
+                if (isListeningAgain) {
+                    setMinutesListen(isTotal = false)
+                    player?.setOnCompletionListener {
+                        isListeningAgain = false
+                        handleActionRecord(ActionRecord.FINISH)
+                    }
+                }
+                handler.postDelayed(this, 1000)
+            }
+        }, 0)
+    }
+
+    private fun resumeListen() {
+        binding.diagnose.listenAgain.setImageResource(R.drawable.ic_pause)
+        player?.apply {
+            seekTo(currentListen)
+            start()
+        }
+    }
+
+    private fun pauseListen() {
+        binding.diagnose.listenAgain.setImageResource(R.drawable.ic_play)
+        player?.apply {
+            currentListen = currentPosition
+            pause()
+        }
+    }
+
+    private fun stopListen() {
+        recorder?.release()
+        recorder = null
+        player?.release()
+        player = null
+        isListeningAgain = false
+    }
+
+    private fun finishListen() {
+        binding.diagnose.listenAgain.setImageResource(R.drawable.ic_play)
+        player?.release()
+        player = null
+        setMinutesListen()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_RECORD_AUDIO_PERMISSION) {
+            permissionToRecordAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED
+        } else {
+            Toast.makeText(requireActivity(), "Chưa cấp quyền truy cập micro", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun initView() {
         val patient = arguments?.getParcelable<PatientModel>(FragmentAdminDoctor.OBJECT_PATIENT)
         patient?.let {
             binding.tvName.text = patient.fullname
@@ -156,16 +339,9 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
 
         hideAllViewService()
         binding.listOfService.layout.isVisible = true
-        binding.tabExamination.apply {
-            addTab(this.newTab().setText("Kê dịch vụ"))
-            addTab(this.newTab().setText("Bệnh sử tiền sử"))
-            addTab(this.newTab().setText("Khám lâm sàng, tổng quát"))
-            addTab(this.newTab().setText("Xét nghiệm máu"))
-            addTab(this.newTab().setText("Siêu âm"))
-            addTab(this.newTab().setText("X-quang"))
-            addTab(this.newTab().setText("MRI"))
-            addTab(this.newTab().setText("CT"))
-            addTab(this.newTab().setText("Chẩn đoán"))
+        val examinations = arrayListOf("Kê dịch vụ", "Bệnh sử tiền sử", "Khám lâm sàng, tổng quát", "Xét nghiệm máu", "Siêu âm", "X-quang", "MRI", "CT", "Chẩn đoán")
+        examinations.forEach {
+            binding.tabExamination.addTab(binding.tabExamination.newTab().setText(it))
         }
 
         initInfoIntoHospital()
@@ -282,6 +458,40 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
 
     @SuppressLint("DiscouragedPrivateApi")
     private fun onClickView() {
+        binding.diagnose.apply {
+            viewRecord.setOnClickListener {
+                if(isListeningAgain) {
+                    handleActionRecord(ActionRecord.PAUSE)
+                }
+                isResumingListen = false
+                isRecording = !isRecording
+                if(isRecording) {
+                    record.setImageResource(R.drawable.ic_stop)
+                    startRecording()
+                } else {
+                    record.setImageResource(R.drawable.ic_micro)
+                    stopRecording()
+                }
+            }
+
+            btnListenAgain.setOnClickListener {
+                if(!isListeningAgain) {
+                    handleActionRecord(if(!isResumingListen) ActionRecord.START else ActionRecord.RESUME)
+                } else {
+                    handleActionRecord(ActionRecord.PAUSE)
+                }
+            }
+
+            removeRecord.setOnClickListener {
+                viewListenAgain.isVisible = false
+                handleActionRecord(ActionRecord.PAUSE)
+            }
+
+            //Show pull down sick for sick main and sick cover
+            sickMain.initTextComplete()
+            sickCover.initTextComplete()
+        }
+
         binding.contentInfomation.post {
             binding.titleInfoPatient.setOnClickListener {
                 isExpand = !isExpand
@@ -375,48 +585,38 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
             }
         })
 
-//        binding.diagnose.sickMain.apply {
-//            val items = DataUtils.sick()
-//            val adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_dropdown_item_1line, items)
-//            setAdapter(adapter)
-//            setOnFocusChangeListener { _, hasFocus ->
-//                if (hasFocus) {
-//                    showDropDown()
-//                }
-//            }
-//
-//            setOnClickListener {
-//                showDropDown()
-//            }
-//        }
+        binding.listMedicalRecord.setOnClickListener {
+            addFragmentByTag(FragmentListMedicalRecord(), R.id.changeIdDoctorVn, "FragmentTreatmentManagement")
+        }
+    }
 
-        binding.diagnose.sickMain.apply {
-            val data: List<String?> = PersonalInformation.sick()
-            val adapter = CustomArrayAdapter(requireActivity(), android.R.layout.simple_dropdown_item_1line, data)
-            setAdapter(adapter)
-
-            post {
-                try {
-                    val popupField: Field = AutoCompleteTextView::class.java.getDeclaredField("mPopup")
-                    popupField.isAccessible = true
-                    val popup: ListPopupWindow = popupField.get(this) as ListPopupWindow
-                    popup.width = this.width
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+    @SuppressLint("DiscouragedPrivateApi")
+    private fun AutoCompleteTextView.initTextComplete() {
+        val data: List<String?> = PersonalInformation.sick()
+        val adapter = CustomArrayAdapter(requireActivity(), android.R.layout.simple_dropdown_item_1line, data)
+        setAdapter(adapter)
+        if(data.size > 5) dropDownHeight = 500
+        post {
+            try {
+                val popupField: Field = AutoCompleteTextView::class.java.getDeclaredField("mPopup")
+                popupField.isAccessible = true
+                val popup: ListPopupWindow = popupField.get(this) as ListPopupWindow
+                popup.width = this.width
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
+        }
 
-            // Hiển thị danh sách khi AutoCompleteTextView nhận được focus
-            setOnFocusChangeListener { _, hasFocus ->
-                if (hasFocus) {
-                    showDropDown()
-                }
-            }
-
-            // Hiển thị danh sách khi AutoCompleteTextView được click
-            setOnClickListener {
+        // Hiển thị danh sách khi AutoCompleteTextView nhận được focus
+        setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
                 showDropDown()
             }
+        }
+
+        // Hiển thị danh sách khi AutoCompleteTextView được click
+        setOnClickListener {
+            showDropDown()
         }
     }
 
@@ -468,6 +668,11 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
         binding.mri.layout.isVisible = false
         binding.ct.layout.isVisible = false
         binding.diagnose.layout.isVisible = false
+    }
+
+    override fun onStop() {
+        super.onStop()
+        handleActionRecord(ActionRecord.STOP)
     }
 
     override fun getFragmentBinding(

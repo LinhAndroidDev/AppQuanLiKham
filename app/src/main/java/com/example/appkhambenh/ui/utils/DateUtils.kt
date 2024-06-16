@@ -8,6 +8,7 @@ object DateUtils {
     const val TIME = "HH:mm:ss dd/MM/yyyy"
     const val DAY_OF_YEAR = "dd/MM/yyyy"
     const val TIME_UPLOAD_AVATAR = "dd_MM_yyyy_HH_mm_ss"
+    const val MINUTES = "mm:ss"
 
     @SuppressLint("SimpleDateFormat")
     fun convertDateToLong(date: String): Long {

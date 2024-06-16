@@ -11,6 +11,7 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
 import com.example.appkhambenh.R
+import java.text.Normalizer
 
 /**
  * Xem thêm và thu gọn text
@@ -46,4 +47,9 @@ fun strikethroughText(txt: String): SpannableString {
     val strikethroughSpan = StrikethroughSpan()
     spannableString.setSpan(strikethroughSpan, 0, txt.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
     return spannableString
+}
+
+fun removeAccents(str: String): String {
+    val normalizedString = Normalizer.normalize(str, Normalizer.Form.NFD)
+    return normalizedString.replace(Regex("\\p{InCombiningDiacriticalMarks}+"), "").trim()
 }

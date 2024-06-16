@@ -87,17 +87,161 @@
         style="@style/edit_clinical_examination"
         android:hint="Nhập kết quả" />
 
-    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
-        android:layout_marginTop="@dimen/dimen_20"
-        android:layout_marginHorizontal="@dimen/dimen_15"
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginStart="@dimen/dimen_15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/text_sp14"
+            android:text="*"
+            android:textColor="@color/txt_red"
+            android:visibility="visible"/>
+
+        <TextView
+            android:layout_marginStart="@dimen/dimen_5"
+            style="@style/text_sp14"
+            android:text="Bệnh kèm theo" />
+    </LinearLayout>
+
+    <AutoCompleteTextView
+        android:id="@+id/sickCover"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_info="Bệnh kèm theo"
-        app:hint_info="Nhập kết quả"
-        app:important="true"/>
+        android:hint="Nhập kết quả"
+        android:completionThreshold="0"
+        android:textSize="@dimen/dimen_sp14"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:paddingVertical="@dimen/dimen_12"
+        android:paddingStart="@dimen/dimen_15"
+        android:background="@drawable/bg_edit_search_info_patient"/>
 
     <LinearLayout
         android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginStart="@dimen/dimen_15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/text_sp14"
+            android:text="*"
+            android:textColor="@color/txt_red"
+            android:visibility="visible"/>
+
+        <TextView
+            android:layout_marginStart="@dimen/dimen_5"
+            style="@style/text_sp14"
+            android:text="Ghi âm lại kết quả khám (Dành cho Bác Sĩ)" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/viewRecord"
+                android:layout_marginVertical="@dimen/dimen_10"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_bg"
+                android:elevation="5dp">
+
+                <ImageView
+                    android:id="@+id/record"
+                    android:layout_width="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_25"
+                    android:layout_margin="@dimen/dimen_10"
+                    android:src="@drawable/ic_micro"
+                    app:tint="@color/white" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvRecord"
+                android:text="Đang ghi âm..."
+                style="@style/text_sp14"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/viewListenAgain"
+            android:layout_marginVertical="@dimen/dimen_10"
+            android:layout_marginStart="@dimen/dimen_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/btnListenAgain"
+                android:paddingEnd="@dimen/dimen_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_corners_25"
+                android:backgroundTint="@color/background"
+                android:elevation="5dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/listenAgain"
+                    android:layout_margin="@dimen/dimen_10"
+                    android:src="@drawable/ic_play"
+                    android:layout_width="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_25"
+                    app:tint="@color/white"/>
+
+                <TextView
+                    android:id="@+id/minutes"
+                    android:text="00:00"
+                    android:textColor="@color/white"
+                    style="@style/text_sp14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/removeRecord"
+                android:background="@drawable/boder_gray_corner_10"
+                android:paddingVertical="@dimen/dimen_3"
+                android:paddingHorizontal="@dimen/dimen_7"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:src="@drawable/ic_delete"
+                    android:layout_width="@dimen/dimen_15"
+                    android:layout_height="@dimen/dimen_15"
+                    app:tint="@color/grey_dark"/>
+
+                <TextView
+                    android:layout_marginStart="@dimen/dimen_5"
+                    android:text="Xoá bản ghi"
+                    style="@style/text_sp12"
+                    android:textColor="@color/grey_dark"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/viewCoverRecord"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:visibility="visible"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_10"
         android:layout_marginStart="@dimen/dimen_15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

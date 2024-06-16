@@ -22,15 +22,33 @@
                 app:title_view_doctor="Quản lí hành chính"
                 app:title_next=" / Quản lí điều trị"/>
 
-            <TextView
-                style="@style/text_sp14_black_bold"
-                android:layout_gravity="end"
-                android:layout_marginEnd="@dimen/dimen_10"
-                android:background="@color/blue_dark_light"
-                android:paddingHorizontal="@dimen/dimen_15"
-                android:paddingVertical="@dimen/dimen_7"
-                android:text="Xuất bệnh án"
-                android:textColor="@color/white" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end">
+
+                <TextView
+                    android:id="@+id/listMedicalRecord"
+                    style="@style/text_sp14_black_bold"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/dimen_10"
+                    android:background="@color/blue_dark_light"
+                    android:paddingHorizontal="@dimen/dimen_15"
+                    android:paddingVertical="@dimen/dimen_7"
+                    android:text="Danh sách bệnh án"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    style="@style/text_sp14_black_bold"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/dimen_10"
+                    android:background="@color/blue_dark_light"
+                    android:paddingHorizontal="@dimen/dimen_15"
+                    android:paddingVertical="@dimen/dimen_7"
+                    android:text="Xuất bệnh án"
+                    android:textColor="@color/white" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_marginTop="@dimen/dimen_10"

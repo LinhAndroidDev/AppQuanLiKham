@@ -11,8 +11,8 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivitySplashScreenBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.ui.EmptyViewModel
-import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.ui.MainActivity
+import com.example.appkhambenh.ui.ui.doctor.DoctorActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : BaseActivity<EmptyViewModel, ActivitySplashScreenBinding>() {
@@ -35,7 +35,7 @@ class SplashScreenActivity : BaseActivity<EmptyViewModel, ActivitySplashScreenBi
 
             override fun onFinish() {
                 if (sharePrefer.getCheckLogin()) {
-                    val intent = Intent(this@SplashScreenActivity, HomeActivity::class.java)
+                    val intent = Intent(this@SplashScreenActivity, DoctorActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else {

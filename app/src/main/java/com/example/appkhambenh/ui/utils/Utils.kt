@@ -101,13 +101,38 @@ fun setStyleTextAtPosition(str: String, strChange: String, style: Any, spannable
 fun functionHome(context: Context): ArrayList<FunctionMain> {
     val function = arrayListOf<FunctionMain>()
     function.add(FunctionMain(R.drawable.icon_doctor, context.getString(R.string.appoint_doctor)))
-    function.add(FunctionMain(R.drawable.ic_action_schedule, context.getString(R.string.examination_schedule)))
-    function.add(FunctionMain(R.drawable.ic_action_department, context.getString(R.string.hospital_examination)))
+    function.add(
+        FunctionMain(
+            R.drawable.ic_action_schedule,
+            context.getString(R.string.examination_schedule)
+        )
+    )
+    function.add(
+        FunctionMain(
+            R.drawable.ic_action_department,
+            context.getString(R.string.hospital_examination)
+        )
+    )
     function.add(FunctionMain(R.drawable.ic_action_message, context.getString(R.string.community)))
-    function.add(FunctionMain(R.drawable.ic_action_service, context.getString(R.string.check_service)))
-    function.add(FunctionMain(R.drawable.ic_action_history, context.getString(R.string.medical_examination_history)))
+    function.add(
+        FunctionMain(
+            R.drawable.ic_action_service,
+            context.getString(R.string.check_service)
+        )
+    )
+    function.add(
+        FunctionMain(
+            R.drawable.ic_action_history,
+            context.getString(R.string.medical_examination_history)
+        )
+    )
     function.add(FunctionMain(R.drawable.ic_action_contact, context.getString(R.string.contact)))
-    function.add(FunctionMain(R.drawable.ic_action_medicine, context.getString(R.string.drug_information)))
+    function.add(
+        FunctionMain(
+            R.drawable.ic_action_medicine,
+            context.getString(R.string.drug_information)
+        )
+    )
 
     return function
 }
@@ -189,9 +214,12 @@ fun View.rotationViewInfinite() {
 }
 
 fun Fragment.addFragmentByTag(fragment: Fragment, changeId: Int, tag: String) {
+    val fmToHide = requireActivity().supportFragmentManager.findFragmentByTag(tag)
     val fm = requireActivity().supportFragmentManager.beginTransaction()
-    fm.hide(requireActivity().supportFragmentManager.findFragmentByTag(tag)!!)
-        .add(changeId, fragment)
+    if (fmToHide != null) {
+        fm.hide(fmToHide)
+    }
+    fm.add(changeId, fragment, tag)
         .addToBackStack(null).commit()
 }
 
