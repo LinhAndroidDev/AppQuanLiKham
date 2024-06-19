@@ -15,11 +15,7 @@ class FragmentListMedicalRecord : BaseFragment<EmptyViewModel, FragmentListMedic
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val layoutParams = RelativeLayout.LayoutParams(
-            RelativeLayout.LayoutParams.MATCH_PARENT,
-            RelativeLayout.LayoutParams.MATCH_PARENT
-        )
-        binding.root.layoutParams = layoutParams
+        fillView()
 
         binding.back.setOnClickListener { activity?.onBackPressed() }
         binding.rcvMedicalRecord.adapter = MedicalRecordAdapter()

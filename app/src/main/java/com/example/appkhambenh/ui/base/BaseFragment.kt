@@ -7,6 +7,7 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
+import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -49,6 +50,14 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
         setLanguage(requireActivity(), sharePrefer.getLanguage())
 
         return binding.root
+    }
+
+    fun fillView() {
+        val layoutParams = RelativeLayout.LayoutParams(
+            RelativeLayout.LayoutParams.MATCH_PARENT,
+            RelativeLayout.LayoutParams.MATCH_PARENT
+        )
+        binding.root.layoutParams = layoutParams
     }
 
     fun showLoading() {

@@ -4,20 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
 import com.example.appkhambenh.databinding.FragmentEditInfoPatientBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.data.remote.entity.PatientModel
-import com.example.appkhambenh.ui.ui.EmptyViewModel
+import com.example.appkhambenh.ui.data.remote.model.PatientInfoModel
+import com.example.appkhambenh.ui.ui.doctor.viewmodel.FragmentEditInfoPatientViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class FragmentEditInfoPatient : BaseFragment<EmptyViewModel, FragmentEditInfoPatientBinding>() {
+@AndroidEntryPoint
+class FragmentEditInfoPatient :
+    BaseFragment<FragmentEditInfoPatientViewModel, FragmentEditInfoPatientBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val layoutParams = RelativeLayout.LayoutParams(
-            RelativeLayout.LayoutParams.MATCH_PARENT,
-            RelativeLayout.LayoutParams.MATCH_PARENT
-        )
-        binding.root.layoutParams = layoutParams
+        fillView()
 
         val patient = arguments?.getParcelable<PatientModel?>(FragmentAdminDoctor.OBJECT_PATIENT)
         patient?.let {
@@ -26,7 +25,7 @@ class FragmentEditInfoPatient : BaseFragment<EmptyViewModel, FragmentEditInfoPat
             binding.edtPhone.setText(patient.phoneNumber.toString())
             binding.edtBirth.setText(patient.DoB.toString())
             binding.edtCccd.setText(patient.citizenId.toString())
-            binding.edtSex.setUpIndexSpinner(if(patient.sex == "0") 0 else 1)
+            binding.edtSex.setUpIndexSpinner(if (patient.sex == "0") 0 else 1)
         }
 
         binding.edtSex.setUpListSpinner(arrayListOf("Nam", "Nữ", "Khác"))
@@ -39,9 +38,29 @@ class FragmentEditInfoPatient : BaseFragment<EmptyViewModel, FragmentEditInfoPat
 
         }
 
-        binding.hasHealthInsurance.setUpListSpinner(arrayListOf("Có bảo hiểm xã hội", "Không có bảo hiểm xã hội"))
+        binding.hasHealthInsurance.setUpListSpinner(
+            arrayListOf(
+                "Có bảo hiểm xã hội",
+                "Không có bảo hiểm xã hội"
+            )
+        )
         binding.hasHealthInsurance.indexSelected = {
 
+        }
+
+        binding.updateInfo.setOnClickListener {
+            val patientInfoModel = PatientInfoModel(
+                DoB = binding.edtBirth.getText(),
+                address = binding.edtAddress.getText(),
+                avatar = "",
+                citizenId = binding.edtCccd.getText(),
+                email = binding.edtEmail.getText(),
+                fullname = binding.edtName.getText(),
+                healthInsurance = binding.hasHealthInsurance.getText(),
+                job = binding.edtJob.getText(),
+                maritalStatus = binding.maritalStatus.getText(),
+            )
+            viewModel.updateInfoPatient(patient.id, )
         }
     }
 

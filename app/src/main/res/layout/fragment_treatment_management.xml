@@ -29,6 +29,17 @@
                 android:gravity="end">
 
                 <TextView
+                    android:id="@+id/prescription"
+                    style="@style/text_sp14_black_bold"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/dimen_10"
+                    android:background="@color/blue_dark_light"
+                    android:paddingHorizontal="@dimen/dimen_15"
+                    android:paddingVertical="@dimen/dimen_7"
+                    android:text="Đơn thuốc"
+                    android:textColor="@color/white" />
+
+                <TextView
                     android:id="@+id/listMedicalRecord"
                     style="@style/text_sp14_black_bold"
                     android:layout_gravity="end"

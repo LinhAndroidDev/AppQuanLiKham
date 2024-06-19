@@ -75,4 +75,6 @@ class CustomEdtSearchInfoPatient @JvmOverloads constructor(
     fun setText(str: String) {
         binding.edtInfo.setText(str)
     }
+
+    fun getText(): String = binding.edtInfo.text.toString()
 }

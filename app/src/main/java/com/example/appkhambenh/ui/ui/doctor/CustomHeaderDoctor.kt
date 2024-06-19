@@ -57,10 +57,10 @@ class CustomHeaderDoctor @JvmOverloads constructor(
         popupWindow.showAsDropDown(binding.avatar, 50, 0, Gravity.BOTTOM)
 
         popupView.findViewById<LinearLayout>(R.id.logoutDoctor).setOnClickListener {
-            val activity = context as DoctorActivity
+            val activity: DoctorActivity? = context.getActivity()
             val intent = Intent(activity, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            activity.startActivity(intent)
+            activity?.startActivity(intent)
         }
     }
 }

@@ -458,6 +458,10 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
 
     @SuppressLint("DiscouragedPrivateApi")
     private fun onClickView() {
+        binding.prescription.setOnClickListener {
+            addFragmentByTag(FragmentPrescription(), R.id.changeIdDoctorVn, "FragmentTreatmentManagement")
+        }
+
         binding.diagnose.apply {
             viewRecord.setOnClickListener {
                 if(isListeningAgain) {

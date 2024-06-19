@@ -10,13 +10,17 @@ import com.example.appkhambenh.databinding.FragmentAdminDoctorBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.data.remote.entity.PatientModel
 import com.example.appkhambenh.ui.ui.common.dialog.DialogAddManagePatient
+import com.example.appkhambenh.ui.ui.common.dialog.DialogExpiredToken
 import com.example.appkhambenh.ui.ui.doctor.adapter.InfoMainPatientAdapter
 import com.example.appkhambenh.ui.ui.doctor.adapter.LineInformationPatientAdapter
 import com.example.appkhambenh.ui.ui.doctor.viewmodel.FragmentAdminDoctorViewModel
+import com.example.appkhambenh.ui.utils.TokenManager
 import com.example.appkhambenh.ui.utils.addFragmentByTag
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentAdminDoctorBinding>() {
@@ -40,10 +44,28 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
         }
 
         lifecycleScope.launch(Dispatchers.IO) {
-            viewModel.getListPatient()
-            viewModel.patients.collect { patients ->
-                patients?.let {
-                    initListPatient(patients)
+            delay(1000L)
+            withContext(Dispatchers.Main) {
+                viewModel.getListPatient()
+                viewModel.patients.collect { patients ->
+                    patients?.let {
+                        initListPatient(patients)
+                    }
+                }
+            }
+        }
+
+        handleTokenExpired()
+    }
+
+    private fun handleTokenExpired() {
+        lifecycleScope.launch {
+            withContext(Dispatchers.Main) {
+                TokenManager.tokenExpiredEvent.collect { isExpired ->
+                    if(isExpired) {
+                        val dialog = DialogExpiredToken()
+                        dialog.show(requireActivity().supportFragmentManager, "DialogExpired")
+                    }
                 }
             }
         }

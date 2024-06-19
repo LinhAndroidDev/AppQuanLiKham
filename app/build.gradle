@@ -96,4 +96,9 @@ dependencies {
 
     //ucop
     implementation ("com.github.yalantis:ucrop:2.2.8-native")
+
+    //Bar code
+    implementation("com.google.zxing:core:3.4.1")
+
+    implementation ("com.itextpdf:itext7-core:7.1.8")
 }

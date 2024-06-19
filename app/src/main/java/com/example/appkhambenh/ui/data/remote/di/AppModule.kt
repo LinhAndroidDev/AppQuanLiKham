@@ -6,6 +6,7 @@ import com.example.appkhambenh.ui.data.remote.ApiService
 import com.example.appkhambenh.ui.data.remote.DoctorService
 import com.example.appkhambenh.ui.data.remote.helper.Constants
 import com.example.appkhambenh.ui.utils.SharePreferenceRepositoryImpl
+import com.example.appkhambenh.ui.utils.TokenManager
 import com.google.android.gms.common.util.SharedPreferencesUtils
 import dagger.Module
 import dagger.Provides
@@ -51,7 +52,16 @@ object AppModule {
                     .header("Content-Type", "application/json")
                 requestBuilder.header("Authorization", "Bearer $token")
                 val request = requestBuilder.build()
-                chain.proceed(request)
+                val response = chain.proceed(request)
+                // Kiểm tra mã trạng thái phản hồi
+                if (response.code == 401) {
+                    // Xử lý token hết hạn (có thể gửi một sự kiện hoặc thông báo cho người dùng)
+                    if (!TokenManager.tokenExpiredEvent.value) {
+                        TokenManager.tokenExpiredEvent.value = true
+                    }
+                }
+
+                response
             })
             .callTimeout(Constants.TIME_OUT, TimeUnit.SECONDS)
             .connectTimeout(Constants.TIME_OUT, TimeUnit.SECONDS)

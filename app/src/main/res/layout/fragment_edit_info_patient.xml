@@ -129,6 +129,7 @@
                 app:has_pull_down="true"/>
 
             <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/relativeName"
                 android:layout_marginStart="@dimen/dimen_10"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -143,12 +144,14 @@
             android:layout_height="wrap_content">
 
             <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/relativeAddress"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:title_info="Địa chỉ người thân" />
 
             <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/relativePhone"
                 android:layout_marginStart="@dimen/dimen_10"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -171,6 +174,7 @@
                 app:important="true"/>
 
             <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/edtBhyt"
                 android:layout_marginStart="@dimen/dimen_10"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -185,6 +189,7 @@
             android:layout_height="wrap_content">
 
             <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/edtJob"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -207,6 +212,7 @@
             android:layout_height="wrap_content">
 
             <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/nationality"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -214,6 +220,7 @@
                 app:important="true"/>
 
             <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/religion"
                 android:layout_marginStart="@dimen/dimen_10"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -228,43 +235,22 @@
             android:layout_height="wrap_content">
 
             <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/edtAddress"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:title_info="Tỉnh/thành phố"
+                app:title_info="Địa chỉ"
                 app:important="true"/>
 
-            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+            <View
                 android:layout_marginStart="@dimen/dimen_10"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:title_info="Quận/huyện"
-                app:important="true"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:paddingHorizontal="@dimen/dimen_10"
-            android:layout_marginTop="@dimen/dimen_20"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:title_info="Phường/xã"
-                app:important="true"/>
-
-            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
-                android:layout_marginStart="@dimen/dimen_10"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:title_info="Làng/xóm" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <com.example.appkhambenh.ui.ui.common.CustomBtnFootView
+            android:id="@+id/updateInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:eleven_foot_view="0"
