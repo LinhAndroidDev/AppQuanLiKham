@@ -49,6 +49,14 @@ class DoctorActivity : AppCompatActivity() {
             }
             checkItemNavigation(binding.navAppoint)
         }
+
+        binding.navMedicine.setOnClickListener {
+            val fragmentCurrent = supportFragmentManager.findFragmentById(R.id.changeIdDoctorVn)
+            if (fragmentCurrent !is FragmentMedicineManagement) {
+                replaceFragment(FragmentMedicineManagement(), "FragmentMedicineManagement")
+            }
+            checkItemNavigation(binding.navMedicine)
+        }
     }
 
     private fun checkItemNavigation(v: CustomNavigationDoctor) {
@@ -81,7 +89,7 @@ class DoctorActivity : AppCompatActivity() {
             is FragmentHomeDoctor -> {
                 finish()
             }
-            is FragmentAdminDoctor, is FragmentAppointDoctor -> {
+            is FragmentAdminDoctor, is FragmentAppointDoctor, is FragmentMedicineManagement -> {
                 replaceFragment(FragmentHomeDoctor(), "FragmentHomeDoctor")
                 checkItemNavigation(binding.navHome)
             }

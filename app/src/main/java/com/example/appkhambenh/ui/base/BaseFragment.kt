@@ -3,7 +3,6 @@ package com.example.appkhambenh.ui.base
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
@@ -79,6 +78,10 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
         viewModel.errorApiLiveData.observe(viewLifecycleOwner) {
             show(it)
         }
+
+        viewModel.loading.observe(viewLifecycleOwner) {
+            if (it) showLoading() else dismissLoading()
+        }
     }
 
     fun replaceFragment(fragment: Fragment, changeId: Int) {
@@ -130,12 +133,5 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
     fun back() {
         closeKeyboard()
         activity?.onBackPressed()
-    }
-
-    fun isOnline(context: Context): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo = connectivityManager.activeNetworkInfo
-        return networkInfo != null && networkInfo.isConnected
     }
 }

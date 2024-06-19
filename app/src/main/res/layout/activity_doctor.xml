@@ -83,13 +83,6 @@
                 app:title_nav_doctor="Quản lí lịch hẹn"/>
 
             <com.example.appkhambenh.ui.ui.doctor.CustomNavigationDoctor
-                android:id="@+id/navRecordMedicine"
-                android:layout_marginTop="@dimen/dimen_20"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:title_nav_doctor="Quản lí bệnh án"/>
-
-            <com.example.appkhambenh.ui.ui.doctor.CustomNavigationDoctor
                 android:id="@+id/navMedicine"
                 android:layout_marginTop="@dimen/dimen_20"
                 android:layout_width="match_parent"

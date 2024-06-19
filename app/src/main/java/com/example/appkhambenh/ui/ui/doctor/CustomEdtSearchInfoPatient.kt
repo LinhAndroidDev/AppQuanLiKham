@@ -20,7 +20,7 @@ class CustomEdtSearchInfoPatient @JvmOverloads constructor(
     defStyleAttr: Int = 0,
 ) : LinearLayout(context, attrs, defStyleAttr) {
     private val binding by lazy { CustomEdtInfoPatientBinding.inflate(LayoutInflater.from(context)) }
-    var indexSelected: ((Int) -> Unit)? = null
+    var indexSelected: Int = 0
 
     init {
         binding.root.layoutParams =
@@ -64,7 +64,7 @@ class CustomEdtSearchInfoPatient @JvmOverloads constructor(
 
     fun setUpListSpinner(list:ArrayList<String>) {
         binding.pulldown.createSpinner(context, list) {
-            indexSelected?.invoke(it)
+            indexSelected = it
         }
     }
 

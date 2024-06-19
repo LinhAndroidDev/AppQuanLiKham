@@ -1,8 +1,11 @@
 package com.example.appkhambenh.ui.ui.login
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
@@ -15,16 +18,30 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentLoginBinding
 import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.base.BaseFragment
+import com.example.appkhambenh.ui.ui.common.dialog.DialogStudent
 import com.example.appkhambenh.ui.ui.doctor.DoctorActivity
 import com.example.appkhambenh.ui.ui.register.FragmentRegister
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.parcelize.Parcelize
+import org.apache.poi.ss.usermodel.WorkbookFactory
+
+@Parcelize
+data class Student(
+    val id: Int,
+    val name: String,
+    val age: Int,
+    val address: String
+) : Parcelable
 
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
 class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
+
+    companion object {
+        const val LIST_STUDENT = "LIST_STUDENT"
+    }
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -34,7 +51,43 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        activity?.intent?.let { handleIntent(it) }
+
         initUi()
+    }
+
+    private fun handleIntent(intent: Intent) {
+        if (intent.action == Intent.ACTION_SEND) {
+            val uri = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
+            if (uri != null) {
+                val students = readExcelFile(requireActivity(), uri)
+                val dialogStudent = DialogStudent()
+                dialogStudent.show(requireActivity().supportFragmentManager, "")
+                val bundle = Bundle()
+                bundle.putParcelableArrayList(LIST_STUDENT, students)
+                dialogStudent.arguments = bundle
+            }
+        }
+    }
+
+    private fun readExcelFile(context: Context, uri: Uri): ArrayList<Student> {
+        val students = mutableListOf<Student>()
+        val inputStream = context.contentResolver.openInputStream(uri)
+        val workbook = WorkbookFactory.create(inputStream)
+        val sheet = workbook.getSheetAt(0)
+
+        for (row in sheet) {
+            if (row.rowNum == 0) continue  // Bỏ qua hàng tiêu đề
+            val id = row.getCell(0).numericCellValue.toInt()
+            val name = row.getCell(1).stringCellValue
+            val age = row.getCell(2).numericCellValue.toInt()
+            val address = row.getCell(3).stringCellValue
+            students.add(Student(id, name, age, address))
+        }
+
+        workbook.close()
+        inputStream?.close()
+        return students as ArrayList<Student>
     }
 
     override fun bindData() {

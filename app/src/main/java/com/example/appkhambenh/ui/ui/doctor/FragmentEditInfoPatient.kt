@@ -29,24 +29,13 @@ class FragmentEditInfoPatient :
         }
 
         binding.edtSex.setUpListSpinner(arrayListOf("Nam", "Nữ", "Khác"))
-        binding.edtSex.indexSelected = {
-
-        }
-
         binding.maritalStatus.setUpListSpinner(arrayListOf("Độc thân", "Đã kết hôn"))
-        binding.maritalStatus.indexSelected = {
-
-        }
-
         binding.hasHealthInsurance.setUpListSpinner(
             arrayListOf(
                 "Có bảo hiểm xã hội",
                 "Không có bảo hiểm xã hội"
             )
         )
-        binding.hasHealthInsurance.indexSelected = {
-
-        }
 
         binding.updateInfo.setOnClickListener {
             val patientInfoModel = PatientInfoModel(
@@ -58,9 +47,18 @@ class FragmentEditInfoPatient :
                 fullname = binding.edtName.getText(),
                 healthInsurance = binding.hasHealthInsurance.getText(),
                 job = binding.edtJob.getText(),
-                maritalStatus = binding.maritalStatus.getText(),
+                maritalStatus = binding.maritalStatus.indexSelected.toString(),
+                nationality = binding.nationality.getText(),
+                phoneNumber = binding.edtPhone.getText(),
+                relativeAddress = binding.relativeAddress.getText(),
+                relativeName = binding.relativeName.getText(),
+                relativePhone = binding.relativePhone.getText(),
+                sex = binding.edtSex.indexSelected.toString(),
+                type = false
             )
-            viewModel.updateInfoPatient(patient.id, )
+            if (patient != null) {
+                viewModel.updateInfoPatient(patient.id, patientInfoModel)
+            }
         }
     }
 

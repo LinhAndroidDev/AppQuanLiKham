@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/dimen_10">
+
+        <TextView
+            android:id="@+id/idStudent"
+            style="@style/text_sp14_black_bold"
+            android:layout_marginStart="@dimen/dimen_15"
+            android:text="id" />
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/text_sp14_black_bold"
+            android:layout_marginStart="@dimen/dimen_20"
+            android:text="Nguyen Huu Linh" />
+
+        <TextView
+            android:id="@+id/age"
+            style="@style/text_sp14_black_bold"
+            android:layout_marginStart="@dimen/dimen_30"
+            android:text="17" />
+
+        <TextView
+            android:id="@+id/address"
+            style="@style/text_sp14_black_bold"
+            android:layout_marginStart="@dimen/dimen_20"
+            android:text="Ha Noi" />
+    </LinearLayout>
+</layout>

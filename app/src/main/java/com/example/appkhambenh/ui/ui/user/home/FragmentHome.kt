@@ -34,6 +34,7 @@ import com.example.appkhambenh.ui.ui.user.home.adapter.MedicalHandBookAdapter
 import com.example.appkhambenh.ui.ui.user.home.adapter.TopCsytAdapter
 import com.example.appkhambenh.ui.utils.ConvertUtils
 import com.example.appkhambenh.ui.utils.functionHome
+import com.example.appkhambenh.ui.utils.isOnline
 import com.example.appkhambenh.ui.utils.onClickFunction
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -58,17 +59,14 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         super.bindData()
 
         lifecycleScope.launch(Dispatchers.Main) {
-            viewModel.getUserInfo()
-            viewModel.isSuccessful.observe(requireActivity()) { isSuccessful ->
+            viewModel.getUserInfo(sharePrefer.getUserId())
+            viewModel.isSuccessful.collect { isSuccessful ->
                 if(isSuccessful) {
-                    viewModel.getAvatarUser(sharePrefer.getUserId())
-                    lifecycleScope.launch {
-                        viewModel.avatar.collect {
-                            it?.let {
-                                val bitmap = BitmapFactory.decodeStream(it)
-                                binding.avatarUser.setImageBitmap(bitmap)
-                                sharePrefer.saveUserAvatar(ConvertUtils.bitmapToBase64(bitmap))
-                            }
+                    viewModel.avatar.collect {
+                        it?.let {
+                            val bitmap = BitmapFactory.decodeStream(it)
+                            binding.avatarUser.setImageBitmap(bitmap)
+                            sharePrefer.saveUserAvatar(ConvertUtils.bitmapToBase64(bitmap))
                         }
                     }
                 }
@@ -85,7 +83,7 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                     withContext(Dispatchers.Main) {
                         dismissLoading()
                     }
-                    if (!isOnline(requireActivity())) {
+                    if (activity?.isOnline() == false) {
                         show(getString(R.string.check_internet))
                     } else {
                         lifecycleScope.launch {
@@ -93,22 +91,13 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                             binding.txtUserName.text = sharePrefer.getUserName()
                             delay(1000L)
                             withContext(Dispatchers.Main) {
-                                scrollInfinity()
-                                binding.slide.visibility = View.VISIBLE
-                                val animEnter = AnimationUtils.loadAnimation(
-                                    requireActivity(),
-                                    R.anim.enter_view
-                                )
-                                binding.slide.startAnimation(animEnter)
+                                showSlideAutoRun()
                             }
                             delay(500L)
                             withContext(Dispatchers.Main) {
-                                binding.titleDoctorHighlight.visibility = View.VISIBLE
-                                binding.titleHandbook.visibility = View.VISIBLE
-                                binding.titleCsyt.visibility = View.VISIBLE
-                                doctorHighlight()
-                                medicalHandbook()
-                                topCsyt()
+                                initDoctorHighlight()
+                                initMedicalHandbook()
+                                initTopCsyt()
                             }
                         }
                     }
@@ -120,13 +109,28 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     @SuppressLint("IntentReset")
     private fun initUi() {
         function()
+        onClickView()
+    }
+
+    private fun onClickView() {
         binding.avatarUser.setOnClickListener {
             val intent = Intent(requireActivity(), SeeAvatarActivity::class.java)
             startActivity(intent)
         }
+
+        binding.seeMoreDoctor.layout.setOnClickListener {
+            val intent = Intent(requireActivity(), SearchDoctorActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.seeMoreCsyt.layout.setOnClickListener {
+            val intent = Intent(requireActivity(), HospitalActivity::class.java)
+            startActivity(intent)
+        }
     }
 
-    private fun medicalHandbook() {
+    private fun initMedicalHandbook() {
+        binding.titleHandbook.visibility = View.VISIBLE
         val handbooks = arrayListOf<MedicalHandbook>()
         handbooks.add(
             MedicalHandbook(
@@ -165,11 +169,8 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private fun doctorHighlight() {
-        binding.seeMoreDoctor.layout.setOnClickListener {
-            val intent = Intent(requireActivity(), SearchDoctorActivity::class.java)
-            startActivity(intent)
-        }
+    private fun initDoctorHighlight() {
+        binding.titleDoctorHighlight.visibility = View.VISIBLE
         val doctors = arrayListOf<Doctor>()
         for (i in 0 until 4) {
             doctors.add(
@@ -192,12 +193,8 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         setUpTransformer(binding.slideHighlightDoctor, 5, 1f, 0f)
     }
 
-    private fun topCsyt() {
-        binding.seeMoreCsyt.layout.setOnClickListener {
-            val intent = Intent(requireActivity(), HospitalActivity::class.java)
-            startActivity(intent)
-        }
-
+    private fun initTopCsyt() {
+        binding.titleCsyt.visibility = View.VISIBLE
         val adapterTopCsyt = TopCsytAdapter()
         adapterTopCsyt.onCLickItem = {
             val intent = Intent(requireActivity(), InfoHospitalActivity::class.java)
@@ -208,7 +205,7 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         }
     }
 
-    private fun scrollInfinity() {
+    private fun initScrollInfinity() {
         setUpTransformer(binding.slide, 0, 0.85f, 0.18f)
 
         val images = arrayListOf(R.drawable.slide1, R.drawable.slide2, R.drawable.slide3)
@@ -274,13 +271,22 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                 }
             }
         })
+    }
 
+    private fun showSlideAutoRun() {
+        initScrollInfinity()
         timer.scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
                 binding.slide.currentItem = binding.slide.currentItem + 1
             }
         }, 0, 3000)
 
+        binding.slide.visibility = View.VISIBLE
+        val animEnter = AnimationUtils.loadAnimation(
+            requireActivity(),
+            R.anim.enter_view
+        )
+        binding.slide.startAnimation(animEnter)
     }
 
     private fun setUpTransformer(vpg2: ViewPager2, margin: Int, a: Float, b: Float) {
@@ -299,7 +305,7 @@ class FragmentHome : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
     private fun function() {
         val adapter = FunctionHomeAdapter()
-        adapter.items = functionHome(requireActivity())
+        adapter.items = functionHome()
         adapter.onClickItem = {
             onClickFunction(it, requireActivity())
         }

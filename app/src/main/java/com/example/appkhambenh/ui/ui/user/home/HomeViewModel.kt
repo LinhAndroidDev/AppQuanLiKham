@@ -22,7 +22,7 @@ class HomeViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
 ) :
     BaseViewModel() {
-    var isSuccessful = MutableLiveData<Boolean>()
+    var isSuccessful = MutableStateFlow(false)
     var avatar = MutableStateFlow<InputStream?>(null)
 
     private fun saveInfo(
@@ -43,22 +43,22 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getUserInfo() = viewModelScope.launch {
+    fun getUserInfo(userId: Int) = viewModelScope.launch {
         loading.postValue(true)
         try {
             repository.getUserInfo().let { response ->
-                    loading.postValue(false)
                     if (response.isSuccessful) {
                         response.body().let {
                             when (it?.statusCode) {
                                 ApiClient.STATUS_CODE_SUCCESS -> {
-                                    isSuccessful.postValue(true)
+                                    getAvatarUser(userId = userId)
                                     it.data?.let { user ->
                                         saveInfo(user)
                                     }
                                 }
 
                                 else -> {
+                                    loading.postValue(false)
                                     errorApiLiveData.postValue(it?.message)
                                 }
                             }
@@ -74,13 +74,16 @@ class HomeViewModel @Inject constructor(
     fun getAvatarUser(userId: Int) = viewModelScope.launch {
         try {
             repository.getAvatar(userId).let {
+                loading.postValue(false)
                 if (it.isSuccessful) {
+                    isSuccessful.value = true
                     avatar.value = it.body()?.byteStream()
                 } else {
                     errorApiLiveData.postValue("${it.body()}")
                 }
             }
         } catch (e: Exception) {
+            loading.postValue(false)
             errorApiLiveData.postValue(e.message)
         }
     }
