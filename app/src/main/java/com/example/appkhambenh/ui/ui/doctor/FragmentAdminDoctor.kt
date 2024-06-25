@@ -39,10 +39,6 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
     override fun bindData() {
         super.bindData()
 
-        viewModel.loading.observe(viewLifecycleOwner) {
-            if(it) showLoading() else dismissLoading()
-        }
-
         lifecycleScope.launch(Dispatchers.IO) {
             delay(1000L)
             withContext(Dispatchers.Main) {

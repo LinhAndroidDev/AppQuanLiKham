@@ -3,7 +3,6 @@ package com.example.appkhambenh.ui.data.remote
 import com.example.appkhambenh.ui.data.remote.entity.BookAppointmentResponse
 import com.example.appkhambenh.ui.data.remote.entity.ChangePasswordResponse
 import com.example.appkhambenh.ui.data.remote.entity.DoctorResponse
-import com.example.appkhambenh.ui.data.remote.entity.GetAvatarResponse
 import com.example.appkhambenh.ui.data.remote.entity.HospitalResponse
 import com.example.appkhambenh.ui.data.remote.entity.LoginResponse
 import com.example.appkhambenh.ui.data.remote.entity.ProfileResponse
@@ -17,8 +16,6 @@ import com.example.appkhambenh.ui.data.remote.model.ChangePasswordModel
 import com.example.appkhambenh.ui.data.remote.model.LoginModel
 import com.example.appkhambenh.ui.data.remote.model.ProfileModel
 import com.example.appkhambenh.ui.data.remote.model.RegisterModel
-import com.example.appkhambenh.ui.model.Medicine
-import io.reactivex.rxjava3.core.Observable
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -40,9 +37,6 @@ interface ApiService {
     suspend fun registerUser(
         @Body registerModel: RegisterModel,
     ): Response<RegisterResponse>
-
-    @GET("medicine.php")
-    fun getListMedicine(): Observable<List<Medicine>>
 
     @Multipart
     @POST("add-avatar/{id}")

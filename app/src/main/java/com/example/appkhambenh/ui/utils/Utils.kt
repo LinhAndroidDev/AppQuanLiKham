@@ -2,28 +2,29 @@ package com.example.appkhambenh.ui.utils
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.text.Spannable
-import android.text.TextUtils
-import android.util.Patterns
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.Spinner
+import androidx.appcompat.widget.ListPopupWindow
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.example.appkhambenh.R
 import com.example.appkhambenh.ui.model.FunctionMain
 import com.example.appkhambenh.ui.ui.doctor.DoctorActivity
+import com.example.appkhambenh.ui.ui.doctor.adapter.CustomArrayAdapter
 import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.ui.user.contact.CallWithDoctorActivity
 import com.example.appkhambenh.ui.ui.user.hospital.HospitalActivity
@@ -34,6 +35,7 @@ import com.example.appkhambenh.ui.ui.user.manage_appointment.ExaminationSchedule
 import com.example.appkhambenh.ui.ui.user.medicine.MedicineActivity
 import com.example.appkhambenh.ui.ui.user.navigation.communication.FragmentCommunity
 import com.example.appkhambenh.ui.ui.user.service.ExaminationServiceActivity
+import java.lang.reflect.Field
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -252,4 +254,33 @@ inline fun <reified T : Activity> Context.getActivity(): T? {
         context = context.baseContext
     }
     return null
+}
+
+@SuppressLint("DiscouragedPrivateApi")
+fun AutoCompleteTextView.initTextComplete(activity: Activity, data: List<String?>) {
+    val adapter = CustomArrayAdapter(activity, android.R.layout.simple_dropdown_item_1line, data)
+    setAdapter(adapter)
+    if(data.size > 5) dropDownHeight = 500
+    post {
+        try {
+            val popupField: Field = AutoCompleteTextView::class.java.getDeclaredField("mPopup")
+            popupField.isAccessible = true
+            val popup: ListPopupWindow = popupField.get(this) as ListPopupWindow
+            popup.width = this.width
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    // Hiển thị danh sách khi AutoCompleteTextView nhận được focus
+    setOnFocusChangeListener { _, hasFocus ->
+        if (hasFocus) {
+            showDropDown()
+        }
+    }
+
+    // Hiển thị danh sách khi AutoCompleteTextView được click
+    setOnClickListener {
+        showDropDown()
+    }
 }

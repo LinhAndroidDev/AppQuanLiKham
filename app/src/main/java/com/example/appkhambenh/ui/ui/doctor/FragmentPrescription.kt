@@ -1,5 +1,6 @@
 package com.example.appkhambenh.ui.ui.doctor
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -23,14 +24,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import androidx.core.view.postDelayed
+import androidx.core.widget.doOnTextChanged
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentPrescriptionBinding
 import com.example.appkhambenh.ui.base.BaseFragment
+import com.example.appkhambenh.ui.data.remote.entity.PatientModel
+import com.example.appkhambenh.ui.data.remote.model.MedicineModel
 import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.ui.doctor.adapter.PdfDocumentAdapter
+import com.example.appkhambenh.ui.ui.doctor.adapter.PrescriptionMedicalAdapter
+import com.example.appkhambenh.ui.ui.doctor.adapter.SearchMedicine
+import com.example.appkhambenh.ui.ui.doctor.adapter.SearchMedicineAdapter
+import com.example.appkhambenh.ui.ui.user.medicine.adapter.MedicineAdapter
+import com.example.appkhambenh.ui.utils.DateUtils
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.common.BitMatrix
 import com.google.zxing.oned.EAN13Writer
+import com.itextpdf.svg.converter.SvgConverter.createPdf
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -44,13 +57,39 @@ data class InfoMedicine(
     val stt: Int,
     val name: String,
     val dvt: String,
-    val quantity: Int
+    val quantity: Int,
+    val dosage: String
+)
+
+data class PrescriptionInformation(
+    val namePatient: String?,
+    val age: Int?,
+    val sex: String?,
+    val healthInsurance: String?,
+    val diagnose: String?,
+    val includingDiseases: String?,
+    val listMedicine: ArrayList<InfoMedicine>?,
+    val dateCurrent: String?,
+    val advice: String? = null
 )
 
 class FragmentPrescription : BaseFragment<EmptyViewModel, FragmentPrescriptionBinding>() {
     private var bmp: Bitmap? = null
     private var scaledbmp: Bitmap? = null
     private val pdfDocument = PdfDocument()
+    private var medicines = arrayListOf(
+        SearchMedicine("Panadol cảm cúm"),
+        SearchMedicine("Paracetamol"),
+        SearchMedicine("Ibuprofen"),
+        SearchMedicine("Aspirin"),
+        SearchMedicine("Amoxicillin"),
+        SearchMedicine("Ciprofloxacin"),
+        SearchMedicine("Azithromycin"),
+        SearchMedicine("Cetirizine"),
+        SearchMedicine("Loratadine"),
+        SearchMedicine("Diphenhydramine"),
+        SearchMedicine("Lisinopril"),
+    )
 
     companion object {
         private const val CREATE_FILE_REQUEST_CODE = 123
@@ -64,11 +103,14 @@ class FragmentPrescription : BaseFragment<EmptyViewModel, FragmentPrescriptionBi
 
     private val myPage: PdfDocument.Page = pdfDocument.startPage(myPageInfo)
     private val canvas: Canvas = myPage.canvas
+    private var listMedicine = arrayListOf<MedicineModel>()
+    private val bottomSheetInformation by lazy { BottomSheetBehavior.from(binding.bottomSelectInfo.layoutSelect) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         fillView()
+        initView()
         binding.exportFilePdf.setOnClickListener {
             createPdf()
         }
@@ -76,6 +118,110 @@ class FragmentPrescription : BaseFragment<EmptyViewModel, FragmentPrescriptionBi
         // Đường dẫn đến file PDF
 //        val pdfFilePath = "/path/to/your/file.pdf"
 //        printPdfFile(requireActivity(), pdfFilePath)a
+    }
+
+    private fun initView() {
+        val patient = arguments?.getParcelable<PatientModel>(FragmentAdminDoctor.OBJECT_PATIENT)
+//        val prescription = PrescriptionInformation(
+//            namePatient = patient?.fullname,
+//            age = DateUtils.getAgeFromDate(patient?.DoB),
+//            sex = patient?.sex,
+//            healthInsurance = patient?.healthInsurance,
+//            diagnose = binding.diagnose.getText(),
+//            includingDiseases = binding.includingDiseases.getText(),
+//            dateCurrent = DateUtils.getDateCurrent(),
+//            listMedicine = listMedicine,
+//            advice = binding.advice.getText()
+//        )
+
+        binding.addMedicine.setOnClickListener {
+            bottomSheetInformation.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
+        binding.addMoreMedicine.setOnClickListener {
+            bottomSheetInformation.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
+        initBottomSelect()
+        initDataMedicine()
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun initBottomSelect() {
+        bottomSheetInformation.isGestureInsetBottomIgnored = false
+        bottomSheetInformation.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                binding.bottomSelectInfo.layoutCoverSheet.apply {
+                    if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+                        this.isEnabled = true
+                        this.visibility = View.VISIBLE
+                    } else {
+                        this.visibility = View.GONE
+                    }
+                }
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+            }
+        })
+
+        binding.bottomSelectInfo.layoutMainSheet.setOnTouchListener { _, _ -> true }
+
+        binding.bottomSelectInfo.layoutCoverSheet.setOnTouchListener { _, _ ->
+            this.closeKeyboard()
+            binding.bottomSelectInfo.layoutCoverSheet.isEnabled = false
+            bottomSheetInformation.state = BottomSheetBehavior.STATE_COLLAPSED
+            true
+        }
+    }
+
+    private fun initDataMedicine() {
+        with(binding.bottomSelectInfo) {
+            title.text = "Danh sách thuốc"
+            search.hint = "Tìm kiếm thuốc"
+            update.isVisible = true
+            val adapterMedicine = SearchMedicineAdapter()
+            adapterMedicine.items = medicines
+            medicines.forEach {
+                if(it.stateChecked) {
+                    adapterMedicine.listMedicineSelected.add(medicines.indexOf(it))
+                }
+            }
+            rcvInformation.apply {
+                adapter = adapterMedicine
+            }
+            update.setOnClickListener {
+                bottomSheetInformation.state = BottomSheetBehavior.STATE_COLLAPSED
+                showLoading()
+                binding.root.postDelayed(1000L) {
+                    val medicinesSelected = adapterMedicine.listMedicineSelected
+                    for (i in medicinesSelected.indices) {
+                        medicines[i].stateChecked = true
+                    }
+                    initListMedicine()
+                    dismissLoading()
+                }
+            }
+//            search.doOnTextChanged { text, _, _, _ ->
+//                informationAdapter.filter.filter(text)
+//            }
+        }
+    }
+
+    private fun initListMedicine() {
+        val medicinesSelected = medicines.filter { it.stateChecked }
+        if(medicinesSelected.isNotEmpty()) {
+            binding.addMedicine.isVisible = false
+            binding.addMoreMedicine.isVisible = true
+            val adapterMedicine = PrescriptionMedicalAdapter()
+            adapterMedicine.items = medicinesSelected as ArrayList<SearchMedicine>
+            binding.rcvMedicine.adapter = adapterMedicine
+        } else {
+            binding.addMedicine.isVisible = true
+            binding.addMoreMedicine.isVisible = false
+        }
     }
 
     private fun printPdfFile(context: Context, filePath: String) {
@@ -283,17 +429,17 @@ class FragmentPrescription : BaseFragment<EmptyViewModel, FragmentPrescriptionBi
         //Draw line vertical end
         canvas.drawLine(WIDTH_PAGE - MARGIN_START, txtY, WIDTH_PAGE - MARGIN_START, lineBottomY, line)
 
-        //Draw line bottom
+        //Draw line horizontal
         canvas.drawLine(MARGIN_START, lineBottomY, WIDTH_PAGE - MARGIN_START, lineBottomY, line)
 
         val medicineInfo = arrayListOf<InfoMedicine>()
-        medicineInfo.add(InfoMedicine(1, "Viên uống Kudos Pregnance bổ sung vitamin, khoáng chất cho bà bầu", "Viên", 30))
-        medicineInfo.add(InfoMedicine(2, "Viên uống Pharmacity Bone Health với Calcium, Magnesium, Vitamin D3, K2, Zinc hỗ trợ duy trì xương chắc khỏe", "Viên", 60))
-        medicineInfo.add(InfoMedicine(3, "Xịt họng thảo dược Pharmacity Herbal Throat Spray hỗ trợ bổ phổi, giảm đau họng và ho (Chai 25ml)", "Chai", 1))
+        medicineInfo.add(InfoMedicine(1, "Viên uống Kudos Pregnance bổ sung vitamin, khoáng chất cho bà bầu", "Viên", 30, "Uống Sáng 2 Viên, Trưa 2 Viên, Chiều 2 Viên"))
+        medicineInfo.add(InfoMedicine(2, "Viên uống Pharmacity Bone Health với Calcium, Magnesium, Vitamin D3, K2, Zinc hỗ trợ duy trì xương chắc khỏe", "Viên", 60, "Uống Sáng 2 Viên, Trưa 2 Viên, Chiều 2 Viên"))
+        medicineInfo.add(InfoMedicine(3, "Xịt họng thảo dược Pharmacity Herbal Throat Spray hỗ trợ bổ phổi, giảm đau họng và ho (Chai 25ml)", "Chai", 1, "Uống Sáng 2 Viên, Trưa 2 Viên, Chiều 2 Viên"))
 
-        textPaint.setTypeface(Typeface.SERIF)
         var textItemNextY = lineBottomY
         medicineInfo.forEach {
+            textPaint.setTypeface(Typeface.SERIF)
             val staticLayout = StaticLayout.Builder.obtain(
                 it.name, 0, it.name.length, textPaint,
                 (width2 + 150f * 2 - 5*2).toInt()
@@ -318,22 +464,60 @@ class FragmentPrescription : BaseFragment<EmptyViewModel, FragmentPrescriptionBi
             val qualityX = (WIDTH_PAGE - MARGIN_START + start3)/2 - textPaint.measureText(it.quantity.toString())/2
             canvas.drawText(it.quantity.toString(), qualityX, textItemNextY + 20f, textPaint)
 
+            textPaint.typeface = Typeface.defaultFromStyle(Typeface.BOLD_ITALIC)
+            val txtDosageHeight = textPaint.descent() - textPaint.ascent()
+
             //Get the y coordinate position for the next item
-            textItemNextY += staticLayout.height.toFloat() + 8f
+            val itemInfoY = textItemNextY + staticLayout.height.toFloat() + 8f
             //Draw line vertical
-            canvas.drawLine(MARGIN_START, lineBottomY, MARGIN_START, textItemNextY, line)
+            canvas.drawLine(MARGIN_START, textItemNextY, MARGIN_START, itemInfoY + txtDosageHeight + 6, line)
             //Draw line vertical
-            canvas.drawLine(start1, lineBottomY, start1, textItemNextY, line)
+            canvas.drawLine(start1, textItemNextY, start1, itemInfoY, line)
             //Draw line vertical
-            canvas.drawLine(start2, lineBottomY, start2, textItemNextY, line)
+            canvas.drawLine(start2, textItemNextY, start2, itemInfoY, line)
             //Draw line vertical
-            canvas.drawLine(start3, lineBottomY, start3, textItemNextY, line)
+            canvas.drawLine(start3, textItemNextY, start3, itemInfoY, line)
             //Draw line vertical
-            canvas.drawLine(WIDTH_PAGE - MARGIN_START, lineBottomY, WIDTH_PAGE - MARGIN_START, textItemNextY, line)
-            //Draw line bottom
-            canvas.drawLine(MARGIN_START, textItemNextY, WIDTH_PAGE - MARGIN_START, textItemNextY, line)
+            canvas.drawLine(WIDTH_PAGE - MARGIN_START, textItemNextY, WIDTH_PAGE - MARGIN_START, itemInfoY + txtDosageHeight + 6, line)
+            //Draw line horizontal
+            setSingleLineText(itemInfoY)
+//            canvas.drawLine(MARGIN_START, itemInfoY, WIDTH_PAGE - MARGIN_START, itemInfoY, line)
+
+            //Draw text dosage
+            canvas.drawText(it.dosage, start1, itemInfoY + txtDosageHeight, textPaint)
+            //Draw line horizontal
+            canvas.drawLine(MARGIN_START, itemInfoY + txtDosageHeight + 6, WIDTH_PAGE - MARGIN_START, itemInfoY + txtDosageHeight + 6, line)
+            textItemNextY = itemInfoY + txtDosageHeight + 6
         }
         return textItemNextY
+    }
+
+    private fun setSingleLineText(y: Float) {
+        var text = "--------------------------------------------------------------------------------------------------------------------"
+//        for (i in 0 until 100) { text += "-" }
+
+        val paint = Paint()
+        paint.color = ContextCompat.getColor(requireActivity(), R.color.grey_1)
+        paint.textSize = 15f
+        val maxTextWidth = WIDTH_PAGE - 30f // Chiều rộng của View trừ 15 đơn vị từ mỗi bên
+        var measuredWidth = 0f
+        var endIndex = 0
+
+        for (i in text.indices) {
+            measuredWidth = paint.measureText(text, 0, i + 1)
+            if (measuredWidth > maxTextWidth) {
+                endIndex = i
+                break
+            }
+        }
+
+        var displayedText = ""
+        displayedText = if (endIndex < text.length) {
+            text.substring(0, endIndex - 3)
+        } else {
+            text
+        }
+        canvas.drawText(displayedText, MARGIN_START, y, paint)
     }
 
     private fun generateBarcode(text: String): Bitmap {

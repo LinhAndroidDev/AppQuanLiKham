@@ -25,6 +25,8 @@ class FragmentEditInfoPatientViewModel @Inject constructor(private val repositor
                     } else {
                         errorApiLiveData.postValue(response.body()?.error)
                     }
+                } else {
+                    errorApiLiveData.postValue(response.message())
                 }
             }
         } catch (e: Exception) {

@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import com.example.appkhambenh.databinding.FragmentEditInfoPatientBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.data.remote.entity.PatientModel
 import com.example.appkhambenh.ui.data.remote.model.PatientInfoModel
 import com.example.appkhambenh.ui.ui.doctor.viewmodel.FragmentEditInfoPatientViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FragmentEditInfoPatient :
@@ -38,26 +40,39 @@ class FragmentEditInfoPatient :
         )
 
         binding.updateInfo.setOnClickListener {
-            val patientInfoModel = PatientInfoModel(
-                DoB = binding.edtBirth.getText(),
-                address = binding.edtAddress.getText(),
-                avatar = "",
-                citizenId = binding.edtCccd.getText(),
-                email = binding.edtEmail.getText(),
-                fullname = binding.edtName.getText(),
-                healthInsurance = binding.hasHealthInsurance.getText(),
-                job = binding.edtJob.getText(),
-                maritalStatus = binding.maritalStatus.indexSelected.toString(),
-                nationality = binding.nationality.getText(),
-                phoneNumber = binding.edtPhone.getText(),
-                relativeAddress = binding.relativeAddress.getText(),
-                relativeName = binding.relativeName.getText(),
-                relativePhone = binding.relativePhone.getText(),
-                sex = binding.edtSex.indexSelected.toString(),
-                type = false
-            )
+            val patientInfoModel = PatientInfoModel()
+//                DoB = binding.edtBirth.getText(),
+//                address = binding.edtAddress.getText(),
+//                avatar = "",
+//                citizenId = binding.edtCccd.getText(),
+//                email = binding.edtEmail.getText(),
+//                fullname = binding.edtName.getText(),
+//                healthInsurance = binding.hasHealthInsurance.getText(),
+//                job = binding.edtJob.getText(),
+//                maritalStatus = binding.maritalStatus.indexSelected.toString(),
+//                nationality = binding.nationality.getText(),
+//                phoneNumber = binding.edtPhone.getText(),
+//                relativeAddress = binding.relativeAddress.getText(),
+//                relativeName = binding.relativeName.getText(),
+//                relativePhone = binding.relativePhone.getText(),
+//                sex = binding.edtSex.indexSelected.toString(),
+//                type = false
+//            )
             if (patient != null) {
                 viewModel.updateInfoPatient(patient.id, patientInfoModel)
+            }
+        }
+    }
+
+    override fun bindData() {
+        super.bindData()
+
+        lifecycleScope.launch {
+            viewModel.isSuccessful.collect {
+                if(it) {
+                    dismissLoading()
+                    activity?.onBackPressed()
+                }
             }
         }
     }

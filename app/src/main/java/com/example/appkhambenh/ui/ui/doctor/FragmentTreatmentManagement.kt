@@ -16,13 +16,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AutoCompleteTextView
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.widget.ListPopupWindow
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -35,8 +32,8 @@ import com.example.appkhambenh.databinding.FragmentTreatmentManagementBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.data.remote.entity.PatientModel
 import com.example.appkhambenh.ui.ui.EmptyViewModel
+import com.example.appkhambenh.ui.ui.common.dialog.DialogAddService
 import com.example.appkhambenh.ui.ui.common.dialog.DialogTakeImage
-import com.example.appkhambenh.ui.ui.doctor.adapter.CustomArrayAdapter
 import com.example.appkhambenh.ui.ui.doctor.adapter.ListOfService
 import com.example.appkhambenh.ui.ui.doctor.adapter.ListOfServiceAdapter
 import com.example.appkhambenh.ui.ui.doctor.controller.ActionRecord
@@ -45,6 +42,7 @@ import com.example.appkhambenh.ui.utils.PersonalInformation
 import com.example.appkhambenh.ui.utils.addFragmentByTag
 import com.example.appkhambenh.ui.utils.collapseView
 import com.example.appkhambenh.ui.utils.expandView
+import com.example.appkhambenh.ui.utils.initTextComplete
 import com.example.appkhambenh.ui.utils.rotationView
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
@@ -57,7 +55,6 @@ import com.google.android.material.tabs.TabLayout
 import com.yalantis.ucrop.UCrop
 import java.io.File
 import java.io.IOException
-import java.lang.reflect.Field
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -92,6 +89,7 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
     private val handler by lazy { Handler(Looper.getMainLooper()) } // Set up time listen again record
     private var currentListen = 0
     private var permissionToRecordAccepted = false
+    private var patient: PatientModel? = null
     private val permissions by lazy {
         arrayOf(
             android.Manifest.permission.RECORD_AUDIO,
@@ -101,6 +99,7 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
 
     companion object {
         private const val REQUEST_RECORD_AUDIO_PERMISSION = 200
+        const val LIST_SERVICE = "LIST_SERVICE"
     }
 
     private val uCropContract = object : ActivityResultContract<List<Uri?>, Uri?>(){
@@ -159,15 +158,8 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val layoutParams = RelativeLayout.LayoutParams(
-            RelativeLayout.LayoutParams.MATCH_PARENT,
-            RelativeLayout.LayoutParams.MATCH_PARENT
-        )
-        binding.root.layoutParams = layoutParams
-
+        fillView()
         ActivityCompat.requestPermissions(requireActivity(), permissions, REQUEST_RECORD_AUDIO_PERMISSION)
-
-        hideAllViewService()
 
         showLoading()
         binding.root.postDelayed(1000L) {
@@ -328,13 +320,13 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
     }
 
     private fun initView() {
-        val patient = arguments?.getParcelable<PatientModel>(FragmentAdminDoctor.OBJECT_PATIENT)
+        patient = arguments?.getParcelable<PatientModel>(FragmentAdminDoctor.OBJECT_PATIENT)
         patient?.let {
-            binding.tvName.text = patient.fullname
-            binding.tvAddress.text = patient.address
-            binding.tvCccd.text = patient.citizenId
-            binding.tvPhone.text = patient.phoneNumber
-            binding.tvSex.text = if(patient.sex == "0") "Nam" else "Nữ"
+            binding.tvName.text = patient?.fullname
+            binding.tvAddress.text = patient?.address
+            binding.tvCccd.text = patient?.citizenId
+            binding.tvPhone.text = patient?.phoneNumber
+            binding.tvSex.text = if(patient?.sex == "0") "Nam" else "Nữ"
         }
 
         hideAllViewService()
@@ -459,7 +451,11 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
     @SuppressLint("DiscouragedPrivateApi")
     private fun onClickView() {
         binding.prescription.setOnClickListener {
-            addFragmentByTag(FragmentPrescription(), R.id.changeIdDoctorVn, "FragmentTreatmentManagement")
+            val fragment = FragmentPrescription()
+            val bundle = Bundle()
+            bundle.putParcelable(FragmentAdminDoctor.OBJECT_PATIENT, patient)
+            fragment.arguments = bundle
+            addFragmentByTag(fragment, R.id.changeIdDoctorVn, "FragmentTreatmentManagement")
         }
 
         binding.diagnose.apply {
@@ -492,8 +488,9 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
             }
 
             //Show pull down sick for sick main and sick cover
-            sickMain.initTextComplete()
-            sickCover.initTextComplete()
+            val data: List<String?> = PersonalInformation.sick()
+            sickMain.initTextComplete(requireActivity(), data)
+            sickCover.initTextComplete(requireActivity(), data)
         }
 
         binding.contentInfomation.post {
@@ -592,35 +589,14 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
         binding.listMedicalRecord.setOnClickListener {
             addFragmentByTag(FragmentListMedicalRecord(), R.id.changeIdDoctorVn, "FragmentTreatmentManagement")
         }
-    }
 
-    @SuppressLint("DiscouragedPrivateApi")
-    private fun AutoCompleteTextView.initTextComplete() {
-        val data: List<String?> = PersonalInformation.sick()
-        val adapter = CustomArrayAdapter(requireActivity(), android.R.layout.simple_dropdown_item_1line, data)
-        setAdapter(adapter)
-        if(data.size > 5) dropDownHeight = 500
-        post {
-            try {
-                val popupField: Field = AutoCompleteTextView::class.java.getDeclaredField("mPopup")
-                popupField.isAccessible = true
-                val popup: ListPopupWindow = popupField.get(this) as ListPopupWindow
-                popup.width = this.width
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-
-        // Hiển thị danh sách khi AutoCompleteTextView nhận được focus
-        setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                showDropDown()
-            }
-        }
-
-        // Hiển thị danh sách khi AutoCompleteTextView được click
-        setOnClickListener {
-            showDropDown()
+        binding.listOfService.addService.setOnClickListener {
+            val dialogAddService = DialogAddService()
+            dialogAddService.show(requireActivity().supportFragmentManager, "DialogAddService")
+            val bundle = Bundle()
+            val services = arrayListOf("Bệnh sử tiền sử", "Khám lâm sàng, tổng quát", "Xét nghiệm máu", "Siêu âm", "X-quang", "MRI", "CT", "Chẩn đoán", "Sử dụng thuốc", "Lịch sử")
+            bundle.putStringArrayList(LIST_SERVICE, services)
+            dialogAddService.arguments = bundle
         }
     }
 

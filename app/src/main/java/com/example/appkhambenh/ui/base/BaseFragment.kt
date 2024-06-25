@@ -12,11 +12,17 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.example.appkhambenh.R
+import com.example.appkhambenh.ui.ui.common.dialog.DialogExpiredToken
 import com.example.appkhambenh.ui.ui.common.dialog.DialogLoading
 import com.example.appkhambenh.ui.utils.ConvertUtils.dpToPx
 import com.example.appkhambenh.ui.utils.SharePreferenceRepositoryImpl
+import com.example.appkhambenh.ui.utils.TokenManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -60,7 +66,9 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
     }
 
     fun showLoading() {
-        loading.show(requireActivity().supportFragmentManager, "DialogLoading")
+        if (!loading.isAdded) {
+            loading.show(requireActivity().supportFragmentManager, "DialogLoading");
+        }
     }
 
     fun dismissLoading() {

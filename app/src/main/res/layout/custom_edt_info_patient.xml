@@ -45,6 +45,6 @@
         android:paddingStart="@dimen/dimen_15"
         android:background="@drawable/bg_edit_search_info_patient"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dimen_46"
         android:visibility="gone"/>
 </LinearLayout>

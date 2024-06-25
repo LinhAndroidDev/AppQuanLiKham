@@ -56,9 +56,7 @@ object AppModule {
                 // Kiểm tra mã trạng thái phản hồi
                 if (response.code == 401) {
                     // Xử lý token hết hạn (có thể gửi một sự kiện hoặc thông báo cho người dùng)
-                    if (!TokenManager.tokenExpiredEvent.value) {
-                        TokenManager.tokenExpiredEvent.value = true
-                    }
+                    TokenManager.tokenExpiredEvent.value = !TokenManager.tokenExpiredEvent.value
                 }
 
                 response

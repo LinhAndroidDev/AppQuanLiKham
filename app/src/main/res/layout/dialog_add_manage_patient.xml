@@ -49,7 +49,7 @@
 
                 <TextView
                     android:layout_marginStart="@dimen/dimen_10"
-                    android:text="Quản lí diều trị"
+                    android:text="Quản lí điều trị"
                     style="@style/text_sp16_color_text_bold"
                     android:textColor="@color/background"/>
             </LinearLayout>

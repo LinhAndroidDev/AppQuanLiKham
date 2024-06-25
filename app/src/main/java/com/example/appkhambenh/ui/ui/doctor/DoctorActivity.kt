@@ -71,6 +71,7 @@ class DoctorActivity : AppCompatActivity() {
         binding.navHome.unCheckItem()
         binding.navAdmin.unCheckItem()
         binding.navAppoint.unCheckItem()
+        binding.navMedicine.unCheckItem()
     }
 
     private fun replaceFragment(fm: Fragment, tag: String) {

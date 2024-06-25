@@ -75,4 +75,24 @@
 
     </LinearLayout>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/update"
+        android:layout_marginHorizontal="@dimen/dimen_40"
+        android:layout_marginBottom="@dimen/dimen_20"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/background"
+        app:cardCornerRadius="@dimen/dimen_10"
+        app:cardElevation="25dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_marginVertical="@dimen/dimen_10"
+            android:text="Cập nhật đơn thuốc"
+            style="@style/text_sp14_black_bold"
+            android:textColor="@color/white"/>
+    </androidx.cardview.widget.CardView>
+
 </RelativeLayout>

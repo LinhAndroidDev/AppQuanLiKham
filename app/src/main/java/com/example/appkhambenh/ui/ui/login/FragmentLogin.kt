@@ -93,10 +93,6 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
     override fun bindData() {
         super.bindData()
 
-        viewModel.loading.observe(viewLifecycleOwner) {
-            if (it) showLoading() else dismissLoading()
-        }
-
         viewModel.loginSuccessLiveData.observe(viewLifecycleOwner) { isSuccessful ->
             if (isSuccessful) {
                 if (binding.checkForgetPassword.isChecked) {

@@ -1,58 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:id="@+id/layout">
+    android:visibility="gone">
 
     <RelativeLayout
-        android:background="@color/blue_dark_light"
-        android:paddingVertical="@dimen/dimen_15"
-        android:paddingHorizontal="@dimen/dimen_20"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/blue_dark_light"
+        android:paddingHorizontal="@dimen/dimen_20"
+        android:paddingVertical="@dimen/dimen_15">
 
         <TextView
             style="@style/text_sp16_black_bold"
+            android:layout_width="match_parent"
             android:text="Nhập kết quả chụp X_quang"
-            android:textSize="@dimen/dimen_sp18"
             android:textColor="@color/white"
-            android:layout_width="match_parent" />
+            android:textSize="@dimen/dimen_sp18" />
     </RelativeLayout>
 
     <TextView
-        android:layout_marginTop="@dimen/dimen_15"
-        android:layout_marginStart="@dimen/dimen_15"
         style="@style/text_sp14"
+        android:layout_marginStart="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_15"
         android:text="Cập nhật hình ảnh đã chụp" />
 
     <RelativeLayout
         android:id="@+id/viewImage"
-        android:layout_marginTop="@dimen/dimen_5"
-        android:layout_marginStart="@dimen/dimen_15"
-        android:background="@drawable/bg_image_examination"
         android:layout_width="@dimen/dimen_100"
-        android:layout_height="@dimen/dimen_100">
+        android:layout_height="@dimen/dimen_100"
+        android:layout_marginStart="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:background="@drawable/bg_image_examination">
 
         <ImageView
-            android:src="@drawable/ic_action_add"
             android:layout_width="@dimen/dimen_20"
             android:layout_height="@dimen/dimen_20"
-            app:tint="@color/black"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_action_add"
+            app:tint="@color/black" />
 
         <ImageView
             android:id="@+id/imgXray"
             android:layout_width="@dimen/dimen_100"
-            android:layout_height="@dimen/dimen_100"/>
+            android:layout_height="@dimen/dimen_100" />
     </RelativeLayout>
 
     <TextView
-        android:layout_marginTop="@dimen/dimen_20"
-        android:layout_marginStart="@dimen/dimen_15"
         style="@style/text_sp14"
-        android:text="Nhận xét từ bác sĩ chẩn đoán hình ảnh"/>
+        android:layout_marginStart="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:text="Nhận xét từ bác sĩ chẩn đoán hình ảnh" />
 
     <EditText
         style="@style/edit_clinical_examination"
@@ -62,6 +63,6 @@
         android:id="@+id/update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_foot_view="Cập nhật"
-        app:eleven_foot_view="0"/>
+        app:eleven_foot_view="0"
+        app:title_foot_view="Cập nhật" />
 </LinearLayout>
