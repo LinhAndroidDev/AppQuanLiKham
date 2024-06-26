@@ -1,13 +1,15 @@
 package com.example.appkhambenh.ui.ui.doctor.adapter
 
 import android.view.View
+import androidx.core.view.isVisible
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ItemSearchMedicineBinding
 import com.example.appkhambenh.ui.base.BaseAdapter
 
 data class SearchMedicine(
     val name: String,
-    var stateChecked: Boolean = false
+    var stateChecked: Boolean = false,
+    var quantity: Int = 0
 )
 
 class SearchMedicineAdapter : BaseAdapter<SearchMedicine, ItemSearchMedicineBinding>() {
@@ -22,6 +24,7 @@ class SearchMedicineAdapter : BaseAdapter<SearchMedicine, ItemSearchMedicineBind
         val medicine = items[position]
         holder.v.apply {
             nameMedicine.text = medicine.name
+            viewBottom.isVisible = position == items.size - 1
         }
 
         holder.itemView.setOnClickListener {

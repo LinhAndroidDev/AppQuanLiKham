@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/itemView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:paddingVertical="@dimen/dimen_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/idUser"
+                        style="@style/text_sp14"
+                        android:layout_width="@dimen/dimen_50"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/dimen_10"
+                        android:text="26" />
+
+                    <TextView
+                        android:id="@+id/nameUser"
+                        style="@style/text_sp14_black_bold"
+                        android:layout_width="@dimen/dimen_160"
+                        android:paddingStart="@dimen/dimen_10"
+                        android:text="Tên bệnh nhân"
+                        android:maxLines="1"
+                        android:ellipsize="end"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/reason"
+                    android:paddingVertical="@dimen/dimen_15"
+                    style="@style/text_sp14"
+                    android:layout_width="@dimen/dimen_140"
+                    android:paddingStart="@dimen/dimen_10"
+                    android:text="Lí do vào viện"
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
+
+                <TextView
+                    android:id="@+id/cccd"
+                    style="@style/text_sp14"
+                    android:layout_width="@dimen/dimen_160"
+                    android:paddingStart="@dimen/dimen_10"
+                    android:text="Khoa điều trị" />
+
+                <TextView
+                    android:id="@+id/phone"
+                    style="@style/text_sp14"
+                    android:layout_width="@dimen/dimen_100"
+                    android:paddingStart="@dimen/dimen_10"
+                    android:text="Phòng" />
+
+                <TextView
+                    android:id="@+id/time"
+                    style="@style/text_sp14"
+                    android:layout_width="@dimen/dimen_140"
+                    android:paddingStart="@dimen/dimen_10"
+                    android:text="CĐ ra viện" />
+
+                <TextView
+                    android:id="@+id/state"
+                    style="@style/text_sp14"
+                    android:layout_width="@dimen/dimen_160"
+                    android:paddingStart="@dimen/dimen_10"
+                    android:text="Thời gian ra viện" />
+
+                <LinearLayout
+                    android:layout_width="@dimen/dimen_300"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/btnDiagnose"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:text="Chẩn đoán"
+                        android:paddingVertical="@dimen/dimen_7"
+                        android:paddingHorizontal="@dimen/dimen_10"
+                        android:background="@drawable/boder_grey_corner_5"
+                        style="@style/text_sp12"/>
+
+                    <TextView
+                        android:id="@+id/btnAllocation"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:text="Phân bổ"
+                        android:paddingVertical="@dimen/dimen_7"
+                        android:paddingHorizontal="@dimen/dimen_10"
+                        android:background="@drawable/boder_grey_corner_5"
+                        style="@style/text_sp12"/>
+
+                    <TextView
+                        android:id="@+id/btnOutHospital"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:text="Xuất viện"
+                        android:paddingVertical="@dimen/dimen_7"
+                        android:paddingHorizontal="@dimen/dimen_10"
+                        android:background="@drawable/boder_grey_corner_5"
+                        style="@style/text_sp12"/>
+                </LinearLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <View
+            android:background="@color/grey"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1"/>
+    </LinearLayout>
+</layout>

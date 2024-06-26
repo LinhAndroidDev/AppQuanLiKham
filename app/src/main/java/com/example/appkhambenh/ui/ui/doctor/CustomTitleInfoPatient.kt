@@ -49,6 +49,13 @@ class CustomTitleInfoPatient @JvmOverloads constructor(
                         )
                     }
 
+                    300 -> {
+                        LayoutParams(
+                            context.resources.getDimensionPixelSize(R.dimen.dimen_300),
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        )
+                    }
+
                     else -> {
                         LayoutParams(
                             context.resources.getDimensionPixelSize(R.dimen.dimen_140),

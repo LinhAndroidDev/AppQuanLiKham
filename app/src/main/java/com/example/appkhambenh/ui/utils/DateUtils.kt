@@ -13,6 +13,7 @@ object DateUtils {
     const val DAY_OF_YEAR = "yyyy-MM-dd"
     const val TIME_UPLOAD_AVATAR = "dd_MM_yyyy_HH_mm_ss"
     const val MINUTES = "mm:ss"
+    const val DATE_FROM_VIET_NAM = "Ngày dd 'tháng' MM 'năm' yyyy"
 
     @SuppressLint("SimpleDateFormat")
     fun convertDateToLong(date: String): Long {
@@ -38,8 +39,10 @@ object DateUtils {
         return timeCurrent.toString()
     }
 
-    fun getDateCurrent(): String {
-        return SimpleDateFormat(DAY_OF_YEAR, Locale.getDefault()).format(Date())
+    fun getDateCurrentFromVietNam(): String {
+        val calendar = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat(DATE_FROM_VIET_NAM, Locale.getDefault())
+        return dateFormat.format(calendar.time)
     }
 
     fun getAgeFromDate(dateString: String?): Int {

@@ -34,6 +34,7 @@
         <attr name="showViewLoad" format="boolean"/>
         <attr name="showViewEnd" format="boolean"/>
         <attr name="sizeView" format="enum">
+            <enum name="super_big_large" value="300"/>
             <enum name="big_large" value="160"/>
             <enum name="large" value="140"/>
             <enum name="medium" value="100"/>

@@ -91,7 +91,7 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
             dialog.arguments = bundle
             dialog.show(requireActivity().supportFragmentManager, "")
             dialog.onClickHistoryTest = {
-
+                goToFragmentMedicalExaminationHistory()
             }
 
             dialog.onClickManageTreatment = {
@@ -99,6 +99,11 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
             }
         }
         binding.rcvMainInfo.adapter = adapterInfo
+    }
+
+    private fun goToFragmentMedicalExaminationHistory() {
+        val fragmentMedicalExaminationHistory = FragmentMedicalExaminationHistory()
+        addFragmentByTag(fragmentMedicalExaminationHistory, R.id.changeIdDoctorVn, "FragmentMedicalExaminationHistory")
     }
 
     private fun goToFragmentTreatment(patient: PatientModel) {

@@ -1,7 +1,6 @@
 package com.example.appkhambenh.ui.ui.register
 
 import android.annotation.SuppressLint
-import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,21 +13,17 @@ import com.example.appkhambenh.databinding.FragmentRegisterBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.data.remote.model.RegisterModel
 import com.example.appkhambenh.ui.utils.DateUtils
+import com.example.appkhambenh.ui.utils.getDateFromCalendar
 import com.example.appkhambenh.ui.utils.validateEmail
 import com.example.appkhambenh.ui.utils.validatePassword
 import com.example.appkhambenh.ui.utils.validatePhone
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
 class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding>() {
-
-    private val calendar by lazy { Calendar.getInstance() }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -47,13 +42,12 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
     private fun initUi() {
 
         binding.rbPatient.isChecked = true
-
         binding.backRegister.setOnClickListener { back() }
-
         binding.cancel.setOnClickListener { back() }
-
         binding.edtBirth.setOnClickListener {
-            showDialogSelectDate()
+            activity?.getDateFromCalendar { time ->
+                binding.edtBirth.setText(time)
+            }
         }
 
         binding.rbAdmin.setOnCheckedChangeListener { _, b ->
@@ -111,7 +105,6 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
             } else if (!validatePhone(phone)) {
                 setNotification(R.color.txt_red, R.string.warning_phone)
             } else {
-
                 lifecycleScope.launch(Dispatchers.Main) {
                     viewModel.requestRegisterUser(
                         RegisterModel(
@@ -161,28 +154,6 @@ class FragmentRegister : BaseFragment<RegisterViewModel, FragmentRegisterBinding
                 || (!binding.rbMan.isChecked && !binding.rbWomen.isChecked)
                 || !binding.cbAgree.isChecked)
                 ) || (binding.rbDoctor.isChecked && binding.edtSpecialist.text.isEmpty())
-    }
-
-    private fun showDialogSelectDate() {
-        DatePickerDialog(
-            requireActivity(),
-            { _, year, month, dayOfMonth ->
-                calendar.apply {
-                    set(Calendar.YEAR, year)
-                    set(Calendar.MONTH, month)
-                    set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                }
-                setDateWithText()
-            },
-            calendar.get(Calendar.YEAR),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH)
-        ).show()
-    }
-
-    private fun setDateWithText() {
-        val dateFormat = SimpleDateFormat(DateUtils.DAY_OF_YEAR, Locale.getDefault())
-        binding.edtBirth.setText(dateFormat.format(calendar.time))
     }
 
     private fun setNotification(color: Int, string: Int) {

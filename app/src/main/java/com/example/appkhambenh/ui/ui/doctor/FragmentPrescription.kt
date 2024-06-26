@@ -2,7 +2,6 @@ package com.example.appkhambenh.ui.ui.doctor
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -12,13 +11,9 @@ import android.graphics.Typeface
 import android.graphics.pdf.PdfDocument
 import android.net.Uri
 import android.os.Bundle
-import android.print.PrintAttributes
-import android.print.PrintManager
-import android.print.pdf.PrintedPdfDocument
 import android.text.Layout
 import android.text.StaticLayout
 import android.text.TextPaint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,28 +21,20 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.view.postDelayed
-import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.lifecycleScope
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentPrescriptionBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.data.remote.entity.PatientModel
-import com.example.appkhambenh.ui.data.remote.model.MedicineModel
 import com.example.appkhambenh.ui.ui.EmptyViewModel
-import com.example.appkhambenh.ui.ui.doctor.adapter.PdfDocumentAdapter
 import com.example.appkhambenh.ui.ui.doctor.adapter.PrescriptionMedicalAdapter
 import com.example.appkhambenh.ui.ui.doctor.adapter.SearchMedicine
 import com.example.appkhambenh.ui.ui.doctor.adapter.SearchMedicineAdapter
-import com.example.appkhambenh.ui.ui.user.medicine.adapter.MedicineAdapter
 import com.example.appkhambenh.ui.utils.DateUtils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.common.BitMatrix
 import com.google.zxing.oned.EAN13Writer
-import com.itextpdf.svg.converter.SvgConverter.createPdf
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.IOException
 import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -90,6 +77,8 @@ class FragmentPrescription : BaseFragment<EmptyViewModel, FragmentPrescriptionBi
         SearchMedicine("Diphenhydramine"),
         SearchMedicine("Lisinopril"),
     )
+    private var medicinesSelected = arrayListOf<SearchMedicine>()
+    private var patient: PatientModel? = null
 
     companion object {
         private const val CREATE_FILE_REQUEST_CODE = 123
@@ -103,7 +92,6 @@ class FragmentPrescription : BaseFragment<EmptyViewModel, FragmentPrescriptionBi
 
     private val myPage: PdfDocument.Page = pdfDocument.startPage(myPageInfo)
     private val canvas: Canvas = myPage.canvas
-    private var listMedicine = arrayListOf<MedicineModel>()
     private val bottomSheetInformation by lazy { BottomSheetBehavior.from(binding.bottomSelectInfo.layoutSelect) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -114,14 +102,10 @@ class FragmentPrescription : BaseFragment<EmptyViewModel, FragmentPrescriptionBi
         binding.exportFilePdf.setOnClickListener {
             createPdf()
         }
-
-        // Đường dẫn đến file PDF
-//        val pdfFilePath = "/path/to/your/file.pdf"
-//        printPdfFile(requireActivity(), pdfFilePath)a
     }
 
     private fun initView() {
-        val patient = arguments?.getParcelable<PatientModel>(FragmentAdminDoctor.OBJECT_PATIENT)
+        patient = arguments?.getParcelable(FragmentAdminDoctor.OBJECT_PATIENT)
 //        val prescription = PrescriptionInformation(
 //            namePatient = patient?.fullname,
 //            age = DateUtils.getAgeFromDate(patient?.DoB),
@@ -189,19 +173,18 @@ class FragmentPrescription : BaseFragment<EmptyViewModel, FragmentPrescriptionBi
                     adapterMedicine.listMedicineSelected.add(medicines.indexOf(it))
                 }
             }
-            rcvInformation.apply {
-                adapter = adapterMedicine
-            }
+            rcvInformation.adapter = adapterMedicine
             update.setOnClickListener {
                 bottomSheetInformation.state = BottomSheetBehavior.STATE_COLLAPSED
                 showLoading()
                 binding.root.postDelayed(1000L) {
+                    dismissLoading()
                     val medicinesSelected = adapterMedicine.listMedicineSelected
                     for (i in medicinesSelected.indices) {
-                        medicines[i].stateChecked = true
+                        medicines[medicinesSelected[i]].stateChecked = true
+                        medicines[medicinesSelected[i]].quantity = 1
                     }
                     initListMedicine()
-                    dismissLoading()
                 }
             }
 //            search.doOnTextChanged { text, _, _, _ ->
@@ -210,54 +193,28 @@ class FragmentPrescription : BaseFragment<EmptyViewModel, FragmentPrescriptionBi
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun initListMedicine() {
-        val medicinesSelected = medicines.filter { it.stateChecked }
+        medicinesSelected = medicines.filter { it.stateChecked } as ArrayList<SearchMedicine>
         if(medicinesSelected.isNotEmpty()) {
+            binding.rcvMedicine.isVisible = true
             binding.addMedicine.isVisible = false
             binding.addMoreMedicine.isVisible = true
-            val adapterMedicine = PrescriptionMedicalAdapter()
-            adapterMedicine.items = medicinesSelected as ArrayList<SearchMedicine>
+            val adapterMedicine = PrescriptionMedicalAdapter(lifecycleScope)
+            adapterMedicine.onClickReduce = { reduce: Pair<Int, Int> ->
+                medicines[reduce.first].quantity = reduce.second
+                initListMedicine()
+            }
+            adapterMedicine.onCLickIncrease = { increase: Pair<Int, Int> ->
+                medicines[increase.first].quantity = increase.second
+                initListMedicine()
+            }
+            adapterMedicine.items = medicinesSelected
             binding.rcvMedicine.adapter = adapterMedicine
         } else {
+            binding.rcvMedicine.isVisible = false
             binding.addMedicine.isVisible = true
             binding.addMoreMedicine.isVisible = false
-        }
-    }
-
-    private fun printPdfFile(context: Context, filePath: String) {
-        val printManager = context.getSystemService(Context.PRINT_SERVICE) as PrintManager
-        try {
-            val file = File(filePath)
-            val document = PrintedPdfDocument(context, PrintAttributes.Builder().build())
-
-            val pageInfo = PdfDocument.PageInfo.Builder(595, 842, 1).create()
-            val page = document.startPage(pageInfo)
-
-            val fileInputStream = FileInputStream(file)
-            val buffer = ByteArray(file.length().toInt())
-            fileInputStream.read(buffer)
-
-            // Giả sử bạn đã tải dữ liệu PDF vào buffer
-            // Bạn cần vẽ nội dung PDF lên trang, ví dụ:
-            val paint = Paint()
-            paint.textSize = 15f
-            paint.color = Color.BLACK
-            page.canvas.drawText("Hello, world!", 100f, 100f, paint)
-
-            document.finishPage(page)
-
-            // Lưu tài liệu in
-            val fileOutputStream = FileOutputStream(file)
-            document.writeTo(fileOutputStream)
-
-            document.close()
-            fileInputStream.close()
-            fileOutputStream.close()
-
-            // Sử dụng PrintManager để in file PDF
-            printManager.print("Document", PdfDocumentAdapter(filePath), null)
-        } catch (e: IOException) {
-            Log.e("PrintPdfActivity", "Error printing PDF", e)
         }
     }
 
@@ -327,27 +284,28 @@ class FragmentPrescription : BaseFragment<EmptyViewModel, FragmentPrescriptionBi
             canvas.drawText("Số điện thoại: 02903883397", MARGIN_START, 75f, title)
             canvas.drawText("Phòng: Phòng 18 Khám Nội", MARGIN_START, 100f, title)
             canvas.drawText("Số phiếu: 92070/2020", MARGIN_START, 125f, title)
-            canvas.drawText("Tên bệnh nhân: Nguyễn Hữu Linh", MARGIN_START, 190f, title)
+            canvas.drawText("Tên bệnh nhân: ${patient?.fullname}", MARGIN_START, 190f, title)
 
-            canvas.drawText("Tuổi: 24", WIDTH_PAGE/2 + 50f, 190f, title)
-            val txtSex = "Giới tính: Nam"
+            canvas.drawText("Tuổi: ${patient?.getAge()}", WIDTH_PAGE/2 + 50f, 190f, title)
+            val sex = if(patient?.sex == "0") "Nam" else "Nữ"
+            val txtSex = "Giới tính: $sex"
             val txtSexX = WIDTH_PAGE - title.measureText(txtSex) - 15f
-            canvas.drawText("Giới tính: Nam", txtSexX, 190f, title)
+            canvas.drawText(txtSex, txtSexX, 190f, title)
 
-            canvas.drawText("Địa chỉ: Phường An Hải Đông, Quận Sơn Trà, Thành Phố Đà Nẵng", MARGIN_START, 215f, title)
+            canvas.drawText("Địa chỉ: ${patient?.address}", MARGIN_START, 215f, title)
             val txtBHYT = "Số BHYT (nếu có):"
             canvas.drawText(txtBHYT, MARGIN_START, 240f, title)
             drawViewBHYT(title.measureText(txtBHYT) + MARGIN_START + 15, 243f)
 
-            canvas.drawText("Chẩn đoán: Thấp không ảnh hưởng đến tim", MARGIN_START, 265f, title)
-            canvas.drawText("Bệnh kèm theo: ", MARGIN_START, 290f, title)
+            canvas.drawText("Chẩn đoán: ${binding.diagnose.getText()}", MARGIN_START, 265f, title)
+            canvas.drawText("Bệnh kèm theo: ${binding.includingDiseases.getText()}", MARGIN_START, 290f, title)
 
             val y = drawInfoMedicine(310f)
 
             canvas.drawText("Cộng khoản: 2", MARGIN_START, y + 30, title)
 
             title.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC))
-            val txtDate = "Ngày 18 tháng 02 năm 2020"
+            val txtDate = DateUtils.getDateCurrentFromVietNam()
             canvas.drawText(txtDate, WIDTH_PAGE - MARGIN_START - title.measureText(txtDate), y + 60, title)
             title.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD))
             val txtDoctor = "Bác sĩ điều trị"
@@ -432,13 +390,13 @@ class FragmentPrescription : BaseFragment<EmptyViewModel, FragmentPrescriptionBi
         //Draw line horizontal
         canvas.drawLine(MARGIN_START, lineBottomY, WIDTH_PAGE - MARGIN_START, lineBottomY, line)
 
-        val medicineInfo = arrayListOf<InfoMedicine>()
-        medicineInfo.add(InfoMedicine(1, "Viên uống Kudos Pregnance bổ sung vitamin, khoáng chất cho bà bầu", "Viên", 30, "Uống Sáng 2 Viên, Trưa 2 Viên, Chiều 2 Viên"))
-        medicineInfo.add(InfoMedicine(2, "Viên uống Pharmacity Bone Health với Calcium, Magnesium, Vitamin D3, K2, Zinc hỗ trợ duy trì xương chắc khỏe", "Viên", 60, "Uống Sáng 2 Viên, Trưa 2 Viên, Chiều 2 Viên"))
-        medicineInfo.add(InfoMedicine(3, "Xịt họng thảo dược Pharmacity Herbal Throat Spray hỗ trợ bổ phổi, giảm đau họng và ho (Chai 25ml)", "Chai", 1, "Uống Sáng 2 Viên, Trưa 2 Viên, Chiều 2 Viên"))
+//        val medicineInfo = arrayListOf<InfoMedicine>()
+//        medicineInfo.add(InfoMedicine(1, "Viên uống Kudos Pregnance bổ sung vitamin, khoáng chất cho bà bầu", "Viên", 30, "Uống Sáng 2 Viên, Trưa 2 Viên, Chiều 2 Viên"))
+//        medicineInfo.add(InfoMedicine(2, "Viên uống Pharmacity Bone Health với Calcium, Magnesium, Vitamin D3, K2, Zinc hỗ trợ duy trì xương chắc khỏe", "Viên", 60, "Uống Sáng 2 Viên, Trưa 2 Viên, Chiều 2 Viên"))
+//        medicineInfo.add(InfoMedicine(3, "Xịt họng thảo dược Pharmacity Herbal Throat Spray hỗ trợ bổ phổi, giảm đau họng và ho (Chai 25ml)", "Chai", 1, "Uống Sáng 2 Viên, Trưa 2 Viên, Chiều 2 Viên"))
 
         var textItemNextY = lineBottomY
-        medicineInfo.forEach {
+        medicinesSelected.forEach {
             textPaint.setTypeface(Typeface.SERIF)
             val staticLayout = StaticLayout.Builder.obtain(
                 it.name, 0, it.name.length, textPaint,
@@ -450,16 +408,16 @@ class FragmentPrescription : BaseFragment<EmptyViewModel, FragmentPrescriptionBi
                 .build()
 
             //Draw text STT
-            val sttX = (start1 + MARGIN_START)/2 - textPaint.measureText(it.stt.toString())/2
-            canvas.drawText(it.stt.toString(), sttX, textItemNextY + 20f, textPaint)
+            val sttX = (start1 + MARGIN_START)/2 - textPaint.measureText("${medicinesSelected.indexOf(it) + 1}")/2
+            canvas.drawText("${medicinesSelected.indexOf(it) + 1}", sttX, textItemNextY + 20f, textPaint)
             //Draw text name medicine
             canvas.save()
             canvas.translate(start1 + 5, textItemNextY + 5f) // Vị trí vẽ văn bản (x, y)
             staticLayout.draw(canvas)
             canvas.restore()
             //Draw text ĐVT
-            val dvtX = (start3 + start2)/2 - textPaint.measureText(it.dvt)/2
-            canvas.drawText(it.dvt, dvtX, textItemNextY + 20f, textPaint)
+            val dvtX = (start3 + start2)/2 - textPaint.measureText("Viên")/2
+            canvas.drawText("Viên", dvtX, textItemNextY + 20f, textPaint)
             //Draw text quality
             val qualityX = (WIDTH_PAGE - MARGIN_START + start3)/2 - textPaint.measureText(it.quantity.toString())/2
             canvas.drawText(it.quantity.toString(), qualityX, textItemNextY + 20f, textPaint)
@@ -484,7 +442,7 @@ class FragmentPrescription : BaseFragment<EmptyViewModel, FragmentPrescriptionBi
 //            canvas.drawLine(MARGIN_START, itemInfoY, WIDTH_PAGE - MARGIN_START, itemInfoY, line)
 
             //Draw text dosage
-            canvas.drawText(it.dosage, start1, itemInfoY + txtDosageHeight, textPaint)
+            canvas.drawText(it.name, start1, itemInfoY + txtDosageHeight, textPaint)
             //Draw line horizontal
             canvas.drawLine(MARGIN_START, itemInfoY + txtDosageHeight + 6, WIDTH_PAGE - MARGIN_START, itemInfoY + txtDosageHeight + 6, line)
             textItemNextY = itemInfoY + txtDosageHeight + 6

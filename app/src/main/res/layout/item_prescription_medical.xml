@@ -7,6 +7,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimen_10"
         android:layout_marginBottom="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_2"
         app:cardCornerRadius="@dimen/dimen_10"
         app:cardElevation="@dimen/dimen_5">
 
@@ -28,6 +29,7 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:id="@+id/reduce"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/circle_grey">
@@ -40,11 +42,13 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/quantityMedicine"
                     style="@style/text_sp14_black_bold"
                     android:layout_marginHorizontal="@dimen/dimen_15"
                     android:text="1" />
 
                 <LinearLayout
+                    android:id="@+id/increase"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/circle_grey">

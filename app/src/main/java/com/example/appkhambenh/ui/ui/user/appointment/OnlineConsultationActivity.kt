@@ -43,14 +43,6 @@ class OnlineConsultationActivity :
         initUi()
     }
 
-    override fun bindData() {
-        super.bindData()
-
-        viewModel.loading.observe(this) {
-            if(it) loading.show() else loading.dismiss()
-        }
-    }
-
     private fun initUi() {
 
         intent.getIntExtra(MakeAppointActivity.EDIT_TIME, 0).let {

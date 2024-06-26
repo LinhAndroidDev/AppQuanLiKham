@@ -100,7 +100,8 @@
                         android:id="@+id/rcvMedicine"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:nestedScrollingEnabled="false"/>
 
                     <LinearLayout
                         android:id="@+id/addMedicine"
@@ -130,6 +131,10 @@
                         </LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_100"/>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

@@ -1,54 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/checkMedicine"
-            android:layout_width="@dimen/dimen_20"
-            android:layout_height="@dimen/dimen_20"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginVertical="@dimen/dimen_15"
-            android:layout_marginStart="@dimen/dimen_15"
-            android:layout_marginEnd="@dimen/dimen_30"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="invisible">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_width="@dimen/dimen_16"
-                android:layout_height="@dimen/dimen_16"
-                android:layout_centerInParent="true"
-                android:background="@drawable/bg_search_date"
-                android:backgroundTint="@color/white" />
-
-            <ImageView
-                android:id="@+id/imgSelectLanguage"
+            <RelativeLayout
+                android:id="@+id/checkMedicine"
                 android:layout_width="@dimen/dimen_20"
                 android:layout_height="@dimen/dimen_20"
-                android:src="@drawable/ic_action_select_language" />
-        </RelativeLayout>
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginVertical="@dimen/dimen_15"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:layout_marginEnd="@dimen/dimen_30"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="invisible">
 
-        <TextView
-            android:id="@+id/nameMedicine"
-            android:layout_marginStart="@dimen/dimen_15"
-            android:text="Panadol cảm cúm"
-            style="@style/text_sp14"
-            app:layout_constraintStart_toEndOf="@id/checkMedicine"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+                <LinearLayout
+                    android:layout_width="@dimen/dimen_16"
+                    android:layout_height="@dimen/dimen_16"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/bg_search_date"
+                    android:backgroundTint="@color/white" />
 
-        <View
+                <ImageView
+                    android:id="@+id/imgSelectLanguage"
+                    android:layout_width="@dimen/dimen_20"
+                    android:layout_height="@dimen/dimen_20"
+                    android:src="@drawable/ic_action_select_language" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/nameMedicine"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:text="Panadol cảm cúm"
+                style="@style/text_sp14"
+                app:layout_constraintStart_toEndOf="@id/checkMedicine"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey_light"
+                android:layout_marginHorizontal="@dimen/dimen_10"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/viewBottom"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/grey_light"
-            android:layout_marginHorizontal="@dimen/dimen_10"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="@dimen/dimen_80"
+            android:orientation="vertical"
+            android:visibility="gone"/>
+    </LinearLayout>
 </layout>

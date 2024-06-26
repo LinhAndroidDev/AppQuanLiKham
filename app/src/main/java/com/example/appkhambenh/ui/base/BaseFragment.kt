@@ -51,7 +51,6 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
         sharePrefer = SharePreferenceRepositoryImpl(requireActivity())
 
         bindData()
-
         setLanguage(requireActivity(), sharePrefer.getLanguage())
 
         return binding.root
@@ -67,7 +66,7 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
 
     fun showLoading() {
         if (!loading.isAdded) {
-            loading.show(requireActivity().supportFragmentManager, "DialogLoading");
+            loading.show(parentFragmentManager, "DialogLoading");
         }
     }
 
@@ -94,7 +93,7 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
 
     fun replaceFragment(fragment: Fragment, changeId: Int) {
         val fm: FragmentTransaction =
-            requireActivity().supportFragmentManager.beginTransaction()
+            parentFragmentManager.beginTransaction()
         fm.replace(changeId, fragment).addToBackStack(null).commit()
     }
 
