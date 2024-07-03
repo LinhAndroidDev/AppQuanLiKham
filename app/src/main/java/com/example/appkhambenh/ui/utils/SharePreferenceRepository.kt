@@ -30,6 +30,8 @@ interface SharePreferenceRepository {
 
     fun getAuthorization(): String
 
+    fun clearAuthorization()
+
     fun saveUserId(id: Int)
 
     fun getUserId(): Int

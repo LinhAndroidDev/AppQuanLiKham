@@ -9,7 +9,9 @@ import com.example.appkhambenh.ui.base.BaseAdapter
 data class SearchMedicine(
     val name: String,
     var stateChecked: Boolean = false,
-    var quantity: Int = 0
+    var quantity: Int = 0,
+    var uses: String,
+    var dosage: String = "Uống Sáng 2 Viên, Trưa 2 Viên, Chiều 2 Viên"
 )
 
 class SearchMedicineAdapter : BaseAdapter<SearchMedicine, ItemSearchMedicineBinding>() {

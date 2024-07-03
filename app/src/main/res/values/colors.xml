@@ -68,4 +68,5 @@
     <color name="invisible">#00FFFFFF</color>
     <color name="red_dark">#DD1203</color>
     <color name="no_color">#00111111</color>
+    <color name="red_stroke">#FF5E5E</color>
 </resources>

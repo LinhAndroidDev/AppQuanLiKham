@@ -3,8 +3,11 @@
 package com.example.appkhambenh.ui.utils
 
 import android.annotation.SuppressLint
+import android.util.Log
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -13,7 +16,7 @@ object DateUtils {
     const val DAY_OF_YEAR = "yyyy-MM-dd"
     const val TIME_UPLOAD_AVATAR = "dd_MM_yyyy_HH_mm_ss"
     const val MINUTES = "mm:ss"
-    const val DATE_FROM_VIET_NAM = "Ngày dd 'tháng' MM 'năm' yyyy"
+    const val DATE_FROM_VIET_NAM = "'Ngày' dd 'tháng' MM 'năm' yyyy"
 
     @SuppressLint("SimpleDateFormat")
     fun convertDateToLong(date: String): Long {
@@ -46,9 +49,22 @@ object DateUtils {
     }
 
     fun getAgeFromDate(dateString: String?): Int {
-        val formatter = DateTimeFormatter.ofPattern(DAY_OF_YEAR)
-        val date = LocalDate.parse(dateString, formatter)
-        val dateCurrent = Date()
-        return dateCurrent.year - date.year
+        val calendar = Calendar.getInstance()
+        // Phân tích cú pháp chuỗi ngày tháng
+        val zonedDateTime = ZonedDateTime.parse(dateString, DateTimeFormatter.ISO_DATE_TIME)
+
+        return calendar.get(Calendar.YEAR) - zonedDateTime.year
+    }
+
+    fun convertIsoDateTimeToDate(isoDateTime: String): String {
+        val dateTime = LocalDateTime.parse(isoDateTime, DateTimeFormatter.ISO_DATE_TIME)
+        val dateFormatter = DateTimeFormatter.ofPattern(DAY_OF_YEAR)
+        return dateTime.format(dateFormatter)
+    }
+
+    fun convertDateToIsoDateTime(date: String): String {
+        val localDate = LocalDate.parse(date, DateTimeFormatter.ofPattern(DAY_OF_YEAR))
+        val localDateTime = localDate.atStartOfDay()
+        return localDateTime.format(DateTimeFormatter.ISO_DATE_TIME)
     }
 }

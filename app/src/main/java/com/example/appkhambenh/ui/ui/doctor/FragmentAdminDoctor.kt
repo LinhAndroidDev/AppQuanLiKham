@@ -60,7 +60,7 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
                 TokenManager.tokenExpiredEvent.collect { isExpired ->
                     if(isExpired) {
                         val dialog = DialogExpiredToken()
-                        dialog.show(requireActivity().supportFragmentManager, "DialogExpired")
+                        dialog.show(parentFragmentManager, "DialogExpired")
                     }
                 }
             }
@@ -68,7 +68,22 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
     }
 
     private fun onClickView() {
-
+        parentFragmentManager.setFragmentResultListener("requestKey", viewLifecycleOwner) { _, bundle ->
+            val isUpdated = bundle.getBoolean(FragmentEditInfoPatient.INFORMATION_UPDATED)
+            if(isUpdated) {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    delay(1000L)
+                    withContext(Dispatchers.Main) {
+                        viewModel.getListPatient()
+                        viewModel.patients.collect { patients ->
+                            patients?.let {
+                                initListPatient(patients)
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun initListPatient(patients: ArrayList<PatientModel>) {
@@ -89,7 +104,7 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
             val bundle = Bundle()
             bundle.putString(NAME_PATIENT, patient.fullname)
             dialog.arguments = bundle
-            dialog.show(requireActivity().supportFragmentManager, "")
+            dialog.show(parentFragmentManager, "")
             dialog.onClickHistoryTest = {
                 goToFragmentMedicalExaminationHistory()
             }
@@ -103,7 +118,7 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
 
     private fun goToFragmentMedicalExaminationHistory() {
         val fragmentMedicalExaminationHistory = FragmentMedicalExaminationHistory()
-        addFragmentByTag(fragmentMedicalExaminationHistory, R.id.changeIdDoctorVn, "FragmentMedicalExaminationHistory")
+        addFragmentByTag(fragmentMedicalExaminationHistory, R.id.changeIdDoctorVn, "FragmentAdminDoctor")
     }
 
     private fun goToFragmentTreatment(patient: PatientModel) {

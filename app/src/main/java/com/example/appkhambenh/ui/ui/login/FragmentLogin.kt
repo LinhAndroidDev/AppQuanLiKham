@@ -52,7 +52,6 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         activity?.intent?.let { handleIntent(it) }
-
         initUi()
     }
 
@@ -62,7 +61,7 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
             if (uri != null) {
                 val students = readExcelFile(requireActivity(), uri)
                 val dialogStudent = DialogStudent()
-                dialogStudent.show(requireActivity().supportFragmentManager, "")
+                dialogStudent.show(parentFragmentManager, "")
                 val bundle = Bundle()
                 bundle.putParcelableArrayList(LIST_STUDENT, students)
                 dialogStudent.arguments = bundle
@@ -143,7 +142,6 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
 
     @SuppressLint("CommitTransaction", "ClickableViewAccessibility")
     private fun initUi() {
-
         checkSaveAccount()
 
         binding.showPassword.setOnClickListener {
@@ -184,7 +182,7 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
         binding.register.setOnClickListener {
             val fragmentRegister = FragmentRegister()
             val fm: FragmentTransaction =
-                requireActivity().supportFragmentManager.beginTransaction()
+                parentFragmentManager.beginTransaction()
             fm.replace(R.id.changeIdLogin, fragmentRegister).addToBackStack(null).commit()
         }
 

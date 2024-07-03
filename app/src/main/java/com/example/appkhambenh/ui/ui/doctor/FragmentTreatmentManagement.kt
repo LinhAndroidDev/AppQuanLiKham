@@ -34,6 +34,7 @@ import com.example.appkhambenh.ui.data.remote.entity.PatientModel
 import com.example.appkhambenh.ui.ui.EmptyViewModel
 import com.example.appkhambenh.ui.ui.common.dialog.DialogAddService
 import com.example.appkhambenh.ui.ui.common.dialog.DialogTakeImage
+import com.example.appkhambenh.ui.ui.common.dialog.DialogUpdateMedicalHistoryValue
 import com.example.appkhambenh.ui.ui.doctor.adapter.ListOfService
 import com.example.appkhambenh.ui.ui.doctor.adapter.ListOfServiceAdapter
 import com.example.appkhambenh.ui.ui.doctor.controller.ActionRecord
@@ -458,6 +459,11 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
             addFragmentByTag(fragment, R.id.changeIdDoctorVn, "FragmentTreatmentManagement")
         }
 
+        binding.chart.updateValue.setOnClickListener {
+            val dialog = DialogUpdateMedicalHistoryValue()
+            dialog.show(parentFragmentManager, "DialogUpdateMedicalHistoryValue")
+        }
+
         binding.diagnose.apply {
             viewRecord.setOnClickListener {
                 if(isListeningAgain) {
@@ -592,7 +598,7 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
 
         binding.listOfService.addService.setOnClickListener {
             val dialogAddService = DialogAddService()
-            dialogAddService.show(requireActivity().supportFragmentManager, "DialogAddService")
+            dialogAddService.show(parentFragmentManager, "DialogAddService")
             val bundle = Bundle()
             val services = arrayListOf("Bệnh sử tiền sử", "Khám lâm sàng, tổng quát", "Xét nghiệm máu", "Siêu âm", "X-quang", "MRI", "CT", "Chẩn đoán", "Sử dụng thuốc", "Lịch sử")
             bundle.putStringArrayList(LIST_SERVICE, services)
@@ -602,7 +608,7 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
 
     private fun takeImageFromUcop(image: ImageView) {
         val dialog = DialogTakeImage()
-        dialog.show(requireActivity().supportFragmentManager, "")
+        dialog.show(parentFragmentManager, "")
         dialog.onClickCamera = {
             currentImage = image
             checkCameraPermissionAndCaptureImage()

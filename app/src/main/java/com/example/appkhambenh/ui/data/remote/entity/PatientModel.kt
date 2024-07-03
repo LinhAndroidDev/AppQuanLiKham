@@ -10,11 +10,6 @@ data class PatientResponse(
     val paginate: Paginate
 )
 
-data class Paginate(
-    val pageIndex: Int,
-    val totalPage: Int
-)
-
 @Parcelize
 data class PatientModel(
     val DoB: String?,

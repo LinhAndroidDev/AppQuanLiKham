@@ -1,6 +1,8 @@
 package com.example.appkhambenh.ui.data.remote
 
+import com.example.appkhambenh.ui.data.remote.entity.AppointmentResponse
 import com.example.appkhambenh.ui.data.remote.entity.DoctorLoginResponse
+import com.example.appkhambenh.ui.data.remote.entity.MedicalHistoryResponse
 import com.example.appkhambenh.ui.data.remote.entity.PatientResponse
 import com.example.appkhambenh.ui.data.remote.entity.UpdateInfoPatientResponse
 import com.example.appkhambenh.ui.data.remote.model.PatientInfoModel
@@ -29,4 +31,10 @@ interface DoctorService {
         @Path("id") id: Int,
         @Body infoPatient: PatientInfoModel
     ) : Response<UpdateInfoPatientResponse>
+
+    @GET("appointments")
+    suspend fun getListAppoint() : Response<AppointmentResponse>
+
+    @GET("medical-history")
+    suspend fun getListMedicalHistory() : Response<MedicalHistoryResponse>
 }

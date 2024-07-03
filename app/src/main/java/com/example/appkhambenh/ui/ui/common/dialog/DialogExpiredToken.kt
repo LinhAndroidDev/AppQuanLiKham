@@ -12,6 +12,8 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.DialogExpiredTokenBinding
 import com.example.appkhambenh.ui.ui.MainActivity
 import com.example.appkhambenh.ui.ui.doctor.DoctorActivity
+import com.example.appkhambenh.ui.utils.SharePreferenceRepositoryImpl
+import com.example.appkhambenh.ui.utils.TokenManager
 import com.example.appkhambenh.ui.utils.getActivity
 
 class DialogExpiredToken : DialogFragment() {
@@ -34,6 +36,10 @@ class DialogExpiredToken : DialogFragment() {
         binding.understand.setOnClickListener {
             dismiss()
             val activity: DoctorActivity? = context?.getActivity()
+            activity?.let {
+                SharePreferenceRepositoryImpl(it).clearAuthorization()
+                TokenManager.tokenExpiredEvent.value = false
+            }
             val intent = Intent(activity, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             activity?.startActivity(intent)

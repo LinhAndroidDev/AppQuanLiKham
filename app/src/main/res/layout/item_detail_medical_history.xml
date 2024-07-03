@@ -85,7 +85,7 @@
                         android:id="@+id/btnDiagnose"
                         android:layout_marginStart="@dimen/dimen_10"
                         android:text="Chẩn đoán"
-                        android:paddingVertical="@dimen/dimen_7"
+                        android:paddingVertical="@dimen/dimen_8"
                         android:paddingHorizontal="@dimen/dimen_10"
                         android:background="@drawable/boder_grey_corner_5"
                         style="@style/text_sp12"/>
@@ -94,7 +94,7 @@
                         android:id="@+id/btnAllocation"
                         android:layout_marginStart="@dimen/dimen_10"
                         android:text="Phân bổ"
-                        android:paddingVertical="@dimen/dimen_7"
+                        android:paddingVertical="@dimen/dimen_8"
                         android:paddingHorizontal="@dimen/dimen_10"
                         android:background="@drawable/boder_grey_corner_5"
                         style="@style/text_sp12"/>
@@ -103,7 +103,7 @@
                         android:id="@+id/btnOutHospital"
                         android:layout_marginStart="@dimen/dimen_10"
                         android:text="Xuất viện"
-                        android:paddingVertical="@dimen/dimen_7"
+                        android:paddingVertical="@dimen/dimen_8"
                         android:paddingHorizontal="@dimen/dimen_10"
                         android:background="@drawable/boder_grey_corner_5"
                         style="@style/text_sp12"/>

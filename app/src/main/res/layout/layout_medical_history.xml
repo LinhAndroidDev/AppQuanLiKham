@@ -21,13 +21,13 @@
             app:cardCornerRadius="@dimen/dimen_5">
 
             <TextView
-                style="@style/text_sp16_black_bold"
+                style="@style/text_sp16"
                 android:layout_width="wrap_content"
                 android:layout_marginHorizontal="@dimen/dimen_10"
-                android:layout_marginVertical="@dimen/dimen_5"
+                android:layout_marginVertical="@dimen/dimen_8"
                 android:text="Sinh hiệu"
                 android:textColor="@color/white"
-                android:textSize="@dimen/dimen_sp16" />
+                android:textSize="@dimen/dimen_sp14" />
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
@@ -41,6 +41,7 @@
                 android:text="Lần điều trị thứ" />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/updateValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_10"
@@ -48,13 +49,12 @@
                 app:cardCornerRadius="@dimen/dimen_5">
 
                 <TextView
-                    style="@style/text_sp16_black_bold"
+                    style="@style/text_sp14"
                     android:layout_width="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_10"
-                    android:layout_marginVertical="@dimen/dimen_5"
+                    android:layout_marginVertical="@dimen/dimen_8"
                     android:text="Cập nhật giá trị"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/dimen_sp16" />
+                    android:textColor="@color/white" />
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </RelativeLayout>

@@ -151,4 +151,16 @@
             android:id="@+id/bottomSelectInfo"
             layout="@layout/layout_bottom_sheet_select_information" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <RelativeLayout
+        android:id="@+id/viewPdf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <com.github.barteksc.pdfviewer.PDFView
+            android:id="@+id/pdfPreview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
 </RelativeLayout>

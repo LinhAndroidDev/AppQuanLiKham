@@ -7,6 +7,7 @@ import com.example.appkhambenh.ui.base.BaseAdapter
 class DetailMedicalHistoryAdapter : BaseAdapter<Int, ItemDetailMedicalHistoryBinding>() {
     var diagnose: (() -> Unit)? = null
     var allocation: (() -> Unit)? = null
+    var outHospital: (() -> Unit)? = null
 
     override fun getLayout(): Int = R.layout.item_detail_medical_history
 
@@ -17,7 +18,7 @@ class DetailMedicalHistoryAdapter : BaseAdapter<Int, ItemDetailMedicalHistoryBin
         holder.v.apply {
             btnDiagnose.setOnClickListener { diagnose?.invoke() }
             btnAllocation.setOnClickListener { allocation?.invoke() }
-            btnOutHospital.setOnClickListener {  }
+            btnOutHospital.setOnClickListener { outHospital?.invoke() }
         }
     }
 

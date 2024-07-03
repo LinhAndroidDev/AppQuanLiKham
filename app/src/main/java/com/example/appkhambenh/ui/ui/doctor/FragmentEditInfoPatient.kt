@@ -10,12 +10,17 @@ import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.data.remote.entity.PatientModel
 import com.example.appkhambenh.ui.data.remote.model.PatientInfoModel
 import com.example.appkhambenh.ui.ui.doctor.viewmodel.FragmentEditInfoPatientViewModel
+import com.example.appkhambenh.ui.utils.DateUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FragmentEditInfoPatient :
     BaseFragment<FragmentEditInfoPatientViewModel, FragmentEditInfoPatientBinding>() {
+
+        companion object {
+            const val INFORMATION_UPDATED = "INFORMATION_UPDATED"
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         fillView()
@@ -25,9 +30,11 @@ class FragmentEditInfoPatient :
             binding.edtName.setText(patient.fullname.toString())
             binding.edtEmail.setText(patient.email.toString())
             binding.edtPhone.setText(patient.phoneNumber.toString())
-            binding.edtBirth.setText(patient.DoB.toString())
+            binding.edtBirth.setText(DateUtils.convertIsoDateTimeToDate(patient.DoB.toString()))
             binding.edtCccd.setText(patient.citizenId.toString())
             binding.edtSex.setUpIndexSpinner(if (patient.sex == "0") 0 else 1)
+            binding.edtAddress.setText(patient.address.toString())
+            binding.nationality.setText(patient.nationality.toString())
         }
 
         binding.edtSex.setUpListSpinner(arrayListOf("Nam", "Nữ", "Khác"))
@@ -40,24 +47,24 @@ class FragmentEditInfoPatient :
         )
 
         binding.updateInfo.setOnClickListener {
-            val patientInfoModel = PatientInfoModel()
-//                DoB = binding.edtBirth.getText(),
-//                address = binding.edtAddress.getText(),
-//                avatar = "",
-//                citizenId = binding.edtCccd.getText(),
-//                email = binding.edtEmail.getText(),
-//                fullname = binding.edtName.getText(),
-//                healthInsurance = binding.hasHealthInsurance.getText(),
-//                job = binding.edtJob.getText(),
-//                maritalStatus = binding.maritalStatus.indexSelected.toString(),
-//                nationality = binding.nationality.getText(),
-//                phoneNumber = binding.edtPhone.getText(),
-//                relativeAddress = binding.relativeAddress.getText(),
-//                relativeName = binding.relativeName.getText(),
-//                relativePhone = binding.relativePhone.getText(),
-//                sex = binding.edtSex.indexSelected.toString(),
-//                type = false
-//            )
+            val patientInfoModel = PatientInfoModel(
+                DoB = DateUtils.convertDateToIsoDateTime(binding.edtBirth.getText()),
+                address = binding.edtAddress.getText(),
+                avatar = "",
+                citizenId = binding.edtCccd.getText(),
+                email = binding.edtEmail.getText(),
+                fullname = binding.edtName.getText(),
+                healthInsurance = binding.hasHealthInsurance.getText(),
+                job = binding.edtJob.getText(),
+                maritalStatus = binding.maritalStatus.indexSelected.toString(),
+                nationality = binding.nationality.getText(),
+                phoneNumber = binding.edtPhone.getText(),
+                relativeAddress = binding.relativeAddress.getText(),
+                relativeName = binding.relativeName.getText(),
+                relativePhone = binding.relativePhone.getText(),
+                sex = binding.edtSex.indexSelected.toString(),
+                type = false
+            )
             if (patient != null) {
                 viewModel.updateInfoPatient(patient.id, patientInfoModel)
             }
@@ -71,6 +78,11 @@ class FragmentEditInfoPatient :
             viewModel.isSuccessful.collect {
                 if(it) {
                     dismissLoading()
+                    val result = Bundle().apply {
+                        putBoolean(INFORMATION_UPDATED, true)
+                    }
+                    // Gửi dữ liệu bằng setFragmentResult
+                    parentFragmentManager.setFragmentResult("requestKey", result)
                     activity?.onBackPressed()
                 }
             }

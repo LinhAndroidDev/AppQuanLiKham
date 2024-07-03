@@ -38,6 +38,10 @@ class SharePreferenceRepositoryImpl(val ctx: Context): SharePreferenceRepository
 
     override fun getAuthorization(): String = prefs[AUTHORIZATION] ?: ""
 
+    override fun clearAuthorization() {
+        prefs.edit().remove(AUTHORIZATION).apply()
+    }
+
     override fun saveUserId(id: Int) {
         prefs[USER_ID] = id
     }

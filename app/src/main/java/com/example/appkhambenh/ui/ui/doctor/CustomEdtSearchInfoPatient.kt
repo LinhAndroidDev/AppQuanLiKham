@@ -1,6 +1,7 @@
 package com.example.appkhambenh.ui.ui.doctor
 
 import android.content.Context
+import android.text.InputType
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -39,6 +40,11 @@ class CustomEdtSearchInfoPatient @JvmOverloads constructor(
             if(hasPullDown) {
                 binding.edtInfo.isVisible = false
                 binding.pulldown.isVisible = true
+            }
+
+            binding.edtInfo.inputType = when(getInteger(R.styleable.CustomEdtSearchInfoPatient_input_type, 0)) {
+                1 -> InputType.TYPE_NUMBER_FLAG_DECIMAL
+                else -> InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
             }
         }
     }

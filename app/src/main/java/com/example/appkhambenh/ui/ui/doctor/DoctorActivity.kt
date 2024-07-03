@@ -96,6 +96,7 @@ class DoctorActivity : AppCompatActivity() {
             }
 
             is FragmentTreatmentManagement,
+            is FragmentMedicalExaminationHistory,
             is FragmentEditInfoPatient,
             is FragmentListMedicalRecord,
             is FragmentPrescription-> {

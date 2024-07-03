@@ -32,20 +32,20 @@ class PrescriptionMedicalAdapter(val scope: CoroutineScope) : BaseAdapter<Search
                             notifyItemChanged(position)
                         }.await()
                     }
-//                    onClickReduce?.invoke(Pair(position, quantity))
+                    onClickReduce?.invoke(Pair(position, quantity))
                 }
             }
 
             increase.setOnClickListener {
+                var quantity = items[position].quantity
                 scope.launch(Dispatchers.Main) {
                     async {
-                        var quantity = items[position].quantity
                         quantity++
                         items[position].quantity = quantity
                         notifyItemChanged(position)
                     }.await()
                 }
-//                onCLickIncrease?.invoke(Pair(position, quantity))
+                onCLickIncrease?.invoke(Pair(position, quantity))
             }
         }
 

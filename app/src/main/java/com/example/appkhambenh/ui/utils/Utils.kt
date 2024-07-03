@@ -194,8 +194,8 @@ fun View.rotationViewInfinite() {
  * Add Fragment By Tag And Check If Fragment Which Find By Tag Exist, If Exist Hide Fragment
  */
 fun Fragment.addFragmentByTag(fragment: Fragment, changeId: Int, tag: String) {
-    val fmToHide = requireActivity().supportFragmentManager.findFragmentByTag(tag)
-    val fm = requireActivity().supportFragmentManager.beginTransaction()
+    val fmToHide = parentFragmentManager.findFragmentByTag(tag)
+    val fm = parentFragmentManager.beginTransaction()
     if (fmToHide != null) {
         fm.hide(fmToHide)
     }
