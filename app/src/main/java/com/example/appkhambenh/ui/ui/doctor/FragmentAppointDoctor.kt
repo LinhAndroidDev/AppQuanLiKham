@@ -8,7 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.appkhambenh.databinding.FragmentAppointDoctorBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.data.remote.entity.StatePatient
-import com.example.appkhambenh.ui.ui.common.dialog.DialogConfirmAppointment
+import com.example.appkhambenh.ui.ui.common.dialog.DialogConfirm
 import com.example.appkhambenh.ui.ui.doctor.adapter.InfoAppointPatientAdapter
 import com.example.appkhambenh.ui.ui.doctor.viewmodel.FragmentAppointDoctorViewModel
 import com.example.appkhambenh.ui.utils.getDateFromCalendar
@@ -45,8 +45,20 @@ class FragmentAppointDoctor : BaseFragment<FragmentAppointDoctorViewModel, Fragm
         appoint?.let {
             val infoAppointAdapter = InfoAppointPatientAdapter()
             infoAppointAdapter.onClickConfirm = {
-                val dialog = DialogConfirmAppointment()
+                val dialog = DialogConfirm()
+                val bundle = Bundle()
+                bundle.putString(DialogConfirm.NOTIFICATION_CONFIRM, "Bạn có muốn xác nhận lịch hẹn cho bệnh nhân này không?")
                 dialog.show(parentFragmentManager, "")
+                dialog.arguments = bundle
+
+                dialog.agree = {
+                    lifecycleScope.launch {
+                        withContext(Dispatchers.Main) {
+                            viewModel.confirmAppoint(it)
+                        }
+                    }
+                    dialog.dismiss()
+                }
             }
             infoAppointAdapter.items = appoint
             binding.rcvInfoAppointPatient.adapter = infoAppointAdapter

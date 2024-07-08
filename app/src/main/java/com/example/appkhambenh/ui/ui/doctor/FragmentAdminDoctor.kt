@@ -10,11 +10,8 @@ import com.example.appkhambenh.databinding.FragmentAdminDoctorBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.data.remote.entity.PatientModel
 import com.example.appkhambenh.ui.ui.common.dialog.DialogAddManagePatient
-import com.example.appkhambenh.ui.ui.common.dialog.DialogExpiredToken
 import com.example.appkhambenh.ui.ui.doctor.adapter.InfoMainPatientAdapter
-import com.example.appkhambenh.ui.ui.doctor.adapter.LineInformationPatientAdapter
 import com.example.appkhambenh.ui.ui.doctor.viewmodel.FragmentAdminDoctorViewModel
-import com.example.appkhambenh.ui.utils.TokenManager
 import com.example.appkhambenh.ui.utils.addFragmentByTag
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -28,6 +25,7 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
     companion object {
         const val OBJECT_PATIENT = "OBJECT_PATIENT"
         const val NAME_PATIENT = "NAME_PATIENT"
+        const val MEDICAL_HISTORY_ID = "MEDICAL_HISTORY_ID"
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,21 +44,6 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
                 viewModel.patients.collect { patients ->
                     patients?.let {
                         initListPatient(patients)
-                    }
-                }
-            }
-        }
-
-        handleTokenExpired()
-    }
-
-    private fun handleTokenExpired() {
-        lifecycleScope.launch {
-            withContext(Dispatchers.Main) {
-                TokenManager.tokenExpiredEvent.collect { isExpired ->
-                    if(isExpired) {
-                        val dialog = DialogExpiredToken()
-                        dialog.show(parentFragmentManager, "DialogExpired")
                     }
                 }
             }
@@ -87,13 +70,6 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
     }
 
     private fun initListPatient(patients: ArrayList<PatientModel>) {
-        val adapter = LineInformationPatientAdapter()
-        adapter.items = patients
-        adapter.onClickItem = {
-            goToFragmentEditInfoPatient(it)
-        }
-        binding.rcvInfoPatient.adapter = adapter
-
         val adapterInfo = InfoMainPatientAdapter()
         adapterInfo.items = patients
         adapterInfo.onClickItem = {
@@ -106,35 +82,46 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
             dialog.arguments = bundle
             dialog.show(parentFragmentManager, "")
             dialog.onClickHistoryTest = {
-                goToFragmentMedicalExaminationHistory()
+                goToFragmentMedicalExaminationHistory(patient)
             }
 
             dialog.onClickManageTreatment = {
-                goToFragmentTreatment(patient)
+                lifecycleScope.launch {
+                    withContext(Dispatchers.Main) {
+                        viewModel.medicalHistoryPatient(patient.id)
+                        viewModel.isRegistered.collect {
+                            if(it != 0) goToFragmentTreatment(patient, it)
+                        }
+                    }
+                }
             }
         }
         binding.rcvMainInfo.adapter = adapterInfo
     }
 
-    private fun goToFragmentMedicalExaminationHistory() {
+    private fun goToFragmentMedicalExaminationHistory(patient: PatientModel) {
         val fragmentMedicalExaminationHistory = FragmentMedicalExaminationHistory()
+        val bundle = Bundle()
+        bundle.putParcelable(OBJECT_PATIENT, patient)
         addFragmentByTag(fragmentMedicalExaminationHistory, R.id.changeIdDoctorVn, "FragmentAdminDoctor")
+        fragmentMedicalExaminationHistory.arguments = bundle
     }
 
-    private fun goToFragmentTreatment(patient: PatientModel) {
+    private fun goToFragmentTreatment(patient: PatientModel, id: Int) {
         val fragmentTreatmentManagement = FragmentTreatmentManagement()
         val bundle = Bundle()
         bundle.putParcelable(OBJECT_PATIENT, patient)
-        fragmentTreatmentManagement.arguments = bundle
+        bundle.putInt(MEDICAL_HISTORY_ID, id)
         addFragmentByTag(fragmentTreatmentManagement, R.id.changeIdDoctorVn, "FragmentAdminDoctor")
+        fragmentTreatmentManagement.arguments = bundle
     }
 
     private fun goToFragmentEditInfoPatient(patient: PatientModel) {
         val fragmentEditInfoPatient = FragmentEditInfoPatient()
         val bundle = Bundle()
         bundle.putParcelable(OBJECT_PATIENT, patient)
-        fragmentEditInfoPatient.arguments = bundle
         addFragmentByTag(fragmentEditInfoPatient, R.id.changeIdDoctorVn, "FragmentAdminDoctor")
+        fragmentEditInfoPatient.arguments = bundle
     }
 
     override fun getFragmentBinding(

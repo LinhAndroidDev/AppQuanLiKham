@@ -55,17 +55,19 @@
                     android:layout_height="wrap_content">
 
                     <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
-                        android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:title_info="Nhiệt độ (°C)" />
+                        android:layout_weight="1"
+                        app:title_info="Nhiệt độ (°C)"
+                        app:input_type="number"/>
 
                     <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
                         android:layout_marginStart="@dimen/dimen_10"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:title_info="Chiều cao (cm)"/>
+                        app:title_info="Chiều cao (cm)"
+                        app:input_type="number"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -78,14 +80,16 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:title_info="Cân nặng (Kg)"/>
+                        app:title_info="Cân nặng (Kg)"
+                        app:input_type="number"/>
 
                     <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
                         android:layout_marginStart="@dimen/dimen_10"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:title_info="Nhịp tim (bpm)"/>
+                        app:title_info="Nhịp tim (bpm)"
+                        app:input_type="number"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -98,14 +102,16 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:title_info="Huyết áp tâm thu (mmHg)"/>
+                        app:title_info="Huyết áp tâm thu (mmHg)"
+                        app:input_type="number"/>
 
                     <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_10"
                         android:layout_weight="1"
-                        app:title_info="Huyết áp tâm trương (mmHg)" />
+                        app:title_info="Huyết áp tâm trương (mmHg)"
+                        app:input_type="number"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -122,7 +128,8 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:title_info="Đường huyết (mg/Dl)"/>
+                        app:title_info="Đường huyết (mg/Dl)"
+                        app:input_type="number"/>
 
                     <View
                         android:layout_weight="0.5"

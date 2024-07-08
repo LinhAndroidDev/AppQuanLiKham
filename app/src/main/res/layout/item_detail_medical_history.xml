@@ -22,7 +22,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/idUser"
+                        android:id="@+id/idMedical"
                         style="@style/text_sp14"
                         android:layout_width="@dimen/dimen_50"
                         android:layout_height="wrap_content"
@@ -50,28 +50,28 @@
                     android:ellipsize="end"/>
 
                 <TextView
-                    android:id="@+id/cccd"
+                    android:id="@+id/department"
                     style="@style/text_sp14"
                     android:layout_width="@dimen/dimen_160"
                     android:paddingStart="@dimen/dimen_10"
                     android:text="Khoa điều trị" />
 
                 <TextView
-                    android:id="@+id/phone"
+                    android:id="@+id/room"
                     style="@style/text_sp14"
                     android:layout_width="@dimen/dimen_100"
                     android:paddingStart="@dimen/dimen_10"
                     android:text="Phòng" />
 
                 <TextView
-                    android:id="@+id/time"
+                    android:id="@+id/cdOutHospital"
                     style="@style/text_sp14"
                     android:layout_width="@dimen/dimen_140"
                     android:paddingStart="@dimen/dimen_10"
                     android:text="CĐ ra viện" />
 
                 <TextView
-                    android:id="@+id/state"
+                    android:id="@+id/timeOutHospital"
                     style="@style/text_sp14"
                     android:layout_width="@dimen/dimen_160"
                     android:paddingStart="@dimen/dimen_10"

@@ -37,6 +37,13 @@
         android:inputType="textEmailAddress"
         android:imeOptions="actionDone"/>
 
+    <TextView
+        android:id="@+id/textWarning"
+        android:layout_marginTop="@dimen/dimen_2"
+        android:text="Vui lòng nhập giá trị trong khoảng từ 36 đến 42"
+        style="@style/text_sp14"
+        android:textColor="@color/red_stroke"/>
+
     <Spinner
         android:id="@+id/pulldown"
         android:textSize="@dimen/dimen_sp12"

@@ -6,6 +6,7 @@ import com.example.appkhambenh.ui.data.remote.model.Quantity
 import com.example.appkhambenh.ui.data.remote.repository.doctor.AdminDoctorRepository
 import com.example.appkhambenh.ui.data.remote.repository.doctor.AppointmentRepository
 import com.example.appkhambenh.ui.data.remote.repository.doctor.MedicalHistoryRepository
+import com.example.appkhambenh.ui.utils.TokenManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,13 +23,21 @@ class FragmentHomeDoctorViewModel @Inject constructor(
 
     fun getQuantity() = viewModelScope.launch {
         loading.postValue(true)
-        async {
-            quantity.value = Quantity(
-                adminRepository.getListPatient().body()?.data?.size ?: 0,
-                appointmentRepository.getListAppointment().body()?.data?.size ?: 0,
-                medicalHistoryRepository.getListMedicalHistory().body()?.data?.size ?: 0
-            )
-        }.await()
-        loading.postValue(false)
+        try {
+            async {
+                val patient = adminRepository.getListPatient()
+                val appoint = appointmentRepository.getListAppointment()
+                val medical = medicalHistoryRepository.getListMedicalHistory()
+                quantity.value = Quantity(
+                    patient.body()?.data?.size ?: 0,
+                    appoint.body()?.data?.size ?: 0,
+                    medical.body()?.data?.size ?: 0
+                )
+            }.await()
+            loading.postValue(false)
+        } catch (e: Exception) {
+            loading.postValue(false)
+            errorApiLiveData.postValue(e.message)
+        }
     }
 }

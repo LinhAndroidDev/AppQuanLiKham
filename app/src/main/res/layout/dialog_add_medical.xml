@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/dimen_10"
+    app:cardCornerRadius="@dimen/dimen_5"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
@@ -20,64 +20,42 @@
             <TextView
                 style="@style/text_sp16_black_bold"
                 android:layout_width="match_parent"
-                android:text="Cập nhật chẩn đoán"
+                android:text="Thêm lần khám mới"
                 android:textColor="@color/white"
                 android:textSize="@dimen/dimen_sp18" />
         </RelativeLayout>
 
         <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
-            android:id="@+id/diagnosePast"
+            android:id="@+id/reason"
             android:layout_marginTop="@dimen/dimen_20"
             android:layout_marginHorizontal="@dimen/dimen_15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title_info="Chẩn đoán trước đó"
-            app:hint_info=""
+            app:title_info="Lí do vào viện"
             app:important="true"/>
 
         <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
-            android:id="@+id/diagnoseNow"
+            android:id="@+id/introductionPlace"
             android:layout_marginTop="@dimen/dimen_20"
             android:layout_marginHorizontal="@dimen/dimen_15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title_info="Chẩn đoán hiện tại"
-            app:hint_info=""
+            app:title_info="Nơi giới thiệu"
             app:important="true"/>
 
-        <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
-            android:id="@+id/diagnoseMove"
-            android:layout_marginTop="@dimen/dimen_20"
-            android:layout_marginHorizontal="@dimen/dimen_15"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:title_info="Chẩn đoán ra viện"
-            app:hint_info=""
-            app:important="true"/>
-
-        <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
-            android:id="@+id/emergencyDiagnose"
-            android:layout_marginTop="@dimen/dimen_20"
-            android:layout_marginHorizontal="@dimen/dimen_15"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:title_info="Chẩn đoán cấp cứu"
-            app:hint_info=""
-            app:important="true"/>
-        
         <androidx.cardview.widget.CardView
-            android:id="@+id/update"
             android:layout_marginVertical="@dimen/dimen_15"
             android:layout_marginEnd="@dimen/dimen_15"
             android:layout_gravity="end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/blue_dark_light">
-            
+
             <TextView
+                android:id="@+id/addMedical"
                 android:layout_marginVertical="@dimen/dimen_8"
                 android:layout_marginHorizontal="@dimen/dimen_10"
-                android:text="Cập nhật"
+                android:text="Thêm"
                 style="@style/text_sp14"
                 android:textColor="@color/white"/>
         </androidx.cardview.widget.CardView>

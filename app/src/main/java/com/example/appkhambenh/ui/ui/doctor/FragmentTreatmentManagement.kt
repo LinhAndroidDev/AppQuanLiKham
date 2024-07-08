@@ -26,18 +26,21 @@ import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.core.view.postDelayed
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentTreatmentManagementBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.data.remote.entity.PatientModel
-import com.example.appkhambenh.ui.ui.EmptyViewModel
+import com.example.appkhambenh.ui.data.remote.entity.ServiceOrderModel
+import com.example.appkhambenh.ui.data.remote.request.AddServiceRequest
 import com.example.appkhambenh.ui.ui.common.dialog.DialogAddService
+import com.example.appkhambenh.ui.ui.common.dialog.DialogConfirm
 import com.example.appkhambenh.ui.ui.common.dialog.DialogTakeImage
 import com.example.appkhambenh.ui.ui.common.dialog.DialogUpdateMedicalHistoryValue
-import com.example.appkhambenh.ui.ui.doctor.adapter.ListOfService
 import com.example.appkhambenh.ui.ui.doctor.adapter.ListOfServiceAdapter
 import com.example.appkhambenh.ui.ui.doctor.controller.ActionRecord
+import com.example.appkhambenh.ui.ui.doctor.viewmodel.FragmentTreatmentManagementViewModel
 import com.example.appkhambenh.ui.utils.DateUtils
 import com.example.appkhambenh.ui.utils.PersonalInformation
 import com.example.appkhambenh.ui.utils.addFragmentByTag
@@ -54,6 +57,11 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.google.android.material.tabs.TabLayout
 import com.yalantis.ucrop.UCrop
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -76,7 +84,8 @@ enum class ServiceTreatmentManagement {
     DIAGNOSE
 }
 
-class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatmentManagementBinding>() {
+@AndroidEntryPoint
+class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementViewModel, FragmentTreatmentManagementBinding>() {
     private var isExpand = false
     private var isExpandInfoIntoHospital = false
     private var currentImage: ImageView? = null
@@ -91,6 +100,9 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
     private var currentListen = 0
     private var permissionToRecordAccepted = false
     private var patient: PatientModel? = null
+    private var medicalHistoryId = 0
+    private var listOfServiceAdapter: ListOfServiceAdapter? = null
+    private var services: ArrayList<ServiceOrderModel>? = null
     private val permissions by lazy {
         arrayOf(
             android.Manifest.permission.RECORD_AUDIO,
@@ -100,7 +112,6 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
 
     companion object {
         private const val REQUEST_RECORD_AUDIO_PERMISSION = 200
-        const val LIST_SERVICE = "LIST_SERVICE"
     }
 
     private val uCropContract = object : ActivityResultContract<List<Uri?>, Uri?>(){
@@ -321,13 +332,32 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
     }
 
     private fun initView() {
-        patient = arguments?.getParcelable<PatientModel>(FragmentAdminDoctor.OBJECT_PATIENT)
+        listOfServiceAdapter = ListOfServiceAdapter(requireActivity())
+        binding.listOfService.rcvTreatmentManagement.adapter = listOfServiceAdapter
+
+        patient = arguments?.getParcelable(FragmentAdminDoctor.OBJECT_PATIENT)
         patient?.let {
             binding.tvName.text = patient?.fullname
             binding.tvAddress.text = patient?.address
             binding.tvCccd.text = patient?.citizenId
             binding.tvPhone.text = patient?.phoneNumber
             binding.tvSex.text = if(patient?.sex == "0") "Nam" else "Nữ"
+        }
+
+        medicalHistoryId = arguments?.getInt(FragmentAdminDoctor.MEDICAL_HISTORY_ID)!!
+        medicalHistoryId.let {
+            lifecycleScope.launch {
+                delay(500L)
+                withContext(Dispatchers.Main) {
+                    viewModel.getServiceOrder(medicalHistoryId)
+                    viewModel.services.collect { serviceModels ->
+                        services = serviceModels
+                        serviceModels?.let {
+                            initListOfService(serviceModels)
+                        }
+                    }
+                }
+            }
         }
 
         hideAllViewService()
@@ -338,7 +368,6 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
         }
 
         initInfoIntoHospital()
-        initListOfService()
         initClinical()
         drawLineChart(binding.chart.lineChartTemplate, R.color.green_chart_template)
         drawLineChart(binding.chart.lineChartBloodPressure, R.color.red_chart_blood_pressure)
@@ -438,15 +467,19 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
         }
     }
 
-    private fun initListOfService() {
-        val listOfService = arrayListOf<ListOfService>()
-        listOfService.add(ListOfService(7, "Xét nghiệm máu", true))
-        listOfService.add(ListOfService(8, "Chụp siêu âm", true))
-        listOfService.add(ListOfService(9, "Chụp MRI", false))
-        listOfService.add(ListOfService(10, "Chụp CT", true))
-        val adapter = ListOfServiceAdapter()
-        adapter.items = listOfService
-        binding.listOfService.rcvTreatmentManagement.adapter = adapter
+    private fun initListOfService(serviceModels: ArrayList<ServiceOrderModel>) {
+        listOfServiceAdapter?.onClickPay = {
+            val dialog = DialogConfirm()
+            dialog.agree = {
+                viewModel.payService(it, medicalHistoryId)
+                dialog.dismiss()
+            }
+            val bundle = Bundle()
+            bundle.putString(DialogConfirm.NOTIFICATION_CONFIRM, "Bạn xác nhận thanh toán dịch vụ này?")
+            dialog.show(parentFragmentManager, "")
+            dialog.arguments = bundle
+        }
+        listOfServiceAdapter?.resetList(serviceModels)
     }
 
     @SuppressLint("DiscouragedPrivateApi")
@@ -599,13 +632,30 @@ class FragmentTreatmentManagement : BaseFragment<EmptyViewModel, FragmentTreatme
         binding.listOfService.addService.setOnClickListener {
             val dialogAddService = DialogAddService()
             dialogAddService.show(parentFragmentManager, "DialogAddService")
-            val bundle = Bundle()
-            val services = arrayListOf("Bệnh sử tiền sử", "Khám lâm sàng, tổng quát", "Xét nghiệm máu", "Siêu âm", "X-quang", "MRI", "CT", "Chẩn đoán", "Sử dụng thuốc", "Lịch sử")
-            bundle.putStringArrayList(LIST_SERVICE, services)
-            dialogAddService.arguments = bundle
+            dialogAddService.addService = {
+                if(existService(dialogAddService.idService)) {
+                    show("Dịch vụ này đã được sử dụng")
+                } else {
+                    lifecycleScope.launch {
+                        withContext(Dispatchers.Main) {
+                            viewModel.addService(AddServiceRequest(dialogAddService.idService, medicalHistoryId), medicalHistoryId)
+                        }
+                    }
+                    dialogAddService.dismiss()
+                }
+            }
         }
     }
 
+    private fun existService(idService: Int): Boolean {
+        var exist = false
+        services?.forEach {
+            if(it.serviceId == idService) {
+                exist = true
+            }
+        }
+        return exist
+    }
     private fun takeImageFromUcop(image: ImageView) {
         val dialog = DialogTakeImage()
         dialog.show(parentFragmentManager, "")

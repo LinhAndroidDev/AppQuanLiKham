@@ -13,6 +13,7 @@
 
             <TextView
                 android:id="@+id/nameUser"
+                android:layout_marginVertical="@dimen/dimen_15"
                 style="@style/text_sp14_black_bold"
                 android:layout_width="@dimen/dimen_160"
                 android:paddingStart="@dimen/dimen_10"

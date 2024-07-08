@@ -4,35 +4,117 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.postDelayed
+import androidx.lifecycle.lifecycleScope
 import com.example.appkhambenh.databinding.FragmentMedicalExaminationHistoryBinding
 import com.example.appkhambenh.ui.base.BaseFragment
-import com.example.appkhambenh.ui.ui.EmptyViewModel
+import com.example.appkhambenh.ui.data.remote.entity.MedicalHistoryResponse
+import com.example.appkhambenh.ui.data.remote.entity.PatientModel
+import com.example.appkhambenh.ui.data.remote.request.AddMedicalHistoryRequest
+import com.example.appkhambenh.ui.data.remote.request.UpdateDiagnoseMedicalHistoryRequest
+import com.example.appkhambenh.ui.ui.common.dialog.DialogAddMedical
 import com.example.appkhambenh.ui.ui.common.dialog.DialogConfirmOutHospital
 import com.example.appkhambenh.ui.ui.common.dialog.DialogUpdateAllocation
 import com.example.appkhambenh.ui.ui.common.dialog.DialogUpdateDiagnose
 import com.example.appkhambenh.ui.ui.doctor.adapter.DetailMedicalHistoryAdapter
+import com.example.appkhambenh.ui.ui.doctor.viewmodel.FragmentMedicalExaminationHistoryViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
+@AndroidEntryPoint
 class FragmentMedicalExaminationHistory :
-    BaseFragment<EmptyViewModel, FragmentMedicalExaminationHistoryBinding>() {
+    BaseFragment<FragmentMedicalExaminationHistoryViewModel, FragmentMedicalExaminationHistoryBinding>() {
+    private var patient: PatientModel? = null
+    private var medicalHistorys: ArrayList<MedicalHistoryResponse.Data>? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         fillView()
+        initView()
+    }
 
-        showLoading()
-        binding.root.postDelayed(1000) {
-            dismissLoading()
-            initListMedicalHistory()
+    private fun initView() {
+        patient = arguments?.getParcelable(FragmentAdminDoctor.OBJECT_PATIENT)
+        patient?.let {
+            lifecycleScope.launch {
+                delay(1000L)
+                withContext(Dispatchers.Main) {
+                    viewModel.medicalHistoryPatient(patientId = patient!!.id)
+                    viewModel.medicalHistorys.collect { medicals ->
+                        medicalHistorys = medicals
+                        medicals?.let {
+                            initListMedicalHistory(medicals)
+                        }
+                    }
+                }
+            }
+        }
+
+        onClickView()
+    }
+
+    private fun onClickView() {
+        binding.addMedical.setOnClickListener {
+            val dialog =DialogAddMedical()
+            dialog.show(parentFragmentManager, "DialogAddMedical")
+            dialog.addMedical = {
+                if(dialog.medical?.first?.isEmpty() == true && dialog.medical?.second?.isEmpty() == true) {
+                    show("Bạn chưa nhập đầy đủ thông tin")
+                } else {
+                    if(isDuringTreatment()) {
+                        show("Bệnh nhân này đang trong quá trình điều trị")
+                    } else {
+                        lifecycleScope.launch {
+                            withContext(Dispatchers.Main) {
+                                viewModel.addMedicalHistory(
+                                    AddMedicalHistoryRequest(
+                                        dialog.medical!!.first,
+                                        dialog.medical!!.second,
+                                        patient!!.id
+                                    ), patientId = patient!!.id
+                                )
+                            }
+                        }
+                        dialog.dismiss()
+                    }
+                }
+            }
         }
     }
 
-    private fun initListMedicalHistory() {
-        val detailMedicalAdapter = DetailMedicalHistoryAdapter()
+    private fun isDuringTreatment(): Boolean {
+        var isDuringTreatment = false
+        medicalHistorys?.forEach {
+            if(it.doctorId == null) {
+                isDuringTreatment = true
+            }
+        }
+        return isDuringTreatment
+    }
+
+    private fun initListMedicalHistory(medicals: ArrayList<MedicalHistoryResponse.Data>) {
+        val detailMedicalAdapter = DetailMedicalHistoryAdapter(patient?.fullname.toString())
         detailMedicalAdapter.diagnose = {
             val dialogUpdateDiagnose = DialogUpdateDiagnose()
             dialogUpdateDiagnose.show(parentFragmentManager, "DialogUpdateDiagnose")
+            dialogUpdateDiagnose.updateDiagnose = {
+                lifecycleScope.launch {
+                    withContext(Dispatchers.Main) {
+                        if(checkInfoDiagnose(dialogUpdateDiagnose.updateDiagnoseMedicalHistoryRequest)) {
+                            show("Bạn chưa nhập đầy đủ thông tin")
+                        } else {
+                            viewModel.updateDiagnoseMedicalHistory(
+                                patient!!.id,
+                                dialogUpdateDiagnose.updateDiagnoseMedicalHistoryRequest!!
+                            )
+                            dialogUpdateDiagnose.dismiss()
+                        }
+                    }
+                }
+            }
         }
         detailMedicalAdapter.allocation = {
             val dialogUpdateAllocation = DialogUpdateAllocation()
@@ -42,8 +124,16 @@ class FragmentMedicalExaminationHistory :
             val dialogConfirmOutHospital = DialogConfirmOutHospital()
             dialogConfirmOutHospital.show(parentFragmentManager, "DialogConfirmOutHospital")
         }
-        detailMedicalAdapter.items = arrayListOf(1, 1, 1)
+        detailMedicalAdapter.items = medicals
         binding.rcvDetailMedical.adapter = detailMedicalAdapter
+    }
+
+    private fun checkInfoDiagnose(updateDiagnoseMedicalHistoryRequest: UpdateDiagnoseMedicalHistoryRequest?): Boolean {
+        return updateDiagnoseMedicalHistoryRequest?.diagnosePast?.isEmpty() == true &&
+                updateDiagnoseMedicalHistoryRequest.diagnoseNow?.isEmpty() == true &&
+                updateDiagnoseMedicalHistoryRequest.diagnoseMove?.isEmpty() == true &&
+                updateDiagnoseMedicalHistoryRequest.emergencyDiagnose?.isEmpty() == true
+
     }
 
     override fun getFragmentBinding(

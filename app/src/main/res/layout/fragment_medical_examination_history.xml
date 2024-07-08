@@ -64,7 +64,7 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/addVisit"
+                android:id="@+id/addMedical"
                 android:layout_marginStart="@dimen/dimen_15"
                 android:layout_width="@dimen/dimen_30"
                 android:layout_height="@dimen/dimen_30"

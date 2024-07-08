@@ -5,22 +5,22 @@ data class MedicalHistoryResponse(
     val paginate: Paginate
 ) {
     data class Data(
-        val bed: Any,
+        val bed: String?,
         val createdAt: String,
-        val deletedAt: Any,
+        val deletedAt: String?,
         val diagnoseMove: String,
         val diagnoseNow: String,
         val diagnosePast: String,
-        val doctor: DoctorPK,
-        val doctorId: Int,
+        val doctor: DoctorPK?,
+        val doctorId: Int?,
         val emergencyDiagnose: String,
-        val facultyTreatment: Any,
-        val hospitalDischarge: String,
+        val facultyTreatment: String?,
+        val hospitalDischarge: String?,
         val id: Int,
         val introductionPlace: String,
         val patientId: Int,
         val reason: String,
-        val room: Any,
+        val room: String?,
         val updatedAt: String
     )
 }

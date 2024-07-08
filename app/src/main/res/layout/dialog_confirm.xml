@@ -24,6 +24,7 @@
                 app:tint="@color/orange"/>
 
             <TextView
+                android:id="@+id/notification"
                 android:layout_marginStart="@dimen/dimen_10"
                 android:text="Bạn có muốn xác nhận lịch hẹn cho bệnh nhân này không?"
                 style="@style/text_sp16_black_bold"/>
@@ -45,6 +46,7 @@
                 style="@style/text_sp14"/>
 
             <TextView
+                android:id="@+id/confirm"
                 android:layout_marginStart="@dimen/dimen_10"
                 android:text="Xác nhận"
                 android:textColor="@color/pink"

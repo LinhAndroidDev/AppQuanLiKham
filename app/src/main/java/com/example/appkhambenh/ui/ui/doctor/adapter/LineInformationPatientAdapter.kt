@@ -3,37 +3,10 @@ package com.example.appkhambenh.ui.ui.doctor.adapter
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ItemInfoAppointPatientBinding
 import com.example.appkhambenh.databinding.ItemInfoMainPatientBinding
-import com.example.appkhambenh.databinding.ItemInformationPatientBinding
 import com.example.appkhambenh.ui.base.BaseAdapter
 import com.example.appkhambenh.ui.data.remote.entity.PatientModel
 import com.example.appkhambenh.ui.data.remote.entity.StatePatient
 import com.example.appkhambenh.ui.utils.DateUtils
-
-class LineInformationPatientAdapter : BaseAdapter<PatientModel, ItemInformationPatientBinding>() {
-
-    var onClickItem: ((PatientModel) -> Unit)? = null
-
-    override fun getLayout(): Int = R.layout.item_information_patient
-
-    override fun onBindViewHolder(
-        holder: BaseViewHolder<ItemInformationPatientBinding>,
-        position: Int,
-    ) {
-        val patient = items[position]
-        holder.v.apply {
-            address.text = patient.address
-            numberBhxh.text = patient.healthInsurance
-            cccd.text = patient.citizenId
-            email.text = patient.email
-            phone.text = patient.phoneNumber
-            sex.text = if(patient.sex == "0") "Nam" else "Nữ"
-        }
-
-        holder.v.itemView.setOnClickListener {
-            onClickItem?.invoke(patient)
-        }
-    }
-}
 
 class InfoMainPatientAdapter : BaseAdapter<PatientModel, ItemInfoMainPatientBinding>() {
     var onClickItem: ((PatientModel) -> Unit)? = null
@@ -49,6 +22,12 @@ class InfoMainPatientAdapter : BaseAdapter<PatientModel, ItemInfoMainPatientBind
         holder.v.apply {
             idUser.text = patient.id.toString()
             nameUser.text = patient.fullname
+            address.text = patient.address
+            numberBhxh.text = patient.healthInsurance
+            cccd.text = patient.citizenId
+            email.text = patient.email
+            phone.text = patient.phoneNumber
+            sex.text = if(patient.sex == "0") "Nam" else "Nữ"
             addManage.setOnClickListener {
                 addManager?.invoke(patient)
             }
@@ -62,7 +41,7 @@ class InfoMainPatientAdapter : BaseAdapter<PatientModel, ItemInfoMainPatientBind
 }
 
 class InfoAppointPatientAdapter : BaseAdapter<StatePatient, ItemInfoAppointPatientBinding>() {
-    var onClickConfirm: (() -> Unit)? = null
+    var onClickConfirm: ((Int) -> Unit)? = null
 
     override fun getLayout(): Int = R.layout.item_info_appoint_patient
 
@@ -89,7 +68,7 @@ class InfoAppointPatientAdapter : BaseAdapter<StatePatient, ItemInfoAppointPatie
             introductionPlace.text = appoint.introductionPlace
 
             confirmAppoint.setOnClickListener {
-                onClickConfirm?.invoke()
+                onClickConfirm?.invoke(appoint.id)
             }
         }
     }

@@ -14,6 +14,9 @@ import com.example.appkhambenh.ui.utils.initTextComplete
 
 class DialogAddService : DialogFragment() {
     private var binding: DialogAddServiceBinding? = null
+    var idService = 0
+    var addService: (() -> Unit)? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,11 +32,20 @@ class DialogAddService : DialogFragment() {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.setCancelable(false)
 
-        val services: List<String?> = arguments?.getStringArrayList(FragmentTreatmentManagement.LIST_SERVICE) as List<String?>
+        val services = arrayListOf("Khám lâm sàng, tổng quát", "Xét nghiệm máu", "Chụp siêu âm", "Chụp X-quang", "Chụp MRI", "Chụp CT", "Thuốc sử dụng")
         binding?.pullDownService?.initTextComplete(requireActivity(), services)
 
         binding?.closeDialog?.setOnClickListener {
             dismiss()
+        }
+
+        binding?.cancel?.setOnClickListener {
+            dismiss()
+        }
+
+        binding?.confirm?.setOnClickListener {
+            idService = services.indexOf(binding?.pullDownService?.text.toString()) + 3
+            addService?.invoke()
         }
     }
 }

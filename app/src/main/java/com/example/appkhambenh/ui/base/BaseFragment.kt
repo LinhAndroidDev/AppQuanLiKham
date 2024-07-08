@@ -89,6 +89,21 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
         viewModel.loading.observe(viewLifecycleOwner) {
             if (it) showLoading() else dismissLoading()
         }
+
+        handleTokenExpired()
+    }
+
+    private fun handleTokenExpired() {
+        lifecycleScope.launch {
+            withContext(Dispatchers.Main) {
+                TokenManager.tokenExpiredEvent.collect { isExpired ->
+                    if(isExpired) {
+                        val dialog = DialogExpiredToken()
+                        dialog.show(parentFragmentManager, "DialogExpired")
+                    }
+                }
+            }
+        }
     }
 
     fun replaceFragment(fragment: Fragment, changeId: Int) {

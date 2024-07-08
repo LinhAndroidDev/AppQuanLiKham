@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.CustomEdtInfoPatientBinding
 import com.example.appkhambenh.ui.ui.common.CustomEndIconDrawable
@@ -44,7 +45,23 @@ class CustomEdtSearchInfoPatient @JvmOverloads constructor(
 
             binding.edtInfo.inputType = when(getInteger(R.styleable.CustomEdtSearchInfoPatient_input_type, 0)) {
                 1 -> InputType.TYPE_NUMBER_FLAG_DECIMAL
+                2 -> InputType.TYPE_CLASS_NUMBER
                 else -> InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+            }
+        }
+    }
+
+    fun checkInputValue(start: Int, end: Int) {
+        binding.edtInfo.doOnTextChanged { text, _, _, _ ->
+            if(text?.isNotEmpty() == true) {
+                val value = text.toString().toInt()
+                if(value in start..end) {
+                    binding.textWarning.isVisible = true
+                    binding.textWarning.text = "Vui lòng nhập giá trị trong khoảng từ $start đến $end"
+                } else {
+                    binding.textWarning.isVisible = false
+                    binding.textWarning.text = ""
+                }
             }
         }
     }
