@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".ui.ui.doctor.treatment.FragmentXray">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue_dark_light"
+        android:paddingHorizontal="@dimen/dimen_20"
+        android:paddingVertical="@dimen/dimen_15">
+
+        <TextView
+            style="@style/text_sp16_black_bold"
+            android:layout_width="match_parent"
+            android:text="Nhập kết quả chụp X_quang"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_sp18" />
+    </RelativeLayout>
+
+    <TextView
+        style="@style/text_sp14"
+        android:layout_marginStart="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:text="Cập nhật hình ảnh đã chụp" />
+
+    <RelativeLayout
+        android:id="@+id/viewImage"
+        android:layout_width="@dimen/dimen_100"
+        android:layout_height="@dimen/dimen_100"
+        android:layout_marginStart="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:background="@drawable/bg_image_examination">
+
+        <ImageView
+            android:layout_width="@dimen/dimen_20"
+            android:layout_height="@dimen/dimen_20"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_action_add"
+            app:tint="@color/black" />
+
+        <ImageView
+            android:id="@+id/imgXray"
+            android:layout_width="@dimen/dimen_100"
+            android:layout_height="@dimen/dimen_100" />
+    </RelativeLayout>
+
+    <TextView
+        style="@style/text_sp14"
+        android:layout_marginStart="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:text="Nhận xét từ bác sĩ chẩn đoán hình ảnh" />
+
+    <EditText
+        style="@style/edit_clinical_examination"
+        android:hint="Nhập kết quả" />
+
+    <com.example.appkhambenh.ui.ui.common.CustomBtnFootView
+        android:id="@+id/update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:eleven_foot_view="0"
+        app:title_foot_view="Cập nhật" />
+
+</LinearLayout>

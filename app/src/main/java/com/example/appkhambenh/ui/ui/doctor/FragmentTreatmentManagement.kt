@@ -112,7 +112,7 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
     }
 
     companion object {
-        private const val REQUEST_RECORD_AUDIO_PERMISSION = 200
+        const val REQUEST_RECORD_AUDIO_PERMISSION = 200
     }
 
     private val uCropContract = object : ActivityResultContract<List<Uri?>, Uri?>(){
