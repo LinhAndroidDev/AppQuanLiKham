@@ -310,51 +310,56 @@
                 app:tabMode="scrollable"
                 app:tabGravity="center"/>
 
-            <include android:id="@+id/listOfService"
-                layout="@layout/layout_list_of_service"
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/pagerTreatment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <include
-                android:id="@+id/chart"
-                layout="@layout/layout_medical_history"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+<!--            <include android:id="@+id/listOfService"-->
+<!--                layout="@layout/layout_list_of_service"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"/>-->
 
-            <include android:id="@+id/clinical"
-                layout="@layout/layout_clinical_examination"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+<!--            <include-->
+<!--                android:id="@+id/chart"-->
+<!--                layout="@layout/layout_medical_history"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content" />-->
 
-            <include android:id="@+id/bloodTest"
-                layout="@layout/layout_blood_test"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+<!--            <include android:id="@+id/clinical"-->
+<!--                layout="@layout/layout_clinical_examination"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"/>-->
 
-            <include android:id="@+id/supersonic"
-                layout="@layout/layout_supersonic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+<!--            <include android:id="@+id/bloodTest"-->
+<!--                layout="@layout/layout_blood_test"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"/>-->
 
-            <include android:id="@+id/xray"
-                layout="@layout/layout_x_ray"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+<!--            <include android:id="@+id/supersonic"-->
+<!--                layout="@layout/layout_supersonic"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"/>-->
 
-            <include android:id="@+id/mri"
-                layout="@layout/layout_mri"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+<!--            <include android:id="@+id/xray"-->
+<!--                layout="@layout/layout_x_ray"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"/>-->
 
-            <include android:id="@+id/ct"
-                layout="@layout/layout_ct"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+<!--            <include android:id="@+id/mri"-->
+<!--                layout="@layout/layout_mri"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"/>-->
 
-            <include android:id="@+id/diagnose"
-                layout="@layout/layout_diagnose"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+<!--            <include android:id="@+id/ct"-->
+<!--                layout="@layout/layout_ct"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"/>-->
+
+<!--            <include android:id="@+id/diagnose"-->
+<!--                layout="@layout/layout_diagnose"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"/>-->
 
             <View
                 android:layout_width="match_parent"

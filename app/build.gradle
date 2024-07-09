@@ -101,7 +101,4 @@ dependencies {
     //Excel
     implementation("org.apache.poi:poi-ooxml:5.2.2")
     implementation("org.apache.poi:poi-ooxml-lite:5.2.3")
-
-    //Preview file pdf
-    implementation("com.github.barteksc:android-pdf-viewer:2.8.2")
 }

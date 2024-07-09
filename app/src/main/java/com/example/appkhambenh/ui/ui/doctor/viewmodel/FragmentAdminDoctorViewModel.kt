@@ -33,17 +33,22 @@ class FragmentAdminDoctorViewModel @Inject constructor(
 
     suspend fun medicalHistoryPatient(patientId: Int) {
         loading.postValue(true)
-        medicalHistoryRepository.getListMedicalHistory(patientId = patientId).let { response ->
-            loading.postValue(false)
-            if(response.isSuccessful) {
-                if(response.body()?.data?.isNotEmpty() == true) {
-                    isRegistered.value = response.body()?.data!![0].id
+        try {
+            medicalHistoryRepository.getListMedicalHistory(patientId = patientId).let { response ->
+                loading.postValue(false)
+                if(response.isSuccessful) {
+                    if(response.body()?.data?.isNotEmpty() == true) {
+                        isRegistered.value = response.body()?.data!![0].id
+                    } else {
+                        errorApiLiveData.postValue("Bệnh nhân này chưa được đăng kí khám")
+                    }
                 } else {
-                    errorApiLiveData.postValue("Bệnh nhân này chưa được đăng kí khám")
+                    errorApiLiveData.postValue("Lỗi server")
                 }
-            } else {
-                errorApiLiveData.postValue("Lỗi server")
             }
+        } catch (e: Exception) {
+            loading.postValue(false)
+            errorApiLiveData.postValue(e.message)
         }
     }
 }

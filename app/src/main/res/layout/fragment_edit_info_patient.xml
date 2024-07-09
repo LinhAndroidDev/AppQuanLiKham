@@ -253,7 +253,6 @@
             android:id="@+id/updateInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:eleven_foot_view="0"
             app:title_foot_view="Cập nhật"/>
     </LinearLayout>
 

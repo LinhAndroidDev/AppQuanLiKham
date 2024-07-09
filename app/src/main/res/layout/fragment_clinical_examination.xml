@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".ui.ui.doctor.treatment.FragmentClinicalExamination">
 
@@ -30,6 +31,7 @@
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/edtCirculatoryDiagnosis"
         style="@style/edit_clinical_examination"
         android:hint="Nhập nội dung chẩn đoán hệ tuần hoàn" />
 
@@ -42,6 +44,7 @@
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/edtGastrointestinalDiagnosis"
         style="@style/edit_clinical_examination"
         android:hint="Nhập chẩn đoán hệ tiêu hoá" />
 
@@ -54,6 +57,7 @@
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/edtNeurologicalDiagnosis"
         style="@style/edit_clinical_examination"
         android:hint="Nhập nội dung chẩn đoán hệ thần kinh" />
 
@@ -66,6 +70,7 @@
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/edtOtolaryngologicalDiagnosis"
         style="@style/edit_clinical_examination"
         android:hint="Nhập nội dung chẩn đoán tai mũi họng" />
 
@@ -78,6 +83,7 @@
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/edtRespiratoryDiagnosis"
         style="@style/edit_clinical_examination"
         android:hint="Nhập nội dung chẩn đoán hệ hô hấp" />
 
@@ -90,6 +96,7 @@
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/edtUrogenitalDiagnosis"
         style="@style/edit_clinical_examination"
         android:hint="Nhập nội dung chẩn đoán niệu sinh dục" />
 
@@ -102,6 +109,7 @@
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/edtMusculoskeletalDiagnosis"
         style="@style/edit_clinical_examination"
         android:hint="Nhập nội dung chẩn đoán hệ xương khớp" />
 
@@ -114,6 +122,7 @@
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/edtMaxillofacialDiagnosis"
         style="@style/edit_clinical_examination"
         android:hint="Nhập nội dung chẩn đoán hệ răng hàm mặt" />
 
@@ -126,6 +135,7 @@
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/edtOphthalmicDiagnosis"
         style="@style/edit_clinical_examination"
         android:hint="Nhập nội dung chẩn đoán nhân khoa" />
 
@@ -138,6 +148,7 @@
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/syndrome"
         style="@style/edit_clinical_examination"
         android:hint="Nhập nội dung hội chứng" />
 
@@ -150,6 +161,7 @@
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/otherDiagnosis"
         style="@style/edit_clinical_examination"
         android:hint="Nhập các chẩn đoán khác" />
 

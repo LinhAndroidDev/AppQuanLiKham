@@ -21,6 +21,8 @@ import android.widget.Spinner
 import androidx.appcompat.widget.ListPopupWindow
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.example.appkhambenh.R
 import com.example.appkhambenh.ui.model.FunctionMain
 import com.example.appkhambenh.ui.ui.doctor.DoctorActivity
@@ -282,5 +284,21 @@ fun AutoCompleteTextView.initTextComplete(activity: Activity, data: List<String?
     // Hiển thị danh sách khi AutoCompleteTextView được click
     setOnClickListener {
         showDropDown()
+    }
+}
+
+/**
+ * Update Height Of ViewPager2 With Child View
+ */
+fun ViewPager2.updateHeight(fragment: Fragment) {
+    fragment.view?.let { view ->
+        view.post {
+            val widthSpec = View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY)
+            val heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            view.measure(widthSpec, heightSpec)
+            if (layoutParams.height != view.measuredHeight) {
+                layoutParams = layoutParams.apply { height = view.measuredHeight }
+            }
+        }
     }
 }
