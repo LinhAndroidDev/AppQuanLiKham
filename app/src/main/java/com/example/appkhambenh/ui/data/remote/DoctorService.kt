@@ -11,7 +11,9 @@ import com.example.appkhambenh.ui.data.remote.entity.PayServiceResponse
 import com.example.appkhambenh.ui.data.remote.entity.ServiceOrderResponse
 import com.example.appkhambenh.ui.data.remote.entity.UpdateChartResponse
 import com.example.appkhambenh.ui.data.remote.entity.UpdateDiagnoseMedicalHistoryResponse
+import com.example.appkhambenh.ui.data.remote.entity.UpdateInfoClinicalExaminationResponse
 import com.example.appkhambenh.ui.data.remote.entity.UpdateInfoPatientResponse
+import com.example.appkhambenh.ui.data.remote.entity.ValueVitalChartResponse
 import com.example.appkhambenh.ui.data.remote.model.PatientInfoModel
 import com.example.appkhambenh.ui.data.remote.request.AddMedicalHistoryRequest
 import com.example.appkhambenh.ui.data.remote.request.AddServiceRequest
@@ -19,6 +21,7 @@ import com.example.appkhambenh.ui.data.remote.request.ConfirmAppointRequest
 import com.example.appkhambenh.ui.data.remote.request.PayServiceRequest
 import com.example.appkhambenh.ui.data.remote.request.UpdateChartRequest
 import com.example.appkhambenh.ui.data.remote.request.UpdateDiagnoseMedicalHistoryRequest
+import com.example.appkhambenh.ui.data.remote.request.UpdateInfoClinicalExaminationRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Field
@@ -45,6 +48,11 @@ interface DoctorService {
         @Path("id") id: Int,
         @Body infoPatient: PatientInfoModel
     ) : Response<UpdateInfoPatientResponse>
+
+    @GET("patients/{patientId}/vital-chart")
+    suspend fun getValueVitalChart(
+        @Path("patientId") patientId: Int
+    ): Response<ValueVitalChartResponse>
 
     @GET("appointments")
     suspend fun getListAppoint() : Response<AppointmentResponse>
@@ -92,4 +100,10 @@ interface DoctorService {
         @Path("id") id: Int,
         @Body updateChartRequest: UpdateChartRequest
     ): Response<UpdateChartResponse>
+
+    @PUT("service-order/{serviceMedicalHistoryId}")
+    suspend fun updateClinicalExamination(
+        @Path("serviceMedicalHistoryId") serviceMedicalHistoryId: Int,
+        @Body updateInfoClinicalExaminationRequest: UpdateInfoClinicalExaminationRequest
+    ): Response<UpdateInfoClinicalExaminationResponse>
 }

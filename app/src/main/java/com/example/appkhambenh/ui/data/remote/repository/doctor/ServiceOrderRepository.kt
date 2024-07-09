@@ -3,6 +3,7 @@ package com.example.appkhambenh.ui.data.remote.repository.doctor
 import com.example.appkhambenh.ui.data.remote.DoctorService
 import com.example.appkhambenh.ui.data.remote.request.AddServiceRequest
 import com.example.appkhambenh.ui.data.remote.request.UpdateChartRequest
+import com.example.appkhambenh.ui.data.remote.request.UpdateInfoClinicalExaminationRequest
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
@@ -12,7 +13,17 @@ class ServiceOrderRepository @Inject constructor(private val doctorService: Doct
 
     suspend fun payService(idService: Int) = doctorService.payService(idService)
 
-    suspend fun addService(addServiceRequest: AddServiceRequest) = doctorService.addService(addServiceRequest)
+    suspend fun addService(addServiceRequest: AddServiceRequest) =
+        doctorService.addService(addServiceRequest)
 
-    suspend fun updateChart(id: Int, updateChartRequest: UpdateChartRequest) = doctorService.updateChart(id, updateChartRequest)
+    suspend fun updateChart(id: Int, updateChartRequest: UpdateChartRequest) =
+        doctorService.updateChart(id, updateChartRequest)
+
+    suspend fun updateClinicalExamination(
+        serviceMedicalHistoryId: Int,
+        updateInfoClinicalExaminationRequest: UpdateInfoClinicalExaminationRequest,
+    ) = doctorService.updateClinicalExamination(
+        serviceMedicalHistoryId,
+        updateInfoClinicalExaminationRequest
+    )
 }

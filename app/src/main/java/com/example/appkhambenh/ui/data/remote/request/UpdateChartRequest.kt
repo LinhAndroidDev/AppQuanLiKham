@@ -6,5 +6,6 @@ class UpdateChartRequest(
     val height: String,
     val weight: String,
     val pulse: String,
-    val systolic: String
+    val systolic: String,
+    val diastolic: String
 )

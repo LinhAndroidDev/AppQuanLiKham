@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="@dimen/dimen_5">
 
     <LinearLayout
@@ -15,28 +15,28 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_marginTop="@dimen/dimen_15"
-                android:layout_marginStart="@dimen/dimen_15"
-                android:text="Nhập giá trị"
                 style="@style/text_sp16_black_bold"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:layout_marginTop="@dimen/dimen_15"
                 android:layout_weight="1"
-                android:layout_width="0dp"/>
+                android:text="Nhập giá trị" />
 
             <ImageView
                 android:id="@+id/closeDialog"
+                android:layout_width="@dimen/dimen_25"
+                android:layout_height="@dimen/dimen_25"
                 android:layout_marginTop="@dimen/dimen_15"
                 android:layout_marginEnd="@dimen/dimen_15"
                 android:src="@drawable/icon_back_delete"
-                android:layout_width="@dimen/dimen_25"
-                android:layout_height="@dimen/dimen_25"
-                app:tint="@color/grey_dark"/>
+                app:tint="@color/grey_dark" />
         </LinearLayout>
 
         <View
-            android:layout_marginTop="@dimen/dimen_15"
-            android:background="@color/grey_light"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/dimen_15"
+            android:background="@color/grey_light" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -49,122 +49,130 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_marginTop="@dimen/dimen_20"
-                    android:layout_marginHorizontal="@dimen/dimen_10"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        app:title_info="Nhiệt độ (°C)"
-                        app:input_type="number"/>
-
-                    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
-                        android:layout_marginStart="@dimen/dimen_10"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        app:title_info="Chiều cao (cm)"
-                        app:input_type="number"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginTop="@dimen/dimen_20"
+                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_10"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_marginTop="@dimen/dimen_20">
 
                     <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
-                        android:layout_weight="1"
+                        android:id="@+id/temperature"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:title_info="Cân nặng (Kg)"
-                        app:input_type="number"/>
-
-                    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
-                        android:layout_marginStart="@dimen/dimen_10"
                         android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        app:title_info="Nhịp tim (bpm)"
-                        app:input_type="number"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginTop="@dimen/dimen_20"
-                    android:layout_marginHorizontal="@dimen/dimen_10"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                        app:input_type="number"
+                        app:title_info="Nhiệt độ (°C)" />
 
                     <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        app:title_info="Huyết áp tâm thu (mmHg)"
-                        app:input_type="number"/>
-
-                    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                        android:id="@+id/height"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_10"
                         android:layout_weight="1"
-                        app:title_info="Huyết áp tâm trương (mmHg)"
-                        app:input_type="number"/>
+                        app:input_type="number"
+                        app:title_info="Chiều cao (cm)" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginTop="@dimen/dimen_20"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_10"
+                    android:layout_marginTop="@dimen/dimen_20">
+
+                    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                        android:id="@+id/weight"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:input_type="number"
+                        app:title_info="Cân nặng (Kg)" />
+
+                    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                        android:id="@+id/heartBeat"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:layout_weight="1"
+                        app:input_type="number"
+                        app:title_info="Nhịp tim (bpm)" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_10"
+                    android:layout_marginTop="@dimen/dimen_20">
+
+                    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                        android:id="@+id/SBP"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:input_type="number"
+                        app:title_info="Huyết áp tâm thu (mmHg)" />
+
+                    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                        android:id="@+id/diastolicBloodPresure"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:layout_weight="1"
+                        app:input_type="number"
+                        app:title_info="Huyết áp tâm trương (mmHg)" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_20">
 
                     <View
-                        android:layout_weight="0.5"
                         android:layout_width="0dp"
-                        android:layout_height="10dp"/>
+                        android:layout_height="10dp"
+                        android:layout_weight="0.5" />
 
                     <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
-                        android:layout_weight="1"
+                        android:id="@+id/bloodSugar"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:title_info="Đường huyết (mg/Dl)"
-                        app:input_type="number"/>
+                        android:layout_weight="1"
+                        app:input_type="number"
+                        app:title_info="Đường huyết (mg/Dl)" />
 
                     <View
-                        android:layout_weight="0.5"
                         android:layout_width="0dp"
-                        android:layout_height="10dp"/>
+                        android:layout_height="10dp"
+                        android:layout_weight="0.5" />
                 </LinearLayout>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
         <LinearLayout
-            android:layout_marginTop="@dimen/dimen_10"
-            android:layout_marginBottom="@dimen/dimen_15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_marginBottom="@dimen/dimen_15"
             android:gravity="end">
 
             <TextView
                 android:id="@+id/cancel"
-                android:text="Huỷ"
-                android:paddingVertical="@dimen/dimen_8"
-                android:paddingHorizontal="@dimen/dimen_15"
+                style="@style/text_sp16"
                 android:background="@drawable/boder_grey_corner_5"
-                style="@style/text_sp16"/>
+                android:paddingHorizontal="@dimen/dimen_15"
+                android:paddingVertical="@dimen/dimen_8"
+                android:text="Huỷ" />
 
             <TextView
+                android:id="@+id/confirm"
+                style="@style/text_sp16"
                 android:layout_marginStart="@dimen/dimen_20"
                 android:layout_marginEnd="@dimen/dimen_15"
-                android:text="Xác nhận"
-                android:paddingVertical="@dimen/dimen_8"
-                android:paddingHorizontal="@dimen/dimen_15"
                 android:background="@drawable/bg_corners_5"
                 android:backgroundTint="@color/background"
-                style="@style/text_sp16"
-                android:textColor="@color/white"/>
+                android:paddingHorizontal="@dimen/dimen_15"
+                android:paddingVertical="@dimen/dimen_8"
+                android:text="Xác nhận"
+                android:textColor="@color/white" />
         </LinearLayout>
     </LinearLayout>
 

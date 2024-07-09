@@ -51,19 +51,30 @@ class CustomEdtSearchInfoPatient @JvmOverloads constructor(
         }
     }
 
-    fun checkInputValue(start: Int, end: Int) {
+    /**
+     * Check Condition Each Edittext With Value Of Input Between Start To End
+     */
+    fun checkInputValue(start: Int, end: Int): Boolean {
+        var passCondition = false
         binding.edtInfo.doOnTextChanged { text, _, _, _ ->
             if(text?.isNotEmpty() == true) {
                 val value = text.toString().toInt()
                 if(value in start..end) {
-                    binding.textWarning.isVisible = true
-                    binding.textWarning.text = "Vui lòng nhập giá trị trong khoảng từ $start đến $end"
-                } else {
+                    passCondition = true
                     binding.textWarning.isVisible = false
                     binding.textWarning.text = ""
+                } else {
+                    passCondition = false
+                    binding.textWarning.isVisible = true
+                    binding.textWarning.text = "Vui lòng nhập giá trị trong khoảng từ $start đến $end"
                 }
+            } else {
+                passCondition = false
+                binding.textWarning.isVisible = true
+                binding.textWarning.text = "Vui lòng không bỏ trống trường này"
             }
         }
+        return passCondition
     }
 
     private fun setUpCalendar() {

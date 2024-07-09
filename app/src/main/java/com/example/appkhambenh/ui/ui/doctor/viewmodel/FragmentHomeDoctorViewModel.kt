@@ -3,10 +3,9 @@ package com.example.appkhambenh.ui.ui.doctor.viewmodel
 import androidx.lifecycle.viewModelScope
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.model.Quantity
-import com.example.appkhambenh.ui.data.remote.repository.doctor.AdminDoctorRepository
 import com.example.appkhambenh.ui.data.remote.repository.doctor.AppointmentRepository
 import com.example.appkhambenh.ui.data.remote.repository.doctor.MedicalHistoryRepository
-import com.example.appkhambenh.ui.utils.TokenManager
+import com.example.appkhambenh.ui.data.remote.repository.doctor.PatientRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FragmentHomeDoctorViewModel @Inject constructor(
-    private val adminRepository: AdminDoctorRepository,
+    private val adminRepository: PatientRepository,
     private val appointmentRepository: AppointmentRepository,
     private val medicalHistoryRepository: MedicalHistoryRepository
 ) : BaseViewModel() {
