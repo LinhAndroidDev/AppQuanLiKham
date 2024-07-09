@@ -16,7 +16,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:imeOptions="actionDone"
-        android:inputType="numberDecimal"/>
+        android:inputType="number"/>
 
     <TextView
         android:id="@+id/unit"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:visibility="gone">
+    android:visibility="visible">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -49,13 +49,14 @@
         android:layout_marginHorizontal="@dimen/dimen_10">
 
         <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:id="@+id/glu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:unit="mmol/L" />
 
         <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
-
+            android:id="@+id/ure"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -89,12 +90,14 @@
         android:layout_marginHorizontal="@dimen/dimen_10">
 
         <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:id="@+id/rbc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:unit="Tera/L" />
 
         <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:id="@+id/hb"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
@@ -127,12 +130,14 @@
         android:layout_marginHorizontal="@dimen/dimen_10">
 
         <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:id="@+id/hct"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:unit="%" />
 
         <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:id="@+id/mcv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -166,12 +171,14 @@
         android:layout_marginHorizontal="@dimen/dimen_10">
 
         <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:id="@+id/mch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:unit="pg" />
 
         <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:id="@+id/wbc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
@@ -204,11 +211,13 @@
         android:layout_marginHorizontal="@dimen/dimen_10">
 
         <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:id="@+id/neut"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:id="@+id/lym"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
@@ -241,16 +250,39 @@
         android:layout_marginHorizontal="@dimen/dimen_10">
 
         <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:id="@+id/mono"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:unit="%" />
 
         <com.example.appkhambenh.ui.ui.doctor.CustomEdtBloodTest
+            android:id="@+id/plt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:unit="tL" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginHorizontal="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+            android:id="@+id/bloodGroup"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:important="false"
+            app:title_info="Nhóm máu"
+            app:has_pull_down="true"/>
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="10dp"/>
     </LinearLayout>
 
     <com.example.appkhambenh.ui.ui.common.CustomBtnFootView

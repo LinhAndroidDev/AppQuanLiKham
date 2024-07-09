@@ -24,4 +24,6 @@ class CustomEdtBloodTest @JvmOverloads constructor(
             binding.unit.text = getString(R.styleable.CustomEdtBloodTest_unit) ?: "g/L"
         }
     }
+
+    fun getText() = binding.edtBlood.text.toString()
 }

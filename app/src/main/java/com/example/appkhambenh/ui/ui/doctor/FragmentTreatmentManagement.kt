@@ -24,6 +24,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
+import androidx.core.view.get
 import androidx.core.view.isVisible
 import androidx.core.view.postDelayed
 import androidx.lifecycle.lifecycleScope
@@ -34,6 +35,7 @@ import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.data.remote.entity.PatientModel
 import com.example.appkhambenh.ui.data.remote.entity.ServiceOrderModel
 import com.example.appkhambenh.ui.data.remote.request.AddServiceRequest
+import com.example.appkhambenh.ui.data.remote.request.BloodTestRequest
 import com.example.appkhambenh.ui.data.remote.request.UpdateInfoClinicalExaminationRequest
 import com.example.appkhambenh.ui.ui.common.dialog.DialogAddService
 import com.example.appkhambenh.ui.ui.common.dialog.DialogConfirm
@@ -174,12 +176,12 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
         fillView()
         ActivityCompat.requestPermissions(requireActivity(), permissions, REQUEST_RECORD_AUDIO_PERMISSION)
 
-        showLoading()
-        binding.root.postDelayed(1000L) {
-            dismissLoading()
-            initView()
-            onClickView()
-        }
+//        showLoading()
+//        binding.root.postDelayed(1000L) {
+//            dismissLoading()
+//        }
+        initView()
+        onClickView()
     }
 
     private fun startRecording() {
@@ -348,7 +350,7 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
         medicalHistoryId = arguments?.getInt(FragmentAdminDoctor.MEDICAL_HISTORY_ID)!!
         medicalHistoryId.let {
             lifecycleScope.launch {
-                delay(500L)
+//                delay(500L)
                 withContext(Dispatchers.Main) {
                     viewModel.getServiceOrder(medicalHistoryId)
                     viewModel.services.collect { serviceModels ->
@@ -356,6 +358,7 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
                         serviceModels?.let {
                             initListOfService(serviceModels)
                             initClinical()
+                            initBloodTest()
                         }
                     }
                 }
@@ -373,6 +376,12 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
         drawLineChart(binding.chart.lineChartTemplate, R.color.green_chart_template)
         drawLineChart(binding.chart.lineChartBloodPressure, R.color.red_chart_blood_pressure)
         drawLineChart(binding.chart.lineChartBloodSugarAndHeart, R.color.blue_chart_heart_and_blood_sugar)
+    }
+
+    private fun initBloodTest() {
+        binding.bloodTest.apply {
+
+        }
     }
 
     private fun initClinical() {
@@ -695,6 +704,58 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
                 }
             }
         }
+
+        binding.bloodTest.apply {
+            update.setOnClickListener {
+                if(isTextBloodTextEmpty()) {
+                    show("Bạn cần nhập đầy đủ thông tin")
+                } else {
+                    var bloodTest: ServiceOrderModel? = null
+                    services?.forEach {
+                        if(it.serviceId == 4) bloodTest = it
+                    }
+                    lifecycleScope.launch {
+                        withContext(Dispatchers.Main) {
+                            val updateBloodTestRequest = BloodTestRequest(
+                                bloodGroup = "",
+                                glu.getText(),
+                                hb.getText(),
+                                hct.getText(),
+                                lym.getText(),
+                                mch.getText(),
+                                mcv.getText(),
+                                mono.getText(),
+                                neut.getText(),
+                                plt.getText(),
+                                rbc.getText(),
+                                ure.getText(),
+                                wbc.getText()
+                            )
+                            viewModel.updateBloodTest(
+                                bloodTest?.id ?: 0,
+                                updateBloodTestRequest,
+                                medicalHistoryId
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun isTextBloodTextEmpty(): Boolean {
+        return binding.bloodTest.glu.getText().isEmpty() &&
+                binding.bloodTest.hb.getText().isEmpty() &&
+                binding.bloodTest.hct.getText().isEmpty() &&
+                binding.bloodTest.lym.getText().isEmpty() &&
+                binding.bloodTest.mch.getText().isEmpty() &&
+                binding.bloodTest.mcv.getText().isEmpty() &&
+                binding.bloodTest.mono.getText().isEmpty() &&
+                binding.bloodTest.neut.getText().isEmpty() &&
+                binding.bloodTest.plt.getText().isEmpty() &&
+                binding.bloodTest.rbc.getText().isEmpty() &&
+                binding.bloodTest.ure.getText().isEmpty() &&
+                binding.bloodTest.wbc.getText().isEmpty()
     }
 
     private fun existService(idService: Int): Boolean {

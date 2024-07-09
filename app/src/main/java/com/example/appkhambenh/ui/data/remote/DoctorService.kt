@@ -17,6 +17,7 @@ import com.example.appkhambenh.ui.data.remote.entity.ValueVitalChartResponse
 import com.example.appkhambenh.ui.data.remote.model.PatientInfoModel
 import com.example.appkhambenh.ui.data.remote.request.AddMedicalHistoryRequest
 import com.example.appkhambenh.ui.data.remote.request.AddServiceRequest
+import com.example.appkhambenh.ui.data.remote.request.BloodTestRequest
 import com.example.appkhambenh.ui.data.remote.request.ConfirmAppointRequest
 import com.example.appkhambenh.ui.data.remote.request.PayServiceRequest
 import com.example.appkhambenh.ui.data.remote.request.UpdateChartRequest
@@ -105,5 +106,11 @@ interface DoctorService {
     suspend fun updateClinicalExamination(
         @Path("serviceMedicalHistoryId") serviceMedicalHistoryId: Int,
         @Body updateInfoClinicalExaminationRequest: UpdateInfoClinicalExaminationRequest
+    ): Response<UpdateInfoClinicalExaminationResponse>
+
+    @PUT("service-order/{serviceMedicalHistoryId}")
+    suspend fun updateBloodTest(
+        @Path("serviceMedicalHistoryId") serviceMedicalHistoryId: Int,
+        @Body updateBloodTestRequest: BloodTestRequest
     ): Response<UpdateInfoClinicalExaminationResponse>
 }
