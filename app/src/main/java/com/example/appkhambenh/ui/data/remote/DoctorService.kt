@@ -7,8 +7,11 @@ import com.example.appkhambenh.ui.data.remote.entity.MedicalHistoryResponse
 import com.example.appkhambenh.ui.data.remote.entity.PatientResponse
 import com.example.appkhambenh.ui.data.remote.entity.AddServiceResponse
 import com.example.appkhambenh.ui.data.remote.entity.ConfirmAppointResponse
+import com.example.appkhambenh.ui.data.remote.entity.DiagnoseResponse
+import com.example.appkhambenh.ui.data.remote.entity.HospitalDischargeResponse
 import com.example.appkhambenh.ui.data.remote.entity.PayServiceResponse
 import com.example.appkhambenh.ui.data.remote.entity.ServiceOrderResponse
+import com.example.appkhambenh.ui.data.remote.entity.UpdateAllocationResponse
 import com.example.appkhambenh.ui.data.remote.entity.UpdateChartResponse
 import com.example.appkhambenh.ui.data.remote.entity.UpdateDiagnoseMedicalHistoryResponse
 import com.example.appkhambenh.ui.data.remote.entity.UpdateInfoClinicalExaminationResponse
@@ -19,7 +22,9 @@ import com.example.appkhambenh.ui.data.remote.request.AddMedicalHistoryRequest
 import com.example.appkhambenh.ui.data.remote.request.AddServiceRequest
 import com.example.appkhambenh.ui.data.remote.request.BloodTestRequest
 import com.example.appkhambenh.ui.data.remote.request.ConfirmAppointRequest
+import com.example.appkhambenh.ui.data.remote.request.DiagnoseRequest
 import com.example.appkhambenh.ui.data.remote.request.PayServiceRequest
+import com.example.appkhambenh.ui.data.remote.request.UpdateAllocationRequest
 import com.example.appkhambenh.ui.data.remote.request.UpdateChartRequest
 import com.example.appkhambenh.ui.data.remote.request.UpdateDiagnoseMedicalHistoryRequest
 import com.example.appkhambenh.ui.data.remote.request.UpdateInfoClinicalExaminationRequest
@@ -80,6 +85,17 @@ interface DoctorService {
         @Body updateDiagnoseMedicalHistoryRequest: UpdateDiagnoseMedicalHistoryRequest
     ): Response<UpdateDiagnoseMedicalHistoryResponse>
 
+    @PUT("medical-history/{patientId}/treatment")
+    suspend fun updateAllocation(
+        @Path("patientId") patientId: Int,
+        @Body updateAllocationRequest: UpdateAllocationRequest
+    ): Response<UpdateAllocationResponse>
+
+    @PUT("medical-history/{medicalHistoryId}/hospital-discharge")
+    suspend fun hospitalDischarge(
+        @Path("medicalHistoryId") medicalHistoryId: Int
+    ): Response<HospitalDischargeResponse>
+
     @GET("service-order/{id}")
     suspend fun getServiceOrder(
         @Path("id") id: Int
@@ -113,4 +129,10 @@ interface DoctorService {
         @Path("serviceMedicalHistoryId") serviceMedicalHistoryId: Int,
         @Body updateBloodTestRequest: BloodTestRequest
     ): Response<UpdateInfoClinicalExaminationResponse>
+
+    @PUT("service-order/{serviceMedicalHistoryId}")
+    suspend fun updateDiagnose(
+        @Path("serviceMedicalHistoryId") serviceMedicalHistoryId: Int,
+        @Body diagnoseRequest: DiagnoseRequest
+    ): Response<DiagnoseResponse>
 }

@@ -4,6 +4,7 @@ import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.entity.MedicalHistoryResponse
 import com.example.appkhambenh.ui.data.remote.repository.doctor.MedicalHistoryRepository
 import com.example.appkhambenh.ui.data.remote.request.AddMedicalHistoryRequest
+import com.example.appkhambenh.ui.data.remote.request.UpdateAllocationRequest
 import com.example.appkhambenh.ui.data.remote.request.UpdateDiagnoseMedicalHistoryRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -59,6 +60,45 @@ class FragmentMedicalExaminationHistoryViewModel @Inject constructor(private val
                 if (response.body()?.medicalHistoryId != 0) {
                     medicalHistoryPatient(patientId)
                     errorApiLiveData.postValue("Bạn đã cập nhật chẩn đoán thành công")
+                }
+            } else {
+                errorApiLiveData.postValue(response.message())
+            }
+        }
+    }
+
+    suspend fun updateAllocation(
+        patientId: Int,
+        updateAllocationRequest: UpdateAllocationRequest
+    ) {
+        loading.postValue(true)
+        medicalHistoryRepository.updateAllocation(
+            patientId,
+            updateAllocationRequest
+        ).let { response ->
+            loading.postValue(false)
+            if (response.isSuccessful) {
+                if (response.body()?.medicalHistoryId != 0) {
+                    medicalHistoryPatient(patientId)
+                    errorApiLiveData.postValue("Bạn đã cập nhật phân bổ thành công")
+                }
+            } else {
+                errorApiLiveData.postValue(response.message())
+            }
+        }
+    }
+
+    suspend fun hospitalDischarge(
+        patientId: Int,
+        medicalHistoryId: Int
+    ) {
+        loading.postValue(true)
+        medicalHistoryRepository.hospitalDischarge(medicalHistoryId).let { response ->
+            loading.postValue(false)
+            if (response.isSuccessful) {
+                if (response.body()?.medicalHistoryId != 0) {
+                    medicalHistoryPatient(patientId)
+                    errorApiLiveData.postValue("Bạn đã cập nhật phân bổ thành công")
                 }
             } else {
                 errorApiLiveData.postValue(response.message())

@@ -9,6 +9,7 @@ import com.example.appkhambenh.ui.data.remote.repository.doctor.PatientRepositor
 import com.example.appkhambenh.ui.data.remote.repository.doctor.ServiceOrderRepository
 import com.example.appkhambenh.ui.data.remote.request.AddServiceRequest
 import com.example.appkhambenh.ui.data.remote.request.BloodTestRequest
+import com.example.appkhambenh.ui.data.remote.request.DiagnoseRequest
 import com.example.appkhambenh.ui.data.remote.request.UpdateChartRequest
 import com.example.appkhambenh.ui.data.remote.request.UpdateInfoClinicalExaminationRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -118,6 +119,24 @@ class FragmentTreatmentManagementViewModel @Inject constructor(
     ) = viewModelScope.launch {
         loading.postValue(true)
         serviceOrderRepository.updateBloodTest(serviceMedicalHistoryId, updateBloodTestRequest).let { response ->
+            if(response.isSuccessful) {
+                if(response.body()?.serviceMedicalHistoryId == serviceMedicalHistoryId) {
+                    getServiceOrder(medicalHistoryId)
+                    errorApiLiveData.postValue("Bạn đã cập nhật dịch vụ thành công")
+                }
+            } else {
+                errorApiLiveData.postValue(response.message())
+            }
+        }
+    }
+
+    fun updateDiagnose(
+        serviceMedicalHistoryId: Int,
+        diagnoseRequest: DiagnoseRequest,
+        medicalHistoryId: Int
+    ) = viewModelScope.launch {
+        loading.postValue(true)
+        serviceOrderRepository.updateDiagnose(serviceMedicalHistoryId, diagnoseRequest).let { response ->
             if(response.isSuccessful) {
                 if(response.body()?.serviceMedicalHistoryId == serviceMedicalHistoryId) {
                     getServiceOrder(medicalHistoryId)

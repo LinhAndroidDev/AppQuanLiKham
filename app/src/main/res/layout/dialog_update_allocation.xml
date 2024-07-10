@@ -26,15 +26,18 @@
         </RelativeLayout>
 
         <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+            android:id="@+id/facultyTreatment"
             android:layout_marginTop="@dimen/dimen_20"
             android:layout_marginHorizontal="@dimen/dimen_15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title_info="Khoa điều trị"
             app:hint_info=""
-            app:important="true"/>
+            app:important="true"
+            app:has_pull_down="true"/>
 
         <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+            android:id="@+id/room"
             android:layout_marginTop="@dimen/dimen_20"
             android:layout_marginHorizontal="@dimen/dimen_15"
             android:layout_width="match_parent"
@@ -44,6 +47,7 @@
             app:important="true"/>
 
         <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+            android:id="@+id/bed"
             android:layout_marginTop="@dimen/dimen_20"
             android:layout_marginHorizontal="@dimen/dimen_15"
             android:layout_width="match_parent"
@@ -53,6 +57,7 @@
             app:important="true"/>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/update"
             android:layout_marginVertical="@dimen/dimen_15"
             android:layout_marginEnd="@dimen/dimen_15"
             android:layout_gravity="end"

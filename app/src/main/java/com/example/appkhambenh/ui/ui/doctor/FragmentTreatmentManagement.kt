@@ -35,6 +35,7 @@ import com.example.appkhambenh.ui.data.remote.entity.PatientModel
 import com.example.appkhambenh.ui.data.remote.entity.ServiceOrderModel
 import com.example.appkhambenh.ui.data.remote.request.AddServiceRequest
 import com.example.appkhambenh.ui.data.remote.request.BloodTestRequest
+import com.example.appkhambenh.ui.data.remote.request.DiagnoseRequest
 import com.example.appkhambenh.ui.data.remote.request.UpdateInfoClinicalExaminationRequest
 import com.example.appkhambenh.ui.ui.common.dialog.DialogAddService
 import com.example.appkhambenh.ui.ui.common.dialog.DialogConfirm
@@ -105,6 +106,7 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
     private var medicalHistoryId = 0
     private var listOfServiceAdapter: ListOfServiceAdapter? = null
     private var services: ArrayList<ServiceOrderModel>? = null
+    private val bloodGroups by lazy { arrayListOf("A", "B", "AB", "O") }
     private val permissions by lazy {
         arrayOf(
             android.Manifest.permission.RECORD_AUDIO,
@@ -171,6 +173,8 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        Log.e("FragmentTreatmentManagement", "FragmentTreatmentManagement")
 
         fillView()
         ActivityCompat.requestPermissions(requireActivity(), permissions, REQUEST_RECORD_AUDIO_PERMISSION)
@@ -367,6 +371,7 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
                             initListOfService(serviceModels)
                             initClinical()
                             initBloodTest()
+                            initDiagnose()
                         }
                     }
                 }
@@ -386,24 +391,45 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
         drawLineChart(binding.chart.lineChartBloodSugarAndHeart, R.color.blue_chart_heart_and_blood_sugar)
     }
 
+    private fun initDiagnose() {
+        val diagnose = getServiceModelAt(2)
+        //Show pull down sick for sick main and sick cover
+        binding.diagnose.apply {
+            val data: List<String?> = PersonalInformation.sick()
+            sickMain.initTextComplete(requireActivity(), data)
+            sickCover.initTextComplete(requireActivity(), data)
+
+            diagnose?.let {
+                diagnose.principalDiagnosisCode?.let { sickMain.setText(it) }
+                diagnose.secondaryDiagnosisCode?.let { sickCover.setText(it) }
+                diagnose.prognosis?.let { prognosis.setText(it) }
+                diagnose.forecast?.let { forecast.setText(it) }
+                diagnose.treatmentPlan?.let { treatmentPlan.setText(it) }
+            }
+        }
+    }
+
     private fun initBloodTest() {
         val bloodTest = getServiceModelAt(4)
         binding.bloodTest.apply {
-            val bloodGroups = arrayListOf("A", "B", "0", "AB")
             bloodGroup.setUpListSpinner(bloodGroups)
-            glu.setText(bloodTest?.glu.toString())
-            hb.setText(bloodTest?.hb.toString())
-            hct.setText(bloodTest?.htc.toString())
-            lym.setText(bloodTest?.lym.toString())
-            mch.setText(bloodTest?.mch.toString())
-            mcv.setText(bloodTest?.mcv.toString())
-            mono.setText(bloodTest?.mono.toString())
-            neut.setText(bloodTest?.neut.toString())
-            plt.setText(bloodTest?.plt.toString())
-            rbc.setText(bloodTest?.rbc.toString())
-            ure.setText(bloodTest?.ure.toString())
-            wbc.setText(bloodTest?.wbc.toString())
-            bloodGroup.setUpIndexSpinner(bloodGroups.indexOf(bloodTest?.bloodGroup.toString()))
+            if (bloodTest != null) {
+                bloodTest.glu?.let { glu.setText(it) }
+                bloodTest.hb?.let { hb.setText(it) }
+                bloodTest.htc?.let { hct.setText(it) }
+                bloodTest.lym?.let { lym.setText(it) }
+                bloodTest.mch?.let { mch.setText(it) }
+                bloodTest.mcv?.let { mcv.setText(it) }
+                bloodTest.mono?.let { mono.setText(it) }
+                bloodTest.neut?.let { neut.setText(it) }
+                bloodTest.plt?.let { plt.setText(it) }
+                bloodTest.rbc?.let { rbc.setText(it) }
+                bloodTest.ure?.let { ure.setText(it) }
+                bloodTest.wbc?.let { wbc.setText(bloodTest.wbc) }
+                bloodGroup.setUpIndexSpinner(
+                    if (bloodTest.bloodGroup != null) bloodTest.bloodGroup.toString().toInt() else 0
+                )
+            }
         }
     }
 
@@ -618,11 +644,6 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
                 viewListenAgain.isVisible = false
                 handleActionRecord(ActionRecord.PAUSE)
             }
-
-            //Show pull down sick for sick main and sick cover
-            val data: List<String?> = PersonalInformation.sick()
-            sickMain.initTextComplete(requireActivity(), data)
-            sickCover.initTextComplete(requireActivity(), data)
         }
 
         binding.contentInfomation.post {
@@ -741,17 +762,17 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
 
         binding.bloodTest.apply {
             update.setOnClickListener {
-                if(isTextBloodTextEmpty()) {
+                if(!isTextBloodNotTextEmpty()) {
                     show("Bạn cần nhập đầy đủ thông tin")
                 } else {
-                    if(!correctInput()) {
+                    if(!correctInputBloodTest()) {
                         show("Thông tin bạn nhập chưa chính xác")
                     } else {
                         val bloodTest = getServiceModelAt(4)
                         lifecycleScope.launch {
                             withContext(Dispatchers.Main) {
                                 val updateBloodTestRequest = BloodTestRequest(
-                                    bloodGroup = "",
+                                    bloodGroup = bloodGroup.indexSelected.toString(),
                                     glu.getText(),
                                     hb.getText(),
                                     hct.getText(),
@@ -776,12 +797,46 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
                 }
             }
         }
+
+        binding.diagnose.apply {
+           update.setOnClickListener {
+                if(!isTextDiagnoseNotEmpty()) {
+                    show("Bạn chưa nhập đầy đủ thông tin")
+                } else {
+                    val diagnose = getServiceModelAt(2)
+                    val diagnoseRequest = DiagnoseRequest(
+                        principalDiagnosisCode = sickMain.text.toString(),
+                        secondaryDiagnosisCode = sickCover.text.toString(),
+                        prognosis = prognosis.text.toString(),
+                        forecast = forecast.text.toString(),
+                        treatmentPlan = treatmentPlan.text.toString()
+                    )
+                    lifecycleScope.launch {
+                        withContext(Dispatchers.Main) {
+                            viewModel.updateDiagnose(
+                                diagnose?.id ?: 0,
+                                diagnoseRequest,
+                                medicalHistoryId
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun isTextDiagnoseNotEmpty(): Boolean {
+        return binding.diagnose.sickCover.text.isNotEmpty() &&
+                binding.diagnose.sickCover.text.isNotEmpty() &&
+                binding.diagnose.prognosis.text.isNotEmpty() &&
+                binding.diagnose.forecast.text.isNotEmpty() &&
+                binding.diagnose.treatmentPlan.text.isNotEmpty()
     }
 
     /**
      * Check If EditText Inputs Are Qualified
      */
-    private fun correctInput(): Boolean {
+    private fun correctInputBloodTest(): Boolean {
         return binding.bloodTest.glu.passCondition &&
                 binding.bloodTest.hb.passCondition &&
                 binding.bloodTest.hct.passCondition &&
@@ -796,19 +851,19 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
                 binding.bloodTest.wbc.passCondition
     }
 
-    private fun isTextBloodTextEmpty(): Boolean {
-        return binding.bloodTest.glu.getText().isEmpty() &&
-                binding.bloodTest.hb.getText().isEmpty() &&
-                binding.bloodTest.hct.getText().isEmpty() &&
-                binding.bloodTest.lym.getText().isEmpty() &&
-                binding.bloodTest.mch.getText().isEmpty() &&
-                binding.bloodTest.mcv.getText().isEmpty() &&
-                binding.bloodTest.mono.getText().isEmpty() &&
-                binding.bloodTest.neut.getText().isEmpty() &&
-                binding.bloodTest.plt.getText().isEmpty() &&
-                binding.bloodTest.rbc.getText().isEmpty() &&
-                binding.bloodTest.ure.getText().isEmpty() &&
-                binding.bloodTest.wbc.getText().isEmpty()
+    private fun isTextBloodNotTextEmpty(): Boolean {
+        return binding.bloodTest.glu.getText().isNotEmpty() &&
+                binding.bloodTest.hb.getText().isNotEmpty() &&
+                binding.bloodTest.hct.getText().isNotEmpty() &&
+                binding.bloodTest.lym.getText().isNotEmpty() &&
+                binding.bloodTest.mch.getText().isNotEmpty() &&
+                binding.bloodTest.mcv.getText().isNotEmpty() &&
+                binding.bloodTest.mono.getText().isNotEmpty() &&
+                binding.bloodTest.neut.getText().isNotEmpty() &&
+                binding.bloodTest.plt.getText().isNotEmpty() &&
+                binding.bloodTest.rbc.getText().isNotEmpty() &&
+                binding.bloodTest.ure.getText().isNotEmpty() &&
+                binding.bloodTest.wbc.getText().isNotEmpty()
     }
 
     /**

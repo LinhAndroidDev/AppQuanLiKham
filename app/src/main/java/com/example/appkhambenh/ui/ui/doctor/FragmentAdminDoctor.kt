@@ -1,6 +1,7 @@
 package com.example.appkhambenh.ui.ui.doctor
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -86,11 +87,15 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
             }
 
             dialog.onClickManageTreatment = {
+                var isNavigated = false
                 lifecycleScope.launch {
                     withContext(Dispatchers.Main) {
                         viewModel.medicalHistoryPatient(patient.id)
                         viewModel.isRegistered.collect {
-                            if(it != 0) goToFragmentTreatment(patient, it)
+                            if(it != 0 && !isNavigated) {
+                                isNavigated = true
+                                goToFragmentTreatment(patient, it)
+                            }
                         }
                     }
                 }
@@ -112,6 +117,7 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
         val bundle = Bundle()
         bundle.putParcelable(OBJECT_PATIENT, patient)
         bundle.putInt(MEDICAL_HISTORY_ID, id)
+        Log.e("FragmentTreatmentManagement", "FragmentAdminDoctor")
         addFragmentByTag(fragmentTreatmentManagement, R.id.changeIdDoctorVn, "FragmentAdminDoctor")
         fragmentTreatmentManagement.arguments = bundle
     }

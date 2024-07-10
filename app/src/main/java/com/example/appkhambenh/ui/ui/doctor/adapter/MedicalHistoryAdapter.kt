@@ -9,7 +9,7 @@ import com.example.appkhambenh.ui.utils.DateUtils
 class DetailMedicalHistoryAdapter(private val namePatient: String) : BaseAdapter<MedicalHistoryResponse.Data, ItemDetailMedicalHistoryBinding>() {
     var diagnose: (() -> Unit)? = null
     var allocation: (() -> Unit)? = null
-    var outHospital: (() -> Unit)? = null
+    var outHospital: ((Int) -> Unit)? = null
 
     override fun getLayout(): Int = R.layout.item_detail_medical_history
 
@@ -32,7 +32,7 @@ class DetailMedicalHistoryAdapter(private val namePatient: String) : BaseAdapter
             }
             btnDiagnose.setOnClickListener { diagnose?.invoke() }
             btnAllocation.setOnClickListener { allocation?.invoke() }
-            btnOutHospital.setOnClickListener { outHospital?.invoke() }
+            btnOutHospital.setOnClickListener { outHospital?.invoke(medical.id) }
         }
     }
 

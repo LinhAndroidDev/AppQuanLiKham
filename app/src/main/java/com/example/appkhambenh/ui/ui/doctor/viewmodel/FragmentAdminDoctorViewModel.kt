@@ -36,7 +36,7 @@ class FragmentAdminDoctorViewModel @Inject constructor(
         medicalHistoryRepository.getListMedicalHistory(patientId = patientId).let { response ->
             loading.postValue(false)
             if(response.isSuccessful) {
-                if(response.body()?.data?.isNotEmpty() == true) {
+                if(response.body()?.data?.isNotEmpty() == true && patientId == response.body()?.data!![0].patientId) {
                     isRegistered.value = response.body()?.data!![0].id
                 } else {
                     errorApiLiveData.postValue("Bệnh nhân này chưa được đăng kí khám")

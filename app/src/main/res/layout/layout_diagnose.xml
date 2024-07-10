@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:visibility="gone">
+    android:visibility="visible">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -72,10 +72,11 @@
             android:id="@+id/title"
             style="@style/text_sp14"
             android:layout_marginStart="@dimen/dimen_5"
-            android:text="Tên bệnh nhân" />
+            android:text="Chẩn đoán" />
     </LinearLayout>
 
     <EditText
+        android:id="@+id/prognosis"
         style="@style/edit_clinical_examination"
         android:hint="Nhập kết quả" />
 
@@ -252,6 +253,7 @@
     </LinearLayout>
 
     <EditText
+        android:id="@+id/forecast"
         style="@style/edit_clinical_examination"
         android:hint="Nhập kết quả" />
 
@@ -275,6 +277,7 @@
     </LinearLayout>
 
     <EditText
+        android:id="@+id/treatmentPlan"
         style="@style/edit_clinical_examination"
         android:hint="Nhập kết quả" />
 

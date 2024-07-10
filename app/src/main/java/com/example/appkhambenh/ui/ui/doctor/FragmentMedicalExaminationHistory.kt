@@ -119,10 +119,28 @@ class FragmentMedicalExaminationHistory :
         detailMedicalAdapter.allocation = {
             val dialogUpdateAllocation = DialogUpdateAllocation()
             dialogUpdateAllocation.show(parentFragmentManager, "DialogUpdateAllocation")
+            dialogUpdateAllocation.errorMessage = { show(it) }
+            dialogUpdateAllocation.update = {
+                lifecycleScope.launch {
+                    withContext(Dispatchers.Main) {
+                        viewModel.updateAllocation(
+                            patient?.id ?: 0,
+                            dialogUpdateAllocation.allocationRequest!!
+                        )
+                    }
+                }
+            }
         }
         detailMedicalAdapter.outHospital = {
             val dialogConfirmOutHospital = DialogConfirmOutHospital()
             dialogConfirmOutHospital.show(parentFragmentManager, "DialogConfirmOutHospital")
+            dialogConfirmOutHospital.confirm = {
+                lifecycleScope.launch {
+                    withContext(Dispatchers.Main) {
+                        viewModel.hospitalDischarge(patient?.id ?: 0, it)
+                    }
+                }
+            }
         }
         detailMedicalAdapter.items = medicals
         binding.rcvDetailMedical.adapter = detailMedicalAdapter

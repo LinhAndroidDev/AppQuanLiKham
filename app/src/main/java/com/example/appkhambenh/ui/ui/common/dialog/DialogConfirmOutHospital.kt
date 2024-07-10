@@ -12,6 +12,7 @@ import com.example.appkhambenh.databinding.DialogConfirmOutHospitalBinding
 
 class DialogConfirmOutHospital : DialogFragment() {
     private var binding: DialogConfirmOutHospitalBinding? = null
+    var confirm: (() -> Unit)? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,5 +29,8 @@ class DialogConfirmOutHospital : DialogFragment() {
         dialog?.setCancelable(true)
 
         binding?.cancleDialog?.setOnClickListener { dismiss() }
+        binding?.confirm?.setOnClickListener {
+            confirm?.invoke()
+        }
     }
 }
