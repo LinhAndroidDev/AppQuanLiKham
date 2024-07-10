@@ -24,7 +24,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
-import androidx.core.view.get
 import androidx.core.view.isVisible
 import androidx.core.view.postDelayed
 import androidx.lifecycle.lifecycleScope
@@ -72,7 +71,7 @@ import java.util.Date
 import java.util.Locale
 
 /**
- * Create By LinhNH 2024
+ * Create By NGUYEN HUU LINH 2024
  */
 
 enum class ServiceTreatmentManagement {
@@ -176,12 +175,12 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
         fillView()
         ActivityCompat.requestPermissions(requireActivity(), permissions, REQUEST_RECORD_AUDIO_PERMISSION)
 
-//        showLoading()
-//        binding.root.postDelayed(1000L) {
-//            dismissLoading()
-//        }
-        initView()
-        onClickView()
+        showLoading()
+        binding.root.postDelayed(1000L) {
+            dismissLoading()
+            initView()
+            onClickView()
+        }
     }
 
     private fun startRecording() {
@@ -219,6 +218,9 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
         binding.diagnose.tvRecord.isVisible = false
     }
 
+    /**
+     * Get Time Of Recording
+     */
     private fun getRecordingDuration(): Int {
         val mediaPlayer = MediaPlayer()
         mediaPlayer.setDataSource(fileName)
@@ -228,6 +230,9 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
         return duration
     }
 
+    /**
+     * Calculator Time For Recording And Listen Again
+     */
     @SuppressLint("SimpleDateFormat")
     private fun setMinutesListen(isTotal: Boolean = true) {
         binding.diagnose.minutes.text = SimpleDateFormat(DateUtils.MINUTES).format(
@@ -235,6 +240,9 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
         )
     }
 
+    /**
+     * This Function Handle Recording Events
+     */
     private fun handleActionRecord(action: ActionRecord) {
         when(action) {
             ActionRecord.START -> {
@@ -350,7 +358,7 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
         medicalHistoryId = arguments?.getInt(FragmentAdminDoctor.MEDICAL_HISTORY_ID)!!
         medicalHistoryId.let {
             lifecycleScope.launch {
-//                delay(500L)
+                delay(500L)
                 withContext(Dispatchers.Main) {
                     viewModel.getServiceOrder(medicalHistoryId)
                     viewModel.services.collect { serviceModels ->
@@ -379,8 +387,23 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
     }
 
     private fun initBloodTest() {
+        val bloodTest = getServiceModelAt(4)
         binding.bloodTest.apply {
-
+            val bloodGroups = arrayListOf("A", "B", "0", "AB")
+            bloodGroup.setUpListSpinner(bloodGroups)
+            glu.setText(bloodTest?.glu.toString())
+            hb.setText(bloodTest?.hb.toString())
+            hct.setText(bloodTest?.htc.toString())
+            lym.setText(bloodTest?.lym.toString())
+            mch.setText(bloodTest?.mch.toString())
+            mcv.setText(bloodTest?.mcv.toString())
+            mono.setText(bloodTest?.mono.toString())
+            neut.setText(bloodTest?.neut.toString())
+            plt.setText(bloodTest?.plt.toString())
+            rbc.setText(bloodTest?.rbc.toString())
+            ure.setText(bloodTest?.ure.toString())
+            wbc.setText(bloodTest?.wbc.toString())
+            bloodGroup.setUpIndexSpinner(bloodGroups.indexOf(bloodTest?.bloodGroup.toString()))
         }
     }
 
@@ -398,10 +421,7 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
             titleSyndrome.title.text = "Hội chứng"
             titleOtherDiagnosis.title.text = "Chẩn đoán khác"
 
-            var clinical: ServiceOrderModel? = null
-            services?.forEach {
-                if(it.serviceId == 3) clinical = it
-            }
+            val clinical = getServiceModelAt(3)
             edtCirculatoryDiagnosis.setText(clinical?.circulatoryDiagnosis)
             edtRespiratoryDiagnosis.setText(clinical?.respiratoryDiagnosis)
             edtGastrointestinalDiagnosis.setText(clinical?.gastrointestinalDiagnosis)
@@ -439,6 +459,17 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
                 }
             }
         }
+    }
+
+    /**
+     * Get ServiceOrderModel By Id Service
+     */
+    private fun getServiceModelAt(serviceId: Int): ServiceOrderModel? {
+        var serviceModel: ServiceOrderModel? = null
+        services?.forEach {
+            if(it.serviceId == serviceId) serviceModel = it
+        }
+        return serviceModel
     }
 
     private fun drawLineChart(chart: LineChart, color: Int) {
@@ -533,6 +564,9 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
         listOfServiceAdapter?.resetList(serviceModels)
     }
 
+    /**
+     * This Function Handle Even Click View
+     */
     @SuppressLint("DiscouragedPrivateApi")
     private fun onClickView() {
         binding.prescription.setOnClickListener {
@@ -710,37 +744,56 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
                 if(isTextBloodTextEmpty()) {
                     show("Bạn cần nhập đầy đủ thông tin")
                 } else {
-                    var bloodTest: ServiceOrderModel? = null
-                    services?.forEach {
-                        if(it.serviceId == 4) bloodTest = it
-                    }
-                    lifecycleScope.launch {
-                        withContext(Dispatchers.Main) {
-                            val updateBloodTestRequest = BloodTestRequest(
-                                bloodGroup = "",
-                                glu.getText(),
-                                hb.getText(),
-                                hct.getText(),
-                                lym.getText(),
-                                mch.getText(),
-                                mcv.getText(),
-                                mono.getText(),
-                                neut.getText(),
-                                plt.getText(),
-                                rbc.getText(),
-                                ure.getText(),
-                                wbc.getText()
-                            )
-                            viewModel.updateBloodTest(
-                                bloodTest?.id ?: 0,
-                                updateBloodTestRequest,
-                                medicalHistoryId
-                            )
+                    if(!correctInput()) {
+                        show("Thông tin bạn nhập chưa chính xác")
+                    } else {
+                        val bloodTest = getServiceModelAt(4)
+                        lifecycleScope.launch {
+                            withContext(Dispatchers.Main) {
+                                val updateBloodTestRequest = BloodTestRequest(
+                                    bloodGroup = "",
+                                    glu.getText(),
+                                    hb.getText(),
+                                    hct.getText(),
+                                    lym.getText(),
+                                    mch.getText(),
+                                    mcv.getText(),
+                                    mono.getText(),
+                                    neut.getText(),
+                                    plt.getText(),
+                                    rbc.getText(),
+                                    ure.getText(),
+                                    wbc.getText()
+                                )
+                                viewModel.updateBloodTest(
+                                    bloodTest?.id ?: 0,
+                                    updateBloodTestRequest,
+                                    medicalHistoryId
+                                )
+                            }
                         }
                     }
                 }
             }
         }
+    }
+
+    /**
+     * Check If EditText Inputs Are Qualified
+     */
+    private fun correctInput(): Boolean {
+        return binding.bloodTest.glu.passCondition &&
+                binding.bloodTest.hb.passCondition &&
+                binding.bloodTest.hct.passCondition &&
+                binding.bloodTest.lym.passCondition &&
+                binding.bloodTest.mch.passCondition &&
+                binding.bloodTest.mcv.passCondition &&
+                binding.bloodTest.mono.passCondition &&
+                binding.bloodTest.neut.passCondition &&
+                binding.bloodTest.plt.passCondition &&
+                binding.bloodTest.rbc.passCondition &&
+                binding.bloodTest.ure.passCondition &&
+                binding.bloodTest.wbc.passCondition
     }
 
     private fun isTextBloodTextEmpty(): Boolean {
@@ -758,6 +811,9 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
                 binding.bloodTest.wbc.getText().isEmpty()
     }
 
+    /**
+     * Check Whether The Service Is Registered Or Not Based On Its Id
+     */
     private fun existService(idService: Int): Boolean {
         var exist = false
         services?.forEach {
@@ -767,6 +823,10 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
         }
         return exist
     }
+
+    /**
+     * Show Dialog Choose Camera Or Gallery
+     */
     private fun takeImageFromUcop(image: ImageView) {
         val dialog = DialogTakeImage()
         dialog.show(parentFragmentManager, "")
@@ -806,15 +866,17 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
     }
 
     private fun hideAllViewService() {
-        binding.listOfService.layout.isVisible = false
-        binding.chart.layout.isVisible = false
-        binding.clinical.layout.isVisible = false
-        binding.bloodTest.layout.isVisible = false
-        binding.supersonic.layout.isVisible = false
-        binding.xray.layout.isVisible = false
-        binding.mri.layout.isVisible = false
-        binding.ct.layout.isVisible = false
-        binding.diagnose.layout.isVisible = false
+        binding.apply {
+            listOfService.layout.isVisible = false
+            chart.layout.isVisible = false
+            clinical.layout.isVisible = false
+            bloodTest.layout.isVisible = false
+            supersonic.layout.isVisible = false
+            xray.layout.isVisible = false
+            mri.layout.isVisible = false
+            ct.layout.isVisible = false
+            diagnose.layout.isVisible = false
+        }
     }
 
     override fun onStop() {

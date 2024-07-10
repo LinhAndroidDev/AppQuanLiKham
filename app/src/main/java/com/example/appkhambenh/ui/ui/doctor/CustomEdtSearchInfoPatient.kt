@@ -61,20 +61,23 @@ class CustomEdtSearchInfoPatient @JvmOverloads constructor(
                 val value = text.toString().toInt()
                 if(value in start..end) {
                     passCondition = true
-                    binding.textWarning.isVisible = false
-                    binding.textWarning.text = ""
+                    updateUiEdt(R.drawable.bg_edit_search_info_patient, false, "")
                 } else {
                     passCondition = false
-                    binding.textWarning.isVisible = true
-                    binding.textWarning.text = "Vui lòng nhập giá trị trong khoảng từ $start đến $end"
+                    updateUiEdt(R.drawable.bg_warning, true, "Vui lòng nhập giá trị trong khoảng từ $start đến $end")
                 }
             } else {
                 passCondition = false
-                binding.textWarning.isVisible = true
-                binding.textWarning.text = "Vui lòng không bỏ trống trường này"
+                updateUiEdt(R.drawable.bg_warning, true, "Vui lòng không bỏ trống trường này")
             }
         }
         return passCondition
+    }
+
+    private fun updateUiEdt(background: Int, visibleText: Boolean, mess: String) {
+        binding.edtInfo.setBackgroundResource(background)
+        binding.textWarning.isVisible = visibleText
+        binding.textWarning.text = mess
     }
 
     private fun setUpCalendar() {
