@@ -31,6 +31,8 @@ import com.bumptech.glide.Glide
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentTreatmentManagementBinding
 import com.example.appkhambenh.ui.base.BaseFragment
+import com.example.appkhambenh.ui.data.remote.entity.GetMedicalHistoryResponse
+import com.example.appkhambenh.ui.data.remote.entity.MedicalHistoryResponse
 import com.example.appkhambenh.ui.data.remote.entity.PatientModel
 import com.example.appkhambenh.ui.data.remote.entity.ServiceOrderModel
 import com.example.appkhambenh.ui.data.remote.request.AddServiceRequest
@@ -87,6 +89,7 @@ enum class ServiceTreatmentManagement {
     DIAGNOSE
 }
 
+@Suppress("UNREACHABLE_CODE")
 @AndroidEntryPoint
 class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementViewModel, FragmentTreatmentManagementBinding>() {
     private var isExpand = false
@@ -364,7 +367,7 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
             lifecycleScope.launch {
                 delay(500L)
                 withContext(Dispatchers.Main) {
-                    viewModel.getServiceOrder(medicalHistoryId)
+                    viewModel.getMedicalHistory(patient?.id ?: 0, medicalHistoryId)
                     viewModel.services.collect { serviceModels ->
                         services = serviceModels
                         serviceModels?.let {
@@ -372,7 +375,11 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
                             initClinical()
                             initBloodTest()
                             initDiagnose()
+                            checkDisableService()
                         }
+                    }
+                    viewModel.medicalHistorys.collect {
+                        initInfoIntoHospital(it)
                     }
                 }
             }
@@ -385,10 +392,42 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
             binding.tabExamination.addTab(binding.tabExamination.newTab().setText(it))
         }
 
-        initInfoIntoHospital()
         drawLineChart(binding.chart.lineChartTemplate, R.color.green_chart_template)
         drawLineChart(binding.chart.lineChartBloodPressure, R.color.red_chart_blood_pressure)
         drawLineChart(binding.chart.lineChartBloodSugarAndHeart, R.color.blue_chart_heart_and_blood_sugar)
+    }
+
+    private fun checkDisableService() {
+        val serviceIds = arrayListOf<Int>()
+        val serviceStatus = arrayListOf<String>()
+        services?.forEach {
+            serviceIds.add(it.serviceId)
+            serviceStatus.add(it.status)
+        }
+
+        for (i in 3..8) {
+            if (serviceIds.contains(i) && (i - 3) <= serviceStatus.size - 1) {
+                if(serviceStatus[i - 3] == "1") {
+                    enableTab(i - 1)
+                } else {
+                    disableTab(i - 1)
+                }
+            } else disableTab(i - 1)
+        }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun disableTab(index: Int) {
+        val tab = binding.tabExamination.getTabAt(index)
+        tab?.view?.setOnTouchListener { _, _ -> true}
+        tab?.view?.alpha = 0.5f
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun enableTab(index: Int) {
+        val tab = binding.tabExamination.getTabAt(index)
+        tab?.view?.setOnTouchListener { _, _ -> false}
+        tab?.view?.alpha = 1f
     }
 
     private fun initDiagnose() {
@@ -558,20 +597,33 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
         return entries
     }
 
-    private fun initInfoIntoHospital() {
+    private fun initInfoIntoHospital(medicalHistory: GetMedicalHistoryResponse.Data?) {
         binding.contentInfoIntoHospital.apply {
             titleReason.title.text = "Lý do vào viện"
             titleIntroductionPlace.title.text = "Nơi giới thiệu"
             titleTime.title.text = "Nhập viện lúc"
-            titleDepartment.title.text = "Khoa điều trị"
+            titleFacultyTreatment.title.text = "Khoa điều trị"
             titleIntoHospitalNumber.title.text = "Vào viện lần thứ"
             titleRoom.title.text = "Phòng"
             titleBed.title.text = "Giường"
             titleDoctor.title.text = "Bác sĩ điều trị"
-            titleDiagnosisOfDestination.title.text = "Chẩn đoán nơi chuyển đến"
-            titleDiagnosisOfKKBEmergency.title.text = "Chẩn đoán KKB, Cấp cứu"
-            titleDiagnosisCurrent.title.text = "Chẩn đoán hiện tại"
-            titleDiagnosisOut.title.text = "Chẩn đoán ra viện"
+            titleDiagnosePast.title.text = "Chẩn đoán nơi chuyển đến"
+            titleEmergencyDiagnose.title.text = "Chẩn đoán KKB, Cấp cứu"
+            titleDiagnoseNow.title.text = "Chẩn đoán hiện tại"
+            titleDiagnoseMove.title.text = "Chẩn đoán ra viện"
+
+            edtReason.setText(medicalHistory?.reason)
+            edtIntroductionPlace.setText(medicalHistory?.introductionPlace)
+            medicalHistory?.createdAt?.let { edtTime.setText(DateUtils.convertIsoDateTimeToDate(it)) }
+            edtFacultyTreatment.setText(medicalHistory?.facultyTreatment)
+            medicalHistory?.patient?.countMedicalVisit?.let { edtIntoHospitalNumber.setText(it) }
+            edtRoom.setText(medicalHistory?.room)
+            edtBed.setText(medicalHistory?.bed)
+            edtDiagnosePast.setText(medicalHistory?.diagnosePast)
+            edtEmergencyDiagnose.setText(medicalHistory?.emergencyDiagnose)
+            edtDiagnoseNow.setText(medicalHistory?.diagnoseNow)
+            edtDiagnoseMove.setText(medicalHistory?.diagnoseMove)
+
         }
     }
 

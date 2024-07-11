@@ -10,6 +10,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import java.io.IOException
+import java.net.ConnectException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,9 +36,19 @@ class FragmentHomeDoctorViewModel @Inject constructor(
                 )
             }.await()
             loading.postValue(false)
+        } catch (e: ConnectException) {
+            try {
+                loading.postValue(false)
+                errorApiLiveData.postValue("Không thể kết nối đến server")
+            } catch (e: Exception) {
+                errorApiLiveData.postValue(e.message)
+            }
+        } catch (e: IOException) {
+            loading.postValue(false)
+            errorApiLiveData.postValue("Lỗi mạng, vui lòng thử lại")
         } catch (e: Exception) {
             loading.postValue(false)
-            errorApiLiveData.postValue(e.message)
+            errorApiLiveData.postValue("Đã xảy ra lỗi vui lòng thử lại")
         }
     }
 }

@@ -8,6 +8,7 @@ import com.example.appkhambenh.ui.data.remote.entity.PatientResponse
 import com.example.appkhambenh.ui.data.remote.entity.AddServiceResponse
 import com.example.appkhambenh.ui.data.remote.entity.ConfirmAppointResponse
 import com.example.appkhambenh.ui.data.remote.entity.DiagnoseResponse
+import com.example.appkhambenh.ui.data.remote.entity.GetMedicalHistoryResponse
 import com.example.appkhambenh.ui.data.remote.entity.HospitalDischargeResponse
 import com.example.appkhambenh.ui.data.remote.entity.PayServiceResponse
 import com.example.appkhambenh.ui.data.remote.entity.ServiceOrderResponse
@@ -73,6 +74,11 @@ interface DoctorService {
     suspend fun getListMedicalHistory(
         @Query("patientId") patientId: Int?
     ): Response<MedicalHistoryResponse>
+
+    @GET("medical-history/{patientId}")
+    suspend fun getMedicalHistory(
+        @Path("patientId") patientId: Int
+    ): Response<GetMedicalHistoryResponse>
 
     @POST("medical-history")
     suspend fun addMedicalHistory(

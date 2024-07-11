@@ -47,14 +47,14 @@
         android:inputType="textEmailAddress"/>
 
     <include
-        android:id="@+id/titleDepartment"
+        android:id="@+id/titleFacultyTreatment"
         layout="@layout/layout_title_update_infor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
-        android:id="@+id/edtDepartment"
+        android:id="@+id/edtFacultyTreatment"
         style="@style/edt_update_information"
         android:layout_marginTop="@dimen/dimen_10"
         android:inputType="textEmailAddress"/>
@@ -112,53 +112,53 @@
         android:inputType="textEmailAddress"/>
 
     <include
-        android:id="@+id/titleDiagnosisOfDestination"
+        android:id="@+id/titleDiagnosePast"
         layout="@layout/layout_title_update_infor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
-        android:id="@+id/edtDiagnosisOfDestination"
+        android:id="@+id/edtDiagnosePast"
         style="@style/edt_update_information"
         android:layout_marginTop="@dimen/dimen_10"
         android:inputType="textEmailAddress"/>
 
     <include
-        android:id="@+id/titleDiagnosisOfKKBEmergency"
+        android:id="@+id/titleEmergencyDiagnose"
         layout="@layout/layout_title_update_infor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
-        android:id="@+id/edtDiagnosisOfKKBEmergency"
+        android:id="@+id/edtEmergencyDiagnose"
         style="@style/edt_update_information"
         android:layout_marginTop="@dimen/dimen_10"
         android:inputType="textEmailAddress"/>
 
     <include
-        android:id="@+id/titleDiagnosisCurrent"
+        android:id="@+id/titleDiagnoseNow"
         layout="@layout/layout_title_update_infor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
-        android:id="@+id/edtDiagnosisCurrent"
+        android:id="@+id/edtDiagnoseNow"
         style="@style/edt_update_information"
         android:layout_marginTop="@dimen/dimen_10"
         android:inputType="textEmailAddress"/>
 
     <include
-        android:id="@+id/titleDiagnosisOut"
+        android:id="@+id/titleDiagnoseMove"
         layout="@layout/layout_title_update_infor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
-        android:id="@+id/edtDiagnosisOut"
+        android:id="@+id/edtDiagnoseMove"
         style="@style/edt_update_information"
         android:layout_marginTop="@dimen/dimen_10"
         android:inputType="textEmailAddress"/>

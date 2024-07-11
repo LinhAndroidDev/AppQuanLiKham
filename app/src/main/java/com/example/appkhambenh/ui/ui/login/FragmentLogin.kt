@@ -157,16 +157,11 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
         }
 
         binding.login.setOnClickListener {
-//            val email = binding.edtAccount.text.toString()
-//            val password = binding.edtPassword.text.toString()
-//            lifecycleScope.launch(Dispatchers.IO) {
-//                viewModel.loginDoctor(email, password)
-//            }
-
-            val fragmentRegister = FragmentTreatmentManagement()
-            val fm: FragmentTransaction =
-                parentFragmentManager.beginTransaction()
-            fm.replace(R.id.changeIdLogin, fragmentRegister).addToBackStack(null).commit()
+            val email = binding.edtAccount.text.toString()
+            val password = binding.edtPassword.text.toString()
+            lifecycleScope.launch(Dispatchers.IO) {
+                viewModel.loginDoctor(email, password)
+            }
 
 //            if (email.isEmpty() || password.isEmpty()) {
 //                setNotification(R.color.txt_green, R.string.enter_enough_info)

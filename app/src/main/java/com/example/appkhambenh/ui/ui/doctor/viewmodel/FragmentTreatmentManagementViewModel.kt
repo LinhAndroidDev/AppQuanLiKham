@@ -2,6 +2,8 @@ package com.example.appkhambenh.ui.ui.doctor.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.example.appkhambenh.ui.base.BaseViewModel
+import com.example.appkhambenh.ui.data.remote.entity.GetMedicalHistoryResponse
+import com.example.appkhambenh.ui.data.remote.entity.MedicalHistoryResponse
 import com.example.appkhambenh.ui.data.remote.entity.ServiceOrderModel
 import com.example.appkhambenh.ui.data.remote.entity.VitalChartModel
 import com.example.appkhambenh.ui.data.remote.repository.doctor.MedicalHistoryRepository
@@ -25,6 +27,8 @@ class FragmentTreatmentManagementViewModel @Inject constructor(
 ) : BaseViewModel() {
     val services: MutableStateFlow<ArrayList<ServiceOrderModel>?> = MutableStateFlow(null)
     val valueVitalChart: MutableStateFlow<ArrayList<VitalChartModel>?> = MutableStateFlow(null)
+    val medicalHistorys: MutableStateFlow<GetMedicalHistoryResponse.Data?> =
+        MutableStateFlow(null)
 
     fun getServiceOrder(medicalHistoryId: Int) = viewModelScope.launch {
         loading.postValue(true)
@@ -32,6 +36,19 @@ class FragmentTreatmentManagementViewModel @Inject constructor(
             loading.postValue(false)
             if(response.isSuccessful) {
                 services.value = response.body()?.data
+            } else {
+                errorApiLiveData.postValue(response.message())
+            }
+        }
+    }
+
+    fun getMedicalHistory(patientId: Int, medicalHistoryId: Int) = viewModelScope.launch {
+        loading.postValue(true)
+        medicalHistoryRepository.getMedicalHistory(patientId).let { response ->
+            loading.postValue(false)
+            if(response.isSuccessful) {
+                medicalHistorys.value = response.body()?.data
+                getServiceOrder(medicalHistoryId)
             } else {
                 errorApiLiveData.postValue(response.message())
             }

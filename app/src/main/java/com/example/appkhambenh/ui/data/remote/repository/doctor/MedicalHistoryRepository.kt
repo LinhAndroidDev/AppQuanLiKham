@@ -14,6 +14,8 @@ class MedicalHistoryRepository @Inject constructor(private val doctorService: Do
     suspend fun getListMedicalHistory(patientId: Int? = null) =
         doctorService.getListMedicalHistory(patientId)
 
+    suspend fun getMedicalHistory(patientId: Int) = doctorService.getMedicalHistory(patientId)
+
     suspend fun addMedicalHistory(addMedicalHistoryRequest: AddMedicalHistoryRequest) =
         doctorService.addMedicalHistory(addMedicalHistoryRequest)
 
