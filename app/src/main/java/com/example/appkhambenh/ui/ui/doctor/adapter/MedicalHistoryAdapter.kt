@@ -7,8 +7,8 @@ import com.example.appkhambenh.ui.data.remote.entity.MedicalHistoryResponse
 import com.example.appkhambenh.ui.utils.DateUtils
 
 class DetailMedicalHistoryAdapter(private val namePatient: String) : BaseAdapter<MedicalHistoryResponse.Data, ItemDetailMedicalHistoryBinding>() {
-    var diagnose: (() -> Unit)? = null
-    var allocation: (() -> Unit)? = null
+    var diagnose: ((Int) -> Unit)? = null
+    var allocation: ((Int) -> Unit)? = null
     var outHospital: ((Int) -> Unit)? = null
 
     override fun getLayout(): Int = R.layout.item_detail_medical_history
@@ -30,8 +30,8 @@ class DetailMedicalHistoryAdapter(private val namePatient: String) : BaseAdapter
             } else {
                 timeOutHospital.text = "Đang điều trị"
             }
-            btnDiagnose.setOnClickListener { diagnose?.invoke() }
-            btnAllocation.setOnClickListener { allocation?.invoke() }
+            btnDiagnose.setOnClickListener { diagnose?.invoke(medical.id) }
+            btnAllocation.setOnClickListener { allocation?.invoke(medical.id) }
             btnOutHospital.setOnClickListener { outHospital?.invoke(medical.id) }
         }
     }

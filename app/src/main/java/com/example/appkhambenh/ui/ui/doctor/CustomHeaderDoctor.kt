@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat.startActivity
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.HeaderDoctorBinding
 import com.example.appkhambenh.ui.ui.MainActivity
+import com.example.appkhambenh.ui.utils.SharePreferenceRepositoryImpl
 import com.example.appkhambenh.ui.utils.getActivity
 
 class CustomHeaderDoctor @JvmOverloads constructor(
@@ -61,6 +62,7 @@ class CustomHeaderDoctor @JvmOverloads constructor(
             val intent = Intent(activity, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             activity?.startActivity(intent)
+            SharePreferenceRepositoryImpl(context).saveCheckLogin(false)
         }
     }
 }

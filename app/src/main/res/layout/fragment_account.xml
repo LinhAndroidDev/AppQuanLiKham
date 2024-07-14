@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
-    tools:context=".ui.ui.doctor.FragmentAdminDoctor">
+    tools:context=".ui.ui.doctor.FragmentAccount">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,14 +15,14 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title_view_doctor="Quản lí bệnh án"/>
+            app:title_view_doctor="Quản lí tài khoản"/>
 
         <TextView
             android:layout_marginTop="@dimen/dimen_20"
             android:layout_marginHorizontal="@dimen/dimen_10"
             style="@style/text_sp16_black_bold"
             android:background="@color/blue_dark_light"
-            android:text="Tìm kiếm bệnh nhân"
+            android:text="Tìm kiếm tài khoản"
             android:textSize="@dimen/dimen_sp20"
             android:textColor="@color/white"
             android:layout_width="match_parent"
@@ -37,21 +36,21 @@
             android:layout_height="wrap_content">
 
             <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
-                android:id="@+id/namePatient"
+                android:id="@+id/nameAccount"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:title_info="Tên bệnh nhân"
-                app:hint_info="Tìm theo tên bệnh nhân"/>
+                app:title_info="Tên tài khoản"
+                app:hint_info="Tìm theo tên"/>
 
             <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
-                android:id="@+id/emailPatient"
+                android:id="@+id/emailAccount"
                 android:layout_marginStart="@dimen/dimen_10"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:title_info="Email"
-                app:hint_info="Tìm theo email bệnh nhân"/>
+                app:hint_info="Tìm theo email"/>
         </LinearLayout>
 
         <LinearLayout
@@ -60,37 +59,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
-                android:id="@+id/phonePatient"
+            <LinearLayout
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:title_info="Số điện thoại"
-                app:hint_info="Tìm theo số điện thoại"/>
+                android:orientation="vertical">
 
-            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
-                android:id="@+id/cccdPatient"
-                android:layout_marginStart="@dimen/dimen_10"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:title_info="Căn cước công dân"
-                app:hint_info="Tìm theo CCCD"/>
-        </LinearLayout>
+                <TextView
+                    android:text="Chọn dịch vụ"
+                    style="@style/text_sp14"/>
 
-        <LinearLayout
-            android:paddingHorizontal="@dimen/dimen_10"
-            android:layout_marginTop="@dimen/dimen_20"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
-                android:id="@+id/healthInsurancePatient"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:title_info="Mã bảo hiểm y tế"
-                app:hint_info="Tìm theo mã BHYT"/>
+                <AutoCompleteTextView
+                    android:id="@+id/role"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Tìm theo vai trò"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:background="@drawable/bg_edit_search_info_patient"
+                    android:completionThreshold="0"
+                    android:paddingVertical="@dimen/dimen_12"
+                    android:paddingStart="@dimen/dimen_15"
+                    android:textSize="@dimen/dimen_sp14" />
+            </LinearLayout>
 
             <View
                 android:layout_weight="1"
@@ -105,7 +95,7 @@
             android:gravity="center_horizontal">
 
             <LinearLayout
-                android:id="@+id/searchPatient"
+                android:id="@+id/searchAccount"
                 android:background="@color/blue_dark_light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -162,17 +152,19 @@
 
             <TextView
                 style="@style/text_sp16_black_bold"
-                android:text="Danh sách bệnh nhân"
+                android:text="Danh sách tài khoản"
                 android:textSize="@dimen/dimen_sp20"
                 android:textColor="@color/white"
                 android:layout_width="match_parent" />
 
             <ImageView
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_action_setting"
+                android:id="@+id/addAccount"
+                android:layout_marginStart="@dimen/dimen_15"
                 android:layout_width="@dimen/dimen_30"
                 android:layout_height="@dimen/dimen_30"
-                app:tint="@color/white"/>
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_add_service"
+                app:tint="@color/white" />
         </RelativeLayout>
 
         <HorizontalScrollView
@@ -195,33 +187,12 @@
                         app:title="ID"
                         app:showViewLoad="true"
                         app:showViewEnd="true"
-                        app:sizeView="medium"/>
-                    <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:title="Tên bệnh nhân"
-                        app:showViewLoad="true"
-                        app:showViewEnd="true"
-                        app:sizeView="big_large"/>
+                        app:sizeView="small"/>
 
                     <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:title="Quê quán"
-                        app:showViewEnd="true"
-                        app:sizeView="big_large"/>
-
-                    <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:title="Số BHXH"
-                        app:showViewEnd="true"
-                        app:sizeView="big_large"/>
-
-                    <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:title="Căn cước công dân"
+                        app:title="Tên tài khoản"
                         app:showViewLoad="true"
                         app:showViewEnd="true"
                         app:sizeView="big_large"/>
@@ -236,25 +207,26 @@
                     <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:title="Số điện thoại"
-                        app:showViewEnd="true"/>
-
-                    <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:title="Giới tính"
+                        app:title="Ngày tạo"
                         app:showViewEnd="true"
-                        app:sizeView="medium"/>
+                        app:sizeView="big_large"/>
 
                     <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:title="Hành động"
-                        app:sizeView="large"/>
+                        app:title="Thời gian cập nhật"
+                        app:showViewEnd="true"
+                        app:sizeView="big_large"/>
+
+                    <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:title="Role"
+                        app:sizeView="big_large"/>
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rcvMainInfo"
+                    android:id="@+id/rcvAccount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"

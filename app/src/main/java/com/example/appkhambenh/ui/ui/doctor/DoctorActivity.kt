@@ -2,10 +2,12 @@ package com.example.appkhambenh.ui.ui.doctor
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.core.view.postDelayed
 import androidx.fragment.app.Fragment
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivityDoctorBinding
+import com.example.appkhambenh.ui.utils.SharePreferenceRepositoryImpl
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,6 +19,42 @@ class DoctorActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         replaceFragment(FragmentHomeDoctor(), "FragmentHomeDoctor")
+
+        SharePreferenceRepositoryImpl(this).getRollUser().let { role ->
+            when(role) {
+                2 -> {
+                    binding.navAccount.isVisible = false
+                }
+
+                3 -> {
+                    binding.navAccount.isVisible = false
+                }
+
+                4 -> {
+                    binding.navAdmin.isVisible = false
+                    binding.navAccount.isVisible = false
+                }
+
+                5 -> {
+                    binding.navAppoint.isVisible = false
+                    binding.navAccount.isVisible = false
+                }
+
+                6 -> {
+                    binding.navAppoint.isVisible = false
+                    binding.navAccount.isVisible = false
+                }
+
+                7 -> {
+                    binding.navAdmin.isVisible = false
+                    binding.navAccount.isVisible = false
+                }
+
+                else -> {
+
+                }
+            }
+        }
         onCLickView()
     }
 
@@ -50,12 +88,12 @@ class DoctorActivity : AppCompatActivity() {
             checkItemNavigation(binding.navAppoint)
         }
 
-        binding.navMedicine.setOnClickListener {
+        binding.navAccount.setOnClickListener {
             val fragmentCurrent = supportFragmentManager.findFragmentById(R.id.changeIdDoctorVn)
-            if (fragmentCurrent !is FragmentMedicineManagement) {
-                replaceFragment(FragmentMedicineManagement(), "FragmentMedicineManagement")
+            if (fragmentCurrent !is FragmentAccount) {
+                replaceFragment(FragmentAccount(), "FragmentAccount")
             }
-            checkItemNavigation(binding.navMedicine)
+            checkItemNavigation(binding.navAccount)
         }
     }
 
@@ -71,7 +109,7 @@ class DoctorActivity : AppCompatActivity() {
         binding.navHome.unCheckItem()
         binding.navAdmin.unCheckItem()
         binding.navAppoint.unCheckItem()
-        binding.navMedicine.unCheckItem()
+        binding.navAccount.unCheckItem()
     }
 
     private fun replaceFragment(fm: Fragment, tag: String) {
@@ -90,7 +128,7 @@ class DoctorActivity : AppCompatActivity() {
             is FragmentHomeDoctor -> {
                 finish()
             }
-            is FragmentAdminDoctor, is FragmentAppointDoctor, is FragmentMedicineManagement -> {
+            is FragmentAdminDoctor, is FragmentAppointDoctor, is FragmentAccount -> {
                 replaceFragment(FragmentHomeDoctor(), "FragmentHomeDoctor")
                 checkItemNavigation(binding.navHome)
             }

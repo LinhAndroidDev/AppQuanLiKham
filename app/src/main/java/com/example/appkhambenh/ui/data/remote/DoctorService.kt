@@ -1,5 +1,7 @@
 package com.example.appkhambenh.ui.data.remote
 
+import com.example.appkhambenh.ui.data.remote.entity.AccountResponse
+import com.example.appkhambenh.ui.data.remote.entity.AddAccountResponse
 import com.example.appkhambenh.ui.data.remote.entity.AddMedicalHistoryResponse
 import com.example.appkhambenh.ui.data.remote.entity.AppointmentResponse
 import com.example.appkhambenh.ui.data.remote.entity.DoctorLoginResponse
@@ -7,6 +9,7 @@ import com.example.appkhambenh.ui.data.remote.entity.MedicalHistoryResponse
 import com.example.appkhambenh.ui.data.remote.entity.PatientResponse
 import com.example.appkhambenh.ui.data.remote.entity.AddServiceResponse
 import com.example.appkhambenh.ui.data.remote.entity.ConfirmAppointResponse
+import com.example.appkhambenh.ui.data.remote.entity.DeletePatientResponse
 import com.example.appkhambenh.ui.data.remote.entity.DiagnoseResponse
 import com.example.appkhambenh.ui.data.remote.entity.GetMedicalHistoryResponse
 import com.example.appkhambenh.ui.data.remote.entity.HospitalDischargeResponse
@@ -19,6 +22,7 @@ import com.example.appkhambenh.ui.data.remote.entity.UpdateInfoClinicalExaminati
 import com.example.appkhambenh.ui.data.remote.entity.UpdateInfoPatientResponse
 import com.example.appkhambenh.ui.data.remote.entity.ValueVitalChartResponse
 import com.example.appkhambenh.ui.data.remote.model.PatientInfoModel
+import com.example.appkhambenh.ui.data.remote.request.AddAccountRequest
 import com.example.appkhambenh.ui.data.remote.request.AddMedicalHistoryRequest
 import com.example.appkhambenh.ui.data.remote.request.AddServiceRequest
 import com.example.appkhambenh.ui.data.remote.request.BloodTestRequest
@@ -31,6 +35,7 @@ import com.example.appkhambenh.ui.data.remote.request.UpdateDiagnoseMedicalHisto
 import com.example.appkhambenh.ui.data.remote.request.UpdateInfoClinicalExaminationRequest
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -48,13 +53,24 @@ interface DoctorService {
     ): Response<DoctorLoginResponse>
 
     @GET("patients")
-    suspend fun getListPatient(): Response<PatientResponse>
+    suspend fun getListPatient(
+        @Query("fullname") fullname: String?,
+        @Query("email") email: String?,
+        @Query("citizenId") citizenId: String?,
+        @Query("healthInsurance") healthInsurance: String?,
+        @Query("phoneNumber") phoneNumber: String?
+    ): Response<PatientResponse>
 
     @PUT("patients/{id}")
     suspend fun updateInfoPatient(
         @Path("id") id: Int,
         @Body infoPatient: PatientInfoModel
     ) : Response<UpdateInfoPatientResponse>
+
+    @DELETE("patients/{patientId}")
+    suspend fun deletePatient(
+        @Path("patientId") patientId: Int
+    ): Response<DeletePatientResponse>
 
     @GET("patients/{patientId}/vital-chart")
     suspend fun getValueVitalChart(
@@ -85,15 +101,15 @@ interface DoctorService {
         @Body addMedicalHistoryRequest: AddMedicalHistoryRequest
     ): Response<AddMedicalHistoryResponse>
 
-    @PUT("medical-history/{id}/diagnose")
+    @PUT("medical-history/{medicalHistoryId}/diagnose")
     suspend fun updateDiagnoseMedicalHistory(
-        @Path("id") patientId: Int,
+        @Path("medicalHistoryId") medicalHistoryId: Int,
         @Body updateDiagnoseMedicalHistoryRequest: UpdateDiagnoseMedicalHistoryRequest
     ): Response<UpdateDiagnoseMedicalHistoryResponse>
 
-    @PUT("medical-history/{patientId}/treatment")
+    @PUT("medical-history/{medicalHistoryId}/treatment")
     suspend fun updateAllocation(
-        @Path("patientId") patientId: Int,
+        @Path("medicalHistoryId") medicalHistoryId: Int,
         @Body updateAllocationRequest: UpdateAllocationRequest
     ): Response<UpdateAllocationResponse>
 
@@ -141,4 +157,16 @@ interface DoctorService {
         @Path("serviceMedicalHistoryId") serviceMedicalHistoryId: Int,
         @Body diagnoseRequest: DiagnoseRequest
     ): Response<DiagnoseResponse>
+
+    @GET("auth/users")
+    suspend fun getAccount(
+        @Query("fullname") fullname: String?,
+        @Query("email") email: String?,
+        @Query("roleId") roleId: Int?
+    ): Response<AccountResponse>
+
+    @POST("auth/register")
+    suspend fun addAccount(
+        @Body addAccountRequest: AddAccountRequest
+    ): Response<AddAccountResponse>
 }

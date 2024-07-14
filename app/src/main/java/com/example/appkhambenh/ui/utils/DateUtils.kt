@@ -17,6 +17,7 @@ object DateUtils {
     const val TIME_UPLOAD_AVATAR = "dd_MM_yyyy_HH_mm_ss"
     const val MINUTES = "mm:ss"
     const val DATE_FROM_VIET_NAM = "'Ngày' dd 'tháng' MM 'năm' yyyy"
+    const val HOUR_OF_YEAR = "yyyy/MM/dd - HH:mm"
 
     @SuppressLint("SimpleDateFormat")
     fun convertDateToLong(date: String): Long {
@@ -56,9 +57,9 @@ object DateUtils {
         return calendar.get(Calendar.YEAR) - zonedDateTime.year
     }
 
-    fun convertIsoDateTimeToDate(isoDateTime: String): String {
+    fun convertIsoDateTimeToDate(isoDateTime: String, hasHour: Boolean = false): String {
         val dateTime = LocalDateTime.parse(isoDateTime, DateTimeFormatter.ISO_DATE_TIME)
-        val dateFormatter = DateTimeFormatter.ofPattern(DAY_OF_YEAR)
+        val dateFormatter = DateTimeFormatter.ofPattern(if(!hasHour) DAY_OF_YEAR else HOUR_OF_YEAR)
         return dateTime.format(dateFormatter)
     }
 

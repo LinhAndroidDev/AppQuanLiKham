@@ -20,17 +20,17 @@ class MedicalHistoryRepository @Inject constructor(private val doctorService: Do
         doctorService.addMedicalHistory(addMedicalHistoryRequest)
 
     suspend fun updateDiagnoseMedicalHistory(
-        patientId: Int,
+        medicalHistoryId: Int,
         updateDiagnoseMedicalHistoryRequest: UpdateDiagnoseMedicalHistoryRequest,
     ) = doctorService.updateDiagnoseMedicalHistory(
-        patientId,
+        medicalHistoryId,
         updateDiagnoseMedicalHistoryRequest
     )
 
     suspend fun updateAllocation(
-        patientId: Int,
+        medicalHistoryId: Int,
         updateAllocationRequest: UpdateAllocationRequest
-    ) = doctorService.updateAllocation(patientId, updateAllocationRequest)
+    ) = doctorService.updateAllocation(medicalHistoryId, updateAllocationRequest)
 
     suspend fun hospitalDischarge(
         medicalHistoryId: Int

@@ -5,15 +5,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.get
 import androidx.lifecycle.lifecycleScope
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentAdminDoctorBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.data.remote.entity.PatientModel
 import com.example.appkhambenh.ui.ui.common.dialog.DialogAddManagePatient
+import com.example.appkhambenh.ui.ui.common.dialog.DialogConfirm
 import com.example.appkhambenh.ui.ui.doctor.adapter.InfoMainPatientAdapter
 import com.example.appkhambenh.ui.ui.doctor.viewmodel.FragmentAdminDoctorViewModel
 import com.example.appkhambenh.ui.utils.addFragmentByTag
+import com.example.appkhambenh.ui.utils.textNullOrEmpty
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -42,6 +45,11 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
             delay(1000L)
             withContext(Dispatchers.Main) {
                 viewModel.getListPatient()
+            }
+        }
+
+        lifecycleScope.launch {
+            withContext(Dispatchers.Main) {
                 viewModel.patients.collect { patients ->
                     patients?.let {
                         initListPatient(patients)
@@ -68,6 +76,28 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
                 }
             }
         }
+
+        binding.searchPatient.setOnClickListener {
+            lifecycleScope.launch {
+                withContext(Dispatchers.Main) {
+                    viewModel.getListPatient(
+                        fullname = textNullOrEmpty(binding.namePatient.getText()),
+                        email = textNullOrEmpty(binding.emailPatient.getText()),
+                        citizenId = textNullOrEmpty(binding.cccdPatient.getText()),
+                        healthInsurance = textNullOrEmpty(binding.healthInsurancePatient.getText()),
+                        phoneNumber = textNullOrEmpty(binding.healthInsurancePatient.getText())
+                    )
+                }
+            }
+        }
+
+        binding.reload.setOnClickListener {
+            lifecycleScope.launch {
+                withContext(Dispatchers.Main) {
+                    viewModel.getListPatient()
+                }
+            }
+        }
     }
 
     private fun initListPatient(patients: ArrayList<PatientModel>) {
@@ -91,14 +121,32 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
                 lifecycleScope.launch {
                     withContext(Dispatchers.Main) {
                         viewModel.medicalHistoryPatient(patient.id)
-                        viewModel.isRegistered.collect {
+                        viewModel.isRegistered.observe(viewLifecycleOwner) {
                             if(it != 0 && !isNavigated) {
+                                Log.e("GoToFragmentTreatment", "FragmentAdminDoctor")
                                 isNavigated = true
                                 goToFragmentTreatment(patient, it)
                             }
                         }
                     }
                 }
+            }
+        }
+
+        adapterInfo.removePatient = { patientId ->
+            val dialogConfirm = DialogConfirm()
+            val bundle = Bundle()
+            bundle.putString(DialogConfirm.NOTIFICATION_CONFIRM, "Bạn có chắc là muốn xóa bệnh nhân này?")
+            dialogConfirm.show(parentFragmentManager, "DialogConfirm")
+            dialogConfirm.arguments = bundle
+
+            dialogConfirm.agree = {
+                lifecycleScope.launch {
+                    withContext(Dispatchers.Main) {
+                        viewModel.deletePatient(patientId)
+                    }
+                }
+                dialogConfirm.dismiss()
             }
         }
         binding.rcvMainInfo.adapter = adapterInfo

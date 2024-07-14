@@ -7,10 +7,18 @@ import javax.inject.Inject
 
 @ViewModelScoped
 class PatientRepository @Inject constructor(private val doctorService: DoctorService) {
-    suspend fun getListPatient() = doctorService.getListPatient()
+    suspend fun getListPatient(
+        fullname: String? = null,
+        email: String? = null,
+        citizenId: String? = null,
+        healthInsurance: String? = null,
+        phoneNumber: String? = null,
+    ) = doctorService.getListPatient(fullname, email, citizenId, healthInsurance, phoneNumber)
 
     suspend fun updateInfoPatient(idUser: Int, infoPatient: PatientInfoModel) =
         doctorService.updateInfoPatient(idUser, infoPatient)
 
     suspend fun getValueVitalChart(patientId: Int) = doctorService.getValueVitalChart(patientId)
+
+    suspend fun deletePatient(patientId: Int) = doctorService.deletePatient(patientId)
 }

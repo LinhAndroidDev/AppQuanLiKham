@@ -23,10 +23,12 @@
                 app:title_next=" / Quản lí điều trị"/>
 
             <LinearLayout
+                android:id="@+id/exportView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="end">
+                android:gravity="end"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/prescription"
@@ -91,21 +93,22 @@
                         app:tint="@color/black"/>
                 </RelativeLayout>
 
-                <View
-                    android:background="@color/grey"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_1"/>
-
                 <LinearLayout
                     android:id="@+id/contentInfomation"
-                    android:paddingVertical="@dimen/dimen_10"
-                    android:paddingHorizontal="@dimen/dimen_15"
+                    android:paddingBottom="@dimen/dimen_10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:visibility="gone">
 
+                    <View
+                        android:background="@color/grey"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_1"/>
+
                     <LinearLayout
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:layout_marginHorizontal="@dimen/dimen_15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -126,6 +129,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_marginHorizontal="@dimen/dimen_15"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -283,11 +287,6 @@
                         app:tint="@color/black"/>
                 </RelativeLayout>
 
-                <View
-                    android:background="@color/grey"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_1"/>
-
                 <include
                     android:id="@+id/contentInfoIntoHospital"
                     layout="@layout/layout_info_into_hospital"
@@ -308,7 +307,7 @@
                 app:tabTextAppearance="@style/TabUnSelectedExamination"
                 app:tabSelectedTextAppearance="@style/TabExamination"
                 app:tabMode="scrollable"
-                app:tabGravity="center"/>
+                app:tabGravity="start"/>
 
             <include android:id="@+id/listOfService"
                 layout="@layout/layout_list_of_service"

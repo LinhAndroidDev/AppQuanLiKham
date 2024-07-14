@@ -89,7 +89,6 @@ enum class ServiceTreatmentManagement {
     DIAGNOSE
 }
 
-@Suppress("UNREACHABLE_CODE")
 @AndroidEntryPoint
 class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementViewModel, FragmentTreatmentManagementBinding>() {
     private var isExpand = false
@@ -187,6 +186,33 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
             dismissLoading()
             initView()
             onClickView()
+        }
+    }
+
+    override fun bindData() {
+        super.bindData()
+
+        lifecycleScope.launch {
+            withContext(Dispatchers.Main) {
+                viewModel.medicalHistorys.collect {
+                    initInfoIntoHospital(it)
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            withContext(Dispatchers.Main) {
+                viewModel.services.collect { serviceModels ->
+                    services = serviceModels
+                    serviceModels?.let {
+                        initListOfService(serviceModels)
+                        initClinical()
+                        initBloodTest()
+                        initDiagnose()
+                        checkDisableService()
+                    }
+                }
+            }
         }
     }
 
@@ -350,6 +376,9 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
     }
 
     private fun initView() {
+        sharePrefer.getRollUser().let {
+            if(it == 1 || it == 2) binding.exportView.isVisible = true
+        }
         listOfServiceAdapter = ListOfServiceAdapter(requireActivity())
         binding.listOfService.rcvTreatmentManagement.adapter = listOfServiceAdapter
 
@@ -368,33 +397,207 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
                 delay(500L)
                 withContext(Dispatchers.Main) {
                     viewModel.getMedicalHistory(patient?.id ?: 0, medicalHistoryId)
-                    viewModel.services.collect { serviceModels ->
-                        services = serviceModels
-                        serviceModels?.let {
-                            initListOfService(serviceModels)
-                            initClinical()
-                            initBloodTest()
-                            initDiagnose()
-                            checkDisableService()
-                        }
-                    }
-                    viewModel.medicalHistorys.collect {
-                        initInfoIntoHospital(it)
-                    }
                 }
             }
         }
 
-        hideAllViewService()
-        binding.listOfService.layout.isVisible = true
-        val examinations = arrayListOf("Kê dịch vụ", "Bệnh sử tiền sử", "Khám lâm sàng, tổng quát", "Xét nghiệm máu", "Siêu âm", "X-quang", "MRI", "CT", "Chẩn đoán")
-        examinations.forEach {
-            binding.tabExamination.addTab(binding.tabExamination.newTab().setText(it))
+        sharePrefer.getRollUser().let { role ->
+            when(role) {
+
+                2 -> {
+                    initTabAdmin()
+                }
+
+                3 -> {
+                    initTabNurse()
+                }
+
+                4 -> {
+
+                }
+
+                5 -> {
+                    initTabTechnicants()
+                }
+
+                6 -> {
+                    initTabCashier()
+                }
+
+                7 -> {
+                    initTabDoctorDiagnose()
+                }
+
+                else -> {
+                    initTabAdmin()
+                }
+            }
+
         }
 
         drawLineChart(binding.chart.lineChartTemplate, R.color.green_chart_template)
         drawLineChart(binding.chart.lineChartBloodPressure, R.color.red_chart_blood_pressure)
         drawLineChart(binding.chart.lineChartBloodSugarAndHeart, R.color.blue_chart_heart_and_blood_sugar)
+    }
+
+    private fun initTabNurse() {
+        hideAllViewService()
+        binding.chart.layout.isVisible = true
+        binding.tabExamination.addTab(binding.tabExamination.newTab().setText("Bệnh sử tiền sử"))
+    }
+
+    private fun initTabTechnicants() {
+        hideAllViewService()
+        binding.bloodTest.layout.isVisible = true
+
+        val examinations = arrayListOf("Xét nghiệm máu", "Siêu âm", "X-quang", "MRI", "CT")
+        examinations.forEach {
+            binding.tabExamination.addTab(binding.tabExamination.newTab().setText(it))
+        }
+
+        binding.tabExamination.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                hideAllViewService()
+                when(tab.position) {
+                    0 -> {
+                        binding.bloodTest.layout.isVisible = true
+                    }
+
+                    1 -> {
+                        binding.supersonic.layout.isVisible = true
+                    }
+
+                    2 -> {
+                        binding.xray.layout.isVisible = true
+                    }
+
+                    3 -> {
+                        binding.mri.layout.isVisible = true
+                    }
+
+                    else -> {
+                        binding.ct.layout.isVisible = true
+                    }
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                // Xử lý khi tab không được chọn nữa (đã chọn tab khác)
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                // Xử lý khi tab đã được chọn và người dùng chọn lại tab đó
+            }
+        })
+    }
+
+    private fun initTabCashier() {
+        hideAllViewService()
+        binding.listOfService.layout.isVisible = true
+        binding.tabExamination.addTab(binding.tabExamination.newTab().setText("Kê dịch vụ"))
+    }
+
+    private fun initTabDoctorDiagnose() {
+        hideAllViewService()
+        binding.supersonic.layout.isVisible = true
+
+        val examinations = arrayListOf("Siêu âm", "X-quang", "MRI", "CT")
+        examinations.forEach {
+            binding.tabExamination.addTab(binding.tabExamination.newTab().setText(it))
+        }
+
+        binding.tabExamination.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                hideAllViewService()
+                when(tab.position) {
+
+                    0 -> {
+                        binding.supersonic.layout.isVisible = true
+                    }
+
+                    1 -> {
+                        binding.xray.layout.isVisible = true
+                    }
+
+                    2 -> {
+                        binding.mri.layout.isVisible = true
+                    }
+
+                    else -> {
+                        binding.ct.layout.isVisible = true
+                    }
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                // Xử lý khi tab không được chọn nữa (đã chọn tab khác)
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                // Xử lý khi tab đã được chọn và người dùng chọn lại tab đó
+            }
+        })
+    }
+
+    private fun initTabAdmin() {
+        hideAllViewService()
+        binding.listOfService.layout.isVisible = true
+
+        val examinations = arrayListOf("Kê dịch vụ", "Bệnh sử tiền sử", "Khám lâm sàng, tổng quát", "Xét nghiệm máu", "Siêu âm", "X-quang", "MRI", "CT", "Chẩn đoán")
+        examinations.forEach {
+            binding.tabExamination.addTab(binding.tabExamination.newTab().setText(it))
+        }
+
+        binding.tabExamination.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                hideAllViewService()
+                when(ServiceTreatmentManagement.values()[tab.position]) {
+                    ServiceTreatmentManagement.LIST_OF_SERVICE -> {
+                        binding.listOfService.layout.isVisible = true
+                    }
+
+                    ServiceTreatmentManagement.MEDICAL_HISTORY -> {
+                        binding.chart.layout.isVisible = true
+                    }
+
+                    ServiceTreatmentManagement.CLINICAL_AND_GENERAL_EXAMINATION -> {
+                        binding.clinical.layout.isVisible = true
+                    }
+
+                    ServiceTreatmentManagement.BLOOD_TESTS -> {
+                        binding.bloodTest.layout.isVisible = true
+                    }
+
+                    ServiceTreatmentManagement.SUPERSONIC -> {
+                        binding.supersonic.layout.isVisible = true
+                    }
+
+                    ServiceTreatmentManagement.X_RAY -> {
+                        binding.xray.layout.isVisible = true
+                    }
+
+                    ServiceTreatmentManagement.MRI -> {
+                        binding.mri.layout.isVisible = true
+                    }
+
+                    ServiceTreatmentManagement.CT -> {
+                        binding.ct.layout.isVisible = true
+                    }
+
+                    ServiceTreatmentManagement.DIAGNOSE -> {
+                        binding.diagnose.layout.isVisible = true
+                    }
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                // Xử lý khi tab không được chọn nữa (đã chọn tab khác)
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                // Xử lý khi tab đã được chọn và người dùng chọn lại tab đó
+            }
+        })
     }
 
     private fun checkDisableService() {
@@ -599,30 +802,17 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
 
     private fun initInfoIntoHospital(medicalHistory: GetMedicalHistoryResponse.Data?) {
         binding.contentInfoIntoHospital.apply {
-            titleReason.title.text = "Lý do vào viện"
-            titleIntroductionPlace.title.text = "Nơi giới thiệu"
-            titleTime.title.text = "Nhập viện lúc"
-            titleFacultyTreatment.title.text = "Khoa điều trị"
-            titleIntoHospitalNumber.title.text = "Vào viện lần thứ"
-            titleRoom.title.text = "Phòng"
-            titleBed.title.text = "Giường"
-            titleDoctor.title.text = "Bác sĩ điều trị"
-            titleDiagnosePast.title.text = "Chẩn đoán nơi chuyển đến"
-            titleEmergencyDiagnose.title.text = "Chẩn đoán KKB, Cấp cứu"
-            titleDiagnoseNow.title.text = "Chẩn đoán hiện tại"
-            titleDiagnoseMove.title.text = "Chẩn đoán ra viện"
-
-            edtReason.setText(medicalHistory?.reason)
-            edtIntroductionPlace.setText(medicalHistory?.introductionPlace)
+            edtReason.setText(medicalHistory?.reason ?: "")
+            edtIntroductionPlace.setText(medicalHistory?.introductionPlace ?: "")
             medicalHistory?.createdAt?.let { edtTime.setText(DateUtils.convertIsoDateTimeToDate(it)) }
-            edtFacultyTreatment.setText(medicalHistory?.facultyTreatment)
-            medicalHistory?.patient?.countMedicalVisit?.let { edtIntoHospitalNumber.setText(it) }
-            edtRoom.setText(medicalHistory?.room)
-            edtBed.setText(medicalHistory?.bed)
-            edtDiagnosePast.setText(medicalHistory?.diagnosePast)
-            edtEmergencyDiagnose.setText(medicalHistory?.emergencyDiagnose)
-            edtDiagnoseNow.setText(medicalHistory?.diagnoseNow)
-            edtDiagnoseMove.setText(medicalHistory?.diagnoseMove)
+            edtFacultyTreatment.setText(medicalHistory?.facultyTreatment ?: "")
+            medicalHistory?.patient?.countMedicalVisit?.let { edtIntoHospitalNumber.setText(it.toString()) }
+            edtRoom.setText(medicalHistory?.room ?: "")
+            edtBed.setText(medicalHistory?.bed ?: "")
+            edtDiagnosePast.setText(medicalHistory?.diagnosePast ?: "")
+            edtEmergencyDiagnose.setText(medicalHistory?.emergencyDiagnose ?: "")
+            edtDiagnoseNow.setText(medicalHistory?.diagnoseNow ?: "")
+            edtDiagnoseMove.setText(medicalHistory?.diagnoseMove ?: "")
 
         }
     }
@@ -739,57 +929,6 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
         binding.ct.viewImage.setOnClickListener {
             takeImageFromUcop(binding.ct.imgCt)
         }
-
-        binding.tabExamination.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                hideAllViewService()
-                when(ServiceTreatmentManagement.values()[tab.position]) {
-                    ServiceTreatmentManagement.LIST_OF_SERVICE -> {
-                        binding.listOfService.layout.isVisible = true
-                    }
-
-                    ServiceTreatmentManagement.MEDICAL_HISTORY -> {
-                        binding.chart.layout.isVisible = true
-                    }
-
-                    ServiceTreatmentManagement.CLINICAL_AND_GENERAL_EXAMINATION -> {
-                        binding.clinical.layout.isVisible = true
-                    }
-
-                    ServiceTreatmentManagement.BLOOD_TESTS -> {
-                        binding.bloodTest.layout.isVisible = true
-                    }
-
-                    ServiceTreatmentManagement.SUPERSONIC -> {
-                        binding.supersonic.layout.isVisible = true
-                    }
-
-                    ServiceTreatmentManagement.X_RAY -> {
-                        binding.xray.layout.isVisible = true
-                    }
-
-                    ServiceTreatmentManagement.MRI -> {
-                        binding.mri.layout.isVisible = true
-                    }
-
-                    ServiceTreatmentManagement.CT -> {
-                        binding.ct.layout.isVisible = true
-                    }
-
-                    ServiceTreatmentManagement.DIAGNOSE -> {
-                        binding.diagnose.layout.isVisible = true
-                    }
-                }
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-                // Xử lý khi tab không được chọn nữa (đã chọn tab khác)
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                // Xử lý khi tab đã được chọn và người dùng chọn lại tab đó
-            }
-        })
 
         binding.listMedicalRecord.setOnClickListener {
             addFragmentByTag(FragmentListMedicalRecord(), R.id.changeIdDoctorVn, "FragmentTreatmentManagement")

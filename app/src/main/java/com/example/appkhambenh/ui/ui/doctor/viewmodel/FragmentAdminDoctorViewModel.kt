@@ -1,5 +1,7 @@
 package com.example.appkhambenh.ui.ui.doctor.viewmodel
 
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.entity.PatientModel
 import com.example.appkhambenh.ui.data.remote.repository.doctor.MedicalHistoryRepository
@@ -10,16 +12,22 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FragmentAdminDoctorViewModel @Inject constructor(
-    private val repository: PatientRepository,
+    private val patientRepository: PatientRepository,
     private val medicalHistoryRepository: MedicalHistoryRepository,
 ): BaseViewModel() {
     val patients: MutableStateFlow<ArrayList<PatientModel>?> = MutableStateFlow(null)
-    val isRegistered = MutableStateFlow(0)
+    val isRegistered = MutableLiveData<Int>()
 
-    suspend fun getListPatient() {
+    suspend fun getListPatient(
+        fullname: String? = null,
+        email: String? = null,
+        citizenId: String? = null,
+        healthInsurance: String? = null,
+        phoneNumber: String? = null,
+    ) {
         loading.postValue(true)
         try {
-            repository.getListPatient().let { response->
+            patientRepository.getListPatient(fullname, email, citizenId, healthInsurance, phoneNumber).let { response->
                 loading.postValue(false)
                 if(response.isSuccessful) {
                     patients.value = response.body()?.data
@@ -36,10 +44,26 @@ class FragmentAdminDoctorViewModel @Inject constructor(
         medicalHistoryRepository.getListMedicalHistory(patientId = patientId).let { response ->
             loading.postValue(false)
             if(response.isSuccessful) {
-                if(response.body()?.data?.isNotEmpty() == true && patientId == response.body()?.data!![0].patientId) {
-                    isRegistered.value = response.body()?.data!![0].id
+                if(response.body()?.paginate?.totalPage != 0) {
+                    Log.e("GoToFragmentTreatment", "FragmentAdminDoctorViewModel")
+                    isRegistered.postValue(response.body()?.data!![0].id)
                 } else {
                     errorApiLiveData.postValue("Bệnh nhân này chưa được đăng kí khám")
+                }
+            } else {
+                errorApiLiveData.postValue("Lỗi server")
+            }
+        }
+    }
+
+    suspend fun deletePatient(patientId: Int) {
+        loading.postValue(true)
+        patientRepository.deletePatient(patientId = patientId).let { response ->
+            loading.postValue(false)
+            if(response.isSuccessful) {
+                if(response.body()?.patientId == patientId) {
+                    getListPatient()
+                    errorApiLiveData.postValue("Bạn đã xoá bệnh nhân thành công")
                 }
             } else {
                 errorApiLiveData.postValue("Lỗi server")

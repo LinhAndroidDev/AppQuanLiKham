@@ -83,3 +83,7 @@ fun validatePhone(phone: String): Boolean {
     return !TextUtils.isEmpty(phone) && (Patterns.PHONE.matcher(phone)
         .matches() && phone.length >= 10)
 }
+
+fun textNullOrEmpty(str: String?): String? {
+    return if(str.isNullOrEmpty()) null else str
+}

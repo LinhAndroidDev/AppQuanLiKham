@@ -11,6 +11,7 @@ import com.example.appkhambenh.ui.utils.DateUtils
 class InfoMainPatientAdapter : BaseAdapter<PatientModel, ItemInfoMainPatientBinding>() {
     var onClickItem: ((PatientModel) -> Unit)? = null
     var addManager: ((PatientModel) -> Unit)? = null
+    var removePatient: ((Int) -> Unit)? = null
 
     override fun getLayout(): Int = R.layout.item_info_main_patient
 
@@ -30,6 +31,9 @@ class InfoMainPatientAdapter : BaseAdapter<PatientModel, ItemInfoMainPatientBind
             sex.text = if(patient.sex == "0") "Nam" else "Nữ"
             addManage.setOnClickListener {
                 addManager?.invoke(patient)
+            }
+            deletePatient.setOnClickListener {
+                removePatient?.invoke(patient.id)
             }
         }
 

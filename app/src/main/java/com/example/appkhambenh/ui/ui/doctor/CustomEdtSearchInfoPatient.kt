@@ -43,6 +43,9 @@ class CustomEdtSearchInfoPatient @JvmOverloads constructor(
                 binding.pulldown.isVisible = true
             }
 
+            binding.edtInfo.isFocusable = getBoolean(R.styleable.CustomEdtSearchInfoPatient_enable_edt, true)
+            binding.edtInfo.isClickable = getBoolean(R.styleable.CustomEdtSearchInfoPatient_enable_edt, true)
+
             binding.edtInfo.inputType = when(getInteger(R.styleable.CustomEdtSearchInfoPatient_input_type, 0)) {
                 1 -> InputType.TYPE_NUMBER_FLAG_DECIMAL
                 2 -> InputType.TYPE_CLASS_NUMBER

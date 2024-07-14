@@ -35,24 +35,29 @@ class FragmentMedicalExaminationHistoryViewModel @Inject constructor(private val
     ) {
         loading.postValue(true)
         medicalHistoryRepository.addMedicalHistory(addMedicalHistoryRequest).let { response ->
-            loading.postValue(true)
+            loading.postValue(false)
             if (response.isSuccessful) {
                 if (response.body()?.medicalHistoryId != 0) {
                     medicalHistoryPatient(patientId)
                 }
             } else {
-                errorApiLiveData.postValue("Lỗi Server")
+                if(response.code() == 400) {
+                    errorApiLiveData.postValue("Bệnh nhân này đang trong quá trình điều trị")
+                } else {
+                    errorApiLiveData.postValue("Lỗi server")
+                }
             }
         }
     }
 
     suspend fun updateDiagnoseMedicalHistory(
-        patientId: Int,
+        medicalHistoryId: Int,
         updateDiagnoseMedicalHistoryRequest: UpdateDiagnoseMedicalHistoryRequest,
+        patientId: Int
     ) {
         loading.postValue(true)
         medicalHistoryRepository.updateDiagnoseMedicalHistory(
-            patientId,
+            medicalHistoryId,
             updateDiagnoseMedicalHistoryRequest
         ).let { response ->
             loading.postValue(false)
@@ -68,12 +73,13 @@ class FragmentMedicalExaminationHistoryViewModel @Inject constructor(private val
     }
 
     suspend fun updateAllocation(
-        patientId: Int,
-        updateAllocationRequest: UpdateAllocationRequest
+        medicalHistoryId: Int,
+        updateAllocationRequest: UpdateAllocationRequest,
+        patientId: Int
     ) {
         loading.postValue(true)
         medicalHistoryRepository.updateAllocation(
-            patientId,
+            medicalHistoryId,
             updateAllocationRequest
         ).let { response ->
             loading.postValue(false)

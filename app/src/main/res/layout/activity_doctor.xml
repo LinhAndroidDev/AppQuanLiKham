@@ -73,7 +73,7 @@
                 android:layout_marginTop="@dimen/dimen_20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:title_nav_doctor="Quản lí hành chính"/>
+                app:title_nav_doctor="Quản lí bệnh án"/>
 
             <com.example.appkhambenh.ui.ui.doctor.CustomNavigationDoctor
                 android:id="@+id/navAppoint"
@@ -83,11 +83,11 @@
                 app:title_nav_doctor="Quản lí lịch hẹn"/>
 
             <com.example.appkhambenh.ui.ui.doctor.CustomNavigationDoctor
-                android:id="@+id/navMedicine"
+                android:id="@+id/navAccount"
                 android:layout_marginTop="@dimen/dimen_20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:title_nav_doctor="Quản lí thuốc"/>
+                app:title_nav_doctor="Quản Tài Khoản"/>
         </LinearLayout>
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -46,7 +46,15 @@ class FragmentHomeDoctor : BaseFragment<FragmentHomeDoctorViewModel, FragmentHom
         val functions = arrayListOf<FunctionDoctor>()
         functions.add(FunctionDoctor("Số bệnh nhân", R.drawable.ic_number_patient, R.color.blue, quantity.patient))
         functions.add(FunctionDoctor("Số lịch hẹn", R.drawable.ic_number_appointment, R.color.brown1, quantity.appoint))
-        functions.add(FunctionDoctor("Số bệnh án", R.drawable.ic_number_medical_record, R.color.green_dark, quantity.medical))
+        sharePrefer.getRollUser().let {
+            if(it == 1) {
+                functions.add(FunctionDoctor("Số tài khoản", R.drawable.ic_person, R.color.green, quantity.account))
+            }
+
+            if(it == 1 || it == 2) {
+                functions.add(FunctionDoctor("Số bệnh án", R.drawable.ic_number_medical_record, R.color.green_dark, quantity.medical))
+            }
+        }
         val adapter = FunctionDoctorAdapter(requireActivity())
         adapter.items = functions
         binding.rcvFunctionDoctor.adapter = adapter

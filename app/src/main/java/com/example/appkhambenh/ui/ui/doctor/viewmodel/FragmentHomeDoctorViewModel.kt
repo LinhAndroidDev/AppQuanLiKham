@@ -3,6 +3,7 @@ package com.example.appkhambenh.ui.ui.doctor.viewmodel
 import androidx.lifecycle.viewModelScope
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.model.Quantity
+import com.example.appkhambenh.ui.data.remote.repository.doctor.AccountRepository
 import com.example.appkhambenh.ui.data.remote.repository.doctor.AppointmentRepository
 import com.example.appkhambenh.ui.data.remote.repository.doctor.MedicalHistoryRepository
 import com.example.appkhambenh.ui.data.remote.repository.doctor.PatientRepository
@@ -18,9 +19,10 @@ import javax.inject.Inject
 class FragmentHomeDoctorViewModel @Inject constructor(
     private val adminRepository: PatientRepository,
     private val appointmentRepository: AppointmentRepository,
-    private val medicalHistoryRepository: MedicalHistoryRepository
+    private val medicalHistoryRepository: MedicalHistoryRepository,
+    private val accountRepository: AccountRepository
 ) : BaseViewModel() {
-    val quantity = MutableStateFlow(Quantity(0, 0 ,0))
+    val quantity = MutableStateFlow(Quantity(0, 0 ,0, 0))
 
     fun getQuantity() = viewModelScope.launch {
         loading.postValue(true)
@@ -29,10 +31,12 @@ class FragmentHomeDoctorViewModel @Inject constructor(
                 val patient = adminRepository.getListPatient()
                 val appoint = appointmentRepository.getListAppointment()
                 val medical = medicalHistoryRepository.getListMedicalHistory()
+                val account = accountRepository.getAccount()
                 quantity.value = Quantity(
                     patient.body()?.data?.size ?: 0,
                     appoint.body()?.data?.size ?: 0,
-                    medical.body()?.data?.size ?: 0
+                    medical.body()?.data?.size ?: 0,
+                    account.body()?.data?.size ?: 0
                 )
             }.await()
             loading.postValue(false)

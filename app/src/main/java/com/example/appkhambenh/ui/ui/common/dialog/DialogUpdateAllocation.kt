@@ -10,7 +10,9 @@ import androidx.core.view.get
 import androidx.fragment.app.DialogFragment
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.DialogUpdateAllocationBinding
+import com.example.appkhambenh.ui.data.remote.entity.MedicalHistoryResponse
 import com.example.appkhambenh.ui.data.remote.request.UpdateAllocationRequest
+import com.example.appkhambenh.ui.ui.doctor.FragmentMedicalExaminationHistory
 
 class DialogUpdateAllocation : DialogFragment() {
     private var binding: DialogUpdateAllocationBinding? = null
@@ -19,16 +21,16 @@ class DialogUpdateAllocation : DialogFragment() {
     var update: (() -> Unit)? = null
     private val departments by lazy {
         arrayListOf(
-            "Khoa Nội Tiết",
+            "Khoa Nội tiết",
             "Khoa Nhi",
             "Khoa Ngoại",
-            "Khoa Tai Mũi Họng",
-            "Khoa Răng Hàm Mặt",
+            "Khoa Tai mũi họng",
+            "Khoa Răng hàm mặt",
             "Khoa Mắt",
-            "Khoa Da Liễu",
-            "Khoa Tiêu Hoá",
+            "Khoa Da liễu",
+            "Khoa Tiêu hoá",
             "Khoa Tim Mạch",
-            "Khoa Thần Kinh"
+            "Khoa Thần kinh"
         )
     }
 
@@ -48,6 +50,16 @@ class DialogUpdateAllocation : DialogFragment() {
         dialog?.setCancelable(true)
 
         binding?.facultyTreatment?.setUpListSpinner(departments)
+
+        val medicalHistory = arguments?.getParcelable<MedicalHistoryResponse.Data>(
+            FragmentMedicalExaminationHistory.MEDICAL_HISTORY)
+        medicalHistory?.let {
+            medicalHistory.bed?.let { binding?.bed?.setText(it) }
+            medicalHistory.room?.let { binding?.room?.setText(it) }
+            medicalHistory.facultyTreatment?.let {
+                binding?.facultyTreatment?.setUpIndexSpinner(departments.indexOf(it))
+            }
+        }
 
         binding?.update?.setOnClickListener {
             if (textNotEmpty()) {

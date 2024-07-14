@@ -1,165 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout android:id="@+id/layout"
-    android:paddingHorizontal="@dimen/dimen_15"
     android:paddingBottom="@dimen/dimen_15"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:visibility="gone"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <include
-        android:id="@+id/titleReason"
-        layout="@layout/layout_title_update_infor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_15" />
+    <View
+        android:background="@color/grey"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1"/>
 
-    <EditText
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
         android:id="@+id/edtReason"
-        style="@style/edt_update_information"
-        android:layout_marginTop="@dimen/dimen_10" />
-
-    <include
-        android:id="@+id/titleIntroductionPlace"
-        layout="@layout/layout_title_update_infor"
-        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_15" />
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Lý do vào viện" />
 
-    <EditText
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
         android:id="@+id/edtIntroductionPlace"
-        style="@style/edt_update_information"
         android:layout_marginTop="@dimen/dimen_10"
-        android:inputType="textEmailAddress"/>
-
-    <include
-        android:id="@+id/titleTime"
-        layout="@layout/layout_title_update_infor"
-        android:layout_width="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_15" />
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Nơi giới thiệu" />
 
-    <EditText
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
         android:id="@+id/edtTime"
-        style="@style/edt_update_information"
         android:layout_marginTop="@dimen/dimen_10"
-        android:inputType="textEmailAddress"/>
-
-    <include
-        android:id="@+id/titleFacultyTreatment"
-        layout="@layout/layout_title_update_infor"
-        android:layout_width="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_15" />
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Nhập viện lúc" />
 
-    <EditText
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
         android:id="@+id/edtFacultyTreatment"
-        style="@style/edt_update_information"
         android:layout_marginTop="@dimen/dimen_10"
-        android:inputType="textEmailAddress"/>
-
-    <include
-        android:id="@+id/titleIntoHospitalNumber"
-        layout="@layout/layout_title_update_infor"
-        android:layout_width="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_15" />
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Khoa điều trị" />
 
-    <EditText
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
         android:id="@+id/edtIntoHospitalNumber"
-        style="@style/edt_update_information"
         android:layout_marginTop="@dimen/dimen_10"
-        android:inputType="textEmailAddress"/>
-
-    <include
-        android:id="@+id/titleRoom"
-        layout="@layout/layout_title_update_infor"
-        android:layout_width="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_15" />
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Vào viện lần thứ" />
 
-    <EditText
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
         android:id="@+id/edtRoom"
-        style="@style/edt_update_information"
         android:layout_marginTop="@dimen/dimen_10"
-        android:inputType="textEmailAddress"/>
-
-    <include
-        android:id="@+id/titleBed"
-        layout="@layout/layout_title_update_infor"
-        android:layout_width="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_15" />
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Phòng" />
 
-    <EditText
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
         android:id="@+id/edtBed"
-        style="@style/edt_update_information"
         android:layout_marginTop="@dimen/dimen_10"
-        android:inputType="textEmailAddress"/>
-
-    <include
-        android:id="@+id/titleDoctor"
-        layout="@layout/layout_title_update_infor"
-        android:layout_width="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_15" />
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Giường" />
 
-    <EditText
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
         android:id="@+id/edtDoctor"
-        style="@style/edt_update_information"
         android:layout_marginTop="@dimen/dimen_10"
-        android:inputType="textEmailAddress"/>
-
-    <include
-        android:id="@+id/titleDiagnosePast"
-        layout="@layout/layout_title_update_infor"
-        android:layout_width="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_15" />
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Bác sĩ điều trị" />
 
-    <EditText
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
         android:id="@+id/edtDiagnosePast"
-        style="@style/edt_update_information"
         android:layout_marginTop="@dimen/dimen_10"
-        android:inputType="textEmailAddress"/>
-
-    <include
-        android:id="@+id/titleEmergencyDiagnose"
-        layout="@layout/layout_title_update_infor"
-        android:layout_width="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_15" />
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Chẩn đoán nơi chuyển đến" />
 
-    <EditText
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
         android:id="@+id/edtEmergencyDiagnose"
-        style="@style/edt_update_information"
         android:layout_marginTop="@dimen/dimen_10"
-        android:inputType="textEmailAddress"/>
-
-    <include
-        android:id="@+id/titleDiagnoseNow"
-        layout="@layout/layout_title_update_infor"
-        android:layout_width="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_15" />
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Chẩn đoán KKB, Cấp cứu" />
 
-    <EditText
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
         android:id="@+id/edtDiagnoseNow"
-        style="@style/edt_update_information"
         android:layout_marginTop="@dimen/dimen_10"
-        android:inputType="textEmailAddress"/>
-
-    <include
-        android:id="@+id/titleDiagnoseMove"
-        layout="@layout/layout_title_update_infor"
-        android:layout_width="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_15" />
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Chẩn đoán hiện tại" />
 
-    <EditText
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
         android:id="@+id/edtDiagnoseMove"
-        style="@style/edt_update_information"
         android:layout_marginTop="@dimen/dimen_10"
-        android:inputType="textEmailAddress"/>
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Chẩn đoán ra viện" />
+
 </LinearLayout>

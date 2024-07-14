@@ -28,6 +28,10 @@ class FragmentMedicalExaminationHistory :
     BaseFragment<FragmentMedicalExaminationHistoryViewModel, FragmentMedicalExaminationHistoryBinding>() {
     private var patient: PatientModel? = null
     private var medicalHistorys: ArrayList<MedicalHistoryResponse.Data>? = null
+    companion object {
+        const val MEDICAL_HISTORY = "MEDICAL_HISTORY"
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -97,9 +101,12 @@ class FragmentMedicalExaminationHistory :
 
     private fun initListMedicalHistory(medicals: ArrayList<MedicalHistoryResponse.Data>) {
         val detailMedicalAdapter = DetailMedicalHistoryAdapter(patient?.fullname.toString())
-        detailMedicalAdapter.diagnose = {
+        detailMedicalAdapter.diagnose = { medicalHistoryId ->
             val dialogUpdateDiagnose = DialogUpdateDiagnose()
+            val bundle = Bundle()
+            bundle.putParcelable(MEDICAL_HISTORY, medicalHistorys!![0])
             dialogUpdateDiagnose.show(parentFragmentManager, "DialogUpdateDiagnose")
+            dialogUpdateDiagnose.arguments = bundle
             dialogUpdateDiagnose.updateDiagnose = {
                 lifecycleScope.launch {
                     withContext(Dispatchers.Main) {
@@ -107,8 +114,9 @@ class FragmentMedicalExaminationHistory :
                             show("Bạn chưa nhập đầy đủ thông tin")
                         } else {
                             viewModel.updateDiagnoseMedicalHistory(
-                                patient!!.id,
-                                dialogUpdateDiagnose.updateDiagnoseMedicalHistoryRequest!!
+                                medicalHistoryId = medicalHistoryId,
+                                dialogUpdateDiagnose.updateDiagnoseMedicalHistoryRequest!!,
+                                patient?.id ?: 0
                             )
                             dialogUpdateDiagnose.dismiss()
                         }
@@ -116,30 +124,36 @@ class FragmentMedicalExaminationHistory :
                 }
             }
         }
-        detailMedicalAdapter.allocation = {
+        detailMedicalAdapter.allocation = { medicalHistoryId ->
             val dialogUpdateAllocation = DialogUpdateAllocation()
+            val bundle = Bundle()
+            bundle.putParcelable(MEDICAL_HISTORY, medicalHistorys!![0])
             dialogUpdateAllocation.show(parentFragmentManager, "DialogUpdateAllocation")
+            dialogUpdateAllocation.arguments = bundle
             dialogUpdateAllocation.errorMessage = { show(it) }
             dialogUpdateAllocation.update = {
                 lifecycleScope.launch {
                     withContext(Dispatchers.Main) {
                         viewModel.updateAllocation(
+                            medicalHistoryId,
+                            dialogUpdateAllocation.allocationRequest!!,
                             patient?.id ?: 0,
-                            dialogUpdateAllocation.allocationRequest!!
                         )
                     }
                 }
+                dialogUpdateAllocation.dismiss()
             }
         }
-        detailMedicalAdapter.outHospital = {
+        detailMedicalAdapter.outHospital = { medicalHistoryId ->
             val dialogConfirmOutHospital = DialogConfirmOutHospital()
             dialogConfirmOutHospital.show(parentFragmentManager, "DialogConfirmOutHospital")
             dialogConfirmOutHospital.confirm = {
                 lifecycleScope.launch {
                     withContext(Dispatchers.Main) {
-                        viewModel.hospitalDischarge(patient?.id ?: 0, it)
+                        viewModel.hospitalDischarge(patient?.id ?: 0, medicalHistoryId)
                     }
                 }
+                dialogConfirmOutHospital.dismiss()
             }
         }
         detailMedicalAdapter.items = medicals

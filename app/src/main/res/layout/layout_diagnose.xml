@@ -17,7 +17,7 @@
         <TextView
             style="@style/text_sp16_black_bold"
             android:layout_width="match_parent"
-            android:text="Nhập kết quả xét nghiệm máu"
+            android:text="Nhập kết quả xét chẩn đoán"
             android:textColor="@color/white"
             android:textSize="@dimen/dimen_sp18" />
     </RelativeLayout>

@@ -61,6 +61,7 @@ class LoginViewModel @Inject constructor(
                 if(response.isSuccessful) {
                     if (response.body()?.error == null) {
                         SharePreferenceRepositoryImpl(context).saveAuthorization(response.body()?.auth?.accessToken.toString())
+                        SharePreferenceRepositoryImpl(context).saveRollUser(response.body()?.user?.roleId ?: 1)
                         doctorLoginSuccess.value = true
                     } else {
                         errorApiLiveData.postValue(response.body()?.error)
