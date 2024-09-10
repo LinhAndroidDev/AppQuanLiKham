@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.PopupWindow
+import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.HeaderDoctorBinding
@@ -63,6 +64,38 @@ class CustomHeaderDoctor @JvmOverloads constructor(
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             activity?.startActivity(intent)
             SharePreferenceRepositoryImpl(context).saveCheckLogin(false)
+        }
+
+        popupView.findViewById<TextView>(R.id.nameAccount).text = SharePreferenceRepositoryImpl(context).getRollUser().let { roll ->
+            when(roll) {
+                1 -> {
+                    "ADMIN"
+                }
+
+                2 -> {
+                    "DOCTOR"
+                }
+
+                3 -> {
+                    "NURSE"
+                }
+
+                4 -> {
+                    "RECEPTIONIST"
+                }
+
+                5 -> {
+                    "TECHNICIANS"
+                }
+
+                6 -> {
+                    "RADIOLOGISTS"
+                }
+
+                else -> {
+                    "RADIOLOGIST"
+                }
+            }
         }
     }
 }

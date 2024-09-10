@@ -20,8 +20,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val repository: HomeRepository,
     @ApplicationContext private val context: Context,
-) :
-    BaseViewModel() {
+) : BaseViewModel() {
     var isSuccessful = MutableStateFlow(false)
     var avatar = MutableStateFlow<InputStream?>(null)
 
@@ -47,31 +46,32 @@ class HomeViewModel @Inject constructor(
         loading.postValue(true)
         try {
             repository.getUserInfo().let { response ->
-                    if (response.isSuccessful) {
-                        response.body().let {
-                            when (it?.statusCode) {
-                                ApiClient.STATUS_CODE_SUCCESS -> {
-                                    getAvatarUser(userId = userId)
-                                    it.data?.let { user ->
-                                        saveInfo(user)
-                                    }
+                if (response.isSuccessful) {
+                    loading.postValue(false)
+                    response.body().let {
+                        when (it?.statusCode) {
+                            ApiClient.STATUS_CODE_SUCCESS -> {
+                                getAvatarUser(userId = userId)
+                                it.data?.let { user ->
+                                    saveInfo(user)
                                 }
+                            }
 
-                                else -> {
-                                    loading.postValue(false)
-                                    errorApiLiveData.postValue(it?.message)
-                                }
+                            else -> {
+                                loading.postValue(false)
+                                errorApiLiveData.postValue(it?.message)
                             }
                         }
                     }
                 }
+            }
         } catch (e: Exception) {
             loading.postValue(false)
             errorApiLiveData.postValue(e.message)
         }
     }
 
-    fun getAvatarUser(userId: Int) = viewModelScope.launch {
+    private fun getAvatarUser(userId: Int) = viewModelScope.launch {
         try {
             repository.getAvatar(userId).let {
                 loading.postValue(false)

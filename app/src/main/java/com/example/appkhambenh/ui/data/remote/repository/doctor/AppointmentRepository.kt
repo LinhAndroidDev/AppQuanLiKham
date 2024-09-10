@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 @ViewModelScoped
 class AppointmentRepository @Inject constructor(private val doctorService: DoctorService) {
-    suspend fun getListAppointment() = doctorService.getListAppoint()
+    suspend fun getListAppointment(time: String? = null) = doctorService.getListAppoint(time)
 
     suspend fun confirmAppoint(id: Int) = doctorService.confirmAppoint(id)
 }

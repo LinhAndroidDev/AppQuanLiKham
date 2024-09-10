@@ -12,6 +12,7 @@ import com.example.appkhambenh.ui.data.remote.entity.ConfirmAppointResponse
 import com.example.appkhambenh.ui.data.remote.entity.DeletePatientResponse
 import com.example.appkhambenh.ui.data.remote.entity.DiagnoseResponse
 import com.example.appkhambenh.ui.data.remote.entity.GetMedicalHistoryResponse
+import com.example.appkhambenh.ui.data.remote.entity.GetPatientResponse
 import com.example.appkhambenh.ui.data.remote.entity.HospitalDischargeResponse
 import com.example.appkhambenh.ui.data.remote.entity.PayServiceResponse
 import com.example.appkhambenh.ui.data.remote.entity.ServiceOrderResponse
@@ -59,7 +60,12 @@ interface DoctorService {
         @Query("citizenId") citizenId: String?,
         @Query("healthInsurance") healthInsurance: String?,
         @Query("phoneNumber") phoneNumber: String?
-    ): Response<PatientResponse>
+    ) : Response<PatientResponse>
+
+    @GET("patients/{patientId}")
+    suspend fun getPatient(
+        @Path("patientId") patientId: Int
+    ) : Response<GetPatientResponse>
 
     @PUT("patients/{id}")
     suspend fun updateInfoPatient(
@@ -78,7 +84,9 @@ interface DoctorService {
     ): Response<ValueVitalChartResponse>
 
     @GET("appointments")
-    suspend fun getListAppoint() : Response<AppointmentResponse>
+    suspend fun getListAppoint(
+        @Query("time") time: String?
+    ) : Response<AppointmentResponse>
 
     @PUT("appointments/{id}")
     suspend fun confirmAppoint(

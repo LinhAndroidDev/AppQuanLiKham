@@ -15,6 +15,10 @@ class PatientRepository @Inject constructor(private val doctorService: DoctorSer
         phoneNumber: String? = null,
     ) = doctorService.getListPatient(fullname, email, citizenId, healthInsurance, phoneNumber)
 
+    suspend fun getPatient(
+        patientId: Int
+    ) = doctorService.getPatient(patientId)
+
     suspend fun updateInfoPatient(idUser: Int, infoPatient: PatientInfoModel) =
         doctorService.updateInfoPatient(idUser, infoPatient)
 

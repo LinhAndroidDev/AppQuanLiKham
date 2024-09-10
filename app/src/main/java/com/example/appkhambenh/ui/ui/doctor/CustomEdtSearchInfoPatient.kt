@@ -58,7 +58,7 @@ class CustomEdtSearchInfoPatient @JvmOverloads constructor(
      * Check Condition Each Edittext With Value Of Input Between Start To End
      */
     fun checkInputValue(start: Int, end: Int): Boolean {
-        var passCondition = false
+        var passCondition = true
         binding.edtInfo.doOnTextChanged { text, _, _, _ ->
             if(text?.isNotEmpty() == true) {
                 val value = text.toString().toInt()

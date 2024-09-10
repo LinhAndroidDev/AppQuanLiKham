@@ -20,6 +20,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -35,6 +36,7 @@ import com.example.appkhambenh.ui.data.remote.entity.GetMedicalHistoryResponse
 import com.example.appkhambenh.ui.data.remote.entity.MedicalHistoryResponse
 import com.example.appkhambenh.ui.data.remote.entity.PatientModel
 import com.example.appkhambenh.ui.data.remote.entity.ServiceOrderModel
+import com.example.appkhambenh.ui.data.remote.entity.VitalChartModel
 import com.example.appkhambenh.ui.data.remote.request.AddServiceRequest
 import com.example.appkhambenh.ui.data.remote.request.BloodTestRequest
 import com.example.appkhambenh.ui.data.remote.request.DiagnoseRequest
@@ -46,6 +48,9 @@ import com.example.appkhambenh.ui.ui.common.dialog.DialogUpdateMedicalHistoryVal
 import com.example.appkhambenh.ui.ui.doctor.adapter.ListOfServiceAdapter
 import com.example.appkhambenh.ui.ui.doctor.controller.ActionRecord
 import com.example.appkhambenh.ui.ui.doctor.viewmodel.FragmentTreatmentManagementViewModel
+import com.example.appkhambenh.ui.ui.user.appointment.MakeAppointActivity
+import com.example.appkhambenh.ui.ui.user.appointment.OnlineConsultationActivity
+import com.example.appkhambenh.ui.ui.user.appointment.adapter.ImageCameraAdapter
 import com.example.appkhambenh.ui.utils.DateUtils
 import com.example.appkhambenh.ui.utils.PersonalInformation
 import com.example.appkhambenh.ui.utils.addFragmentByTag
@@ -64,7 +69,9 @@ import com.google.android.material.tabs.TabLayout
 import com.yalantis.ucrop.UCrop
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -105,10 +112,21 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
     private var currentListen = 0
     private var permissionToRecordAccepted = false
     private var patient: PatientModel? = null
+    private var patientId: Int? = null
     private var medicalHistoryId = 0
     private var listOfServiceAdapter: ListOfServiceAdapter? = null
     private var services: ArrayList<ServiceOrderModel>? = null
     private val bloodGroups by lazy { arrayListOf("A", "B", "AB", "O") }
+    private var valueVitalChart: VitalChartModel? = null
+    private var uris1 = arrayListOf<Uri>()
+    private var uris2 = arrayListOf<Uri>()
+    private var uris3 = arrayListOf<Uri>()
+    private var uris4 = arrayListOf<Uri>()
+    private var typeTakeImage: Int = 1
+    private var imageCameraAdapter1: ImageCameraAdapter? = null
+    private var imageCameraAdapter2: ImageCameraAdapter? = null
+    private var imageCameraAdapter3: ImageCameraAdapter? = null
+    private var imageCameraAdapter4: ImageCameraAdapter? = null
     private val permissions by lazy {
         arrayOf(
             android.Manifest.permission.RECORD_AUDIO,
@@ -210,6 +228,21 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
                         initBloodTest()
                         initDiagnose()
                         checkDisableService()
+                    }
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            withContext(Dispatchers.Main) {
+                viewModel.valueVitalChart.collect {
+                    if(it != null) {
+                        async {
+                            valueVitalChart = it[0]
+                            drawLineChart(binding.chart.lineChartTemplate, R.color.green_chart_template, it[0].temperature)
+                            drawLineChart(binding.chart.lineChartBloodPressure, R.color.red_chart_blood_pressure, it[0].systolic)
+                            drawLineChart(binding.chart.lineChartBloodSugarAndHeart, R.color.blue_chart_heart_and_blood_sugar, it[0].bloodGlucose)
+                        }.await()
                     }
                 }
             }
@@ -376,6 +409,54 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
     }
 
     private fun initView() {
+        imageCameraAdapter1 = ImageCameraAdapter(requireActivity()).apply {
+            items = uris1
+            binding.supersonic.rcvImageCamera.adapter = this
+            deleteImage = {
+                uris1.removeAt(it)
+                imageCameraAdapter1?.notifyDataSetChanged()
+                if(uris1.isEmpty()) {
+                    binding.supersonic.viewImage.isVisible = true
+                }
+            }
+        }
+
+        imageCameraAdapter2 = ImageCameraAdapter(requireActivity()).apply {
+            items = uris2
+            binding.xray.rcvImageCamera.adapter = this
+            deleteImage = {
+                uris2.removeAt(it)
+                imageCameraAdapter2?.notifyDataSetChanged()
+                if(uris2.isEmpty()) {
+                    binding.xray.viewImage.isVisible = true
+                }
+            }
+        }
+
+        imageCameraAdapter3 = ImageCameraAdapter(requireActivity()).apply {
+            items = uris3
+            binding.mri.rcvImageCamera.adapter = this
+            deleteImage = {
+                uris3.removeAt(it)
+                imageCameraAdapter3?.notifyDataSetChanged()
+                if(uris3.isEmpty()) {
+                    binding.mri.viewImage.isVisible = true
+                }
+            }
+        }
+
+        imageCameraAdapter4 = ImageCameraAdapter(requireActivity()).apply {
+            items = uris4
+            binding.ct.rcvImageCamera.adapter = this
+            deleteImage = {
+                uris4.removeAt(it)
+                imageCameraAdapter4?.notifyDataSetChanged()
+                if(uris4.isEmpty()) {
+                    binding.ct.viewImage.isVisible = true
+                }
+            }
+        }
+
         sharePrefer.getRollUser().let {
             if(it == 1 || it == 2) binding.exportView.isVisible = true
         }
@@ -434,16 +515,17 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
             }
 
         }
-
-        drawLineChart(binding.chart.lineChartTemplate, R.color.green_chart_template)
-        drawLineChart(binding.chart.lineChartBloodPressure, R.color.red_chart_blood_pressure)
-        drawLineChart(binding.chart.lineChartBloodSugarAndHeart, R.color.blue_chart_heart_and_blood_sugar)
     }
 
     private fun initTabNurse() {
         hideAllViewService()
         binding.chart.layout.isVisible = true
         binding.tabExamination.addTab(binding.tabExamination.newTab().setText("Bệnh sử tiền sử"))
+        lifecycleScope.launch {
+            withContext(Dispatchers.Main) {
+                viewModel.getValueVitalChart(patient?.id ?: 0)
+            }
+        }
     }
 
     private fun initTabTechnicants() {
@@ -558,6 +640,11 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
 
                     ServiceTreatmentManagement.MEDICAL_HISTORY -> {
                         binding.chart.layout.isVisible = true
+                        lifecycleScope.launch {
+                            withContext(Dispatchers.Main) {
+                                viewModel.getValueVitalChart(patient?.id ?: 0)
+                            }
+                        }
                     }
 
                     ServiceTreatmentManagement.CLINICAL_AND_GENERAL_EXAMINATION -> {
@@ -740,8 +827,18 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
         return serviceModel
     }
 
-    private fun drawLineChart(chart: LineChart, color: Int) {
-        val lineEntries: List<Entry> = getDataSet()
+    private fun drawLineChart(chart: LineChart, color: Int, value: Int) {
+        val lineEntries = ArrayList<Entry>()
+        lineEntries.add(Entry(0f, 0f))
+        lineEntries.add(Entry(1f, value.toFloat()))
+        lineEntries.add(Entry(2f, 0f))
+        lineEntries.add(Entry(3f, 0f))
+        lineEntries.add(Entry(4f, 0f))
+        lineEntries.add(Entry(5f, 0f))
+        lineEntries.add(Entry(6f, 0f))
+        lineEntries.add(Entry(7f, 0f))
+        lineEntries.add(Entry(8f, 0f))
+        lineEntries.add(Entry(9f, 0f))
 
         val lineDataSet = LineDataSet(lineEntries, "Work")
         lineDataSet.axisDependency = YAxis.AxisDependency.LEFT
@@ -763,41 +860,25 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
             description.isEnabled = false
             setDrawMarkers(false)
             xAxis.position = XAxis.XAxisPosition.BOTTOM
-            animateXY(1400, 1400)
+            animateXY(500, 500)
             xAxis.isGranularityEnabled = true
             xAxis.granularity = 0.1f
             axisRight.setDrawLabels(false)
             data = lineData
             setTouchEnabled(true)
             setPinchZoom(true)
+            setLayerType(View.LAYER_TYPE_SOFTWARE, null)
         }
 
         val xAxisLabel = ArrayList<String>()
-        for(i in lineEntries.indices) {
-            xAxisLabel.add("Lần ${i+1}")
+        for (i in lineEntries.indices) {
+            xAxisLabel.add("Lần ${i + 1}")
         }
 
         val xAxis = chart.xAxis
         xAxis.axisMaximum = 10f
         xAxis.granularity = 0.1f
-        xAxis.valueFormatter =  IndexAxisValueFormatter(xAxisLabel)
-    }
-
-    private fun getDataSet(): List<Entry> {
-        // Replace with your data points
-        val entries = ArrayList<Entry>()
-        entries.add(Entry(0f, 20f))
-        entries.add(Entry(1f, 15f))
-        entries.add(Entry(2f, 9f))
-        entries.add(Entry(3f, 40f))
-        entries.add(Entry(4f, 20f))
-        entries.add(Entry(5f, 8f))
-        entries.add(Entry(6f, 30f))
-        entries.add(Entry(7f, 6f))
-        entries.add(Entry(8f, 10f))
-        entries.add(Entry(9f, 20f))
-        entries.add(Entry(10f, 10f))
-        return entries
+        xAxis.valueFormatter = IndexAxisValueFormatter(xAxisLabel)
     }
 
     private fun initInfoIntoHospital(medicalHistory: GetMedicalHistoryResponse.Data?) {
@@ -847,13 +928,17 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
 
         binding.chart.updateValue.setOnClickListener {
             val dialog = DialogUpdateMedicalHistoryValue()
+            val bundle = Bundle()
+            bundle.putParcelable(DialogUpdateMedicalHistoryValue.VITAL_CHART_MODEL, valueVitalChart)
+            dialog.arguments = bundle
             dialog.errorInfo = { show(it) }
             dialog.updateValue = {
                 lifecycleScope.launch {
                     dialog.updateChartRequest?.let { updateChartRequest ->
-                        viewModel.updateChart(services?.get(0)?.id ?: 0, updateChartRequest, medicalHistoryId)
+                        viewModel.updateChart(services?.get(0)?.id ?: 0, updateChartRequest, patient?.id ?: 0)
                     }
                 }
+                dialog.dismiss()
             }
             dialog.show(parentFragmentManager, "DialogUpdateMedicalHistoryValue")
         }
@@ -915,19 +1000,23 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
         }
 
         binding.supersonic.viewImage.setOnClickListener {
-            takeImageFromUcop(binding.supersonic.imgSuperSonic)
+            typeTakeImage = 1
+            takeMultiImage()
         }
 
         binding.xray.viewImage.setOnClickListener {
-            takeImageFromUcop(binding.xray.imgXray)
+            typeTakeImage = 2
+            takeMultiImage()
         }
 
         binding.mri.viewImage.setOnClickListener {
-            takeImageFromUcop(binding.mri.imgMri)
+            typeTakeImage = 3
+            takeMultiImage()
         }
 
         binding.ct.viewImage.setOnClickListener {
-            takeImageFromUcop(binding.ct.imgCt)
+            typeTakeImage = 4
+            takeMultiImage()
         }
 
         binding.listMedicalRecord.setOnClickListener {
@@ -1014,6 +1103,18 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
                 }
             }
         }
+    }
+
+    private fun takeMultiImage() {
+        val intent = Intent().apply {
+            type = "image/*"
+            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            action = Intent.ACTION_GET_CONTENT
+        }
+        startActivityForResult(
+            Intent.createChooser(intent, MakeAppointActivity.SELECT_MULTI_PICTURE),
+            MakeAppointActivity.REQUEST_CODE_MULTI_PICTURE
+        )
     }
 
     private fun isTextDiagnoseNotEmpty(): Boolean {
@@ -1122,6 +1223,69 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
             mri.layout.isVisible = false
             ct.layout.isVisible = false
             diagnose.layout.isVisible = false
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == AppCompatActivity.RESULT_OK && data != null) {
+            when (requestCode) {
+                MakeAppointActivity.REQUEST_CODE_MULTI_PICTURE -> {
+                    if (data.clipData != null) {
+                        val count: Int = data.clipData!!.itemCount
+                        when(typeTakeImage) {
+                            1 -> {
+                                if (count + uris1.size > 5) {
+                                    show(getString(R.string.choose_a_maximum_of_5_photos))
+                                } else {
+                                    for (i in 0 until count) {
+                                        uris1.add(data.clipData!!.getItemAt(i).uri)
+                                    }
+                                    imageCameraAdapter1?.notifyDataSetChanged()
+                                    binding.supersonic.viewImage.isVisible = false
+                                }
+                            }
+
+                            2 -> {
+                                if (count + uris2.size > 5) {
+                                    show(getString(R.string.choose_a_maximum_of_5_photos))
+                                } else {
+                                    for (i in 0 until count) {
+                                        uris2.add(data.clipData!!.getItemAt(i).uri)
+                                    }
+                                    imageCameraAdapter2?.notifyDataSetChanged()
+                                    binding.xray.viewImage.isVisible = false
+                                }
+                            }
+
+                            3 -> {
+                                if (count + uris3.size > 5) {
+                                    show(getString(R.string.choose_a_maximum_of_5_photos))
+                                } else {
+                                    for (i in 0 until count) {
+                                        uris3.add(data.clipData!!.getItemAt(i).uri)
+                                    }
+                                    imageCameraAdapter3?.notifyDataSetChanged()
+                                    binding.mri.viewImage.isVisible = false
+                                }
+                            }
+
+                            else -> {
+                                if (count + uris4.size > 5) {
+                                    show(getString(R.string.choose_a_maximum_of_5_photos))
+                                } else {
+                                    for (i in 0 until count) {
+                                        uris4.add(data.clipData!!.getItemAt(i).uri)
+                                    }
+                                    imageCameraAdapter4?.notifyDataSetChanged()
+                                    binding.ct.viewImage.isVisible = false
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

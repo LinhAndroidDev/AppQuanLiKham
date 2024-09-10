@@ -49,11 +49,21 @@
                 tools:ignore="KeyboardInaccessibleWidget,TextFields" />
 
             <ImageView
+                android:id="@+id/calendar"
                 android:layout_width="@dimen/dimen_18"
                 android:layout_height="@dimen/dimen_18"
                 android:layout_marginStart="@dimen/dimen_10"
                 android:src="@drawable/ic_number_appointment"
                 app:tint="@color/txt_hint" />
+
+            <ImageView
+                android:id="@+id/remove"
+                android:layout_width="@dimen/dimen_18"
+                android:layout_height="@dimen/dimen_18"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:src="@drawable/ic_remove"
+                app:tint="@color/txt_hint"
+                android:visibility="gone"/>
         </LinearLayout>
     </RelativeLayout>
 

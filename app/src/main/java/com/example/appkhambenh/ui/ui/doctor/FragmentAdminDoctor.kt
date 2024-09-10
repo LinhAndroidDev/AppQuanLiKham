@@ -27,6 +27,7 @@ import kotlinx.coroutines.withContext
 class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentAdminDoctorBinding>() {
 
     companion object {
+        const val PATIENT_ID = "PATIENT_ID"
         const val OBJECT_PATIENT = "OBJECT_PATIENT"
         const val NAME_PATIENT = "NAME_PATIENT"
         const val MEDICAL_HISTORY_ID = "MEDICAL_HISTORY_ID"
@@ -85,7 +86,7 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
                         email = textNullOrEmpty(binding.emailPatient.getText()),
                         citizenId = textNullOrEmpty(binding.cccdPatient.getText()),
                         healthInsurance = textNullOrEmpty(binding.healthInsurancePatient.getText()),
-                        phoneNumber = textNullOrEmpty(binding.healthInsurancePatient.getText())
+                        phoneNumber = textNullOrEmpty(binding.phonePatient.getText())
                     )
                 }
             }
@@ -121,7 +122,7 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
                 lifecycleScope.launch {
                     withContext(Dispatchers.Main) {
                         viewModel.medicalHistoryPatient(patient.id)
-                        viewModel.isRegistered.observe(viewLifecycleOwner) {
+                        viewModel.isRegistered.collect {
                             if(it != 0 && !isNavigated) {
                                 Log.e("GoToFragmentTreatment", "FragmentAdminDoctor")
                                 isNavigated = true

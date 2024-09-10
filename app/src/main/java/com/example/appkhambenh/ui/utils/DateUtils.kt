@@ -1,12 +1,10 @@
-@file:Suppress("DEPRECATION")
-
 package com.example.appkhambenh.ui.utils
 
 import android.annotation.SuppressLint
-import android.util.Log
 import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.LocalDateTime
+import java.time.OffsetDateTime
+import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -58,9 +56,14 @@ object DateUtils {
     }
 
     fun convertIsoDateTimeToDate(isoDateTime: String, hasHour: Boolean = false): String {
-        val dateTime = LocalDateTime.parse(isoDateTime, DateTimeFormatter.ISO_DATE_TIME)
+//        val dateTime = OffsetDateTime.parse(isoDateTime, DateTimeFormatter.ISO_DATE_TIME)
+//        val dateFormatter = DateTimeFormatter.ofPattern(if(!hasHour) DAY_OF_YEAR else HOUR_OF_YEAR)
+//        return dateTime.format(dateFormatter)
+
+        val offsetDateTime = OffsetDateTime.parse(isoDateTime, DateTimeFormatter.ISO_DATE_TIME)
+        val localDateTime = offsetDateTime.withOffsetSameInstant(ZoneOffset.UTC).toLocalDateTime()
         val dateFormatter = DateTimeFormatter.ofPattern(if(!hasHour) DAY_OF_YEAR else HOUR_OF_YEAR)
-        return dateTime.format(dateFormatter)
+        return localDateTime.format(dateFormatter)
     }
 
     fun convertDateToIsoDateTime(date: String): String {

@@ -14,9 +14,9 @@ import javax.inject.Inject
 class FragmentAppointDoctorViewModel @Inject constructor(private val repository: AppointmentRepository) : BaseViewModel() {
     val appointments: MutableStateFlow<ArrayList<StatePatient>?> = MutableStateFlow(null)
 
-    fun getListAppointment() = viewModelScope.launch {
+    fun getListAppointment(time: String? = null) = viewModelScope.launch {
         loading.postValue(true)
-        repository.getListAppointment().let { response ->
+        repository.getListAppointment(time).let { response ->
             loading.postValue(false)
             if(response.isSuccessful) {
                 appointments.value = response.body()?.data

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import com.example.appkhambenh.databinding.FragmentAppointDoctorBinding
 import com.example.appkhambenh.ui.base.BaseFragment
@@ -69,11 +71,35 @@ class FragmentAppointDoctor : BaseFragment<FragmentAppointDoctorViewModel, Fragm
         binding.edtSelectDate.setOnClickListener {
             setDateWithText()
         }
+
+        binding.edtSelectDate.doOnTextChanged { text, _, _, _ ->
+            if(text?.isNotEmpty() == true) {
+                binding.remove.isVisible = true
+                binding.calendar.isVisible = false
+            } else {
+                binding.remove.isVisible = false
+                binding.calendar.isVisible = true
+            }
+        }
+
+        binding.remove.setOnClickListener {
+            binding.edtSelectDate.setText("")
+            lifecycleScope.launch {
+                withContext(Dispatchers.Main) {
+                    viewModel.getListAppointment()
+                }
+            }
+        }
     }
 
     private fun setDateWithText() {
         activity?.getDateFromCalendar {
             binding.edtSelectDate.setText(it)
+            lifecycleScope.launch {
+                withContext(Dispatchers.Main) {
+                    viewModel.getListAppointment(it)
+                }
+            }
         }
     }
 

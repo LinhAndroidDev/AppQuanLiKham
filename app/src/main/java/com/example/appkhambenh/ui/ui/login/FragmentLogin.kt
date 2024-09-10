@@ -18,10 +18,13 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentLoginBinding
 import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.base.BaseFragment
+import com.example.appkhambenh.ui.data.remote.model.LoginModel
 import com.example.appkhambenh.ui.ui.common.dialog.DialogStudent
 import com.example.appkhambenh.ui.ui.doctor.DoctorActivity
 import com.example.appkhambenh.ui.ui.doctor.FragmentTreatmentManagement
 import com.example.appkhambenh.ui.ui.register.FragmentRegister
+import com.example.appkhambenh.ui.utils.validateEmail
+import com.example.appkhambenh.ui.utils.validatePassword
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -156,13 +159,18 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
             }
         }
 
-        binding.login.setOnClickListener {
+        binding.loginDoctor.setOnClickListener {
             val email = binding.edtAccount.text.toString()
             val password = binding.edtPassword.text.toString()
             lifecycleScope.launch(Dispatchers.IO) {
                 viewModel.loginDoctor(email, password)
             }
+        }
 
+        binding.login.setOnClickListener {
+//            val email = binding.edtAccount.text.toString()
+//            val password = binding.edtPassword.text.toString()
+//
 //            if (email.isEmpty() || password.isEmpty()) {
 //                setNotification(R.color.txt_green, R.string.enter_enough_info)
 //            } else if (!validateEmail(email)) {
@@ -179,6 +187,21 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
 //                    )
 //                }
 //            }
+            if (binding.checkForgetPassword.isChecked) {
+                saveAccount(
+                    email = binding.edtAccount.text.toString(),
+                    password = binding.edtPassword.text.toString(),
+                    isForget = true
+                )
+            } else if (!binding.checkForgetPassword.isChecked) {
+                saveAccount("", "", false)
+            }
+
+            sharePrefer.saveCheckLogin(true)
+
+            val intent = Intent(requireActivity(), HomeActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
         }
 
         binding.register.setOnClickListener {

@@ -52,5 +52,16 @@ data class ServiceOrderModel(
     val ure: String?,
     val urogenitalDiagnosis: String,
     val wbc: String?,
-    val weight: Int
+    val weight: Int,
+    val list_image: ArrayList<ImageModel>?
+)
+
+data class ImageModel(
+    val id: Int,
+    val path: String,
+    val type: Int,
+    val service_order: String,
+    val createdAt: String,
+    val updatedAt: String,
+    val deletedAt: String?
 )

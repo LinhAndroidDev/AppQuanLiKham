@@ -8,6 +8,7 @@ import com.example.appkhambenh.ui.data.remote.repository.doctor.MedicalHistoryRe
 import com.example.appkhambenh.ui.data.remote.repository.doctor.PatientRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,7 +17,8 @@ class FragmentAdminDoctorViewModel @Inject constructor(
     private val medicalHistoryRepository: MedicalHistoryRepository,
 ): BaseViewModel() {
     val patients: MutableStateFlow<ArrayList<PatientModel>?> = MutableStateFlow(null)
-    val isRegistered = MutableLiveData<Int>()
+    private val _isRegistered = MutableStateFlow(0)
+    val isRegistered: StateFlow<Int> = _isRegistered
 
     suspend fun getListPatient(
         fullname: String? = null,
@@ -27,9 +29,15 @@ class FragmentAdminDoctorViewModel @Inject constructor(
     ) {
         loading.postValue(true)
         try {
-            patientRepository.getListPatient(fullname, email, citizenId, healthInsurance, phoneNumber).let { response->
+            patientRepository.getListPatient(
+                fullname = fullname,
+                email = email,
+                citizenId = citizenId,
+                healthInsurance = healthInsurance,
+                phoneNumber = phoneNumber
+            ).let { response ->
                 loading.postValue(false)
-                if(response.isSuccessful) {
+                if (response.isSuccessful) {
                     patients.value = response.body()?.data
                 }
             }
@@ -44,9 +52,9 @@ class FragmentAdminDoctorViewModel @Inject constructor(
         medicalHistoryRepository.getListMedicalHistory(patientId = patientId).let { response ->
             loading.postValue(false)
             if(response.isSuccessful) {
-                if(response.body()?.paginate?.totalPage != 0) {
+                if(response.body()?.data!![0].id != patientId) {
                     Log.e("GoToFragmentTreatment", "FragmentAdminDoctorViewModel")
-                    isRegistered.postValue(response.body()?.data!![0].id)
+                    _isRegistered.value = response.body()?.data!![0].id
                 } else {
                     errorApiLiveData.postValue("Bệnh nhân này chưa được đăng kí khám")
                 }

@@ -3,7 +3,7 @@ package com.example.appkhambenh.ui.ui.doctor.viewmodel
 import androidx.lifecycle.viewModelScope
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.entity.GetMedicalHistoryResponse
-import com.example.appkhambenh.ui.data.remote.entity.MedicalHistoryResponse
+import com.example.appkhambenh.ui.data.remote.entity.PatientModel
 import com.example.appkhambenh.ui.data.remote.entity.ServiceOrderModel
 import com.example.appkhambenh.ui.data.remote.entity.VitalChartModel
 import com.example.appkhambenh.ui.data.remote.repository.doctor.MedicalHistoryRepository
@@ -29,6 +29,7 @@ class FragmentTreatmentManagementViewModel @Inject constructor(
     val valueVitalChart: MutableStateFlow<ArrayList<VitalChartModel>?> = MutableStateFlow(null)
     val medicalHistorys: MutableStateFlow<GetMedicalHistoryResponse.Data?> =
         MutableStateFlow(null)
+    val patient: MutableStateFlow<PatientModel?> = MutableStateFlow(null)
 
     fun getServiceOrder(medicalHistoryId: Int) = viewModelScope.launch {
         loading.postValue(true)
@@ -39,6 +40,21 @@ class FragmentTreatmentManagementViewModel @Inject constructor(
             } else {
                 errorApiLiveData.postValue(response.message())
             }
+        }
+    }
+
+    suspend fun getPatient(patientId: Int) {
+        loading.postValue(true)
+        try {
+            patientRepository.getPatient(patientId = patientId).let { response ->
+                loading.postValue(false)
+                if (response.isSuccessful) {
+                    patient.value = response.body()?.data
+                }
+            }
+        } catch (e: Exception) {
+            loading.postValue(false)
+            errorApiLiveData.postValue(e.message)
         }
     }
 
@@ -85,12 +101,12 @@ class FragmentTreatmentManagementViewModel @Inject constructor(
         }
     }
 
-    fun updateChart(id: Int, updateChartRequest: UpdateChartRequest, medicalHistoryId: Int) = viewModelScope.launch {
+    fun updateChart(id: Int, updateChartRequest: UpdateChartRequest, patientId: Int) = viewModelScope.launch {
         loading.postValue(true)
         serviceOrderRepository.updateChart(id, updateChartRequest).let { response ->
             if(response.isSuccessful) {
                 if(response.body()?.serviceMedicalHistoryId != 0) {
-                    getServiceOrder(medicalHistoryId)
+                    getValueVitalChart(patientId)
                     errorApiLiveData.postValue("Bạn đã cập nhật bệnh sử tiền sử thành công")
                 }
             } else {
