@@ -40,6 +40,19 @@ class FragmentMedicalExaminationHistory :
         initView()
     }
 
+    override fun bindData() {
+        super.bindData()
+
+        lifecycleScope.launch {
+            viewModel.medicalHistorys.collect { medicals ->
+                medicalHistorys = medicals
+                medicals?.let {
+                    initListMedicalHistory(medicals)
+                }
+            }
+        }
+    }
+
     private fun initView() {
         patient = arguments?.getParcelable(FragmentAdminDoctor.OBJECT_PATIENT)
         patient?.let {
@@ -47,12 +60,6 @@ class FragmentMedicalExaminationHistory :
                 delay(1000L)
                 withContext(Dispatchers.Main) {
                     viewModel.medicalHistoryPatient(patientId = patient!!.id)
-                    viewModel.medicalHistorys.collect { medicals ->
-                        medicalHistorys = medicals
-                        medicals?.let {
-                            initListMedicalHistory(medicals)
-                        }
-                    }
                 }
             }
         }
@@ -71,17 +78,13 @@ class FragmentMedicalExaminationHistory :
                     if(isDuringTreatment()) {
                         show("Bệnh nhân này đang trong quá trình điều trị")
                     } else {
-                        lifecycleScope.launch {
-                            withContext(Dispatchers.Main) {
-                                viewModel.addMedicalHistory(
-                                    AddMedicalHistoryRequest(
-                                        dialog.medical!!.first,
-                                        dialog.medical!!.second,
-                                        patient!!.id
-                                    ), patientId = patient!!.id
-                                )
-                            }
-                        }
+                        viewModel.addMedicalHistory(
+                            AddMedicalHistoryRequest(
+                                dialog.medical!!.first,
+                                dialog.medical!!.second,
+                                patient!!.id
+                            ), patientId = patient!!.id
+                        )
                         dialog.dismiss()
                     }
                 }
@@ -108,19 +111,15 @@ class FragmentMedicalExaminationHistory :
             dialogUpdateDiagnose.show(parentFragmentManager, "DialogUpdateDiagnose")
             dialogUpdateDiagnose.arguments = bundle
             dialogUpdateDiagnose.updateDiagnose = {
-                lifecycleScope.launch {
-                    withContext(Dispatchers.Main) {
-                        if(checkInfoDiagnose(dialogUpdateDiagnose.updateDiagnoseMedicalHistoryRequest)) {
-                            show("Bạn chưa nhập đầy đủ thông tin")
-                        } else {
-                            viewModel.updateDiagnoseMedicalHistory(
-                                medicalHistoryId = medicalHistoryId,
-                                dialogUpdateDiagnose.updateDiagnoseMedicalHistoryRequest!!,
-                                patient?.id ?: 0
-                            )
-                            dialogUpdateDiagnose.dismiss()
-                        }
-                    }
+                if(checkInfoDiagnose(dialogUpdateDiagnose.updateDiagnoseMedicalHistoryRequest)) {
+                    show("Bạn chưa nhập đầy đủ thông tin")
+                } else {
+                    viewModel.updateDiagnoseMedicalHistory(
+                        medicalHistoryId = medicalHistoryId,
+                        dialogUpdateDiagnose.updateDiagnoseMedicalHistoryRequest!!,
+                        patient?.id ?: 0
+                    )
+                    dialogUpdateDiagnose.dismiss()
                 }
             }
         }
@@ -132,15 +131,11 @@ class FragmentMedicalExaminationHistory :
             dialogUpdateAllocation.arguments = bundle
             dialogUpdateAllocation.errorMessage = { show(it) }
             dialogUpdateAllocation.update = {
-                lifecycleScope.launch {
-                    withContext(Dispatchers.Main) {
-                        viewModel.updateAllocation(
-                            medicalHistoryId,
-                            dialogUpdateAllocation.allocationRequest!!,
-                            patient?.id ?: 0,
-                        )
-                    }
-                }
+                viewModel.updateAllocation(
+                    medicalHistoryId,
+                    dialogUpdateAllocation.allocationRequest!!,
+                    patient?.id ?: 0,
+                )
                 dialogUpdateAllocation.dismiss()
             }
         }
@@ -148,11 +143,7 @@ class FragmentMedicalExaminationHistory :
             val dialogConfirmOutHospital = DialogConfirmOutHospital()
             dialogConfirmOutHospital.show(parentFragmentManager, "DialogConfirmOutHospital")
             dialogConfirmOutHospital.confirm = {
-                lifecycleScope.launch {
-                    withContext(Dispatchers.Main) {
-                        viewModel.hospitalDischarge(patient?.id ?: 0, medicalHistoryId)
-                    }
-                }
+                viewModel.hospitalDischarge(patient?.id ?: 0, medicalHistoryId)
                 dialogConfirmOutHospital.dismiss()
             }
         }

@@ -32,37 +32,25 @@ class FragmentAccount : BaseFragment<FragmentAccountViewModel, FragmentAccountBi
 
     private fun onClickView() {
         binding.reload.setOnClickListener {
-            lifecycleScope.launch {
-                withContext(Dispatchers.Main) {
-                    viewModel.getAccount()
-                }
-            }
+            viewModel.getAccount()
         }
 
         binding.searchAccount.setOnClickListener {
-            lifecycleScope.launch {
-                withContext(Dispatchers.Main) {
-                    viewModel.getAccount(
-                        fullname = textNullOrEmpty(binding.nameAccount.getText()),
-                        email = textNullOrEmpty(binding.emailAccount.getText()),
-                        roleId = if (binding.role.text.toString()
-                                .isNullOrEmpty()
-                        ) null else PersonalInformation.rolls()
-                            .indexOf(binding.role.text.toString()) + 1
-                    )
-                }
-            }
+            viewModel.getAccount(
+                fullname = textNullOrEmpty(binding.nameAccount.getText()),
+                email = textNullOrEmpty(binding.emailAccount.getText()),
+                roleId = if (binding.role.text.toString()
+                        .isNullOrEmpty()
+                ) null else PersonalInformation.rolls()
+                    .indexOf(binding.role.text.toString()) + 1
+            )
         }
 
         binding.addAccount.setOnClickListener {
             val dialog = DialogAddAccount()
             dialog.show(parentFragmentManager, "DialogAddAccount")
             dialog.addAccount = {
-                lifecycleScope.launch {
-                    withContext(Dispatchers.Main) {
-                        viewModel.addAccount(dialog.addAccountRequest!!)
-                    }
-                }
+                viewModel.addAccount(dialog.addAccountRequest!!)
                 dialog.dismiss()
             }
             dialog.errorMessage = { show(it) }

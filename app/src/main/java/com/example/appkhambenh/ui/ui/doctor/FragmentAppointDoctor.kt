@@ -36,9 +36,12 @@ class FragmentAppointDoctor : BaseFragment<FragmentAppointDoctorViewModel, Fragm
             delay(1000L)
             withContext(Dispatchers.Main) {
                 viewModel.getListAppointment()
-                viewModel.appointments.collect {
-                    initListAppoint(it)
-                }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.appointments.collect {
+                initListAppoint(it)
             }
         }
     }
@@ -54,11 +57,7 @@ class FragmentAppointDoctor : BaseFragment<FragmentAppointDoctorViewModel, Fragm
                 dialog.arguments = bundle
 
                 dialog.agree = {
-                    lifecycleScope.launch {
-                        withContext(Dispatchers.Main) {
-                            viewModel.confirmAppoint(it)
-                        }
-                    }
+                    viewModel.confirmAppoint(it)
                     dialog.dismiss()
                 }
             }
@@ -84,22 +83,14 @@ class FragmentAppointDoctor : BaseFragment<FragmentAppointDoctorViewModel, Fragm
 
         binding.remove.setOnClickListener {
             binding.edtSelectDate.setText("")
-            lifecycleScope.launch {
-                withContext(Dispatchers.Main) {
-                    viewModel.getListAppointment()
-                }
-            }
+            viewModel.getListAppointment()
         }
     }
 
     private fun setDateWithText() {
         activity?.getDateFromCalendar {
             binding.edtSelectDate.setText(it)
-            lifecycleScope.launch {
-                withContext(Dispatchers.Main) {
-                    viewModel.getListAppointment(it)
-                }
-            }
+            viewModel.getListAppointment(it)
         }
     }
 

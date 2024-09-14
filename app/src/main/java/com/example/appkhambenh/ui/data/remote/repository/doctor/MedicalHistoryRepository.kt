@@ -1,38 +1,34 @@
 package com.example.appkhambenh.ui.data.remote.repository.doctor
 
-import com.example.appkhambenh.ui.data.remote.DoctorService
+import com.example.appkhambenh.ui.data.remote.entity.AddMedicalHistoryResponse
+import com.example.appkhambenh.ui.data.remote.entity.GetMedicalHistoryResponse
+import com.example.appkhambenh.ui.data.remote.entity.HospitalDischargeResponse
+import com.example.appkhambenh.ui.data.remote.entity.MedicalHistoryResponse
+import com.example.appkhambenh.ui.data.remote.entity.UpdateAllocationResponse
+import com.example.appkhambenh.ui.data.remote.entity.UpdateDiagnoseMedicalHistoryResponse
 import com.example.appkhambenh.ui.data.remote.request.AddMedicalHistoryRequest
 import com.example.appkhambenh.ui.data.remote.request.UpdateAllocationRequest
 import com.example.appkhambenh.ui.data.remote.request.UpdateDiagnoseMedicalHistoryRequest
-import dagger.hilt.android.scopes.ViewModelScoped
-import retrofit2.http.Body
-import retrofit2.http.Path
-import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
-@ViewModelScoped
-class MedicalHistoryRepository @Inject constructor(private val doctorService: DoctorService) {
-    suspend fun getListMedicalHistory(patientId: Int? = null) =
-        doctorService.getListMedicalHistory(patientId)
+interface MedicalHistoryRepository {
+    suspend fun getListMedicalHistory(patientId: Int? = null): Flow<MedicalHistoryResponse>
 
-    suspend fun getMedicalHistory(patientId: Int) = doctorService.getMedicalHistory(patientId)
+    suspend fun getMedicalHistory(patientId: Int): Flow<GetMedicalHistoryResponse>
 
-    suspend fun addMedicalHistory(addMedicalHistoryRequest: AddMedicalHistoryRequest) =
-        doctorService.addMedicalHistory(addMedicalHistoryRequest)
+    suspend fun addMedicalHistory(addMedicalHistoryRequest: AddMedicalHistoryRequest): Flow<AddMedicalHistoryResponse>
 
     suspend fun updateDiagnoseMedicalHistory(
         medicalHistoryId: Int,
         updateDiagnoseMedicalHistoryRequest: UpdateDiagnoseMedicalHistoryRequest,
-    ) = doctorService.updateDiagnoseMedicalHistory(
-        medicalHistoryId,
-        updateDiagnoseMedicalHistoryRequest
-    )
+    ): Flow<UpdateDiagnoseMedicalHistoryResponse>
 
     suspend fun updateAllocation(
         medicalHistoryId: Int,
         updateAllocationRequest: UpdateAllocationRequest
-    ) = doctorService.updateAllocation(medicalHistoryId, updateAllocationRequest)
+    ): Flow<UpdateAllocationResponse>
 
     suspend fun hospitalDischarge(
         medicalHistoryId: Int
-    ) = doctorService.hospitalDischarge(medicalHistoryId)
+    ): Flow<HospitalDischargeResponse>
 }

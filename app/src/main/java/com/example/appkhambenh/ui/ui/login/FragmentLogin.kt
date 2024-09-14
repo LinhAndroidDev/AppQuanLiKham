@@ -162,9 +162,7 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
         binding.loginDoctor.setOnClickListener {
             val email = binding.edtAccount.text.toString()
             val password = binding.edtPassword.text.toString()
-            lifecycleScope.launch(Dispatchers.IO) {
-                viewModel.loginDoctor(email, password)
-            }
+            viewModel.loginDoctor(email, password)
         }
 
         binding.login.setOnClickListener {

@@ -8,11 +8,15 @@ import com.example.appkhambenh.ui.data.remote.repository.doctor.AppointmentRepos
 import com.example.appkhambenh.ui.data.remote.repository.doctor.MedicalHistoryRepository
 import com.example.appkhambenh.ui.data.remote.repository.doctor.PatientRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.async
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import java.io.IOException
-import java.net.ConnectException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,39 +24,31 @@ class FragmentHomeDoctorViewModel @Inject constructor(
     private val adminRepository: PatientRepository,
     private val appointmentRepository: AppointmentRepository,
     private val medicalHistoryRepository: MedicalHistoryRepository,
-    private val accountRepository: AccountRepository
+    private val accountRepository: AccountRepository,
 ) : BaseViewModel() {
-    val quantity = MutableStateFlow(Quantity(0, 0 ,0, 0))
+    private val _quantity = MutableStateFlow(Quantity(0, 0, 0, 0))
+    val quantity = _quantity.asStateFlow()
 
     fun getQuantity() = viewModelScope.launch {
-        loading.postValue(true)
-        try {
-            async {
-                val patient = adminRepository.getListPatient()
-                val appoint = appointmentRepository.getListAppointment()
-                val medical = medicalHistoryRepository.getListMedicalHistory()
-                val account = accountRepository.getAccount()
-                quantity.value = Quantity(
-                    patient.body()?.data?.size ?: 0,
-                    appoint.body()?.data?.size ?: 0,
-                    medical.body()?.data?.size ?: 0,
-                    account.body()?.data?.size ?: 0
-                )
-            }.await()
+        combine(
+            adminRepository.getListPatient(),
+            appointmentRepository.getListAppointment(),
+            medicalHistoryRepository.getListMedicalHistory(),
+            accountRepository.getAccount()
+        ) { result1, result2, result3, result4 ->
             loading.postValue(false)
-        } catch (e: ConnectException) {
-            try {
-                loading.postValue(false)
-                errorApiLiveData.postValue("Không thể kết nối đến server")
-            } catch (e: Exception) {
-                errorApiLiveData.postValue(e.message)
-            }
-        } catch (e: IOException) {
+            _quantity.value = Quantity(
+                result1.data.size,
+                result2.data.size,
+                result3.data?.size ?: 0,
+                result4.data.size
+            )
+        }.onStart {
+            loading.postValue(true)
+        }.catch { e ->
             loading.postValue(false)
-            errorApiLiveData.postValue("Lỗi mạng, vui lòng thử lại")
-        } catch (e: Exception) {
-            loading.postValue(false)
-            errorApiLiveData.postValue("Đã xảy ra lỗi vui lòng thử lại")
-        }
+            errorApiLiveData.postValue(e.message)
+        }.flowOn(Dispatchers.IO)
+            .launchIn(viewModelScope)
     }
 }

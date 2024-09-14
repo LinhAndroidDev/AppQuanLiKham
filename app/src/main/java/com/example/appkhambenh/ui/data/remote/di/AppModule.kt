@@ -5,6 +5,7 @@ import com.budiyev.android.codescanner.BuildConfig
 import com.example.appkhambenh.ui.data.remote.ApiService
 import com.example.appkhambenh.ui.data.remote.DoctorService
 import com.example.appkhambenh.ui.data.remote.helper.Constants
+import com.example.appkhambenh.ui.utils.SharePreferenceRepository
 import com.example.appkhambenh.ui.utils.SharePreferenceRepositoryImpl
 import com.example.appkhambenh.ui.utils.TokenManager
 import com.google.android.gms.common.util.SharedPreferencesUtils
@@ -99,5 +100,11 @@ object AppModule {
     @ViewModelScoped
     fun provideDoctorApi(@DoctorWebService retrofit: Retrofit): DoctorService {
         return retrofit.create(DoctorService::class.java)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideSharePreference(context: Context): SharePreferenceRepository {
+        return SharePreferenceRepositoryImpl(context)
     }
 }

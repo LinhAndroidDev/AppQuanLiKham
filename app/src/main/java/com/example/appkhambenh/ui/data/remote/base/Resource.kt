@@ -1,4 +1,4 @@
-package com.example.appkhambenh.ui.data.remote
+package com.example.appkhambenh.ui.data.remote.base
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.transform

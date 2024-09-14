@@ -1,13 +1,11 @@
 package com.example.appkhambenh.ui.data.remote.repository.doctor
 
-import com.example.appkhambenh.ui.data.remote.DoctorService
-import com.example.appkhambenh.ui.data.remote.request.ConfirmAppointRequest
-import dagger.hilt.android.scopes.ViewModelScoped
-import javax.inject.Inject
+import com.example.appkhambenh.ui.data.remote.entity.AppointmentResponse
+import com.example.appkhambenh.ui.data.remote.entity.ConfirmAppointResponse
+import kotlinx.coroutines.flow.Flow
 
-@ViewModelScoped
-class AppointmentRepository @Inject constructor(private val doctorService: DoctorService) {
-    suspend fun getListAppointment(time: String? = null) = doctorService.getListAppoint(time)
+interface AppointmentRepository {
+    suspend fun getListAppointment(time: String? = null): Flow<AppointmentResponse>
 
-    suspend fun confirmAppoint(id: Int) = doctorService.confirmAppoint(id)
+    suspend fun confirmAppoint(id: Int): Flow<ConfirmAppointResponse>
 }

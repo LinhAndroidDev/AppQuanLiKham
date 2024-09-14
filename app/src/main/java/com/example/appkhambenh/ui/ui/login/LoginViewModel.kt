@@ -1,31 +1,32 @@
 package com.example.appkhambenh.ui.ui.login
 
-import android.content.Context
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.ApiClient
 import com.example.appkhambenh.ui.data.remote.model.LoginModel
 import com.example.appkhambenh.ui.data.remote.repository.doctor.LoginDoctorRepository
 import com.example.appkhambenh.ui.data.remote.repository.user.LoginRepository
-import com.example.appkhambenh.ui.utils.SharePreferenceRepositoryImpl
+import com.example.appkhambenh.ui.utils.SharePreferenceRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import okhttp3.RequestBody
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginRepository: LoginRepository,
     private val loginDoctorRepository: LoginDoctorRepository,
-    @ApplicationContext private val context: Context
+    private val shared: SharePreferenceRepository,
 ) :
     BaseViewModel() {
     val loginSuccessLiveData = MutableLiveData<Boolean>()
     val doctorLoginSuccess = MutableStateFlow(false)
 
-    suspend fun requestLoginUser(context: Context, loginModel: LoginModel) {
+    suspend fun requestLoginUser(loginModel: LoginModel) {
         loading.postValue(true)
         try {
             loginRepository.loginUser(loginModel).let { response ->
@@ -36,7 +37,7 @@ class LoginViewModel @Inject constructor(
                             ApiClient.STATUS_CODE_SUCCESS -> {
                                 loginSuccessLiveData.postValue(true)
                                 it.data?.token?.let { token ->
-                                    SharePreferenceRepositoryImpl(context).saveAuthorization(token)
+                                    shared.saveAuthorization(token)
                                 }
                             }
 
@@ -53,26 +54,19 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    suspend fun loginDoctor(email: String, password: String) {
+    fun loginDoctor(email: String, password: String) = viewModelScope.launch {
         loading.postValue(true)
-        try {
-            loginDoctorRepository.loginDoctor(email, password).let { response ->
+        loginDoctorRepository.loginDoctor(email, password)
+            .flowOn(Dispatchers.IO)
+            .catch { e ->
                 loading.postValue(false)
-                if(response.isSuccessful) {
-                    if (response.body()?.error == null) {
-                        SharePreferenceRepositoryImpl(context).saveAuthorization(response.body()?.auth?.accessToken.toString())
-                        SharePreferenceRepositoryImpl(context).saveRollUser(response.body()?.user?.roleId ?: 1)
-                        doctorLoginSuccess.value = true
-                    } else {
-                        errorApiLiveData.postValue(response.body()?.error)
-                    }
-                } else {
-                    errorApiLiveData.postValue(response.errorBody()?.string())
-                }
+                errorApiLiveData.postValue(e.message)
             }
-        } catch (e: Exception) {
-            loading.postValue(false)
-            errorApiLiveData.postValue(e.message)
-        }
+            .collect {
+                loading.postValue(false)
+                shared.saveAuthorization(it.auth?.accessToken.toString())
+                shared.saveRollUser(it.user?.roleId ?: 1)
+                doctorLoginSuccess.value = true
+            }
     }
 }

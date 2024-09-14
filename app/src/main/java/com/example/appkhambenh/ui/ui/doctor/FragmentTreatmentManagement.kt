@@ -33,7 +33,6 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentTreatmentManagementBinding
 import com.example.appkhambenh.ui.base.BaseFragment
 import com.example.appkhambenh.ui.data.remote.entity.GetMedicalHistoryResponse
-import com.example.appkhambenh.ui.data.remote.entity.MedicalHistoryResponse
 import com.example.appkhambenh.ui.data.remote.entity.PatientModel
 import com.example.appkhambenh.ui.data.remote.entity.ServiceOrderModel
 import com.example.appkhambenh.ui.data.remote.entity.VitalChartModel
@@ -49,7 +48,6 @@ import com.example.appkhambenh.ui.ui.doctor.adapter.ListOfServiceAdapter
 import com.example.appkhambenh.ui.ui.doctor.controller.ActionRecord
 import com.example.appkhambenh.ui.ui.doctor.viewmodel.FragmentTreatmentManagementViewModel
 import com.example.appkhambenh.ui.ui.user.appointment.MakeAppointActivity
-import com.example.appkhambenh.ui.ui.user.appointment.OnlineConsultationActivity
 import com.example.appkhambenh.ui.ui.user.appointment.adapter.ImageCameraAdapter
 import com.example.appkhambenh.ui.utils.DateUtils
 import com.example.appkhambenh.ui.utils.PersonalInformation
@@ -71,7 +69,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -81,7 +78,7 @@ import java.util.Date
 import java.util.Locale
 
 /**
- * Create By NGUYEN HUU LINH 2024
+ * Create By NGUYEN HUU LINH on 2024
  */
 
 enum class ServiceTreatmentManagement {
@@ -96,6 +93,7 @@ enum class ServiceTreatmentManagement {
     DIAGNOSE
 }
 
+@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementViewModel, FragmentTreatmentManagementBinding>() {
     private var isExpand = false
@@ -112,7 +110,6 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
     private var currentListen = 0
     private var permissionToRecordAccepted = false
     private var patient: PatientModel? = null
-    private var patientId: Int? = null
     private var medicalHistoryId = 0
     private var listOfServiceAdapter: ListOfServiceAdapter? = null
     private var services: ArrayList<ServiceOrderModel>? = null
@@ -194,8 +191,6 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.e("FragmentTreatmentManagement", "FragmentTreatmentManagement")
-
         fillView()
         ActivityCompat.requestPermissions(requireActivity(), permissions, REQUEST_RECORD_AUDIO_PERMISSION)
 
@@ -237,12 +232,10 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
             withContext(Dispatchers.Main) {
                 viewModel.valueVitalChart.collect {
                     if(it != null) {
-                        async {
-                            valueVitalChart = it[0]
-                            drawLineChart(binding.chart.lineChartTemplate, R.color.green_chart_template, it[0].temperature)
-                            drawLineChart(binding.chart.lineChartBloodPressure, R.color.red_chart_blood_pressure, it[0].systolic)
-                            drawLineChart(binding.chart.lineChartBloodSugarAndHeart, R.color.blue_chart_heart_and_blood_sugar, it[0].bloodGlucose)
-                        }.await()
+                        valueVitalChart = it[0]
+                        drawLineChart(binding.chart.lineChartTemplate, R.color.green_chart_template, it[0].temperature)
+                        drawLineChart(binding.chart.lineChartBloodPressure, R.color.red_chart_blood_pressure, it[0].systolic)
+                        drawLineChart(binding.chart.lineChartBloodSugarAndHeart, R.color.blue_chart_heart_and_blood_sugar, it[0].bloodGlucose)
                     }
                 }
             }
@@ -399,6 +392,13 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
         setMinutesListen()
     }
 
+    /**
+     * Handle Permission For Record Audio
+     * @param requestCode code request
+     * @param permissions array permission
+     * @param grantResults result
+     */
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_RECORD_AUDIO_PERMISSION) {
@@ -408,6 +408,7 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun initView() {
         imageCameraAdapter1 = ImageCameraAdapter(requireActivity()).apply {
             items = uris1
@@ -1226,6 +1227,8 @@ class FragmentTreatmentManagement : BaseFragment<FragmentTreatmentManagementView
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 

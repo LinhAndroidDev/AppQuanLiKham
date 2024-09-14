@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 data class MedicalHistoryResponse(
-    val data: List<Data>,
+    val data: List<Data>?,
     val paginate: Paginate
 ) {
     @Parcelize

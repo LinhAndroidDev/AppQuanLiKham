@@ -6,13 +6,18 @@ import com.example.appkhambenh.ui.data.remote.model.AccountModel
 import com.example.appkhambenh.ui.data.remote.repository.doctor.AccountRepository
 import com.example.appkhambenh.ui.data.remote.request.AddAccountRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class FragmentAccountViewModel @Inject constructor(private val accountRepository: AccountRepository) : BaseViewModel() {
-    val accounts: MutableStateFlow<ArrayList<AccountModel>?> = MutableStateFlow(null)
+    private val _accounts: MutableStateFlow<ArrayList<AccountModel>?> = MutableStateFlow(null)
+    val accounts = _accounts.asStateFlow()
 
     fun getAccount(
         fullname: String? = null,
@@ -20,27 +25,28 @@ class FragmentAccountViewModel @Inject constructor(private val accountRepository
         roleId: Int? = null
     ) = viewModelScope.launch {
         loading.postValue(true)
-        accountRepository.getAccount(fullname, email, roleId).let { response ->
-            loading.postValue(false)
-            if(response.isSuccessful) {
-                accounts.value = response.body()?.data
-            } else {
-                errorApiLiveData.postValue("Lỗi Server")
+        accountRepository.getAccount(fullname, email, roleId)
+            .flowOn(Dispatchers.IO)
+            .catch { e ->
+                loading.postValue(false)
+                errorApiLiveData.postValue(e.message)
+            }.collect {
+                loading.postValue(false)
+                _accounts.value = it.data
             }
-        }
     }
 
     fun addAccount(addAccountRequest: AddAccountRequest) = viewModelScope.launch {
         loading.postValue(true)
-        accountRepository.addAccount(addAccountRequest).let { response ->
-            loading.postValue(false)
-            if(response.isSuccessful) {
-                if(response.body() != null) {
-                    getAccount()
-                }
-            } else {
-                errorApiLiveData.postValue("Lỗi server")
+        accountRepository.addAccount(addAccountRequest)
+            .flowOn(Dispatchers.IO)
+            .catch { e ->
+                loading.postValue(false)
+                errorApiLiveData.postValue(e.message)
             }
-        }
+            .collect {
+                loading.postValue(false)
+                getAccount()
+            }
     }
 }

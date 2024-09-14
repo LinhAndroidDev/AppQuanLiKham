@@ -1,28 +1,30 @@
 package com.example.appkhambenh.ui.data.remote.repository.doctor
 
-import com.example.appkhambenh.ui.data.remote.DoctorService
+import com.example.appkhambenh.ui.data.remote.entity.DeletePatientResponse
+import com.example.appkhambenh.ui.data.remote.entity.GetPatientResponse
+import com.example.appkhambenh.ui.data.remote.entity.PatientResponse
+import com.example.appkhambenh.ui.data.remote.entity.UpdateInfoPatientResponse
+import com.example.appkhambenh.ui.data.remote.entity.ValueVitalChartResponse
 import com.example.appkhambenh.ui.data.remote.model.PatientInfoModel
-import dagger.hilt.android.scopes.ViewModelScoped
-import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
-@ViewModelScoped
-class PatientRepository @Inject constructor(private val doctorService: DoctorService) {
+interface PatientRepository {
     suspend fun getListPatient(
         fullname: String? = null,
         email: String? = null,
         citizenId: String? = null,
         healthInsurance: String? = null,
         phoneNumber: String? = null,
-    ) = doctorService.getListPatient(fullname, email, citizenId, healthInsurance, phoneNumber)
+    ): Flow<PatientResponse>
 
-    suspend fun getPatient(
-        patientId: Int
-    ) = doctorService.getPatient(patientId)
+    suspend fun getPatient(patientId: Int): Flow<GetPatientResponse>
 
-    suspend fun updateInfoPatient(idUser: Int, infoPatient: PatientInfoModel) =
-        doctorService.updateInfoPatient(idUser, infoPatient)
+    suspend fun updateInfoPatient(
+        idUser: Int,
+        infoPatient: PatientInfoModel,
+    ): Flow<UpdateInfoPatientResponse>
 
-    suspend fun getValueVitalChart(patientId: Int) = doctorService.getValueVitalChart(patientId)
+    suspend fun getValueVitalChart(patientId: Int): Flow<ValueVitalChartResponse>
 
-    suspend fun deletePatient(patientId: Int) = doctorService.deletePatient(patientId)
+    suspend fun deletePatient(patientId: Int): Flow<DeletePatientResponse>
 }

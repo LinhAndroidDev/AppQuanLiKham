@@ -58,6 +58,18 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
                 }
             }
         }
+
+        lifecycleScope.launch {
+            withContext(Dispatchers.Main) {
+                viewModel.patientModel.collect { data ->
+                    val patient = data?.first
+                    val id = data?.second
+                    if(patient != null && id != null) {
+                        goToFragmentTreatment(patient, id)
+                    }
+                }
+            }
+        }
     }
 
     private fun onClickView() {
@@ -79,25 +91,17 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
         }
 
         binding.searchPatient.setOnClickListener {
-            lifecycleScope.launch {
-                withContext(Dispatchers.Main) {
-                    viewModel.getListPatient(
-                        fullname = textNullOrEmpty(binding.namePatient.getText()),
-                        email = textNullOrEmpty(binding.emailPatient.getText()),
-                        citizenId = textNullOrEmpty(binding.cccdPatient.getText()),
-                        healthInsurance = textNullOrEmpty(binding.healthInsurancePatient.getText()),
-                        phoneNumber = textNullOrEmpty(binding.phonePatient.getText())
-                    )
-                }
-            }
+            viewModel.getListPatient(
+                fullname = textNullOrEmpty(binding.namePatient.getText()),
+                email = textNullOrEmpty(binding.emailPatient.getText()),
+                citizenId = textNullOrEmpty(binding.cccdPatient.getText()),
+                healthInsurance = textNullOrEmpty(binding.healthInsurancePatient.getText()),
+                phoneNumber = textNullOrEmpty(binding.phonePatient.getText())
+            )
         }
 
         binding.reload.setOnClickListener {
-            lifecycleScope.launch {
-                withContext(Dispatchers.Main) {
-                    viewModel.getListPatient()
-                }
-            }
+            viewModel.getListPatient()
         }
     }
 
@@ -118,19 +122,7 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
             }
 
             dialog.onClickManageTreatment = {
-                var isNavigated = false
-                lifecycleScope.launch {
-                    withContext(Dispatchers.Main) {
-                        viewModel.medicalHistoryPatient(patient.id)
-                        viewModel.isRegistered.collect {
-                            if(it != 0 && !isNavigated) {
-                                Log.e("GoToFragmentTreatment", "FragmentAdminDoctor")
-                                isNavigated = true
-                                goToFragmentTreatment(patient, it)
-                            }
-                        }
-                    }
-                }
+                viewModel.medicalHistoryPatient(patient.id)
             }
         }
 
