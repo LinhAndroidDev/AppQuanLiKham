@@ -64,21 +64,21 @@
 
         <TextView
             android:layout_marginStart="@dimen/dimen_15"
-            style="@style/text_sp16"
+            style="@style/text_sp14"
             android:text="Trang chủ / "
             android:textColor="@color/txt_hint"
             android:textAllCaps="true"/>
 
         <TextView
             android:id="@+id/titleView"
-            style="@style/text_sp16"
+            style="@style/text_sp14"
             android:text="Quản lí hành chính"
             android:textColor="@color/text_common"
             android:textAllCaps="true"/>
 
         <TextView
             android:id="@+id/titleNext"
-            style="@style/text_sp16"
+            style="@style/text_sp14"
             android:text="/ Quản lí hành chính"
             android:textColor="@color/text_common"
             android:textAllCaps="true"/>

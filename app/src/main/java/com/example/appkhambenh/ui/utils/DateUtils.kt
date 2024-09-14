@@ -2,13 +2,20 @@ package com.example.appkhambenh.ui.utils
 
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 object DateUtils {
     const val TIME = "HH:mm:ss dd/MM/yyyy"
-    const val DAY_OF_YEAR = "dd/MM/yyyy"
+    const val DAY_OF_YEAR = "yyyy-MM-dd"
     const val TIME_UPLOAD_AVATAR = "dd_MM_yyyy_HH_mm_ss"
     const val MINUTES = "mm:ss"
+    const val DATE_FROM_VIET_NAM = "'Ngày' dd 'tháng' MM 'năm' yyyy"
+    const val HOUR_OF_YEAR = "yyyy/MM/dd - HH:mm"
 
     @SuppressLint("SimpleDateFormat")
     fun convertDateToLong(date: String): Long {
@@ -32,5 +39,36 @@ object DateUtils {
     fun getTimeCurrent(): String {
         val timeCurrent = SimpleDateFormat(TIME_UPLOAD_AVATAR, Locale.getDefault()).format(Date())
         return timeCurrent.toString()
+    }
+
+    fun getDateCurrentFromVietNam(): String {
+        val calendar = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat(DATE_FROM_VIET_NAM, Locale.getDefault())
+        return dateFormat.format(calendar.time)
+    }
+
+    fun getAgeFromDate(dateString: String?): Int {
+        val calendar = Calendar.getInstance()
+        // Phân tích cú pháp chuỗi ngày tháng
+        val zonedDateTime = ZonedDateTime.parse(dateString, DateTimeFormatter.ISO_DATE_TIME)
+
+        return calendar.get(Calendar.YEAR) - zonedDateTime.year
+    }
+
+    fun convertIsoDateTimeToDate(isoDateTime: String, hasHour: Boolean = false): String {
+//        val dateTime = OffsetDateTime.parse(isoDateTime, DateTimeFormatter.ISO_DATE_TIME)
+//        val dateFormatter = DateTimeFormatter.ofPattern(if(!hasHour) DAY_OF_YEAR else HOUR_OF_YEAR)
+//        return dateTime.format(dateFormatter)
+
+        val offsetDateTime = OffsetDateTime.parse(isoDateTime, DateTimeFormatter.ISO_DATE_TIME)
+        val localDateTime = offsetDateTime.withOffsetSameInstant(ZoneOffset.UTC).toLocalDateTime()
+        val dateFormatter = DateTimeFormatter.ofPattern(if(!hasHour) DAY_OF_YEAR else HOUR_OF_YEAR)
+        return localDateTime.format(dateFormatter)
+    }
+
+    fun convertDateToIsoDateTime(date: String): String {
+        val localDate = LocalDate.parse(date, DateTimeFormatter.ofPattern(DAY_OF_YEAR))
+        val localDateTime = localDate.atStartOfDay()
+        return localDateTime.format(DateTimeFormatter.ISO_DATE_TIME)
     }
 }

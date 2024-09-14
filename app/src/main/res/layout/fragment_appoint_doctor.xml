@@ -49,18 +49,27 @@
                 tools:ignore="KeyboardInaccessibleWidget,TextFields" />
 
             <ImageView
+                android:id="@+id/calendar"
                 android:layout_width="@dimen/dimen_18"
                 android:layout_height="@dimen/dimen_18"
                 android:layout_marginStart="@dimen/dimen_10"
                 android:src="@drawable/ic_number_appointment"
                 app:tint="@color/txt_hint" />
+
+            <ImageView
+                android:id="@+id/remove"
+                android:layout_width="@dimen/dimen_18"
+                android:layout_height="@dimen/dimen_18"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:src="@drawable/ic_remove"
+                app:tint="@color/txt_hint"
+                android:visibility="gone"/>
         </LinearLayout>
     </RelativeLayout>
 
-    <LinearLayout
+    <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -77,8 +86,15 @@
                     android:layout_height="wrap_content"
                     app:showViewEnd="true"
                     app:showViewLoad="true"
-                    app:sizeView="small"
-                    app:title="ID" />
+                    app:sizeView="big_large"
+                    app:title="Tên bệnh nhân" />
+
+                <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:showViewEnd="true"
+                    app:sizeView="large"
+                    app:title="Lí do thăm khám" />
 
                 <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
                     android:layout_width="wrap_content"
@@ -86,7 +102,40 @@
                     app:showViewEnd="true"
                     app:showViewLoad="true"
                     app:sizeView="big_large"
-                    app:title="Tên bệnh nhân" />
+                    app:title="Căn cước công dân" />
+
+                <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:showViewEnd="true"
+                    app:sizeView="large"
+                    app:title="Số điện thoại" />
+
+                <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:showViewEnd="true"
+                    app:sizeView="big_large"
+                    app:title="Thời gian khám" />
+
+                <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:showViewEnd="true"
+                    app:title="Trạng thái" />
+
+                <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:showViewEnd="true"
+                    app:sizeView="big_large"
+                    app:title="Nơi giới thiệu" />
+
+                <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:showViewEnd="true"
+                    app:title="Hành động" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -97,79 +146,6 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
         </LinearLayout>
 
-        <HorizontalScrollView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:background="@color/grey_light"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:showViewEnd="true"
-                        app:sizeView="large"
-                        app:title="Lí do thăm khám" />
-
-                    <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:showViewEnd="true"
-                        app:showViewLoad="true"
-                        app:sizeView="big_large"
-                        app:title="Căn cước công dân" />
-
-                    <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:showViewEnd="true"
-                        app:sizeView="large"
-                        app:title="Số điện thoại" />
-
-                    <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:showViewEnd="true"
-                        app:sizeView="big_large"
-                        app:title="Thời gian khám" />
-
-                    <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:showViewEnd="true"
-                        app:title="Trạng thái" />
-
-                    <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:showViewEnd="true"
-                        app:sizeView="big_large"
-                        app:title="Nơi giới thiệu" />
-
-                    <com.example.appkhambenh.ui.ui.doctor.CustomTitleInfoPatient
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:showViewEnd="true"
-                        app:title="Hành động" />
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rcvDetailInfoAppointPatient"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-            </LinearLayout>
-        </HorizontalScrollView>
-
-    </LinearLayout>
+    </HorizontalScrollView>
 
 </LinearLayout>

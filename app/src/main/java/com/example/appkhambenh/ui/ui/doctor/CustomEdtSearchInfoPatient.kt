@@ -1,12 +1,14 @@
 package com.example.appkhambenh.ui.ui.doctor
 
 import android.content.Context
+import android.text.InputType
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.CustomEdtInfoPatientBinding
 import com.example.appkhambenh.ui.ui.common.CustomEndIconDrawable
@@ -20,7 +22,7 @@ class CustomEdtSearchInfoPatient @JvmOverloads constructor(
     defStyleAttr: Int = 0,
 ) : LinearLayout(context, attrs, defStyleAttr) {
     private val binding by lazy { CustomEdtInfoPatientBinding.inflate(LayoutInflater.from(context)) }
-    var indexSelected: ((Int) -> Unit)? = null
+    var indexSelected: Int = 0
 
     init {
         binding.root.layoutParams =
@@ -40,7 +42,45 @@ class CustomEdtSearchInfoPatient @JvmOverloads constructor(
                 binding.edtInfo.isVisible = false
                 binding.pulldown.isVisible = true
             }
+
+            binding.edtInfo.isFocusable = getBoolean(R.styleable.CustomEdtSearchInfoPatient_enable_edt, true)
+            binding.edtInfo.isClickable = getBoolean(R.styleable.CustomEdtSearchInfoPatient_enable_edt, true)
+
+            binding.edtInfo.inputType = when(getInteger(R.styleable.CustomEdtSearchInfoPatient_input_type, 0)) {
+                1 -> InputType.TYPE_NUMBER_FLAG_DECIMAL
+                2 -> InputType.TYPE_CLASS_NUMBER
+                else -> InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+            }
         }
+    }
+
+    /**
+     * Check Condition Each Edittext With Value Of Input Between Start To End
+     */
+    fun checkInputValue(start: Int, end: Int): Boolean {
+        var passCondition = true
+        binding.edtInfo.doOnTextChanged { text, _, _, _ ->
+            if(text?.isNotEmpty() == true) {
+                val value = text.toString().toInt()
+                if(value in start..end) {
+                    passCondition = true
+                    updateUiEdt(R.drawable.bg_edit_search_info_patient, false, "")
+                } else {
+                    passCondition = false
+                    updateUiEdt(R.drawable.bg_warning, true, "Vui lòng nhập giá trị trong khoảng từ $start đến $end")
+                }
+            } else {
+                passCondition = false
+                updateUiEdt(R.drawable.bg_warning, true, "Vui lòng không bỏ trống trường này")
+            }
+        }
+        return passCondition
+    }
+
+    private fun updateUiEdt(background: Int, visibleText: Boolean, mess: String) {
+        binding.edtInfo.setBackgroundResource(background)
+        binding.textWarning.isVisible = visibleText
+        binding.textWarning.text = mess
     }
 
     private fun setUpCalendar() {
@@ -64,7 +104,7 @@ class CustomEdtSearchInfoPatient @JvmOverloads constructor(
 
     fun setUpListSpinner(list:ArrayList<String>) {
         binding.pulldown.createSpinner(context, list) {
-            indexSelected?.invoke(it)
+            indexSelected = it
         }
     }
 

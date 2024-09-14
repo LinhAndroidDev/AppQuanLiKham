@@ -3,7 +3,6 @@ package com.example.appkhambenh.ui.base
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
@@ -13,11 +12,17 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.example.appkhambenh.R
+import com.example.appkhambenh.ui.ui.common.dialog.DialogExpiredToken
 import com.example.appkhambenh.ui.ui.common.dialog.DialogLoading
 import com.example.appkhambenh.ui.utils.ConvertUtils.dpToPx
 import com.example.appkhambenh.ui.utils.SharePreferenceRepositoryImpl
+import com.example.appkhambenh.ui.utils.TokenManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -46,7 +51,6 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
         sharePrefer = SharePreferenceRepositoryImpl(requireActivity())
 
         bindData()
-
         setLanguage(requireActivity(), sharePrefer.getLanguage())
 
         return binding.root
@@ -61,7 +65,9 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
     }
 
     fun showLoading() {
-        loading.show(requireActivity().supportFragmentManager, "DialogLoading")
+        if (!loading.isAdded) {
+            loading.show(parentFragmentManager, "DialogLoading");
+        }
     }
 
     fun dismissLoading() {
@@ -79,11 +85,30 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
         viewModel.errorApiLiveData.observe(viewLifecycleOwner) {
             show(it)
         }
+
+        viewModel.loading.observe(viewLifecycleOwner) {
+            if (it) showLoading() else dismissLoading()
+        }
+
+        handleTokenExpired()
+    }
+
+    private fun handleTokenExpired() {
+        lifecycleScope.launch {
+            withContext(Dispatchers.Main) {
+                TokenManager.tokenExpiredEvent.collect { isExpired ->
+                    if(isExpired) {
+                        val dialog = DialogExpiredToken()
+                        dialog.show(parentFragmentManager, "DialogExpired")
+                    }
+                }
+            }
+        }
     }
 
     fun replaceFragment(fragment: Fragment, changeId: Int) {
         val fm: FragmentTransaction =
-            requireActivity().supportFragmentManager.beginTransaction()
+            parentFragmentManager.beginTransaction()
         fm.replace(changeId, fragment).addToBackStack(null).commit()
     }
 
@@ -130,12 +155,5 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewBinding> : Fragment(), Io
     fun back() {
         closeKeyboard()
         activity?.onBackPressed()
-    }
-
-    fun isOnline(context: Context): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo = connectivityManager.activeNetworkInfo
-        return networkInfo != null && networkInfo.isConnected
     }
 }

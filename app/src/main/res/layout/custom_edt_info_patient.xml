@@ -37,6 +37,14 @@
         android:inputType="textEmailAddress"
         android:imeOptions="actionDone"/>
 
+    <TextView
+        android:id="@+id/textWarning"
+        android:layout_marginTop="@dimen/dimen_2"
+        android:text="Vui lòng nhập giá trị trong khoảng từ 36 đến 42"
+        style="@style/text_sp14"
+        android:textColor="@color/red_stroke"
+        android:visibility="gone"/>
+
     <Spinner
         android:id="@+id/pulldown"
         android:textSize="@dimen/dimen_sp12"
@@ -45,6 +53,6 @@
         android:paddingStart="@dimen/dimen_15"
         android:background="@drawable/bg_edit_search_info_patient"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dimen_46"
         android:visibility="gone"/>
 </LinearLayout>

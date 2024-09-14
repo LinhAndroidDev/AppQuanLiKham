@@ -1,6 +1,19 @@
 package com.example.appkhambenh.ui.utils
 
 object PersonalInformation {
+
+    fun rolls() : ArrayList<String> {
+        return arrayListOf(
+            "Quản trị viên",
+            "Bác sĩ",
+            "Y tá",
+            "Lễ tân",
+            "Kĩ thuật viên",
+            "Thu ngân",
+            "Bác sĩ chẩn đoán hình ảnh"
+        )
+    }
+
     fun ethnics(): ArrayList<String>{
         return arrayListOf(
             "Kinh",

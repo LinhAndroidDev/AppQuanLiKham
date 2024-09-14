@@ -8,11 +8,13 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Point
+import android.net.Uri
 import android.util.TypedValue
 import android.view.Display
 import java.io.ByteArrayOutputStream
 import android.util.Base64
-import kotlin.io.encoding.ExperimentalEncodingApi
+import java.io.File
+import java.io.FileOutputStream
 
 object ConvertUtils {
     fun Int.dpToPx(context: Context): Int {
@@ -43,7 +45,6 @@ object ConvertUtils {
         return size.x
     }
 
-    @OptIn(ExperimentalEncodingApi::class)
     fun bitmapToBase64(bitmap: Bitmap): String {
         val baos = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
@@ -54,5 +55,19 @@ object ConvertUtils {
     fun base64ToBitmap(base64: String): Bitmap {
         val imageBytes = Base64.decode(base64, Base64.DEFAULT)
         return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+    }
+
+    fun convertUriToFile(c: Context, imgUri: Uri?): File {
+        // Chuyển đổi URI thành Bitmap
+        val inputStream = c.contentResolver.openInputStream(imgUri!!)
+        val bitmap = BitmapFactory.decodeStream(inputStream)
+
+        // Chuyển đổi Bitmap thành File
+        val file = File(c.externalCacheDir, "tempFile.png") // Thay đổi tên file và định dạng file tại đây
+        val outputStream = FileOutputStream(file)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream) // Thay đổi định dạng nén tại đây
+        outputStream.flush()
+        outputStream.close()
+        return file
     }
 }

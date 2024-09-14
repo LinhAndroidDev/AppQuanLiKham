@@ -7,26 +7,86 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:paddingVertical="@dimen/dimen_15"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/idUser"
-                style="@style/text_sp14"
-                android:layout_width="@dimen/dimen_50"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/dimen_10"
-                android:text="26" />
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/nameUser"
+                android:layout_marginVertical="@dimen/dimen_15"
                 style="@style/text_sp14_black_bold"
                 android:layout_width="@dimen/dimen_160"
                 android:paddingStart="@dimen/dimen_10"
                 android:text="Tên bệnh nhân"
                 android:maxLines="1"
                 android:ellipsize="end"/>
+
+            <TextView
+                android:id="@+id/reason"
+                style="@style/text_sp14"
+                android:layout_width="@dimen/dimen_140"
+                android:paddingStart="@dimen/dimen_10"
+                android:text="Lí do thăm khám"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:id="@+id/cccd"
+                style="@style/text_sp14"
+                android:layout_width="@dimen/dimen_160"
+                android:paddingStart="@dimen/dimen_10"
+                android:text="Căn cước công dân" />
+
+            <TextView
+                android:id="@+id/phone"
+                style="@style/text_sp14"
+                android:layout_width="@dimen/dimen_140"
+                android:paddingStart="@dimen/dimen_10"
+                android:text="Số điện thoại" />
+
+            <TextView
+                android:id="@+id/time"
+                style="@style/text_sp14"
+                android:layout_width="@dimen/dimen_160"
+                android:paddingStart="@dimen/dimen_10"
+                android:text="Thời gian khám" />
+
+            <TextView
+                android:id="@+id/state"
+                style="@style/text_sp14"
+                android:layout_width="@dimen/dimen_140"
+                android:paddingStart="@dimen/dimen_10"
+                android:text="Trạng thái" />
+
+            <TextView
+                android:id="@+id/introductionPlace"
+                style="@style/text_sp14"
+                android:layout_width="@dimen/dimen_160"
+                android:paddingStart="@dimen/dimen_10"
+                android:text="Nơi giới thiệu"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+            
+            <LinearLayout
+                android:paddingStart="@dimen/dimen_10"
+                android:layout_width="@dimen/dimen_100"
+                android:layout_height="wrap_content">
+                
+                <LinearLayout
+                    android:id="@+id/confirmAppoint"
+                    android:paddingTop="@dimen/dimen_5"
+                    android:paddingHorizontal="@dimen/dimen_10"
+                    android:paddingBottom="@dimen/dimen_3"
+                    android:background="@drawable/boder_grey_corner_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    
+                    <ImageView
+                        android:src="@drawable/ic_add_appoint"
+                        android:layout_width="@dimen/dimen_25"
+                        android:layout_height="@dimen/dimen_25"/>
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
 
         <View

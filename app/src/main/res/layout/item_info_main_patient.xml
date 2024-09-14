@@ -50,6 +50,84 @@
                 android:text="Tên bệnh nhân"
                 android:maxLines="1"
                 android:ellipsize="end"/>
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_marginVertical="@dimen/dimen_15"
+                style="@style/text_sp14"
+                android:layout_width="@dimen/dimen_160"
+                android:paddingStart="@dimen/dimen_10"
+                android:text="Quê quán"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:id="@+id/numberBhxh"
+                style="@style/text_sp14"
+                android:layout_width="@dimen/dimen_160"
+                android:paddingStart="@dimen/dimen_10"
+                android:text="Số BHXH" />
+
+            <TextView
+                android:id="@+id/cccd"
+                style="@style/text_sp14"
+                android:layout_width="@dimen/dimen_160"
+                android:paddingStart="@dimen/dimen_10"
+                android:text="Căn cước công dân" />
+
+            <TextView
+                android:id="@+id/email"
+                style="@style/text_sp14"
+                android:layout_width="@dimen/dimen_160"
+                android:paddingStart="@dimen/dimen_10"
+                android:text="Email"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:id="@+id/phone"
+                style="@style/text_sp14"
+                android:layout_width="@dimen/dimen_150"
+                android:paddingStart="@dimen/dimen_10"
+                android:text="Số điện thoại" />
+
+            <TextView
+                android:id="@+id/sex"
+                style="@style/text_sp14"
+                android:layout_width="@dimen/dimen_100"
+                android:paddingStart="@dimen/dimen_10"
+                android:text="Giới tính" />
+
+            <LinearLayout
+                android:layout_marginStart="@dimen/dimen_10"
+                android:background="@drawable/boder_grey_corner_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_marginVertical="@dimen/dimen_5"
+                    android:layout_marginHorizontal="@dimen/dimen_10"
+                    android:src="@drawable/ic_action_edit_department_clinic"
+                    android:layout_width="@dimen/dimen_20"
+                    android:layout_height="@dimen/dimen_20"
+                    app:tint="@color/black"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/deletePatient"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:background="@drawable/boder_grey_corner_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_marginVertical="@dimen/dimen_5"
+                    android:layout_marginHorizontal="@dimen/dimen_10"
+                    android:src="@drawable/ic_delete"
+                    android:layout_width="@dimen/dimen_20"
+                    android:layout_height="@dimen/dimen_20"
+                    app:tint="@color/black"/>
+            </LinearLayout>
         </LinearLayout>
 
         <View

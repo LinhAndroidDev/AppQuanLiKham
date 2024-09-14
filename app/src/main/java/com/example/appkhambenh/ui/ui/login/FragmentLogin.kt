@@ -1,8 +1,11 @@
 package com.example.appkhambenh.ui.ui.login
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
@@ -15,16 +18,34 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentLoginBinding
 import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.base.BaseFragment
+import com.example.appkhambenh.ui.data.remote.model.LoginModel
+import com.example.appkhambenh.ui.ui.common.dialog.DialogStudent
 import com.example.appkhambenh.ui.ui.doctor.DoctorActivity
+import com.example.appkhambenh.ui.ui.doctor.FragmentTreatmentManagement
 import com.example.appkhambenh.ui.ui.register.FragmentRegister
+import com.example.appkhambenh.ui.utils.validateEmail
+import com.example.appkhambenh.ui.utils.validatePassword
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.parcelize.Parcelize
+import org.apache.poi.ss.usermodel.WorkbookFactory
+
+@Parcelize
+data class Student(
+    val id: Int,
+    val name: String,
+    val age: Int,
+    val address: String
+) : Parcelable
 
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
 class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
+
+    companion object {
+        const val LIST_STUDENT = "LIST_STUDENT"
+    }
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -34,15 +55,46 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        activity?.intent?.let { handleIntent(it) }
         initUi()
+    }
+
+    private fun handleIntent(intent: Intent) {
+        if (intent.action == Intent.ACTION_SEND) {
+            val uri = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
+            if (uri != null) {
+                val students = readExcelFile(requireActivity(), uri)
+                val dialogStudent = DialogStudent()
+                dialogStudent.show(parentFragmentManager, "")
+                val bundle = Bundle()
+                bundle.putParcelableArrayList(LIST_STUDENT, students)
+                dialogStudent.arguments = bundle
+            }
+        }
+    }
+
+    private fun readExcelFile(context: Context, uri: Uri): ArrayList<Student> {
+        val students = mutableListOf<Student>()
+        val inputStream = context.contentResolver.openInputStream(uri)
+        val workbook = WorkbookFactory.create(inputStream)
+        val sheet = workbook.getSheetAt(0)
+
+        for (row in sheet) {
+            if (row.rowNum == 0) continue  // Bỏ qua hàng tiêu đề
+            val id = row.getCell(0).numericCellValue.toInt()
+            val name = row.getCell(1).stringCellValue
+            val age = row.getCell(2).numericCellValue.toInt()
+            val address = row.getCell(3).stringCellValue
+            students.add(Student(id, name, age, address))
+        }
+
+        workbook.close()
+        inputStream?.close()
+        return students as ArrayList<Student>
     }
 
     override fun bindData() {
         super.bindData()
-
-        viewModel.loading.observe(viewLifecycleOwner) {
-            if (it) showLoading() else dismissLoading()
-        }
 
         viewModel.loginSuccessLiveData.observe(viewLifecycleOwner) { isSuccessful ->
             if (isSuccessful) {
@@ -94,7 +146,6 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
 
     @SuppressLint("CommitTransaction", "ClickableViewAccessibility")
     private fun initUi() {
-
         checkSaveAccount()
 
         binding.showPassword.setOnClickListener {
@@ -108,12 +159,16 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
             }
         }
 
-        binding.login.setOnClickListener {
+        binding.loginDoctor.setOnClickListener {
             val email = binding.edtAccount.text.toString()
             val password = binding.edtPassword.text.toString()
-            lifecycleScope.launch(Dispatchers.IO) {
-                viewModel.loginDoctor(email, password)
-            }
+            viewModel.loginDoctor(email, password)
+        }
+
+        binding.login.setOnClickListener {
+//            val email = binding.edtAccount.text.toString()
+//            val password = binding.edtPassword.text.toString()
+//
 //            if (email.isEmpty() || password.isEmpty()) {
 //                setNotification(R.color.txt_green, R.string.enter_enough_info)
 //            } else if (!validateEmail(email)) {
@@ -130,12 +185,27 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
 //                    )
 //                }
 //            }
+            if (binding.checkForgetPassword.isChecked) {
+                saveAccount(
+                    email = binding.edtAccount.text.toString(),
+                    password = binding.edtPassword.text.toString(),
+                    isForget = true
+                )
+            } else if (!binding.checkForgetPassword.isChecked) {
+                saveAccount("", "", false)
+            }
+
+            sharePrefer.saveCheckLogin(true)
+
+            val intent = Intent(requireActivity(), HomeActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
         }
 
         binding.register.setOnClickListener {
             val fragmentRegister = FragmentRegister()
             val fm: FragmentTransaction =
-                requireActivity().supportFragmentManager.beginTransaction()
+                parentFragmentManager.beginTransaction()
             fm.replace(R.id.changeIdLogin, fragmentRegister).addToBackStack(null).commit()
         }
 

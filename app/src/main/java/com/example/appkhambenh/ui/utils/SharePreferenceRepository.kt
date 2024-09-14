@@ -24,11 +24,14 @@ interface SharePreferenceRepository {
         const val INDEX_NATIONALITY = "INDEX_NATIONALITY"
         const val INDEX_JOB = "INDEX_JOB"
         const val IDENTIFICATION = "IDENTIFICATION"
+        const val ROLL_USER = "ROLL_USER"
     }
 
     fun saveAuthorization(authorization: String)
 
     fun getAuthorization(): String
+
+    fun clearAuthorization()
 
     fun saveUserId(id: Int)
 
@@ -113,4 +116,8 @@ interface SharePreferenceRepository {
     fun saveIdentification(identification: String)
 
     fun getIdentification(): String
+
+    fun saveRollUser(rollId: Int)
+
+    fun getRollUser(): Int
 }

@@ -12,16 +12,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.example.appkhambenh.R
-import com.example.appkhambenh.ui.ui.common.dialog.DialogExpiredToken
+import com.example.appkhambenh.ui.ui.common.dialog.DialogLoading
 import com.example.appkhambenh.ui.utils.ConvertUtils.dpToPx
 import com.example.appkhambenh.ui.utils.SharePreferenceRepositoryImpl
-import com.example.appkhambenh.ui.utils.TokenManager
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -32,7 +27,7 @@ import java.util.*
 abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActivity() {
     lateinit var viewModel: V
     lateinit var binding: B
-    val loading by lazy { ProgressDialog(this) }
+    val loading by lazy { DialogLoading() }
     lateinit var sharePrefer: SharePreferenceRepositoryImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,8 +38,6 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
         viewModel =
             ViewModelProvider(this)[(this::class.java.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<V>]
         sharePrefer = SharePreferenceRepositoryImpl(this)
-        loading.setMessage("Please wait...")
-        loading.setTitle(getString(R.string.notification))
         loading.setCancelable(false)
 
         initUi()
@@ -55,6 +48,21 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
         animChangeScreen()
         bindData()
         setLanguage(this, sharePrefer.getLanguage())
+    }
+
+    private fun showLoading() {
+        if (!loading.isAdded) {
+            loading.show(supportFragmentManager, "DialogLoading");
+        }
+    }
+
+    private fun dismissLoading() {
+        val dialogFragment = supportFragmentManager.findFragmentByTag("DialogLoading") as? DialogLoading
+        dialogFragment?.let {
+            if (it.isAdded) {
+                it.dismiss()
+            }
+        }
     }
 
     private fun animChangeScreen() {
@@ -72,6 +80,10 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewBinding> : AppCompatActiv
     open fun bindData() {
         viewModel.errorApiLiveData.observe(this) {
             show(it)
+        }
+
+        viewModel.loading.observe(this) {
+            if(it) showLoading() else dismissLoading()
         }
     }
 

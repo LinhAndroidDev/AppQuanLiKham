@@ -5,6 +5,7 @@ import com.budiyev.android.codescanner.BuildConfig
 import com.example.appkhambenh.ui.data.remote.ApiService
 import com.example.appkhambenh.ui.data.remote.DoctorService
 import com.example.appkhambenh.ui.data.remote.helper.Constants
+import com.example.appkhambenh.ui.utils.SharePreferenceRepository
 import com.example.appkhambenh.ui.utils.SharePreferenceRepositoryImpl
 import com.example.appkhambenh.ui.utils.TokenManager
 import com.google.android.gms.common.util.SharedPreferencesUtils
@@ -56,9 +57,7 @@ object AppModule {
                 // Kiểm tra mã trạng thái phản hồi
                 if (response.code == 401) {
                     // Xử lý token hết hạn (có thể gửi một sự kiện hoặc thông báo cho người dùng)
-                    if (!TokenManager.tokenExpiredEvent.value) {
-                        TokenManager.tokenExpiredEvent.value = true
-                    }
+                    TokenManager.tokenExpiredEvent.value = !TokenManager.tokenExpiredEvent.value
                 }
 
                 response
@@ -101,5 +100,11 @@ object AppModule {
     @ViewModelScoped
     fun provideDoctorApi(@DoctorWebService retrofit: Retrofit): DoctorService {
         return retrofit.create(DoctorService::class.java)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideSharePreference(context: Context): SharePreferenceRepository {
+        return SharePreferenceRepositoryImpl(context)
     }
 }

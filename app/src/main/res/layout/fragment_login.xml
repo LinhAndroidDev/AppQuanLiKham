@@ -220,5 +220,15 @@
                 android:text="@string/register"
                 android:textStyle="bold|italic" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/loginDoctor"
+            android:layout_marginTop="@dimen/dimen_15"
+            style="@style/text_sp14"
+            android:text="Đăng nhập cho Bác Sĩ"
+            android:background="@drawable/bg_common_corner_25"
+            android:textColor="@color/white"
+            android:paddingVertical="@dimen/dimen_10"
+            android:paddingHorizontal="@dimen/dimen_15"/>
     </LinearLayout>
 </RelativeLayout>

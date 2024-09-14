@@ -2,6 +2,7 @@ package com.example.appkhambenh.ui.ui.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -39,9 +40,19 @@ class SplashScreenActivity : BaseActivity<EmptyViewModel, ActivitySplashScreenBi
                     startActivity(intent)
                     finish()
                 } else {
-                    val intent = Intent(this@SplashScreenActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    if (intent?.action == Intent.ACTION_SEND && intent.type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+                        val intent = Intent(this@SplashScreenActivity, MainActivity::class.java).apply {
+                            action = intent.action
+                            type = intent.type
+                            putExtra(Intent.EXTRA_STREAM, intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM))
+                        }
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        val intent = Intent(this@SplashScreenActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
                 }
             }
 

@@ -29,6 +29,7 @@
                     android:layout_height="@dimen/dimen_20"/>
 
                 <TextView
+                    android:id="@+id/nameAccount"
                     android:layout_marginStart="@dimen/dimen_10"
                     android:text="Doctor"
                     style="@style/text_sp12"

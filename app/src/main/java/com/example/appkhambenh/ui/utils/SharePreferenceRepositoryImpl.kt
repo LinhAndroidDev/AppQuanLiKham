@@ -16,6 +16,7 @@ import com.example.appkhambenh.ui.utils.SharePreferenceRepository.Companion.INDE
 import com.example.appkhambenh.ui.utils.SharePreferenceRepository.Companion.LANGUAGE
 import com.example.appkhambenh.ui.utils.SharePreferenceRepository.Companion.PASSWORD
 import com.example.appkhambenh.ui.utils.SharePreferenceRepository.Companion.REMEMBER_PASSWORD
+import com.example.appkhambenh.ui.utils.SharePreferenceRepository.Companion.ROLL_USER
 import com.example.appkhambenh.ui.utils.SharePreferenceRepository.Companion.USER_ADDRESS
 import com.example.appkhambenh.ui.utils.SharePreferenceRepository.Companion.USER_AVATAR
 import com.example.appkhambenh.ui.utils.SharePreferenceRepository.Companion.USER_BIRTH
@@ -37,6 +38,10 @@ class SharePreferenceRepositoryImpl(val ctx: Context): SharePreferenceRepository
     }
 
     override fun getAuthorization(): String = prefs[AUTHORIZATION] ?: ""
+
+    override fun clearAuthorization() {
+        prefs.edit().remove(AUTHORIZATION).apply()
+    }
 
     override fun saveUserId(id: Int) {
         prefs[USER_ID] = id
@@ -163,4 +168,10 @@ class SharePreferenceRepositoryImpl(val ctx: Context): SharePreferenceRepository
     }
 
     override fun getIdentification(): String = prefs[IDENTIFICATION] ?: ""
+
+    override fun saveRollUser(rollId: Int) {
+        prefs[ROLL_USER] = rollId
+    }
+
+    override fun getRollUser(): Int = prefs[ROLL_USER] ?: 1
 }

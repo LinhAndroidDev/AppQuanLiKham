@@ -1,17 +1,13 @@
 package com.example.appkhambenh.ui.data.remote.entity
 
 import android.os.Parcelable
+import com.example.appkhambenh.ui.utils.DateUtils
 import kotlinx.parcelize.Parcelize
 
 data class PatientResponse(
     val data: ArrayList<PatientModel>,
     val totalPatient: Int,
     val paginate: Paginate
-)
-
-data class Paginate(
-    val pageIndex: Int,
-    val totalPage: Int
 )
 
 @Parcelize
@@ -39,4 +35,8 @@ data class PatientModel(
     val type: Boolean?,
     val updatedAt: String?,
     val village: String?
-) : Parcelable
+) : Parcelable {
+    fun getAge(): Int {
+        return DateUtils.getAgeFromDate(DoB)
+    }
+}

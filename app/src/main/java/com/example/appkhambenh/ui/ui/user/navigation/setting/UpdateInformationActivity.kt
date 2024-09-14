@@ -65,10 +65,6 @@ class UpdateInformationActivity :
     override fun bindData() {
         super.bindData()
 
-        viewModel.loading.observe(this) {
-            if (it) loading.show() else loading.dismiss()
-        }
-
         lifecycleScope.launch(Dispatchers.Main) {
             viewModel.getUserInfo()
             viewModel.infoUser.collect { user ->

@@ -2,41 +2,47 @@ package com.example.appkhambenh.ui.utils
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.text.Spannable
-import android.text.TextUtils
-import android.util.Patterns
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.Spinner
+import androidx.appcompat.widget.ListPopupWindow
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.example.appkhambenh.R
 import com.example.appkhambenh.ui.model.FunctionMain
 import com.example.appkhambenh.ui.ui.doctor.DoctorActivity
+import com.example.appkhambenh.ui.ui.doctor.adapter.CustomArrayAdapter
 import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.ui.user.contact.CallWithDoctorActivity
 import com.example.appkhambenh.ui.ui.user.hospital.HospitalActivity
 import com.example.appkhambenh.ui.ui.user.doctor.SearchDoctorActivity
+import com.example.appkhambenh.ui.ui.user.home.FragmentHome
 import com.example.appkhambenh.ui.ui.user.home.Function
 import com.example.appkhambenh.ui.ui.user.manage_appointment.ExaminationScheduleActivity
 import com.example.appkhambenh.ui.ui.user.medicine.MedicineActivity
 import com.example.appkhambenh.ui.ui.user.navigation.communication.FragmentCommunity
 import com.example.appkhambenh.ui.ui.user.service.ExaminationServiceActivity
+import java.lang.reflect.Field
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
+/**
+ * Expand View Smooth With 300L
+ */
 fun View.expandView() {
     //Measure the view to get its target height
     measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -56,6 +62,9 @@ fun View.expandView() {
     anim.start()
 }
 
+/**
+ * Collapse View Smooth With 300L
+ */
 fun View.collapseView() {
     val targetHeight = 0
 
@@ -70,73 +79,26 @@ fun View.collapseView() {
     anim.start()
 }
 
-fun validateEmail(email: String): Boolean {
-    return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email)
-        .matches()
-}
-
-fun validatePassword(password: String): Boolean {
-    return !TextUtils.isEmpty(password) && password.length >= 6
-}
-
-fun validatePhone(phone: String): Boolean {
-    return !TextUtils.isEmpty(phone) && (Patterns.PHONE.matcher(phone)
-        .matches() && phone.length >= 10)
-}
-
-fun setStyleTextAtPosition(str: String, strChange: String, style: Any, spannable: Spannable) {
-    val strRegex = Regex(strChange)
-    val strMatchResult = strRegex.find(str)
-    if (strMatchResult != null) {
-        val strStartIndex = strMatchResult.range.first
-        spannable.setSpan(
-            style,
-            strStartIndex,
-            strStartIndex + strChange.length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-    }
-}
-
-fun functionHome(context: Context): ArrayList<FunctionMain> {
+/**
+ * Create List Service For Appointment Schedule Screen
+ */
+fun FragmentHome.functionHome(): ArrayList<FunctionMain> {
     val function = arrayListOf<FunctionMain>()
-    function.add(FunctionMain(R.drawable.icon_doctor, context.getString(R.string.appoint_doctor)))
-    function.add(
-        FunctionMain(
-            R.drawable.ic_action_schedule,
-            context.getString(R.string.examination_schedule)
-        )
-    )
-    function.add(
-        FunctionMain(
-            R.drawable.ic_action_department,
-            context.getString(R.string.hospital_examination)
-        )
-    )
-    function.add(FunctionMain(R.drawable.ic_action_message, context.getString(R.string.community)))
-    function.add(
-        FunctionMain(
-            R.drawable.ic_action_service,
-            context.getString(R.string.check_service)
-        )
-    )
-    function.add(
-        FunctionMain(
-            R.drawable.ic_action_history,
-            context.getString(R.string.medical_examination_history)
-        )
-    )
-    function.add(FunctionMain(R.drawable.ic_action_contact, context.getString(R.string.contact)))
-    function.add(
-        FunctionMain(
-            R.drawable.ic_action_medicine,
-            context.getString(R.string.drug_information)
-        )
-    )
+    function.add(FunctionMain(R.drawable.icon_doctor, getString(R.string.appoint_doctor)))
+    function.add(FunctionMain(R.drawable.ic_action_schedule, getString(R.string.examination_schedule)))
+    function.add(FunctionMain(R.drawable.ic_action_department, getString(R.string.hospital_examination)))
+    function.add(FunctionMain(R.drawable.ic_action_message, getString(R.string.community)))
+    function.add(FunctionMain(R.drawable.ic_action_service, getString(R.string.check_service)))
+    function.add(FunctionMain(R.drawable.ic_action_history, getString(R.string.medical_examination_history)))
+    function.add(FunctionMain(R.drawable.ic_action_contact, getString(R.string.contact)))
+    function.add(FunctionMain(R.drawable.ic_action_medicine, getString(R.string.drug_information)))
 
     return function
 }
 
+/**
+ * This Function Use To Handle Event Click Into Item In List Service Of Appointment Schedule Screen
+ */
 fun onClickFunction(index: Int, activity: FragmentActivity) {
     when (index) {
         Function.BOOK_DOCTOR.id -> {
@@ -180,28 +142,43 @@ fun onClickFunction(index: Int, activity: FragmentActivity) {
     }
 }
 
+/**
+ * This Animator Use To Rotate View 0 Degrees To 45 Degrees
+ */
 fun animRotation45(img: ImageView) {
     val animator = ObjectAnimator.ofFloat(img, View.ROTATION, 0f, 45f)
     animator.duration = 300
     animator.start()
 }
 
+/**
+ * This Animator Use To Rotate View 45 Degrees To 0 Degrees
+ */
 fun animRotationBack0(img: ImageView) {
     val animator = ObjectAnimator.ofFloat(img, View.ROTATION, 45f, 0f)
     animator.duration = 300
     animator.start()
 }
 
+/**
+ * This Animator Use To Rotation View With Any Corner
+ */
 fun View.rotationView(startCorner: Float, endCorner: Float) {
     val animator = ObjectAnimator.ofFloat(this, View.ROTATION, startCorner, endCorner)
     animator.duration = 300
     animator.start()
 }
 
+/**
+ * Change Color Back Ground Tint Of View
+ */
 fun View.setBgColorViewTint(color: Int) {
     backgroundTintList = ColorStateList.valueOf(context.getColor(color))
 }
 
+/**
+ * This Animator Use For Show Loading When Has Data
+ */
 fun View.rotationViewInfinite() {
     val rotationAnimator = ObjectAnimator.ofFloat(this, "rotation", 0f, 360f)
     rotationAnimator.apply {
@@ -213,9 +190,12 @@ fun View.rotationViewInfinite() {
     }
 }
 
+/**
+ * Add Fragment By Tag And Check If Fragment Which Find By Tag Exist, If Exist Hide Fragment
+ */
 fun Fragment.addFragmentByTag(fragment: Fragment, changeId: Int, tag: String) {
-    val fmToHide = requireActivity().supportFragmentManager.findFragmentByTag(tag)
-    val fm = requireActivity().supportFragmentManager.beginTransaction()
+    val fmToHide = parentFragmentManager.findFragmentByTag(tag)
+    val fm = parentFragmentManager.beginTransaction()
     if (fmToHide != null) {
         fm.hide(fmToHide)
     }
@@ -223,6 +203,9 @@ fun Fragment.addFragmentByTag(fragment: Fragment, changeId: Int, tag: String) {
         .addToBackStack(null).commit()
 }
 
+/**
+ * Create Calendar And Get Date By (timeSelected: (String) -> Unit)
+ */
 fun Context.getDateFromCalendar(timeSelected: (String) -> Unit) {
     val calendar = Calendar.getInstance()
     DatePickerDialog(
@@ -242,6 +225,9 @@ fun Context.getDateFromCalendar(timeSelected: (String) -> Unit) {
     ).show()
 }
 
+/**
+ * Create Spinner And Get Position Selected By (selectItem: (Int) -> Unit)
+ */
 fun Spinner.createSpinner(context: Context, list: ArrayList<String>, selectItem: (Int) -> Unit) {
     val adapterSp = ArrayAdapter(context, R.layout.item_spinner, list)
     adapterSp.setDropDownViewResource(R.layout.spinner_dropdown_item)
@@ -256,6 +242,9 @@ fun Spinner.createSpinner(context: Context, list: ArrayList<String>, selectItem:
     }
 }
 
+/**
+ * This Function To Get Current Activity And Check If Activity Nullable
+ */
 inline fun <reified T : Activity> Context.getActivity(): T? {
     var context = this
     while (context is ContextWrapper) {
@@ -265,4 +254,33 @@ inline fun <reified T : Activity> Context.getActivity(): T? {
         context = context.baseContext
     }
     return null
+}
+
+@SuppressLint("DiscouragedPrivateApi")
+fun AutoCompleteTextView.initTextComplete(activity: Activity, data: List<String?>) {
+    val adapter = CustomArrayAdapter(activity, android.R.layout.simple_dropdown_item_1line, data)
+    setAdapter(adapter)
+    if(data.size > 5) dropDownHeight = 500
+    post {
+        try {
+            val popupField: Field = AutoCompleteTextView::class.java.getDeclaredField("mPopup")
+            popupField.isAccessible = true
+            val popup: ListPopupWindow = popupField.get(this) as ListPopupWindow
+            popup.width = this.width
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    // Hiển thị danh sách khi AutoCompleteTextView nhận được focus
+    setOnFocusChangeListener { _, hasFocus ->
+        if (hasFocus) {
+            showDropDown()
+        }
+    }
+
+    // Hiển thị danh sách khi AutoCompleteTextView được click
+    setOnClickListener {
+        showDropDown()
+    }
 }

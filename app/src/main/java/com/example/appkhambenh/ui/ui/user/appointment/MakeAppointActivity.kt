@@ -51,10 +51,6 @@ class MakeAppointActivity : BaseActivity<MakeAppointViewModel, ActivityMakeAppoi
     override fun bindData() {
         super.bindData()
 
-        viewModel.loading.observe(this) {
-            if(it) loading.show() else loading.dismiss()
-        }
-
         lifecycleScope.launch {
             viewModel.successful.collect { isSuccess ->
                 if(isSuccess) {

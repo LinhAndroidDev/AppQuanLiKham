@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#F6F6F6"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.ui.doctor.FragmentHomeDoctor">
 
@@ -17,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:spanCount="2"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        android:layout_below="@id/header"/>
 
-</LinearLayout>
+</RelativeLayout>

@@ -1,155 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:id="@+id/layout">
+    android:visibility="gone">
 
     <RelativeLayout
-        android:background="@color/blue_dark_light"
-        android:paddingVertical="@dimen/dimen_15"
-        android:paddingHorizontal="@dimen/dimen_20"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/blue_dark_light"
+        android:paddingHorizontal="@dimen/dimen_20"
+        android:paddingVertical="@dimen/dimen_15">
 
         <TextView
             style="@style/text_sp16_black_bold"
+            android:layout_width="match_parent"
             android:text="Nhập thông tin khám lâm sàng"
-            android:textSize="@dimen/dimen_sp18"
             android:textColor="@color/white"
-            android:layout_width="match_parent" />
+            android:textSize="@dimen/dimen_sp18" />
     </RelativeLayout>
 
     <include
         android:id="@+id/titleDiagnosisOfCirculatorySystem"
-        android:layout_marginStart="@dimen/dimen_15"
         layout="@layout/layout_title_update_infor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_15"
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/edtCirculatoryDiagnosis"
         style="@style/edit_clinical_examination"
         android:hint="Nhập nội dung chẩn đoán hệ tuần hoàn" />
 
     <include
         android:id="@+id/titleDiagnosisOfDigestiveSystem"
-        android:layout_marginStart="@dimen/dimen_15"
         layout="@layout/layout_title_update_infor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_15"
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/edtGastrointestinalDiagnosis"
         style="@style/edit_clinical_examination"
         android:hint="Nhập chẩn đoán hệ tiêu hoá" />
 
     <include
         android:id="@+id/titleNervousSystemDiagnosis"
-        android:layout_marginStart="@dimen/dimen_15"
         layout="@layout/layout_title_update_infor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_15"
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/edtNeurologicalDiagnosis"
         style="@style/edit_clinical_examination"
         android:hint="Nhập nội dung chẩn đoán hệ thần kinh" />
 
     <include
         android:id="@+id/titleENTDiagnosis"
-        android:layout_marginStart="@dimen/dimen_15"
         layout="@layout/layout_title_update_infor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_15"
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/edtOtolaryngologicalDiagnosis"
         style="@style/edit_clinical_examination"
         android:hint="Nhập nội dung chẩn đoán tai mũi họng" />
 
     <include
         android:id="@+id/titleDiagnosisOfRespiratorySystem"
-        android:layout_marginStart="@dimen/dimen_15"
         layout="@layout/layout_title_update_infor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_15"
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/edtRespiratoryDiagnosis"
         style="@style/edit_clinical_examination"
         android:hint="Nhập nội dung chẩn đoán hệ hô hấp" />
 
     <include
         android:id="@+id/titlEurogenitalDiagnosis"
-        android:layout_marginStart="@dimen/dimen_15"
         layout="@layout/layout_title_update_infor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_15"
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/edtUrogenitalDiagnosis"
         style="@style/edit_clinical_examination"
         android:hint="Nhập nội dung chẩn đoán niệu sinh dục" />
 
     <include
         android:id="@+id/titleDiagnosisOfMusculoskeletalSystem"
-        android:layout_marginStart="@dimen/dimen_15"
         layout="@layout/layout_title_update_infor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_15"
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/edtMusculoskeletalDiagnosis"
         style="@style/edit_clinical_examination"
         android:hint="Nhập nội dung chẩn đoán hệ xương khớp" />
 
     <include
         android:id="@+id/titleDiagnosisOfMaxillofacialSystem"
-        android:layout_marginStart="@dimen/dimen_15"
         layout="@layout/layout_title_update_infor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_15"
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/edtMaxillofacialDiagnosis"
         style="@style/edit_clinical_examination"
         android:hint="Nhập nội dung chẩn đoán hệ răng hàm mặt" />
 
     <include
         android:id="@+id/titleHumanDiagnosis"
-        android:layout_marginStart="@dimen/dimen_15"
         layout="@layout/layout_title_update_infor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_15"
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/edtOphthalmicDiagnosis"
         style="@style/edit_clinical_examination"
         android:hint="Nhập nội dung chẩn đoán nhân khoa" />
 
     <include
         android:id="@+id/titleSyndrome"
-        android:layout_marginStart="@dimen/dimen_15"
         layout="@layout/layout_title_update_infor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_15"
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/syndrome"
         style="@style/edit_clinical_examination"
         android:hint="Nhập nội dung hội chứng" />
 
     <include
         android:id="@+id/titleOtherDiagnosis"
-        android:layout_marginStart="@dimen/dimen_15"
         layout="@layout/layout_title_update_infor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_15"
         android:layout_marginTop="@dimen/dimen_15" />
 
     <EditText
+        android:id="@+id/otherDiagnosis"
         style="@style/edit_clinical_examination"
         android:hint="Nhập các chẩn đoán khác" />
 
@@ -157,7 +169,7 @@
         android:id="@+id/update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_foot_view="Cập nhật"
-        app:eleven_foot_view="0"/>
+        app:eleven_foot_view="0"
+        app:title_foot_view="Cập nhật" />
 
 </LinearLayout>
