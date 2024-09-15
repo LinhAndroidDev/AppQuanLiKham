@@ -39,8 +39,7 @@ class FragmentAccount : BaseFragment<FragmentAccountViewModel, FragmentAccountBi
             viewModel.getAccount(
                 fullname = textNullOrEmpty(binding.nameAccount.getText()),
                 email = textNullOrEmpty(binding.emailAccount.getText()),
-                roleId = if (binding.role.text.toString()
-                        .isNullOrEmpty()
+                roleId = if (binding.role.text.toString().isEmpty()
                 ) null else PersonalInformation.rolls()
                     .indexOf(binding.role.text.toString()) + 1
             )
