@@ -3,18 +3,15 @@ package com.example.appkhambenh.ui.ui.doctor.viewmodel
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.appkhambenh.ui.base.BaseViewModel
+import com.example.appkhambenh.ui.data.remote.base.doOnSuccess
 import com.example.appkhambenh.ui.data.remote.entity.PatientModel
 import com.example.appkhambenh.ui.data.remote.repository.doctor.MedicalHistoryRepository
 import com.example.appkhambenh.ui.data.remote.repository.doctor.PatientRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,8 +21,7 @@ class FragmentAdminDoctorViewModel @Inject constructor(
 ) : BaseViewModel() {
     private val _patients: MutableStateFlow<ArrayList<PatientModel>?> = MutableStateFlow(null)
     val patients = _patients.asStateFlow()
-    private val _patientModel: MutableStateFlow<Pair<PatientModel?, Int?>?> = MutableStateFlow(null)
-    val patientModel = _patientModel.asStateFlow()
+    var patientModel: MutableStateFlow<Pair<PatientModel?, Int?>?> = MutableStateFlow(null)
 
     fun getListPatient(
         fullname: String? = null,
@@ -34,62 +30,46 @@ class FragmentAdminDoctorViewModel @Inject constructor(
         healthInsurance: String? = null,
         phoneNumber: String? = null,
     ) = viewModelScope.launch {
-        val result = patientRepository.getListPatient(
+        patientRepository.getListPatient(
             fullname = fullname,
             email = email,
             citizenId = citizenId,
             healthInsurance = healthInsurance,
             phoneNumber = phoneNumber
-        ).flowOn(Dispatchers.IO)
-            .onStart {
-                loading.postValue(true)
-            }
-            .catch { e ->
-                loading.postValue(false)
-                errorApiLiveData.postValue(e.message)
-            }.collect {
-                withContext(Dispatchers.Main) {
-                    loading.postValue(false)
-                    _patients.value = it.data
-                }
-            }
-        Log.e("Repository", "Response: $result")
+        )
+            .handleCallApi()
+            .doOnSuccess {
+                _patients.value = it.data
+            }.collect()
     }
 
     fun medicalHistoryPatient(patientId: Int) = viewModelScope.launch {
-        loading.postValue(true)
+        Log.e("Admin Doctor", "Start")
         medicalHistoryRepository.getListMedicalHistory(patientId = patientId)
-            .flowOn(Dispatchers.IO)
-            .catch { e ->
-                loading.postValue(false)
-                errorApiLiveData.postValue(e.message)
-            }
-            .collect {
-                loading.postValue(false)
+            .handleCallApi()
+            .doOnSuccess {
+                Log.e("Admin Doctor", "Success")
                 if (it.data?.isNotEmpty() == true) {
-                    _patientModel.value = Pair(it.data[0].patient, it.data[0].id)
+                    patientModel.value = Pair(it.data[0].patient, it.data[0].id)
                 } else {
+                    Log.e("Admin Doctor", "Fail")
                     errorApiLiveData.postValue("Bệnh nhân này chưa được đăng kí khám")
                 }
-            }
+            }.collect()
     }
 
     fun deletePatient(patientId: Int) = viewModelScope.launch {
         loading.postValue(true)
         patientRepository.deletePatient(patientId = patientId)
-            .flowOn(Dispatchers.IO)
-            .catch { e ->
-                loading.postValue(false)
-                errorApiLiveData.postValue(e.message)
-            }
-            .collect {
-                loading.postValue(false)
+            .handleCallApi()
+            .doOnSuccess {
                 if (it.patientId == patientId) {
                     getListPatient()
                     errorApiLiveData.postValue("Bạn đã xoá bệnh nhân thành công")
                 } else {
                     errorApiLiveData.postValue("Fail Data")
                 }
-            }
+            }.collect()
+
     }
 }

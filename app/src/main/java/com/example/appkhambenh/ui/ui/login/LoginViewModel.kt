@@ -4,15 +4,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.appkhambenh.ui.base.BaseViewModel
 import com.example.appkhambenh.ui.data.remote.ApiClient
+import com.example.appkhambenh.ui.data.remote.base.doOnFailure
+import com.example.appkhambenh.ui.data.remote.base.doOnLoading
+import com.example.appkhambenh.ui.data.remote.base.doOnSuccess
 import com.example.appkhambenh.ui.data.remote.model.LoginModel
 import com.example.appkhambenh.ui.data.remote.repository.doctor.LoginDoctorRepository
 import com.example.appkhambenh.ui.data.remote.repository.user.LoginRepository
 import com.example.appkhambenh.ui.utils.SharePreferenceRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,7 +26,8 @@ class LoginViewModel @Inject constructor(
 ) :
     BaseViewModel() {
     val loginSuccessLiveData = MutableLiveData<Boolean>()
-    val doctorLoginSuccess = MutableStateFlow(false)
+    private val _doctorLoginSuccess = MutableStateFlow(false)
+    val doctorLoginSuccess = _doctorLoginSuccess.asStateFlow()
 
     suspend fun requestLoginUser(loginModel: LoginModel) {
         loading.postValue(true)
@@ -55,18 +58,17 @@ class LoginViewModel @Inject constructor(
     }
 
     fun loginDoctor(email: String, password: String) = viewModelScope.launch {
-        loading.postValue(true)
         loginDoctorRepository.loginDoctor(email, password)
-            .flowOn(Dispatchers.IO)
-            .catch { e ->
-                loading.postValue(false)
-                errorApiLiveData.postValue(e.message)
+            .doOnLoading {
+                loading.postValue(it)
             }
-            .collect {
-                loading.postValue(false)
+            .doOnFailure {
+                errorApiLiveData.postValue(it?.message ?: "Unknown error")
+            }
+            .doOnSuccess {
                 shared.saveAuthorization(it.auth?.accessToken.toString())
                 shared.saveRollUser(it.user?.roleId ?: 1)
-                doctorLoginSuccess.value = true
-            }
+                _doctorLoginSuccess.value = true
+            }.collect()
     }
 }

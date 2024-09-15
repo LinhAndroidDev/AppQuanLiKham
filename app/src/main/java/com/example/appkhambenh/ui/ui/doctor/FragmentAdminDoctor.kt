@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.get
 import androidx.lifecycle.lifecycleScope
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentAdminDoctorBinding
@@ -20,6 +19,7 @@ import com.example.appkhambenh.ui.utils.textNullOrEmpty
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -27,7 +27,6 @@ import kotlinx.coroutines.withContext
 class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentAdminDoctorBinding>() {
 
     companion object {
-        const val PATIENT_ID = "PATIENT_ID"
         const val OBJECT_PATIENT = "OBJECT_PATIENT"
         const val NAME_PATIENT = "NAME_PATIENT"
         const val MEDICAL_HISTORY_ID = "MEDICAL_HISTORY_ID"
@@ -62,10 +61,12 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
         lifecycleScope.launch {
             withContext(Dispatchers.Main) {
                 viewModel.patientModel.collect { data ->
+                    Log.e("Admin Doctor", "Data")
                     val patient = data?.first
                     val id = data?.second
                     if(patient != null && id != null) {
                         goToFragmentTreatment(patient, id)
+                        viewModel.patientModel.value = null
                     }
                 }
             }
@@ -158,7 +159,6 @@ class FragmentAdminDoctor : BaseFragment<FragmentAdminDoctorViewModel, FragmentA
         val bundle = Bundle()
         bundle.putParcelable(OBJECT_PATIENT, patient)
         bundle.putInt(MEDICAL_HISTORY_ID, id)
-        Log.e("FragmentTreatmentManagement", "FragmentAdminDoctor")
         addFragmentByTag(fragmentTreatmentManagement, R.id.changeIdDoctorVn, "FragmentAdminDoctor")
         fragmentTreatmentManagement.arguments = bundle
     }

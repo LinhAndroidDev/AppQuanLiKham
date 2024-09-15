@@ -1,6 +1,8 @@
 package com.example.appkhambenh.ui.data.remote.repository.doctor
 
 import com.example.appkhambenh.ui.data.remote.DoctorService
+import com.example.appkhambenh.ui.data.remote.base.ApiState
+import com.example.appkhambenh.ui.data.remote.base.BaseRepository
 import com.example.appkhambenh.ui.data.remote.entity.AddMedicalHistoryResponse
 import com.example.appkhambenh.ui.data.remote.entity.GetMedicalHistoryResponse
 import com.example.appkhambenh.ui.data.remote.entity.HospitalDischargeResponse
@@ -12,47 +14,45 @@ import com.example.appkhambenh.ui.data.remote.request.UpdateAllocationRequest
 import com.example.appkhambenh.ui.data.remote.request.UpdateDiagnoseMedicalHistoryRequest
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 @ViewModelScoped
 class MedicalHistoryRepositoryImpl @Inject constructor(private val doctorService: DoctorService) :
-    MedicalHistoryRepository {
-    override suspend fun getListMedicalHistory(patientId: Int?): Flow<MedicalHistoryResponse> =
-        flow {
-            emit(doctorService.getListMedicalHistory(patientId))
+    MedicalHistoryRepository, BaseRepository() {
+    override suspend fun getListMedicalHistory(patientId: Int?): Flow<ApiState<MedicalHistoryResponse>> =
+        safeApiCall {
+            doctorService.getListMedicalHistory(patientId)
         }
 
-    override suspend fun getMedicalHistory(patientId: Int): Flow<GetMedicalHistoryResponse> = flow {
-        emit(doctorService.getMedicalHistory(patientId))
-    }
+    override suspend fun getMedicalHistory(patientId: Int): Flow<ApiState<GetMedicalHistoryResponse>> =
+        safeApiCall {
+            doctorService.getMedicalHistory(patientId)
+        }
 
-    override suspend fun addMedicalHistory(addMedicalHistoryRequest: AddMedicalHistoryRequest): Flow<AddMedicalHistoryResponse> =
-        flow {
-            emit(doctorService.addMedicalHistory(addMedicalHistoryRequest))
+    override suspend fun addMedicalHistory(addMedicalHistoryRequest: AddMedicalHistoryRequest): Flow<ApiState<AddMedicalHistoryResponse>> =
+        safeApiCall {
+            doctorService.addMedicalHistory(addMedicalHistoryRequest)
         }
 
     override suspend fun updateDiagnoseMedicalHistory(
         medicalHistoryId: Int,
         updateDiagnoseMedicalHistoryRequest: UpdateDiagnoseMedicalHistoryRequest,
-    ): Flow<UpdateDiagnoseMedicalHistoryResponse> = flow {
-        emit(
-            doctorService.updateDiagnoseMedicalHistory(
-                medicalHistoryId,
-                updateDiagnoseMedicalHistoryRequest
-            )
+    ): Flow<ApiState<UpdateDiagnoseMedicalHistoryResponse>> = safeApiCall {
+        doctorService.updateDiagnoseMedicalHistory(
+            medicalHistoryId,
+            updateDiagnoseMedicalHistoryRequest
         )
     }
 
     override suspend fun updateAllocation(
         medicalHistoryId: Int,
         updateAllocationRequest: UpdateAllocationRequest,
-    ): Flow<UpdateAllocationResponse> = flow {
-        emit(doctorService.updateAllocation(medicalHistoryId, updateAllocationRequest))
+    ): Flow<ApiState<UpdateAllocationResponse>> = safeApiCall {
+        doctorService.updateAllocation(medicalHistoryId, updateAllocationRequest)
     }
 
-    override suspend fun hospitalDischarge(medicalHistoryId: Int): Flow<HospitalDischargeResponse> =
-        flow {
-            emit(doctorService.hospitalDischarge(medicalHistoryId))
+    override suspend fun hospitalDischarge(medicalHistoryId: Int): Flow<ApiState<HospitalDischargeResponse>> =
+        safeApiCall {
+            doctorService.hospitalDischarge(medicalHistoryId)
         }
 }

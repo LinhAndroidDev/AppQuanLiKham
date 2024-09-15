@@ -1,5 +1,6 @@
 package com.example.appkhambenh.ui.data.remote.repository.doctor
 
+import com.example.appkhambenh.ui.data.remote.base.ApiState
 import com.example.appkhambenh.ui.data.remote.entity.AddMedicalHistoryResponse
 import com.example.appkhambenh.ui.data.remote.entity.GetMedicalHistoryResponse
 import com.example.appkhambenh.ui.data.remote.entity.HospitalDischargeResponse
@@ -12,23 +13,23 @@ import com.example.appkhambenh.ui.data.remote.request.UpdateDiagnoseMedicalHisto
 import kotlinx.coroutines.flow.Flow
 
 interface MedicalHistoryRepository {
-    suspend fun getListMedicalHistory(patientId: Int? = null): Flow<MedicalHistoryResponse>
+    suspend fun getListMedicalHistory(patientId: Int? = null): Flow<ApiState<MedicalHistoryResponse>>
 
-    suspend fun getMedicalHistory(patientId: Int): Flow<GetMedicalHistoryResponse>
+    suspend fun getMedicalHistory(patientId: Int): Flow<ApiState<GetMedicalHistoryResponse>>
 
-    suspend fun addMedicalHistory(addMedicalHistoryRequest: AddMedicalHistoryRequest): Flow<AddMedicalHistoryResponse>
+    suspend fun addMedicalHistory(addMedicalHistoryRequest: AddMedicalHistoryRequest): Flow<ApiState<AddMedicalHistoryResponse>>
 
     suspend fun updateDiagnoseMedicalHistory(
         medicalHistoryId: Int,
         updateDiagnoseMedicalHistoryRequest: UpdateDiagnoseMedicalHistoryRequest,
-    ): Flow<UpdateDiagnoseMedicalHistoryResponse>
+    ): Flow<ApiState<UpdateDiagnoseMedicalHistoryResponse>>
 
     suspend fun updateAllocation(
         medicalHistoryId: Int,
         updateAllocationRequest: UpdateAllocationRequest
-    ): Flow<UpdateAllocationResponse>
+    ): Flow<ApiState<UpdateAllocationResponse>>
 
     suspend fun hospitalDischarge(
         medicalHistoryId: Int
-    ): Flow<HospitalDischargeResponse>
+    ): Flow<ApiState<HospitalDischargeResponse>>
 }

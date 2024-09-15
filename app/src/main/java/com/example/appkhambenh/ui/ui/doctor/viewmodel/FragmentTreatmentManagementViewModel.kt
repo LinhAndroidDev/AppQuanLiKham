@@ -2,6 +2,7 @@ package com.example.appkhambenh.ui.ui.doctor.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.example.appkhambenh.ui.base.BaseViewModel
+import com.example.appkhambenh.ui.data.remote.base.doOnSuccess
 import com.example.appkhambenh.ui.data.remote.entity.GetMedicalHistoryResponse
 import com.example.appkhambenh.ui.data.remote.entity.PatientModel
 import com.example.appkhambenh.ui.data.remote.entity.ServiceOrderModel
@@ -15,11 +16,9 @@ import com.example.appkhambenh.ui.data.remote.request.DiagnoseRequest
 import com.example.appkhambenh.ui.data.remote.request.UpdateChartRequest
 import com.example.appkhambenh.ui.data.remote.request.UpdateInfoClinicalExaminationRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -41,111 +40,71 @@ class FragmentTreatmentManagementViewModel @Inject constructor(
     val patient = _patient.asStateFlow()
 
     private fun getServiceOrder(medicalHistoryId: Int) = viewModelScope.launch {
-        loading.postValue(true)
         serviceOrderRepository.getServiceOrder(medicalHistoryId)
-            .flowOn(Dispatchers.IO)
-            .catch { e ->
-                loading.postValue(false)
-                errorApiLiveData.postValue(e.message)
-            }
-            .collect {
-                loading.postValue(false)
+            .handleCallApi()
+            .doOnSuccess {
                 _services.value = it.data
-            }
+            }.collect()
     }
 
     suspend fun getPatient(patientId: Int) {
-        loading.postValue(true)
         patientRepository.getPatient(patientId = patientId)
-            .flowOn(Dispatchers.IO)
-            .catch { e ->
-                errorApiLiveData.postValue(e.message)
-            }
-            .collect {
+            .handleCallApi()
+            .doOnSuccess {
                 _patient.value = it.data
-            }
+            }.collect()
     }
 
     fun getMedicalHistory(patientId: Int, medicalHistoryId: Int) = viewModelScope.launch {
-        loading.postValue(true)
         medicalHistoryRepository.getMedicalHistory(patientId)
-            .flowOn(Dispatchers.IO)
-            .catch { e ->
-                loading.postValue(false)
-                errorApiLiveData.postValue(e.message)
-            }
-            .collect {
-                loading.postValue(false)
+            .handleCallApi()
+            .doOnSuccess {
                 _medicalHistorys.value = it.data
                 getServiceOrder(medicalHistoryId)
-            }
+            }.collect()
     }
 
     fun payService(id: Int, medicalHistoryId: Int) = viewModelScope.launch {
-        loading.postValue(true)
         serviceOrderRepository.payService(id)
-            .flowOn(Dispatchers.IO)
-            .catch { e ->
-                loading.postValue(false)
-                errorApiLiveData.postValue(e.message)
-            }
-            .collect {
-                loading.postValue(false)
+            .handleCallApi()
+            .doOnSuccess {
                 if (it.serviceMedicalHistoryId != 0) {
                     getServiceOrder(medicalHistoryId)
                     errorApiLiveData.postValue("Bạn đã thanh toán dịch vụ thành công")
                 }
-            }
+            }.collect()
     }
 
     fun addService(addServiceRequest: AddServiceRequest, medicalHistoryId: Int) =
         viewModelScope.launch {
-            loading.postValue(true)
             serviceOrderRepository.addService(addServiceRequest)
-                .flowOn(Dispatchers.IO)
-                .catch { e ->
-                    loading.postValue(false)
-                    errorApiLiveData.postValue(e.message)
-                }
-                .collect {
-                    loading.postValue(false)
+                .handleCallApi()
+                .doOnSuccess {
                     if (it.serviceMedicalHistoryId != 0) {
                         getServiceOrder(medicalHistoryId)
                         errorApiLiveData.postValue("Bạn đã thêm thành công dịch vụ")
                     }
-                }
+                }.collect()
         }
 
     fun updateChart(id: Int, updateChartRequest: UpdateChartRequest, patientId: Int) =
         viewModelScope.launch {
-            loading.postValue(true)
             serviceOrderRepository.updateChart(id, updateChartRequest)
-                .flowOn(Dispatchers.IO)
-                .catch { e ->
-                    loading.postValue(false)
-                    errorApiLiveData.postValue(e.message)
-                }
-                .collect {
-                    loading.postValue(false)
+                .handleCallApi()
+                .doOnSuccess {
                     if (it.serviceMedicalHistoryId != 0) {
                         getValueVitalChart(patientId)
                         errorApiLiveData.postValue("Bạn đã cập nhật bệnh sử tiền sử thành công")
                     }
-                }
+                }.collect()
         }
 
     fun getValueVitalChart(patientId: Int) = viewModelScope.launch {
-        loading.postValue(true)
         patientRepository.getValueVitalChart(patientId)
-            .flowOn(Dispatchers.IO)
-            .catch { e ->
-                loading.postValue(false)
-                errorApiLiveData.postValue(e.message)
-            }
-            .collect {
-                loading.postValue(false)
+            .handleCallApi()
+            .doOnSuccess {
                 _valueVitalChart.value = it.data
-            }
+            }.collect()
     }
 
     fun updateClinicalExamination(
@@ -153,23 +112,17 @@ class FragmentTreatmentManagementViewModel @Inject constructor(
         updateInfoClinicalExaminationRequest: UpdateInfoClinicalExaminationRequest,
         medicalHistoryId: Int,
     ) = viewModelScope.launch {
-        loading.postValue(true)
         serviceOrderRepository.updateClinicalExamination(
             serviceMedicalHistoryId,
             updateInfoClinicalExaminationRequest
         )
-            .flowOn(Dispatchers.IO)
-            .catch { e ->
-                loading.postValue(false)
-                errorApiLiveData.postValue(e.message)
-            }
-            .collect {
-                loading.postValue(false)
+            .handleCallApi()
+            .doOnSuccess {
                 if (it.serviceMedicalHistoryId == serviceMedicalHistoryId) {
                     getServiceOrder(medicalHistoryId)
                     errorApiLiveData.postValue("Bạn đã cập nhật dịch vụ thành công")
                 }
-            }
+            }.collect()
     }
 
     fun updateBloodTest(
@@ -177,20 +130,14 @@ class FragmentTreatmentManagementViewModel @Inject constructor(
         updateBloodTestRequest: BloodTestRequest,
         medicalHistoryId: Int,
     ) = viewModelScope.launch {
-        loading.postValue(true)
         serviceOrderRepository.updateBloodTest(serviceMedicalHistoryId, updateBloodTestRequest)
-            .flowOn(Dispatchers.IO)
-            .catch { e ->
-                loading.postValue(false)
-                errorApiLiveData.postValue(e.message)
-            }
-            .collect {
-                loading.postValue(false)
+            .handleCallApi()
+            .doOnSuccess {
                 if (it.serviceMedicalHistoryId == serviceMedicalHistoryId) {
                     getServiceOrder(medicalHistoryId)
                     errorApiLiveData.postValue("Bạn đã cập nhật dịch vụ thành công")
                 }
-            }
+            }.collect()
     }
 
     fun updateDiagnose(
@@ -198,19 +145,13 @@ class FragmentTreatmentManagementViewModel @Inject constructor(
         diagnoseRequest: DiagnoseRequest,
         medicalHistoryId: Int,
     ) = viewModelScope.launch {
-        loading.postValue(true)
         serviceOrderRepository.updateDiagnose(serviceMedicalHistoryId, diagnoseRequest)
-            .flowOn(Dispatchers.IO)
-            .catch { e ->
-                loading.postValue(false)
-                errorApiLiveData.postValue(e.message)
-            }
-            .collect {
-                loading.postValue(false)
+            .handleCallApi()
+            .doOnSuccess {
                 if (it.serviceMedicalHistoryId == serviceMedicalHistoryId) {
                     getServiceOrder(medicalHistoryId)
                     errorApiLiveData.postValue("Bạn đã cập nhật dịch vụ thành công")
                 }
-            }
+            }.collect()
     }
 }

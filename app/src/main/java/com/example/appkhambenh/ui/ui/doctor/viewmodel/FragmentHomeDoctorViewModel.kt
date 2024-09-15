@@ -7,6 +7,7 @@ import com.example.appkhambenh.ui.data.remote.repository.doctor.AccountRepositor
 import com.example.appkhambenh.ui.data.remote.repository.doctor.AppointmentRepository
 import com.example.appkhambenh.ui.data.remote.repository.doctor.MedicalHistoryRepository
 import com.example.appkhambenh.ui.data.remote.repository.doctor.PatientRepository
+import com.example.appkhambenh.ui.utils.convertApiStateTo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,11 +38,12 @@ class FragmentHomeDoctorViewModel @Inject constructor(
             accountRepository.getAccount()
         ) { result1, result2, result3, result4 ->
             loading.postValue(false)
+            val adminQuantity = result1.convertApiStateTo()?.data?.size ?: 0
+            val appointmentQuantity = result2.convertApiStateTo()?.data?.size ?: 0
+            val medicalHistoryQuantity = result3.convertApiStateTo()?.data?.size ?: 0
+            val accountQuantity = result4.convertApiStateTo()?.data?.size ?: 0
             _quantity.value = Quantity(
-                result1.data.size,
-                result2.data.size,
-                result3.data?.size ?: 0,
-                result4.data.size
+                adminQuantity,appointmentQuantity,medicalHistoryQuantity, accountQuantity
             )
         }.onStart {
             loading.postValue(true)

@@ -51,7 +51,7 @@ interface DoctorService {
     suspend fun loginDoctor(
         @Field("email") email: String,
         @Field("password") password: String
-    ): DoctorLoginResponse
+    ): Response<DoctorLoginResponse>
 
     @GET("patients")
     suspend fun getListPatient(
@@ -60,121 +60,121 @@ interface DoctorService {
         @Query("citizenId") citizenId: String?,
         @Query("healthInsurance") healthInsurance: String?,
         @Query("phoneNumber") phoneNumber: String?
-    ) : PatientResponse
+    ) : Response<PatientResponse>
 
     @GET("patients/{patientId}")
     suspend fun getPatient(
         @Path("patientId") patientId: Int
-    ) : GetPatientResponse
+    ) : Response<GetPatientResponse>
 
     @PUT("patients/{id}")
     suspend fun updateInfoPatient(
         @Path("id") id: Int,
         @Body infoPatient: PatientInfoModel
-    ) : UpdateInfoPatientResponse
+    ) : Response<UpdateInfoPatientResponse>
 
     @DELETE("patients/{patientId}")
     suspend fun deletePatient(
         @Path("patientId") patientId: Int
-    ): DeletePatientResponse
+    ): Response<DeletePatientResponse>
 
     @GET("patients/{patientId}/vital-chart")
     suspend fun getValueVitalChart(
         @Path("patientId") patientId: Int
-    ): ValueVitalChartResponse
+    ): Response<ValueVitalChartResponse>
 
     @GET("appointments")
     suspend fun getListAppoint(
         @Query("time") time: String?
-    ) : AppointmentResponse
+    ) : Response<AppointmentResponse>
 
     @PUT("appointments/{id}")
     suspend fun confirmAppoint(
         @Path("id") id: Int,
         @Body confirmAppointRequest: ConfirmAppointRequest = ConfirmAppointRequest()
-    ): ConfirmAppointResponse
+    ): Response<ConfirmAppointResponse>
 
     @GET("medical-history")
     suspend fun getListMedicalHistory(
         @Query("patientId") patientId: Int?
-    ): MedicalHistoryResponse
+    ): Response<MedicalHistoryResponse>
 
     @GET("medical-history/{patientId}")
     suspend fun getMedicalHistory(
         @Path("patientId") patientId: Int
-    ): GetMedicalHistoryResponse
+    ): Response<GetMedicalHistoryResponse>
 
     @POST("medical-history")
     suspend fun addMedicalHistory(
         @Body addMedicalHistoryRequest: AddMedicalHistoryRequest
-    ): AddMedicalHistoryResponse
+    ): Response<AddMedicalHistoryResponse>
 
     @PUT("medical-history/{medicalHistoryId}/diagnose")
     suspend fun updateDiagnoseMedicalHistory(
         @Path("medicalHistoryId") medicalHistoryId: Int,
         @Body updateDiagnoseMedicalHistoryRequest: UpdateDiagnoseMedicalHistoryRequest
-    ): UpdateDiagnoseMedicalHistoryResponse
+    ): Response<UpdateDiagnoseMedicalHistoryResponse>
 
     @PUT("medical-history/{medicalHistoryId}/treatment")
     suspend fun updateAllocation(
         @Path("medicalHistoryId") medicalHistoryId: Int,
         @Body updateAllocationRequest: UpdateAllocationRequest
-    ): UpdateAllocationResponse
+    ): Response<UpdateAllocationResponse>
 
     @PUT("medical-history/{medicalHistoryId}/hospital-discharge")
     suspend fun hospitalDischarge(
         @Path("medicalHistoryId") medicalHistoryId: Int
-    ): HospitalDischargeResponse
+    ): Response<HospitalDischargeResponse>
 
     @GET("service-order/{id}")
     suspend fun getServiceOrder(
         @Path("id") id: Int
-    ) : ServiceOrderResponse
+    ): Response<ServiceOrderResponse>
 
     @PUT("service-order/status/{id}")
     suspend fun payService(
         @Path("id") id: Int,
         @Body payServiceRequest: PayServiceRequest = PayServiceRequest()
-    ) : PayServiceResponse
+    ): Response<PayServiceResponse>
 
     @POST("service-order")
     suspend fun addService(
         @Body addServiceRequest: AddServiceRequest
-    ): AddServiceResponse
+    ): Response<AddServiceResponse>
 
     @PUT("service-order/{id}")
     suspend fun updateChart(
         @Path("id") id: Int,
         @Body updateChartRequest: UpdateChartRequest
-    ): UpdateChartResponse
+    ): Response<UpdateChartResponse>
 
     @PUT("service-order/{serviceMedicalHistoryId}")
     suspend fun updateClinicalExamination(
         @Path("serviceMedicalHistoryId") serviceMedicalHistoryId: Int,
         @Body updateInfoClinicalExaminationRequest: UpdateInfoClinicalExaminationRequest
-    ): UpdateInfoClinicalExaminationResponse
+    ): Response<UpdateInfoClinicalExaminationResponse>
 
     @PUT("service-order/{serviceMedicalHistoryId}")
     suspend fun updateBloodTest(
         @Path("serviceMedicalHistoryId") serviceMedicalHistoryId: Int,
         @Body updateBloodTestRequest: BloodTestRequest
-    ): UpdateInfoClinicalExaminationResponse
+    ): Response<UpdateInfoClinicalExaminationResponse>
 
     @PUT("service-order/{serviceMedicalHistoryId}")
     suspend fun updateDiagnose(
         @Path("serviceMedicalHistoryId") serviceMedicalHistoryId: Int,
         @Body diagnoseRequest: DiagnoseRequest
-    ): DiagnoseResponse
+    ): Response<DiagnoseResponse>
 
     @GET("auth/users")
     suspend fun getAccount(
         @Query("fullname") fullname: String?,
         @Query("email") email: String?,
         @Query("roleId") roleId: Int?
-    ): AccountResponse
+    ): Response<AccountResponse>
 
     @POST("auth/register")
     suspend fun addAccount(
         @Body addAccountRequest: AddAccountRequest
-    ): AddAccountResponse
+    ): Response<AddAccountResponse>
 }

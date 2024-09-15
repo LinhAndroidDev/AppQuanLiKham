@@ -1,5 +1,6 @@
 package com.example.appkhambenh.ui.data.remote.repository.doctor
 
+import com.example.appkhambenh.ui.data.remote.base.ApiState
 import com.example.appkhambenh.ui.data.remote.entity.DeletePatientResponse
 import com.example.appkhambenh.ui.data.remote.entity.GetPatientResponse
 import com.example.appkhambenh.ui.data.remote.entity.PatientResponse
@@ -15,16 +16,16 @@ interface PatientRepository {
         citizenId: String? = null,
         healthInsurance: String? = null,
         phoneNumber: String? = null,
-    ): Flow<PatientResponse>
+    ): Flow<ApiState<PatientResponse>>
 
-    suspend fun getPatient(patientId: Int): Flow<GetPatientResponse>
+    suspend fun getPatient(patientId: Int): Flow<ApiState<GetPatientResponse>>
 
     suspend fun updateInfoPatient(
         idUser: Int,
         infoPatient: PatientInfoModel,
-    ): Flow<UpdateInfoPatientResponse>
+    ): Flow<ApiState<UpdateInfoPatientResponse>>
 
-    suspend fun getValueVitalChart(patientId: Int): Flow<ValueVitalChartResponse>
+    suspend fun getValueVitalChart(patientId: Int): Flow<ApiState<ValueVitalChartResponse>>
 
-    suspend fun deletePatient(patientId: Int): Flow<DeletePatientResponse>
+    suspend fun deletePatient(patientId: Int): Flow<ApiState<DeletePatientResponse>>
 }
