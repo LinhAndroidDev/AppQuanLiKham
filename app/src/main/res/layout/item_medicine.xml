@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:layout_marginEnd="15dp"
+        app:cardCornerRadius="@dimen/dimen_5"
+        app:cardElevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dimen_15">
+
+            <ImageView
+                android:id="@+id/imgMedicine"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_150"
+                android:scaleType="centerCrop"
+                android:src="@drawable/icon_app_kham_benh" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_sp14_color_text_bold"
+                    android:text="35.000 đ" />
+
+                <TextView
+                    android:id="@+id/tvSale"
+                    style="@style/text_sp14"
+                    android:layout_marginStart="@dimen/dimen_15"
+                    android:text="85.000 đ"
+                    android:textColor="@color/txt_hint" />
+            </LinearLayout>
+
+            <include
+                layout="@layout/layout_authenticated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_10" />
+
+            <TextView
+                style="@style/text_sp16"
+                android:layout_marginHorizontal="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Khớp NAM DƯƠNG, KHANG THỌ GOLD Chính Hãng, 30 Viên Nén - Giải Pháp Cho Người Bệnh Xương Khớp" />
+
+            <TextView
+                style="@style/text_sp12"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_5"
+                android:gravity="end"
+                android:text="Đã bán 10"
+                android:textColor="@color/txt_hint" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_10"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_20"
+                    android:layout_height="@dimen/dimen_20"
+                    android:src="@drawable/ic_action_location"
+                    app:tint="@color/grey_dark" />
+
+                <TextView
+                    style="@style/text_sp14"
+                    android:text="Hà Nội"
+                    android:textColor="@color/txt_hint" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

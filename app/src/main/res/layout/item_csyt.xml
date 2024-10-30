@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginEnd="@dimen/dimen_2"
+        android:layout_marginBottom="@dimen/dimen_2"
+        app:cardCornerRadius="@dimen/dimen_8">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgCsyt"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_120"
+                android:background="@drawable/img_capital" />
+
+            <TextView
+                android:id="@+id/nameCsyt"
+                style="@style/text_sp14_black_bold"
+                android:layout_marginHorizontal="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="Bệnh viện Hữu Nghị Việt Đức" />
+
+            <TextView
+                android:id="@+id/addressCsty"
+                style="@style/text_sp14_no_color"
+                android:layout_marginHorizontal="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Số 18 Phủ Doãn, Hàng Bông, Hoàn Kiếm, Thành phố Hà Nội" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginBottom="@dimen/dimen_20"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="@dimen/dimen_20"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:background="@drawable/ic_action_visit" />
+
+                    <TextView
+                        android:id="@+id/numberVisitCsyt"
+                        style="@style/text_sp16"
+                        android:layout_marginStart="5dp"
+                        android:text="61824" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="@dimen/dimen_20"
+                        android:layout_marginStart="@dimen/dimen_20"
+                        android:background="@drawable/ic_action_star" />
+
+                    <TextView
+                        android:id="@+id/evaluateCsyt"
+                        style="@style/text_sp16"
+                        android:layout_marginStart="5dp"
+                        android:text="5" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:background="@color/blue_dark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/dimen_15"
+        android:paddingVertical="@dimen/dimen_10">
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/menu"
+                android:src="@drawable/ic_menu"
+                android:layout_width="@dimen/dimen_30"
+                android:layout_height="@dimen/dimen_30"
+                app:tint="@color/white"/>
+
+            <ImageView
+                android:layout_marginStart="@dimen/dimen_15"
+                android:src="@drawable/img_smile_vn"
+                android:layout_width="@dimen/dimen_60"
+                android:layout_height="@dimen/dimen_60" />
+
+            <LinearLayout
+                android:layout_marginStart="@dimen/dimen_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_sp16"
+                    android:text="Nha Khoa"
+                    android:textColor="@color/grey_blue_dark" />
+
+                <TextView
+                    style="@style/text_sp16_black_bold"
+                    android:textSize="@dimen/dimen_sp23"
+                    android:text="Nụ Cười Việt"
+                    android:textColor="@color/blue1" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar"
+            android:src="@drawable/img_doctor_vn"
+            android:layout_width="@dimen/dimen_40"
+            android:layout_height="@dimen/dimen_40" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginStart="@dimen/dimen_15"
+            style="@style/text_sp14"
+            android:text="Trang chủ / "
+            android:textColor="@color/txt_hint"
+            android:textAllCaps="true"/>
+
+        <TextView
+            android:id="@+id/titleView"
+            style="@style/text_sp14"
+            android:text="Quản lí hành chính"
+            android:textColor="@color/text_common"
+            android:textAllCaps="true"/>
+
+        <TextView
+            android:id="@+id/titleNext"
+            style="@style/text_sp14"
+            android:text="/ Quản lí hành chính"
+            android:textColor="@color/text_common"
+            android:textAllCaps="true"/>
+    </LinearLayout>
+
+</LinearLayout>

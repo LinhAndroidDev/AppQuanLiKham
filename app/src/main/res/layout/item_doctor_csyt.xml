@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1"
+            android:background="@color/bg_divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/dimen_15">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/dimen_100"
+                android:layout_height="@dimen/dimen_100"
+                android:src="@drawable/img_doctor" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/nameDoctor"
+                    style="@style/text_sp16_black_bold"
+                    android:text="GS.TS Nguyễn Gia Bình"
+                    android:textSize="@dimen/dimen_sp18" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_15"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="@dimen/dimen_20"
+                        android:src="@drawable/ic_action_visit" />
+
+                    <TextView
+                        style="@style/text_sp16"
+                        android:layout_marginStart="@dimen/dimen_5"
+                        android:text="37" />
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="@dimen/dimen_20"
+                        android:layout_marginStart="@dimen/dimen_20"
+                        android:src="@drawable/ic_action_star" />
+
+                    <TextView
+                        style="@style/text_sp16"
+                        android:layout_marginStart="@dimen/dimen_5"
+                        android:text="5" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/special"
+                    style="@style/text_sp14_color_text"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:background="@color/grey_light"
+                    android:paddingHorizontal="@dimen/dimen_2"
+                    android:paddingVertical="@dimen/dimen_1"
+                    android:text="Nội khoa" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1"
+            android:layout_marginHorizontal="@dimen/dimen_10"
+            android:background="@color/grey_light" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_15"
+            android:layout_marginTop="@dimen/dimen_15">
+
+            <TextView
+                style="@style/text_sp14"
+                android:text="@string/price" />
+
+            <TextView
+                style="@style/text_sp14_color_text_bold"
+                android:layout_alignParentEnd="true"
+                android:text="300.000đ" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_15"
+            android:layout_marginTop="@dimen/dimen_15"
+            android:layout_marginBottom="@dimen/dimen_20"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_sp16_black_bold"
+                    android:text="@string/latest_medical_schedule" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="@dimen/dimen_20"
+                        android:alpha="0.6"
+                        android:background="@drawable/ic_action_time"
+                        android:backgroundTint="@color/grey_dark" />
+
+                    <TextView
+                        android:id="@+id/txtLatestMedicalSchedule"
+                        style="@style/text_sp14_black_bold"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:text="07:30, Ngày 25/11"
+                        android:textColor="@color/grey_dark" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="@dimen/dimen_5"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_common"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/dimen_10">
+
+                        <ImageView
+                            android:layout_width="@dimen/dimen_20"
+                            android:layout_height="@dimen/dimen_20"
+                            android:scaleX="-1"
+                            android:src="@drawable/stethoscope_1" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_5"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/text_sp14_black_bold"
+                                android:text="@string/book_examination"
+                                android:textColor="@color/white" />
+
+                            <TextView
+                                style="@style/text_sp12"
+                                android:text="@string/at_medical_facility"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

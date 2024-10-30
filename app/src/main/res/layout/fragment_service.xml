@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.ui.user.service.FragmentService">
+
+    <LinearLayout
+        android:id="@+id/headerService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_60"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="@dimen/dimen_10">
+
+        <ImageView
+            android:id="@+id/backHeader"
+            android:layout_width="@dimen/dimen_32"
+            android:layout_height="@dimen/dimen_32"
+            android:src="@drawable/ic_back_long"
+            app:tint="@color/black" />
+
+        <com.example.appkhambenh.ui.ui.common.CustomSearch
+            android:id="@+id/searchHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_10"
+            android:layout_marginEnd="@dimen/dimen_10"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/filter"
+            android:layout_width="@dimen/dimen_26"
+            android:layout_height="@dimen/dimen_26"
+            android:src="@drawable/ic_filter"
+            app:tint="@color/text" />
+
+        <TextView
+            style="@style/text_sp16_color_text"
+            android:layout_marginEnd="@dimen/dimen_10"
+            android:text="Lọc" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/titleService"
+        style="@style/text_sp16_black_bold"
+        android:layout_marginStart="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:text="Dịch vụ" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2" />
+
+</LinearLayout>

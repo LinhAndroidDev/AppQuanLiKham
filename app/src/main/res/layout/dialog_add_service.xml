@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_corners_5"
+    android:backgroundTint="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginTop="@dimen/dimen_15"
+            android:layout_marginStart="@dimen/dimen_15"
+            android:text="Nhập giá trị"
+            style="@style/text_sp16_black_bold"
+            android:layout_weight="1"
+            android:layout_width="0dp"/>
+
+        <ImageView
+            android:id="@+id/closeDialog"
+            android:layout_marginTop="@dimen/dimen_15"
+            android:layout_marginEnd="@dimen/dimen_15"
+            android:src="@drawable/icon_back_delete"
+            android:layout_width="@dimen/dimen_25"
+            android:layout_height="@dimen/dimen_25"
+            app:tint="@color/grey_dark"/>
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="@dimen/dimen_15"
+        android:background="@color/grey_light"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginStart="@dimen/dimen_15"
+        android:text="Chọn dịch vụ"
+        style="@style/text_sp14"/>
+
+    <AutoCompleteTextView
+        android:id="@+id/pullDownService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:background="@drawable/bg_edit_search_info_patient"
+        android:completionThreshold="0"
+        android:paddingVertical="@dimen/dimen_12"
+        android:paddingStart="@dimen/dimen_15"
+        android:textSize="@dimen/dimen_sp14" />
+    
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginBottom="@dimen/dimen_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/cancel"
+            android:text="Huỷ"
+            android:paddingVertical="@dimen/dimen_8"
+            android:paddingHorizontal="@dimen/dimen_15"
+            android:background="@drawable/boder_grey_corner_5"
+            style="@style/text_sp16"/>
+
+        <TextView
+            android:id="@+id/confirm"
+            android:layout_marginStart="@dimen/dimen_20"
+            android:layout_marginEnd="@dimen/dimen_15"
+            android:text="Xác nhận"
+            android:paddingVertical="@dimen/dimen_8"
+            android:paddingHorizontal="@dimen/dimen_15"
+            android:background="@drawable/bg_corners_5"
+            android:backgroundTint="@color/background"
+            style="@style/text_sp16_black_bold"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+</LinearLayout>

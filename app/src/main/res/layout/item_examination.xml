@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_marginVertical="@dimen/dimen_5"
+        app:cardCornerRadius="@dimen/dimen_5"
+        app:cardElevation="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="@dimen/dimen_5">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/dimen_18">
+
+                <TextView
+                    android:id="@+id/tvDay"
+                    style="@style/text_sp16_black_bold"
+                    android:layout_marginTop="@dimen/dimen_20"
+                    android:alpha="0.7"
+                    android:text="03"
+                    android:textColor="@color/background"
+                    android:textSize="45sp" />
+
+                <TextView
+                    android:id="@+id/tvMonthAndYear"
+                    style="@style/text_sp14_black_bold"
+                    android:text="01/2024" />
+
+                <TextView
+                    android:id="@+id/tvHour"
+                    style="@style/text_sp14"
+                    android:text="09:00"
+                    android:textColor="@color/txt_hint" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/grey_light" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dimen_10"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/dimen_8">
+
+                <TextView
+                    style="@style/text_sp16_black_bold"
+                    android:text="Tư vấn trực tuyến với BS"
+                    android:textSize="@dimen/dimen_sp18" />
+
+                <TextView
+                    android:id="@+id/tvNameDoctor"
+                    style="@style/text_sp16_black_bold"
+                    android:text="Nguyễn Thị Thanh"
+                    android:textSize="@dimen/dimen_sp18" />
+
+                <TextView
+                    android:id="@+id/tvNameHospital"
+                    style="@style/text_sp14"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="Bác Sĩ Ơi - Phòng Khám 020" />
+
+                <TextView
+                    android:id="@+id/tvNamePatient"
+                    style="@style/text_sp16"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="NGUYỄN HỮU LINH"
+                    android:textColor="@color/txt_hint" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

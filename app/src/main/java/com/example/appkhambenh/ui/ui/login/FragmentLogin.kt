@@ -1,9 +1,11 @@
 package com.example.appkhambenh.ui.ui.login
 
 import android.annotation.SuppressLint
-import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
@@ -11,20 +13,39 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.lifecycleScope
 import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.FragmentLoginBinding
-import com.example.appkhambenh.ui.ui.user.LoginWithUser
+import com.example.appkhambenh.ui.ui.user.HomeActivity
 import com.example.appkhambenh.ui.base.BaseFragment
-import com.example.appkhambenh.ui.ui.doctor.LoginWithDoctorActivity
+import com.example.appkhambenh.ui.data.remote.model.LoginModel
+import com.example.appkhambenh.ui.ui.common.dialog.DialogStudent
+import com.example.appkhambenh.ui.ui.doctor.DoctorActivity
+import com.example.appkhambenh.ui.ui.doctor.FragmentTreatmentManagement
 import com.example.appkhambenh.ui.ui.register.FragmentRegister
-import com.example.appkhambenh.ui.utils.Email
-import com.example.appkhambenh.ui.utils.PreferenceKey
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
+import com.example.appkhambenh.ui.utils.validateEmail
+import com.example.appkhambenh.ui.utils.validatePassword
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.parcelize.Parcelize
+import org.apache.poi.ss.usermodel.WorkbookFactory
+
+@Parcelize
+data class Student(
+    val id: Int,
+    val name: String,
+    val age: Int,
+    val address: String
+) : Parcelable
 
 @Suppress("DEPRECATION")
+@AndroidEntryPoint
 class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
+
+    companion object {
+        const val LIST_STUDENT = "LIST_STUDENT"
+    }
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -34,61 +55,97 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        activity?.intent?.let { handleIntent(it) }
         initUi()
+    }
+
+    private fun handleIntent(intent: Intent) {
+        if (intent.action == Intent.ACTION_SEND) {
+            val uri = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
+            if (uri != null) {
+                val students = readExcelFile(requireActivity(), uri)
+                val dialogStudent = DialogStudent()
+                dialogStudent.show(parentFragmentManager, "")
+                val bundle = Bundle()
+                bundle.putParcelableArrayList(LIST_STUDENT, students)
+                dialogStudent.arguments = bundle
+            }
+        }
+    }
+
+    private fun readExcelFile(context: Context, uri: Uri): ArrayList<Student> {
+        val students = mutableListOf<Student>()
+        val inputStream = context.contentResolver.openInputStream(uri)
+        val workbook = WorkbookFactory.create(inputStream)
+        val sheet = workbook.getSheetAt(0)
+
+        for (row in sheet) {
+            if (row.rowNum == 0) continue  // Bỏ qua hàng tiêu đề
+            val id = row.getCell(0).numericCellValue.toInt()
+            val name = row.getCell(1).stringCellValue
+            val age = row.getCell(2).numericCellValue.toInt()
+            val address = row.getCell(3).stringCellValue
+            students.add(Student(id, name, age, address))
+        }
+
+        workbook.close()
+        inputStream?.close()
+        return students as ArrayList<Student>
     }
 
     override fun bindData() {
         super.bindData()
 
-        val loadData = ProgressDialog(requireActivity())
-        loadData.setTitle("Thông báo")
-        loadData.setMessage("Please wait...")
-        viewModel.loadingLiveData.observe(viewLifecycleOwner){ isLoading->
-            if(isLoading){
-                loadData.show()
-            }else{
-                loadData.dismiss()
+        viewModel.loginSuccessLiveData.observe(viewLifecycleOwner) { isSuccessful ->
+            if (isSuccessful) {
+                if (binding.checkForgetPassword.isChecked) {
+                    saveAccount(
+                        email = binding.edtAccount.text.toString(),
+                        password = binding.edtPassword.text.toString(),
+                        isForget = true
+                    )
+                } else if (!binding.checkForgetPassword.isChecked) {
+                    saveAccount("", "", false)
+                }
+
+                sharePrefer.saveCheckLogin(true)
+
+                val intent = Intent(requireActivity(), HomeActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
             }
         }
 
-        viewModel.loginSuccessLiveData.observe(viewLifecycleOwner){ isSuccessful->
-            if(isSuccessful){
-                if(binding.checkForgetPassword.isChecked){
-                    val email = binding.edtAccount.text.toString()
-                    val password = binding.edtPassword.text.toString()
-                    saveAccount(email, password, true)
-                }else if(!binding.checkForgetPassword.isChecked){
-                    val email = ""
-                    val password = ""
-                    saveAccount(email, password, false)
+        lifecycleScope.launch(Dispatchers.IO) {
+            viewModel.doctorLoginSuccess.collect { isSuccess->
+                 if(isSuccess) {
+                    if (binding.checkForgetPassword.isChecked) {
+                        saveAccount(
+                            email = binding.edtAccount.text.toString(),
+                            password = binding.edtPassword.text.toString(),
+                            isForget = true
+                        )
+                    } else if (!binding.checkForgetPassword.isChecked) {
+                        saveAccount("", "", false)
+                    }
+
+                    sharePrefer.saveCheckLogin(true)
+
+                    val intent = Intent(requireActivity(), DoctorActivity::class.java)
+                    startActivity(intent)
                 }
-
-                viewModel.mPreferenceUtil.defaultPref()
-                    .edit().putBoolean(PreferenceKey.CHECK_LOGIN, true)
-                    .apply()
-
-                val intent = Intent(requireActivity(), LoginWithUser::class.java)
-                startActivity(intent)
-                activity?.finish()
             }
         }
     }
 
     private fun saveAccount(email: String, password: String, isForget: Boolean) {
-        viewModel.mPreferenceUtil.defaultPref()
-            .edit().putString(PreferenceKey.EMAIL,email)
-            .apply()
-        viewModel.mPreferenceUtil.defaultPref()
-            .edit().putString(PreferenceKey.PASSWORD,password)
-            .apply()
-        viewModel.mPreferenceUtil.defaultPref()
-            .edit().putBoolean(PreferenceKey.FORGET_PASSWORD, isForget)
-            .apply()
+        sharePrefer.saveEmail(email)
+        sharePrefer.savePassword(password)
+        sharePrefer.saveRememberPassword(isForget)
     }
 
     @SuppressLint("CommitTransaction", "ClickableViewAccessibility")
     private fun initUi() {
-
         checkSaveAccount()
 
         binding.showPassword.setOnClickListener {
@@ -97,64 +154,75 @@ class FragmentLogin : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
                 binding.edtPassword.transformationMethod = null
             } else if (binding.edtPassword.transformationMethod == null) {
                 binding.showPassword.setBackgroundResource(R.drawable.icon_hint_grey)
-                binding.edtPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+                binding.edtPassword.transformationMethod =
+                    PasswordTransformationMethod.getInstance()
             }
         }
 
-        binding.login.setOnClickListener {
+        binding.loginDoctor.setOnClickListener {
             val email = binding.edtAccount.text.toString()
             val password = binding.edtPassword.text.toString()
-            val emailValidate: Email = Email(email,password)
-            if(email.isEmpty() || password.isEmpty()){
-                setNotification(R.color.txt_green,R.string.txt_enter_enough_info)
-            }else if(!emailValidate.isValidEmail()){
-                setNotification(R.color.txt_red,R.string.txt_fail_email)
-            }else if(!emailValidate.isPassword()){
-                setNotification(R.color.txt_red,R.string.txt_fail_password)
-            } else{
-                binding.notificationLogin.visibility = View.GONE
+            viewModel.loginDoctor(email, password)
+        }
 
-                val requestBodyEmail: RequestBody =
-                    email.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-                val requestBodyPassword: RequestBody =
-                    password.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-
-                viewModel.requestLoginUser(requestBodyEmail, requestBodyPassword)
+        binding.login.setOnClickListener {
+//            val email = binding.edtAccount.text.toString()
+//            val password = binding.edtPassword.text.toString()
+//
+//            if (email.isEmpty() || password.isEmpty()) {
+//                setNotification(R.color.txt_green, R.string.enter_enough_info)
+//            } else if (!validateEmail(email)) {
+//                setNotification(R.color.txt_red, R.string.fail_email)
+//            } else if (!validatePassword(password)) {
+//                setNotification(R.color.txt_red, R.string.fail_password)
+//            } else {
+//                binding.notificationLogin.visibility = View.GONE
+//
+//                lifecycleScope.launch(Dispatchers.Main) {
+//                    viewModel.requestLoginUser(
+//                        context = requireActivity(),
+//                        loginModel = LoginModel(email, password)
+//                    )
+//                }
+//            }
+            if (binding.checkForgetPassword.isChecked) {
+                saveAccount(
+                    email = binding.edtAccount.text.toString(),
+                    password = binding.edtPassword.text.toString(),
+                    isForget = true
+                )
+            } else if (!binding.checkForgetPassword.isChecked) {
+                saveAccount("", "", false)
             }
+
+            sharePrefer.saveCheckLogin(true)
+
+            val intent = Intent(requireActivity(), HomeActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
         }
 
         binding.register.setOnClickListener {
             val fragmentRegister = FragmentRegister()
-            val fm: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-            fm.replace(R.id.changeIdLogin,fragmentRegister).addToBackStack(null).commit()
-        }
-
-        binding.txtLoginWithDoctor.setOnClickListener {
-            val intent = Intent(requireActivity(), LoginWithDoctorActivity::class.java)
-            startActivity(intent)
+            val fm: FragmentTransaction =
+                parentFragmentManager.beginTransaction()
+            fm.replace(R.id.changeIdLogin, fragmentRegister).addToBackStack(null).commit()
         }
 
         binding.layoutLogin.setOnTouchListener { view, _ ->
             view.hideKeyboard()
-            true
+            false
         }
     }
 
-    private fun checkSaveAccount(){
-        val email = viewModel.mPreferenceUtil.defaultPref()
-            .getString(PreferenceKey.EMAIL,"")
-        val password = viewModel.mPreferenceUtil.defaultPref()
-            .getString(PreferenceKey.PASSWORD,"")
-        val isForgetPassword = viewModel.mPreferenceUtil.defaultPref()
-            .getBoolean(PreferenceKey.FORGET_PASSWORD,false)
-
-        binding.edtAccount.setText(email)
-        binding.edtPassword.setText(password)
+    private fun checkSaveAccount() {
+        binding.edtAccount.setText(sharePrefer.getEmail())
+        binding.edtPassword.setText(sharePrefer.getPassword())
         binding.checkForgetPassword.isChecked = true
     }
 
-    private fun setNotification(color: Int, string: Int){
-        val shake: Animation = AnimationUtils.loadAnimation(requireActivity(),R.anim.anim_shake)
+    private fun setNotification(color: Int, string: Int) {
+        val shake: Animation = AnimationUtils.loadAnimation(requireActivity(), R.anim.anim_shake)
         binding.notificationLogin.text = resources.getString(string)
         binding.notificationLogin.setTextColor(resources.getColor(color))
         binding.notificationLogin.visibility = View.VISIBLE

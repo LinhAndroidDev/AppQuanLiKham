@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/dimen_10">
+
+        <LinearLayout
+            android:paddingVertical="@dimen/dimen_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_gravity="center_horizontal"
+                    android:text="Bệnh nhân: "
+                    android:textSize="@dimen/dimen_sp16"
+                    style="@style/text_sp16_black_bold"/>
+
+                <TextView
+                    android:id="@+id/tvNamePatient"
+                    android:text="Nguyễn Hữu Linh"
+                    android:textSize="@dimen/dimen_sp16"
+                    style="@style/text_sp16"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/manageTreatment"
+                android:layout_marginTop="@dimen/dimen_30"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_marginStart="@dimen/dimen_20"
+                    android:src="@drawable/ic_graph"
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_height="@dimen/dimen_30"/>
+
+                <TextView
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:text="Quản lí điều trị"
+                    style="@style/text_sp16_color_text_bold"
+                    android:textColor="@color/background"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/historyTest"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_marginStart="@dimen/dimen_20"
+                    android:src="@drawable/ic_graph"
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_height="@dimen/dimen_30"/>
+
+                <TextView
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:text="Lịch sử khám chữa bệnh"
+                    style="@style/text_sp16_color_text_bold"
+                    android:textColor="@color/background"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:id="@+id/close"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_gravity="center_horizontal"
+        android:padding="@dimen/dimen_10"
+        android:background="@drawable/bg_circle_stroke_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@drawable/icon_back_delete"
+            android:layout_width="@dimen/dimen_25"
+            android:layout_height="@dimen/dimen_25"/>
+    </RelativeLayout>
+</LinearLayout>

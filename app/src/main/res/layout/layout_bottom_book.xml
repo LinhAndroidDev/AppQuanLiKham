@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutBook"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    app:layout_behavior="com.example.appkhambenh.ui.ui.user.home.CustomDraggableBottomSheetBehaviour">
+
+    <LinearLayout
+        android:id="@+id/layoutCoverSheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_cover_bottom_behavior"
+        android:orientation="vertical" />
+
+    <LinearLayout
+        android:id="@+id/layoutMainSheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:elevation="@dimen/dimen_25"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dimen_150">
+
+        <TextView
+            android:id="@+id/titleBottomBook"
+            style="@style/text_sp16_no_color"
+            android:layout_gravity="center"
+            android:layout_marginVertical="@dimen/dimen_20"
+            android:text="@string/book_now"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/bottomGoToDoctor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_25"
+            android:background="@drawable/bg_corners_10"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dimen_3"
+                android:layout_marginEnd="@dimen/dimen_10"
+                android:background="@drawable/bg_corners_10"
+                android:backgroundTint="@color/bg_blue_dark">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_50"
+                    android:layout_height="@dimen/dimen_50"
+                    android:layout_margin="@dimen/dimen_10"
+                    android:src="@drawable/icon_bottom_doctor" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_5"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingVertical="@dimen/dimen_5">
+
+                <TextView
+                    android:id="@+id/titleDoctorBook"
+                    style="@style/text_sp16_color_text_bold"
+                    android:text="@string/go_to_doctor" />
+
+                <TextView
+                    android:id="@+id/noteDoctorBook"
+                    style="@style/text_sp12"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="@string/note_doctor" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="@dimen/dimen_25"
+                android:layout_height="@dimen/dimen_25"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/dimen_30"
+                android:layout_marginEnd="@dimen/dimen_15"
+                android:background="@drawable/ic_action_next_bottom"
+                android:backgroundTint="@color/text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_25"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:background="@drawable/bg_corners_10"
+            android:backgroundTint="@color/bg_pink_light"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dimen_3"
+                android:layout_marginEnd="@dimen/dimen_10"
+                android:background="@drawable/bg_corners_10"
+                android:backgroundTint="@color/bg_pink_dark">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_50"
+                    android:layout_height="@dimen/dimen_50"
+                    android:layout_margin="@dimen/dimen_10"
+                    android:src="@drawable/icon_bottom_service" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_5"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingVertical="@dimen/dimen_5">
+
+                <TextView
+                    android:id="@+id/titleServiceBook"
+                    style="@style/text_sp16_color_text_bold"
+                    android:text="@string/health_services"
+                    android:textColor="@color/txt_red" />
+
+                <TextView
+                    android:id="@+id/noteServiceBook"
+                    style="@style/text_sp12"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="@string/note_health_services" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="@dimen/dimen_25"
+                android:layout_height="@dimen/dimen_25"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/dimen_30"
+                android:layout_marginEnd="@dimen/dimen_15"
+                android:background="@drawable/ic_action_next_bottom"
+                android:backgroundTint="@color/pink" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottomCsyt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_25"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:background="@drawable/bg_corners_10"
+            android:backgroundTint="@color/bg_purple_light"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dimen_3"
+                android:layout_marginEnd="@dimen/dimen_10"
+                android:background="@drawable/bg_corners_10"
+                android:backgroundTint="@color/bg_purple_dark">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_50"
+                    android:layout_height="@dimen/dimen_50"
+                    android:layout_margin="@dimen/dimen_10"
+                    android:src="@drawable/icon_bottom_hospital" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_5"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingVertical="@dimen/dimen_5">
+
+                <TextView
+                    android:id="@+id/titleCsytBook"
+                    style="@style/text_sp16_color_text_bold"
+                    android:text="@string/csyt"
+                    android:textColor="@color/purple" />
+
+                <TextView
+                    android:id="@+id/noteCsytBook"
+                    style="@style/text_sp12"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="@string/note_csyt" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="@dimen/dimen_25"
+                android:layout_height="@dimen/dimen_25"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/dimen_30"
+                android:layout_marginEnd="@dimen/dimen_15"
+                android:background="@drawable/ic_action_next_bottom"
+                android:backgroundTint="@color/purple" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

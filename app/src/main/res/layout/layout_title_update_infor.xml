@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/text_sp16_black_bold"
+        android:text="Họ và tên" />
+
+    <TextView
+        style="@style/text_sp16"
+        android:layout_marginStart="@dimen/dimen_5"
+        android:text="*"
+        android:textColor="@color/txt_red" />
+
+</LinearLayout>

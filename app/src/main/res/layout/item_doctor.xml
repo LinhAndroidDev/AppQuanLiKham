@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_2"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:orientation="vertical"
+        app:cardCornerRadius="@dimen/dimen_10"
+        app:cardElevation="@dimen/dimen_1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dimen_15">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="@dimen/dimen_70"
+                    android:layout_height="@dimen/dimen_70"
+                    android:src="@drawable/img_doctor" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_20"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvNameDortor"
+                        style="@style/text_sp14_black_bold"
+                        android:text="Lê Thế Anh" />
+
+                    <TextView
+                        android:id="@+id/tvNameHospital"
+                        style="@style/text_sp14_no_color"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:text="Bác Sĩ Ơi-Phòng Khám 020" />
+
+                    <TextView
+                        android:id="@+id/specialistDr"
+                        style="@style/text_sp14_color_text"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:text="Chuyên khoa Tai Mũi Họng" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_corners_10"
+                    android:backgroundTint="@color/grey_light"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingVertical="@dimen/dimen_5">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="@dimen/dimen_20"
+                        android:background="@drawable/ic_action_visit"
+                        android:backgroundTint="@color/grey_dark" />
+
+                    <TextView
+                        android:id="@+id/txtNumberVisitDr"
+                        style="@style/text_sp14"
+                        android:layout_marginStart="@dimen/dimen_5"
+                        android:text="1460 lượt đặt khám" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_corners_10"
+                    android:backgroundTint="@color/grey_light"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/dimen_7"
+                    android:paddingVertical="@dimen/dimen_5">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="@dimen/dimen_20"
+                        android:background="@drawable/ic_action_star"
+                        android:backgroundTint="@color/orange" />
+
+                    <TextView
+                        android:id="@+id/txtEvaluateDr"
+                        style="@style/text_sp14"
+                        android:layout_marginStart="@dimen/dimen_5"
+                        android:text="4.87" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/text_sp14_no_color"
+                        android:text="@string/latest_medical_schedule" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/dimen_20"
+                            android:layout_height="@dimen/dimen_20"
+                            android:alpha="0.6"
+                            android:background="@drawable/ic_action_time"
+                            android:backgroundTint="@color/txt_red" />
+
+                        <TextView
+                            android:id="@+id/txtLatestMedicalSchedule"
+                            style="@style/text_sp14"
+                            android:layout_marginStart="@dimen/dimen_10"
+                            android:text="11:00 AM, 21/11" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="@dimen/dimen_10"
+                        app:cardElevation="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_common"
+                            android:gravity="center">
+
+                            <TextView
+                                style="@style/text_sp14_black_bold"
+                                android:layout_marginVertical="@dimen/dimen_12"
+                                android:text="@string/online_counseling"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

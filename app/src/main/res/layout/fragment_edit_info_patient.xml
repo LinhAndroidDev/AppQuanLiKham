@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.ui.doctor.FragmentEditInfoPatient">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.example.appkhambenh.ui.ui.doctor.CustomHeaderDoctor
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title_view_doctor="Quản lí hành chính"
+            app:title_next=" / Chỉnh sửa"/>
+
+        <TextView
+            android:layout_marginStart="@dimen/dimen_15"
+            android:layout_marginVertical="@dimen/dimen_15"
+            android:text="CHI TIẾT BỆNH NHÂN"
+            style="@style/text_sp16_black_bold"
+            android:textAllCaps="true"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/bg_divider" />
+
+        <LinearLayout
+            android:paddingHorizontal="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="Ảnh đại diện"
+                    style="@style/text_sp14"/>
+
+                <ImageView
+                    android:src="@drawable/img_doctor_vn"
+                    android:scaleType="centerCrop"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:layout_width="@dimen/dimen_80"
+                    android:layout_height="@dimen/dimen_80"/>
+            </LinearLayout>
+
+            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/edtName"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:title_info="Tên bệnh nhân" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingHorizontal="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/edtBirth"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:title_info="Ngày sinh"
+                app:important="true"
+                app:is_calendar="true"/>
+
+            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/edtEmail"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:title_info="Email"
+                app:important="true"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingHorizontal="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/edtPhone"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:title_info="Số điện thoại"
+                app:important="true"/>
+
+            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/edtSex"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:title_info="Giới tính"
+                app:has_pull_down="true"
+                app:important="true"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingHorizontal="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/maritalStatus"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:title_info="Tình trạng hôn nhân"
+                app:has_pull_down="true"/>
+
+            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/relativeName"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:title_info="Tên người thân" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingHorizontal="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/relativeAddress"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:title_info="Địa chỉ người thân" />
+
+            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/relativePhone"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:title_info="Số điện thoại người thân" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingHorizontal="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/edtCccd"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:title_info="Căn cước công dân"
+                app:important="true"/>
+
+            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/edtBhyt"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:title_info="Bảo hiểm y tế" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingHorizontal="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/edtJob"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:title_info="Nghề nghiệp" />
+
+            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/hasHealthInsurance"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:title_info="Đối tượng"
+                app:has_pull_down="true"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingHorizontal="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/nationality"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:title_info="Quốc tịch"
+                app:important="true"/>
+
+            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/religion"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:title_info="Tôn giáo" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingHorizontal="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+                android:id="@+id/edtAddress"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:title_info="Địa chỉ"
+                app:important="true"/>
+
+            <View
+                android:layout_marginStart="@dimen/dimen_10"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <com.example.appkhambenh.ui.ui.common.CustomBtnFootView
+            android:id="@+id/updateInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:eleven_foot_view="0"
+            app:title_foot_view="Cập nhật"/>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

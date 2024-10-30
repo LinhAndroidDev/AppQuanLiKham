@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/grey_light"
+    tools:context=".ui.ui.doctor.FragmentListMedicalRecord">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:paddingEnd="@dimen/dimen_15"
+        android:paddingStart="@dimen/dimen_5"
+        android:paddingTop="@dimen/dimen_30"
+        android:paddingBottom="@dimen/dimen_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/back"
+            android:src="@drawable/ic_action_back_black"
+            android:layout_width="@dimen/dimen_40"
+            android:layout_height="@dimen/dimen_25"
+            app:tint="@color/black"/>
+
+        <TextView
+            android:layout_marginStart="@dimen/dimen_5"
+            android:text="Danh Sách Bệnh Án"
+            style="@style/text_sp16_black_bold"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:textSize="@dimen/dimen_sp22"/>
+
+        <ImageView
+            android:src="@drawable/search"
+            android:layout_width="@dimen/dimen_25"
+            android:layout_height="@dimen/dimen_25"
+            app:tint="@color/black"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvMedicalRecord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_below="@id/header"/>
+
+    <RelativeLayout
+        android:layout_marginEnd="@dimen/dimen_15"
+        android:layout_marginBottom="@dimen/dimen_30"
+        android:background="@drawable/bg_corners_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="#8449EF">
+
+        <ImageView
+            android:layout_margin="@dimen/dimen_10"
+            android:src="@drawable/ic_add_medical_record"
+            android:layout_width="@dimen/dimen_30"
+            android:layout_height="@dimen/dimen_40"
+            app:tint="@color/white"/>
+    </RelativeLayout>
+
+</RelativeLayout>

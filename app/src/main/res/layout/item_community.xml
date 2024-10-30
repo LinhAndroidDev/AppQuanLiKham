@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/dimen_15"
+        android:paddingTop="@dimen/dimen_20"
+        android:paddingBottom="@dimen/dimen_15">
+
+        <include
+            layout="@layout/layout_content_community"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/layoutDoctorComment"
+            layout="@layout/layout_doctor_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10">
+
+            <TextView
+                android:id="@+id/specialistDoctor"
+                style="@style/text_sp14_color_text"
+                android:background="@color/grey"
+                android:padding="@dimen/dimen_5"
+                android:text="Chuyên khoa Tai Mũi Họng" />
+
+            <TextView
+                android:id="@+id/numberFavourite"
+                style="@style/text_sp16_black_bold"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="0" />
+
+            <ImageView
+                android:id="@+id/favourite"
+                android:layout_width="@dimen/dimen_25"
+                android:layout_height="@dimen/dimen_25"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dimen_3"
+                android:layout_toStartOf="@id/numberFavourite"
+                android:src="@drawable/ic_heart" />
+
+            <TextView
+                android:id="@+id/numberComment"
+                style="@style/text_sp16_black_bold"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dimen_10"
+                android:layout_toStartOf="@id/favourite"
+                android:text="3" />
+
+            <ImageView
+                android:id="@+id/comment"
+                android:layout_width="@dimen/dimen_25"
+                android:layout_height="@dimen/dimen_25"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dimen_3"
+                android:layout_toStartOf="@id/numberComment"
+                android:src="@drawable/ic_message" />
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

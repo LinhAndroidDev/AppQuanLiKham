@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/bgHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_common"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_20"
+            android:layout_marginTop="@dimen/dimen_60"
+            android:layout_marginBottom="@dimen/dimen_20">
+
+            <ImageView
+                android:id="@+id/backHeader"
+                android:layout_width="@dimen/dimen_32"
+                android:layout_height="@dimen/dimen_32"
+                android:src="@drawable/ic_back_long"
+                android:layout_centerVertical="true"
+                app:tint="@color/white"/>
+
+            <TextView
+                android:id="@+id/titleHeader"
+                style="@style/text_sp16_black_bold"
+                android:layout_centerHorizontal="true"
+                android:layout_marginHorizontal="@dimen/dimen_40"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dimen_sp20" />
+
+            <ImageView
+                android:id="@+id/delete"
+                android:layout_width="@dimen/dimen_30"
+                android:layout_height="@dimen/dimen_30"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_delete"
+                android:visibility="gone"
+                app:tint="@color/grey_2" />
+
+            <ImageView
+                android:id="@+id/iconSearch"
+                android:layout_width="@dimen/dimen_25"
+                android:layout_height="@dimen/dimen_25"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/search"
+                app:tint="@color/white"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <com.example.appkhambenh.ui.ui.common.CustomSearch
+            android:id="@+id/searchHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_20"
+            android:layout_marginBottom="@dimen/dimen_15"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1"
+        android:background="#00FFFFFF" />
+
+</LinearLayout>

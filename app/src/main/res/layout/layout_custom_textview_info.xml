@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/edtInfo"
+        style="@style/edit_sp14"
+        android:paddingEnd="@dimen/dimen_60"
+        tools:ignore="RtlSymmetry" />
+
+    <View
+        android:id="@+id/viewGetBirth"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_40"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/deleteTextInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:gravity="bottom"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/dimen_12"
+            android:layout_height="@dimen/dimen_12"
+            android:layout_marginEnd="@dimen/dimen_10"
+            android:layout_marginBottom="@dimen/dimen_10"
+            android:src="@drawable/icon_delete_search"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+</RelativeLayout>

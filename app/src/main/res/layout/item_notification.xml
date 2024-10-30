@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_blue_white"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/text_sp16_black_bold"
+            android:layout_marginStart="@dimen/dimen_15"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:text="Ngày 05/03/2024" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_30"
+            android:layout_marginBottom="@dimen/dimen_20"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_50"
+                android:layout_height="@dimen/dimen_50"
+                android:layout_marginHorizontal="@dimen/dimen_15"
+                android:src="@drawable/icon_app_kham_benh" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_15"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtNotification"
+                    style="@style/text_sp16_black_bold"
+                    android:text="Cấy que tránh thai có tốt không? Có an toàn không?" />
+
+                <TextView
+                    style="@style/text_sp16"
+                    tools:ignore="UnusedAttribute"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:lineHeight="@dimen/dimen_18"
+                    android:text="Đây là thắc mắc chung của các chị em khi sử dụng biện pháp cấy que tránh thai. Hãy cùng IVIE - Bác sĩ ơi giải đáp thắc mắc này bạn nhé!" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bg_divider" />
+
+    </LinearLayout>
+</layout>

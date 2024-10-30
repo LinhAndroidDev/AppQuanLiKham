@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/layout"
+    android:paddingBottom="@dimen/dimen_15"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="gone"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:background="@color/grey"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1"/>
+
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+        android:id="@+id/edtReason"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Lý do vào viện" />
+
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+        android:id="@+id/edtIntroductionPlace"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Nơi giới thiệu" />
+
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+        android:id="@+id/edtTime"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Nhập viện lúc" />
+
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+        android:id="@+id/edtFacultyTreatment"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Khoa điều trị" />
+
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+        android:id="@+id/edtIntoHospitalNumber"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Vào viện lần thứ" />
+
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+        android:id="@+id/edtRoom"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Phòng" />
+
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+        android:id="@+id/edtBed"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Giường" />
+
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+        android:id="@+id/edtDoctor"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Bác sĩ điều trị" />
+
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+        android:id="@+id/edtDiagnosePast"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Chẩn đoán nơi chuyển đến" />
+
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+        android:id="@+id/edtEmergencyDiagnose"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Chẩn đoán KKB, Cấp cứu" />
+
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+        android:id="@+id/edtDiagnoseNow"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Chẩn đoán hiện tại" />
+
+    <com.example.appkhambenh.ui.ui.doctor.CustomEdtSearchInfoPatient
+        android:id="@+id/edtDiagnoseMove"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginHorizontal="@dimen/dimen_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:enable_edt="false"
+        app:important="true"
+        app:title_info="Chẩn đoán ra viện" />
+
+</LinearLayout>

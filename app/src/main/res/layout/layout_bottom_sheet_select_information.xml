@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutSelect"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    app:layout_behavior="com.example.appkhambenh.ui.ui.user.home.CustomDraggableBottomSheetBehaviour">
+
+    <LinearLayout
+        android:id="@+id/layoutCoverSheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#C9111111"
+        android:orientation="vertical" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:elevation="@dimen/dimen_25"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="@dimen/dimen_50"
+            android:layout_height="@dimen/dimen_7"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_corners_25"
+            android:backgroundTint="@color/white" />
+
+        <LinearLayout
+            android:id="@+id/layoutMainSheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_7"
+            android:background="@drawable/boder_bottom_sheet"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/text_sp16_black_bold"
+                android:layout_gravity="center"
+                android:layout_marginVertical="@dimen/dimen_20"
+                android:text="Dân tộc"
+                android:textSize="@dimen/dimen_sp18" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey_light" />
+
+            <EditText
+                android:id="@+id/search"
+                style="@style/edit_sp16"
+                android:layout_marginHorizontal="@dimen/dimen_20"
+                android:layout_marginVertical="@dimen/dimen_15"
+                android:background="@drawable/boder_gray_corner_10"
+                android:drawableStart="@drawable/search"
+                android:drawablePadding="@dimen/dimen_10"
+                android:hint="Tìm kiếm dân tộc"
+                android:inputType="textEmailAddress"
+                android:paddingHorizontal="@dimen/dimen_12"
+                android:paddingVertical="@dimen/dimen_10"
+                android:imeOptions="actionDone"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvInformation"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_400"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/update"
+        android:layout_marginHorizontal="@dimen/dimen_40"
+        android:layout_marginBottom="@dimen/dimen_20"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/background"
+        app:cardCornerRadius="@dimen/dimen_10"
+        app:cardElevation="25dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_marginVertical="@dimen/dimen_10"
+            android:text="Cập nhật đơn thuốc"
+            style="@style/text_sp14_black_bold"
+            android:textColor="@color/white"/>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

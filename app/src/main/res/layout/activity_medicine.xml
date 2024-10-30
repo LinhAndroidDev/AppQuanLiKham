@@ -4,21 +4,174 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ui.user.medicine.MedicineActivity"
-    android:orientation="vertical">
-    <TextView
-        android:text="Thông tin thuốc tham khảo"
-        android:textSize="25dp"
-        android:textColor="@color/text"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcvMedicine"
-        android:layout_marginVertical="20dp"
-        android:layout_marginHorizontal="10dp"
+    android:orientation="vertical"
+    tools:context=".ui.ui.user.medicine.MedicineActivity">
+
+    <LinearLayout
+        android:id="@+id/headerService"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_60"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/dimen_10">
+
+        <ImageView
+            android:id="@+id/backHeader"
+            android:layout_width="@dimen/dimen_32"
+            android:layout_height="@dimen/dimen_32"
+            android:src="@drawable/ic_back_long"
+            app:tint="@color/black" />
+
+        <com.example.appkhambenh.ui.ui.common.CustomSearch
+            android:id="@+id/searchHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_10"
+            android:layout_marginEnd="@dimen/dimen_20"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/cart"
+            android:layout_width="@dimen/dimen_26"
+            android:layout_height="@dimen/dimen_26"
+            android:layout_marginEnd="@dimen/dimen_15"
+            android:src="@drawable/ic_cart"
+            app:tint="@color/background" />
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="@dimen/dimen_15"
+        android:background="@color/grey"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_0.8"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_blue_white"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_marginTop="@dimen/dimen_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_15"
+                    android:background="@drawable/bg_corners_10"
+                    android:backgroundTint="@color/orange_light"
+                    android:orientation="vertical"
+                    android:paddingVertical="@dimen/dimen_30"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <TextView
+                        style="@style/text_sp16_black_bold"
+                        android:layout_marginStart="@dimen/dimen_20"
+                        android:text="Đặt thuốc theo đơn" />
+
+                    <TextView
+                        style="@style/text_sp12"
+                        android:textSize="@dimen/dimen_sp13"
+                        android:layout_marginStart="@dimen/dimen_20"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:text="Mua thuốc chuẩn theo đơn của \nbác sĩ" />
+
+                    <TextView
+                        style="@style/text_sp16_black_bold"
+                        android:layout_marginStart="@dimen/dimen_20"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:background="@drawable/bg_corners_15"
+                        android:paddingHorizontal="@dimen/dimen_25"
+                        android:paddingVertical="@dimen/dimen_10"
+                        android:text="Gửi đơn thuốc ngay" />
+                </LinearLayout>
+
+                <ImageView
+                    android:src="@drawable/ic_note_medicine"
+                    android:layout_width="@dimen/dimen_80"
+                    android:layout_height="@dimen/dimen_90"
+                    android:layout_marginEnd="@dimen/dimen_40"
+                    android:rotation="-30"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <ImageView
+                    android:id="@+id/icMedicine"
+                    android:src="@drawable/ic_medicine"
+                    android:layout_width="@dimen/dimen_50"
+                    android:layout_height="@dimen/dimen_50"
+                    android:layout_marginEnd="@dimen/dimen_5"
+                    android:layout_marginBottom="@dimen/dimen_20"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_15"
+                android:layout_marginTop="@dimen/dimen_40"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    style="@style/text_sp16_black_bold"
+                    android:text="Sản phẩm" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/bg_corners_5"
+                    android:backgroundTint="@color/grey"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/dimen_7"
+                    android:paddingVertical="@dimen/dimen_5">
+
+                    <TextView
+                        style="@style/text_sp12_black_bold"
+                        android:text="Chọn nơi bán" />
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="@dimen/dimen_20"
+                        android:rotation="90"
+                        android:src="@drawable/ic_action_next_time"
+                        app:tint="@color/grey_dark" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvCatalog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvMedicine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_15"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_20"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

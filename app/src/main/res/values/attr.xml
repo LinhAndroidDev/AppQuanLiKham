@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="IconAndText">
+        <attr name="title_view" format="string"/>
+        <attr name="icon_view" format="reference"/>
+        <attr name="icon_view_color" format="color"/>
+        <attr name="title_text_color" format="color"/>
+        <attr name="title_text_bold" format="boolean"/>
+<!--        <attr name="title_text_all_caps" format="boolean"/>-->
+    </declare-styleable>
+
+    <declare-styleable name="CustomBtnNumber">
+        <attr name="icon_btn" format="enum">
+            <enum name="minus" value="0"/>
+            <enum name="plus" value="1"/>
+        </attr>
+        <attr name="icon_enable" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="CustomNavigationDoctor">
+        <attr name="title_nav_doctor" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="CustomEdtSearchInfoPatient">
+        <attr name="title_info" format="string"/>
+        <attr name="hint_info" format="string"/>
+        <attr name="important" format="boolean"/>
+        <attr name="is_calendar" format="boolean"/>
+        <attr name="has_pull_down" format="boolean"/>
+        <attr name="input_type" format="enum">
+            <enum name="text_email" value="0"/>
+            <enum name="decimal" value="1"/>
+            <enum name="number" value="2"/>
+        </attr>
+        <attr name="check_input" format="string"/>
+        <attr name="enable_edt" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="CustomTitleInfoPatient">
+        <attr name="title" format="string"/>
+        <attr name="showViewLoad" format="boolean"/>
+        <attr name="showViewEnd" format="boolean"/>
+        <attr name="sizeView" format="enum">
+            <enum name="super_big_large" value="300"/>
+            <enum name="big_large" value="160"/>
+            <enum name="large" value="140"/>
+            <enum name="medium" value="100"/>
+            <enum name="small" value="50"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CustomHeaderDoctor">
+        <attr name="title_view_doctor" format="string"/>
+        <attr name="title_next" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="CustomEdtBloodTest">
+        <attr name="unit" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="CustomBtnFootView">
+        <attr name="title_foot_view" format="string"/>
+        <attr name="color_foot_view" format="color"/>
+        <attr name="eleven_foot_view" format="float"/>
+        <attr name="enable_foot_view" format="boolean"/>
+        <attr name="show_divider" format="boolean"/>
+    </declare-styleable>
+</resources>

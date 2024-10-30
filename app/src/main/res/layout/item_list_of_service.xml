@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/idService"
+                android:layout_marginVertical="@dimen/dimen_20"
+                style="@style/text_sp14"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:paddingStart="@dimen/dimen_10"
+                android:text="ID" />
+
+            <TextView
+                android:id="@+id/nameService"
+                style="@style/text_sp14"
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:paddingStart="@dimen/dimen_10"
+                android:text="Tên dịch vụ" />
+
+            <TextView
+                android:id="@+id/stateService"
+                style="@style/text_sp14"
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:paddingStart="@dimen/dimen_10"
+                android:text="Trạng thái" />
+
+            <LinearLayout
+                android:layout_weight="4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:id="@+id/bgPay"
+                    android:background="@drawable/bg_edit_search_info_patient_unselected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/state"
+                        style="@style/text_sp14"
+                        android:paddingHorizontal="@dimen/dimen_10"
+                        android:paddingVertical="@dimen/dimen_7"
+                        android:text="Đã thanh toán"
+                        android:textColor="@color/grey_1"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:background="@color/grey_light"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1"/>
+    </LinearLayout>
+</layout>

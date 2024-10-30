@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/layoutAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/address"
+            style="@style/text_sp16"
+            android:layout_marginVertical="@dimen/dimen_15"
+            android:layout_marginStart="@dimen/dimen_15"
+            android:text="Lạng Sơn" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1"
+            android:background="@color/grey_light" />
+    </LinearLayout>
+</layout>

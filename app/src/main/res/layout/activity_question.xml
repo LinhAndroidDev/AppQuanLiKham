@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.ui.user.navigation.communication.QuestionActivity">
+
+    <com.example.appkhambenh.ui.ui.common.CustomHeader
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/infoQuestion"
+                layout="@layout/layout_content_community"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_20" />
+
+            <TextView
+                android:id="@+id/specialistDoctor"
+                style="@style/text_sp14_color_text"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:background="@color/grey"
+                android:padding="@dimen/dimen_5"
+                android:text="Chuyên khoa Tai Mũi Họng" />
+
+            <include
+                android:id="@+id/infoDoctor"
+                layout="@layout/layout_doctor_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_15"
+                android:layout_marginTop="@dimen/dimen_8" />
+
+            <LinearLayout
+                android:id="@+id/favourite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_height="@dimen/dimen_30"
+                    android:alpha="0.75"
+                    android:src="@drawable/ic_heart_fill"
+                    app:tint="@color/red_dark" />
+
+                <TextView
+                    style="@style/text_sp16"
+                    android:layout_marginStart="@dimen/dimen_5"
+                    android:text="0 cảm ơn" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/space"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1"
+                android:layout_marginTop="@dimen/dimen_5"
+                android:background="@color/grey" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                style="@style/text_sp14"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:gravity="center"
+                android:text="08:31 05/03/2024"
+                android:textColor="@color/txt_hint" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_120"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <include
+        android:layout_marginTop="100dp"
+        layout="@layout/layout_favourite_doctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

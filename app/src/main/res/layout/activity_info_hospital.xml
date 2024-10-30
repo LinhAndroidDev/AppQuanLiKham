@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.ui.user.hospital.InfoHospitalActivity">
+
+    <com.example.appkhambenh.ui.ui.common.CustomHeader
+        android:id="@+id/headerInfoHospital"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/dimen_80"
+                android:layout_height="@dimen/dimen_80"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginVertical="@dimen/dimen_20"
+                android:src="@drawable/user_ad"
+                app:civ_border_color="@color/bg_blue_light"
+                app:civ_border_width="@dimen/dimen_1" />
+
+            <TextView
+                android:id="@+id/nameHospital"
+                style="@style/text_sp16_black_bold"
+                android:layout_gravity="center_horizontal"
+                android:text="Bệnh Viện Phổi Trung Ươnng"
+                android:textSize="@dimen/dimen_sp20" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/text_sp16_no_color"
+                        android:text="@string/number_book" />
+
+                    <TextView
+                        style="@style/text_sp16_black_bold"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:text="11885"
+                        android:textSize="@dimen/dimen_sp20" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/dimen_1"
+                    android:layout_height="@dimen/dimen_60"
+                    android:background="@color/grey" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/text_sp16_no_color"
+                        android:text="@string/evaluate" />
+
+                    <TextView
+                        style="@style/text_sp16_black_bold"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:text="4.2"
+                        android:textSize="@dimen/dimen_sp20" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1"
+                android:layout_marginHorizontal="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:background="@color/grey" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_25"
+                    android:alpha="0.6"
+                    android:src="@drawable/ic_action_location" />
+
+                <TextView
+                    style="@style/text_sp14_no_color"
+                    android:layout_marginStart="@dimen/dimen_20"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="463 Đường Hoàng Hoa Thám, Vĩnh Phúc, Ba Đình, Thành phố Hà Nội, Vĩnh Phúc, Ba Đình..." />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_10">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_20"
+                    android:layout_height="@dimen/dimen_20"
+                    android:alpha="0.6"
+                    android:background="@drawable/ic_action_time"
+                    android:backgroundTint="@color/grey_dark" />
+
+                <TextView
+                    android:id="@+id/seeSchedule"
+                    style="@style/text_sp16_color_text"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/see_schedule" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_10"
+                android:layout_marginVertical="@dimen/dimen_10"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.6"
+                    android:background="@drawable/bg_search_date"
+                    android:backgroundTint="@color/grey_dark">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_18"
+                        android:layout_height="@dimen/dimen_18"
+                        android:src="@drawable/ic_action_infor" />
+
+                </LinearLayout>
+
+                <TextView
+                    style="@style/text_sp16_color_text"
+                    android:layout_marginStart="@dimen/dimen_20"
+                    android:text="@string/info_hospital_under_text" />
+
+            </LinearLayout>
+
+            <include
+                layout="@layout/divider_gray_10"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_10" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabHospital"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                app:tabIndicatorColor="@color/background"
+                app:tabSelectedTextColor="@color/background"
+                app:tabTextAppearance="@style/TabTextStyle"
+                app:tabTextColor="@color/grey_1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvBookHospital"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

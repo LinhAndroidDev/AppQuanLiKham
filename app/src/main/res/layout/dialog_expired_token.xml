@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/dimen_10">
+
+    <LinearLayout
+        android:layout_marginVertical="@dimen/dimen_20"
+        android:layout_marginHorizontal="@dimen/dimen_20"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:text="Thông báo"
+            android:textSize="@dimen/dimen_20"
+            style="@style/text_sp16_black_bold"/>
+
+        <TextView
+            android:layout_marginTop="@dimen/dimen_10"
+            android:text="Token hiện tại của bạn đã hết hạn.Vui lòng đăng nhập lại để cập nhật dữ liệu mới nhất!"
+            style="@style/text_sp16"
+            android:textColor="@color/txt_hint"/>
+
+        <TextView
+            android:id="@+id/understand"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_gravity="end"
+            android:text="Đã hiểu"
+            android:textColor="@color/background"
+            style="@style/text_sp16_black_bold"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

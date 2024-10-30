@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/bgCatalog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_15"
+        app:cardBackgroundColor="@color/bg_blue_white"
+        app:cardCornerRadius="@dimen/dimen_15"
+        app:cardElevation="@dimen/dimen_8">
+
+        <TextView
+            android:id="@+id/nameCatalog"
+            style="@style/text_sp14"
+            android:layout_marginHorizontal="@dimen/dimen_10"
+            android:layout_marginVertical="@dimen/dimen_4"
+            android:alpha="0.9"
+            android:text="Tất cả"
+            android:textColor="@color/text"
+            android:textStyle="bold" />
+    </androidx.cardview.widget.CardView>
+</layout>

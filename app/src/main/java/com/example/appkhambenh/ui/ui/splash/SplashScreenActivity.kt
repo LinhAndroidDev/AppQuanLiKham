@@ -2,6 +2,7 @@ package com.example.appkhambenh.ui.ui.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -11,9 +12,8 @@ import com.example.appkhambenh.R
 import com.example.appkhambenh.databinding.ActivitySplashScreenBinding
 import com.example.appkhambenh.ui.base.BaseActivity
 import com.example.appkhambenh.ui.ui.EmptyViewModel
-import com.example.appkhambenh.ui.ui.user.LoginWithUser
 import com.example.appkhambenh.ui.ui.MainActivity
-import com.example.appkhambenh.ui.utils.PreferenceKey
+import com.example.appkhambenh.ui.ui.doctor.DoctorActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : BaseActivity<EmptyViewModel, ActivitySplashScreenBinding>() {
@@ -22,28 +22,37 @@ class SplashScreenActivity : BaseActivity<EmptyViewModel, ActivitySplashScreenBi
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
 
         initUi()
     }
 
     private fun initUi() {
-        object : CountDownTimer(3000, 3000){
+        object : CountDownTimer(3000, 3000) {
             override fun onTick(p0: Long) {
 
             }
 
             override fun onFinish() {
-                val isLogin = viewModel.mPreferenceUtil.defaultPref()
-                    .getBoolean(PreferenceKey.CHECK_LOGIN,false)
-                if(isLogin){
-                    val intent = Intent(this@SplashScreenActivity, LoginWithUser::class.java)
+                if (sharePrefer.getCheckLogin()) {
+                    val intent = Intent(this@SplashScreenActivity, DoctorActivity::class.java)
                     startActivity(intent)
                     finish()
-                }else{
-                    val intent = Intent(this@SplashScreenActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                } else {
+                    if (intent?.action == Intent.ACTION_SEND && intent.type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+                        val intent = Intent(this@SplashScreenActivity, MainActivity::class.java).apply {
+                            action = intent.action
+                            type = intent.type
+                            putExtra(Intent.EXTRA_STREAM, intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM))
+                        }
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        val intent = Intent(this@SplashScreenActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
                 }
             }
 
@@ -57,6 +66,6 @@ class SplashScreenActivity : BaseActivity<EmptyViewModel, ActivitySplashScreenBi
         binding.txtIntro.startAnimation(intro)
     }
 
-    override fun getActivityBinding(inflater: LayoutInflater)
-    = ActivitySplashScreenBinding.inflate(inflater)
+    override fun getActivityBinding(inflater: LayoutInflater) =
+        ActivitySplashScreenBinding.inflate(inflater)
 }

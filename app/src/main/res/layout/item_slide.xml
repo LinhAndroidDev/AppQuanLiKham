@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/dimen_10"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            app:cardBackgroundColor="@color/bg_blue_light"
+            app:cardCornerRadius="@dimen/dimen_10"
+            app:cardElevation="@dimen/dimen_3">
+
+            <ImageView
+                android:id="@+id/slide"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/slide1" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/nameSlide"
+            style="@style/text_sp14_black_bold"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/dimen_5"
+            android:text="Khám tại nhà" />
+
+    </LinearLayout>
+</layout>

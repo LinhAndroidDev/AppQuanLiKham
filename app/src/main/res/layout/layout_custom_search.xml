@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/search"
+        style="@style/edit_sp14"
+        android:background="@drawable/bg_corners_5"
+        android:backgroundTint="@color/bg_blue_white"
+        android:hint="@string/search_appoint"
+        android:paddingHorizontal="@dimen/dimen_35"
+        android:paddingVertical="@dimen/dimen_7" />
+
+    <ImageView
+        android:layout_width="@dimen/dimen_15"
+        android:layout_height="@dimen/dimen_15"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/dimen_10"
+        android:background="@drawable/search"
+        android:backgroundTint="@color/color_search" />
+
+    <ImageView
+        android:id="@+id/deleteTxt"
+        android:layout_width="@dimen/dimen_12"
+        android:layout_height="@dimen/dimen_12"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/dimen_10"
+        android:src="@drawable/icon_delete_search"
+        android:visibility="gone" />
+
+</RelativeLayout>

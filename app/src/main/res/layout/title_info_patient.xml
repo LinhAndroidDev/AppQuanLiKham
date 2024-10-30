@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingVertical="@dimen/dimen_15"
+    android:paddingStart="@dimen/dimen_10">
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/text_sp14_black_bold"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:text="Tên bệnh nhân" />
+
+    <LinearLayout
+        android:id="@+id/viewLoad"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:layout_marginEnd="@dimen/dimen_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:background="@drawable/triagle"
+            android:layout_width="@dimen/dimen_10"
+            android:layout_height="@dimen/dimen_7"
+            android:backgroundTint="@color/grey_1"
+            android:alpha="0.6"/>
+
+        <ImageView
+            android:layout_marginTop="@dimen/dimen_2"
+            android:background="@drawable/triagle"
+            android:layout_width="@dimen/dimen_10"
+            android:layout_height="@dimen/dimen_7"
+            android:backgroundTint="@color/grey_1"
+            android:rotation="180"
+            android:alpha="0.6"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewEnd"
+        android:background="@color/grey"
+        android:layout_width="1dp"
+        android:layout_height="@dimen/dimen_20"/>
+</LinearLayout>

@@ -3,13 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.appkhambenh">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <application
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:name=".ui.data.remote.helper.MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -19,26 +31,98 @@
         android:theme="@style/Theme.AppKhamBenh"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.appkhambenh.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.myapp.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/excal_path" />
+        </provider>
+
         <activity
-            android:name=".ui.ui.user.manage_appointment.ManageAppointmentActivity"
+            android:name=".ui.ui.doctor.DoctorActivity"
+            android:exported="false" >
+        </activity>
+        <activity
+            android:name=".ui.ui.user.manage_appointment.DetailAppointmentActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ui.doctor.doctor.ListDoctorActivity"
+            android:name=".ui.ui.user.contact.CallWithDoctorActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ui.doctor.department.EditDepartmentClinicActivity"
+            android:name=".ui.ui.user.navigation.communication.QuestionActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ui.doctor.time_working.EditTimeWorkActivity"
+            android:name=".ui.ui.user.navigation.communication.CreateQuestionActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ui.doctor.LoginWithDoctorActivity"
+            android:name=".ui.ui.user.service.ExaminationServiceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ui.user.manage_appointment.ExaminationScheduleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ui.user.appointment.OnlineConsultationActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ui.user.appointment.MakeAppointActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false"
+            android:windowSoftInputMode="stateVisible|adjustPan" />
+        <activity
+            android:name=".ui.ui.user.navigation.setting.address.AddressActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ui.user.navigation.setting.ScanActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ui.user.navigation.setting.UpdateInformationActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false"
+            android:windowSoftInputMode="stateVisible|adjustPan" />
+        <activity
+            android:name=".ui.ui.user.hospital.InfoHospitalActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ui.user.doctor.InfoDoctorActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ui.user.doctor.SearchDoctorActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ui.user.hospital.HospitalActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ui.user.navigation.password.ChangePasswordActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
             android:exported="false" />
         <activity
             android:name=".ui.ui.user.avatar.SeeAvatarActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
             android:exported="false" />
         <activity
             android:name=".ui.ui.user.avatar.EditAvatarActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
             android:exported="false" />
         <activity
             android:name=".ui.ui.user.medicine.MedicineDetailActivity"
@@ -47,18 +131,18 @@
             android:name=".ui.ui.user.medicine.MedicineActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ui.user.appointment.AppointmentActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.ui.user.qr.QrActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.ui.user.LoginWithUser"
-            android:exported="false" />
+            android:name=".ui.ui.user.HomeActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false"
+            android:windowTranslucentStatus="true" />
         <activity
             android:name=".ui.ui.MainActivity"
             android:exported="false"
             android:fitsSystemWindows="false" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".ui.ui.splash.SplashScreenActivity"
             android:exported="true">
@@ -66,6 +150,12 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
             </intent-filter>
         </activity>
     </application>

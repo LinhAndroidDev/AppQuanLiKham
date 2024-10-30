@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.ui.user.appointment.MakeAppointActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.example.appkhambenh.ui.ui.common.CustomHeader
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollAppoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_sp14_no_color"
+                    android:layout_marginVertical="@dimen/dimen_15"
+                    android:layout_marginStart="@dimen/dimen_15"
+                    android:text="@string/infor_appoint" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_15"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="@dimen/dimen_20"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/icon_add" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/text_sp14_no_color"
+                            android:text="@string/csyt" />
+
+                        <TextView
+                            style="@style/text_sp16_black_bold"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:text="Bác Sĩ Ơi - Phòng Khám 020" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_15"
+                    android:maxLines="1"
+                    android:text="- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - "
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/dimen_sp12" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_15"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="@dimen/dimen_20"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/icon_add" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/text_sp14_no_color"
+                            android:text="@string/examination_specialist" />
+
+                        <TextView
+                            style="@style/text_sp16_black_bold"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:text="Chuyên khoa Nội tim mạch" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_15"
+                    android:maxLines="1"
+                    android:text="- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - "
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/dimen_sp12" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_15"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_25"
+                        android:layout_height="@dimen/dimen_25"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/icon_doctor" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_5"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/text_sp14_no_color"
+                            android:text="@string/doctor_service" />
+
+                        <TextView
+                            android:id="@+id/tvNameDoctor"
+                            style="@style/text_sp16_black_bold"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:text="ThS Nguyễn Thị Thanh" />
+
+                        <TextView
+                            style="@style/text_sp14_color_text"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:text="Giá: 150.000đ" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_15"
+                    android:maxLines="1"
+                    android:text="- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - "
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/dimen_sp12" />
+
+                <include
+                    android:id="@+id/editTime"
+                    layout="@layout/layout_time_appoint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_15"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:layout_marginBottom="@dimen/dimen_15"/>
+
+                <include
+                    layout="@layout/divider_gray_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_10" />
+
+                <TextView
+                    style="@style/text_sp14_no_color"
+                    android:layout_marginVertical="@dimen/dimen_15"
+                    android:layout_marginStart="@dimen/dimen_15"
+                    android:text="@string/choose_someone_to_examine" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvMember"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="horizontal"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_1"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:background="@color/grey" />
+
+                <EditText
+                    android:id="@+id/edtReason"
+                    style="@style/edit_sp16"
+                    android:layout_marginHorizontal="@dimen/dimen_15"
+                    android:layout_marginVertical="@dimen/dimen_10"
+                    android:background="@color/white"
+                    android:drawableStart="@drawable/ic_action_search"
+                    android:drawableEnd="@drawable/icon_camera"
+                    android:drawablePadding="@dimen/dimen_10"
+                    android:hint="@string/enter_reason"
+                    android:inputType="text"
+                    android:paddingVertical="@dimen/dimen_10" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvImageCamera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_10"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="3" />
+
+                <include
+                    layout="@layout/divider_gray_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_10" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/dimen_15"
+                    android:paddingStart="@dimen/dimen_20"
+                    android:paddingEnd="@dimen/dimen_15">
+
+                    <TextView
+                        android:id="@+id/total"
+                        style="@style/text_sp16"
+                        android:text="@string/total_money" />
+
+                    <TextView
+                        style="@style/text_sp16_black_bold"
+                        android:layout_alignParentEnd="true"
+                        android:text="150.000 đ" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_80" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/footView"
+        layout="@layout/layout_foot_view" />
+
+</RelativeLayout>

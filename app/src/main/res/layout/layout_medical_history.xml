@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edit_search_info_patient_unselected"
+        android:paddingHorizontal="@dimen/dimen_10"
+        android:paddingVertical="@dimen/dimen_10">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/blue1"
+            app:cardCornerRadius="@dimen/dimen_5">
+
+            <TextView
+                style="@style/text_sp16"
+                android:layout_width="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_10"
+                android:layout_marginVertical="@dimen/dimen_8"
+                android:text="Sinh hiệu"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dimen_sp14" />
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:gravity="center_vertical">
+
+            <TextView
+                style="@style/text_sp16_black_bold"
+                android:text="Lần điều trị thứ" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/updateValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_10"
+                app:cardBackgroundColor="@color/blue1"
+                app:cardCornerRadius="@dimen/dimen_5">
+
+                <TextView
+                    style="@style/text_sp14"
+                    android:layout_width="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_10"
+                    android:layout_marginVertical="@dimen/dimen_8"
+                    android:text="Cập nhật giá trị"
+                    android:textColor="@color/white" />
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_10">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_80"
+            android:layout_weight="1"
+            android:background="@drawable/boder_left_5_gradient_blue">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dimen_15"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_sp14_black_bold"
+                    android:text="Nhiệt độ"
+                    android:textColor="@color/white" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_10">
+
+                    <TextView
+                        style="@style/text_sp14_black_bold"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:text="0"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        style="@style/text_sp12"
+                        android:layout_width="17dp"
+                        android:layout_height="19dp"
+                        android:layout_marginStart="@dimen/dimen_2"
+                        android:text="℃"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_80"
+                android:layout_gravity="end"
+                android:background="@drawable/boder_left_25_blue"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/dimen_60"
+                    android:layout_marginStart="@dimen/dimen_20"
+                    android:layout_marginEnd="@dimen/dimen_15"
+                    android:src="@drawable/ic_template" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_80"
+            android:layout_marginStart="@dimen/dimen_10"
+            android:layout_weight="1"
+            android:background="@drawable/boder_left_5_gradient_blue">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dimen_15"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_sp14_black_bold"
+                    android:text="Nhịp tim"
+                    android:textColor="@color/white" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_10">
+
+                    <TextView
+                        style="@style/text_sp14_black_bold"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:text="0"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        style="@style/text_sp12"
+                        android:layout_marginStart="@dimen/dimen_2"
+                        android:text="bpm"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_80"
+                android:layout_gravity="end"
+                android:background="@drawable/boder_left_25_blue"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/dimen_60"
+                    android:layout_marginStart="@dimen/dimen_20"
+                    android:layout_marginEnd="@dimen/dimen_15"
+                    android:src="@drawable/ic_rate_heart" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_10">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_80"
+            android:layout_weight="1"
+            android:background="@drawable/boder_left_5_gradient_blue">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dimen_15"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_sp14_black_bold"
+                    android:text="Huyết áp"
+                    android:textColor="@color/white" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_10">
+
+                    <TextView
+                        style="@style/text_sp14_black_bold"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:text="0"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        style="@style/text_sp12"
+                        android:layout_marginStart="@dimen/dimen_2"
+                        android:text="mmHg"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_80"
+                android:layout_gravity="end"
+                android:background="@drawable/boder_left_25_blue"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/dimen_60"
+                    android:layout_marginStart="@dimen/dimen_20"
+                    android:layout_marginEnd="@dimen/dimen_15"
+                    android:src="@drawable/ic_blood_pressure" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_80"
+            android:layout_marginStart="@dimen/dimen_10"
+            android:layout_weight="1"
+            android:background="@drawable/boder_left_5_gradient_blue">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dimen_15"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_sp14_black_bold"
+                    android:text="Đường huyết"
+                    android:textColor="@color/white" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_10">
+
+                    <TextView
+                        style="@style/text_sp14_black_bold"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:text="0"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        style="@style/text_sp12"
+                        android:layout_marginStart="@dimen/dimen_2"
+                        android:text="mg/dL"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_80"
+                android:layout_gravity="end"
+                android:background="@drawable/boder_left_25_blue"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/dimen_60"
+                    android:layout_marginStart="@dimen/dimen_20"
+                    android:layout_marginEnd="@dimen/dimen_15"
+                    android:src="@drawable/ic_blood_sugar" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_15"
+        app:cardBackgroundColor="@color/blue2"
+        app:cardCornerRadius="@dimen/dimen_5">
+
+        <TextView
+            style="@style/text_sp16_black_bold"
+            android:layout_margin="@dimen/dimen_10"
+            android:text="Nhiệt độ"
+            android:textColor="@color/white" />
+    </androidx.cardview.widget.CardView>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChartTemplate"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_250" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_15"
+        app:cardBackgroundColor="@color/blue2"
+        app:cardCornerRadius="@dimen/dimen_5">
+
+        <TextView
+            style="@style/text_sp16_black_bold"
+            android:layout_margin="@dimen/dimen_10"
+            android:text="Huyết áp"
+            android:textColor="@color/white" />
+    </androidx.cardview.widget.CardView>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChartBloodPressure"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_250" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_15"
+        app:cardBackgroundColor="@color/blue2"
+        app:cardCornerRadius="@dimen/dimen_5">
+
+        <TextView
+            style="@style/text_sp16_black_bold"
+            android:layout_margin="@dimen/dimen_10"
+            android:text="Nhịp tim - Đường huyết"
+            android:textColor="@color/white" />
+    </androidx.cardview.widget.CardView>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChartBloodSugarAndHeart"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_250" />
+</LinearLayout>
